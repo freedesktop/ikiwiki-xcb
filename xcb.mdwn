@@ -79,6 +79,8 @@ The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, X
 
 [[JameySharp]] has begun early work on new [[XCB-based libraries and applications|usingxcb]], in addition to the Xlib work described below.
 
+[[VincentTorri]] has begun a [tutorial](http://www.iecn.u-nancy.fr/~torri/files/xcb/doc/index.html) on XCB. There are also some simple [examples](http://www.iecn.u-nancy.fr/~torri/files/xcb/examples/) on how to use XCB, like drawing points and lines
+
 ### Xlib on XCB
 
 In September 2002, [[JameySharp]] [proposed](http://nexp.cs.pdx.edu/pipermail/xcb/2002-September/000031.html) a modification to Xlib that would maintain binary compatibility with Xlib extensions and applications. The day before Halloween 2003, [[JameySharp]] and [[KeithPackard]] hashed out a better-informed approach, which certainly maintains binary compatibility with applications, and might not require recompiles of extensions either. This was mostly implemented two days later. As of June 2004, the result is quite usable for real work, although some rare but annoying bugs remain.
