@@ -25,10 +25,14 @@ If you are familiar with Xlib or the X protocol, you might try porting some exis
 
 ## Documentation
 
-- Understand and document X image formats, as per GetImage and PutImage, consulting documentation and &lt;del&gt;Keith Packard&lt;/del&gt; the mailing list as needed. (high priority)
+- Understand and document X image formats, as per GetImage and PutImage, consulting documentation and &lt;del&gt;Keith Packard&lt;/del&gt; the mailing list as needed. ([[BartMassey]], high priority)
 - Fully document the XML-based protocol description data format. (high priority, in progress) -- [[JoshTriplett]] - 07 Nov 2004
 
 ## Tests and Demos
+
+A full inspection of XCB and XCL sources would be wise. (medium priority)
+
+XCB and XCL need a wider variety of test cases to help demonstrate correctness. We should enhance the code to support the existing X Window System test framework through XCL, which would provide a wide variety of tests of both components. (This may be about done - I'm seeing good results from XCL these days.) (medium priority)
 
 Additionally, these specific features have been proposed as targets for simple test apps.
 
@@ -38,7 +42,7 @@ Additionally, these specific features have been proposed as targets for simple t
 
 Porting the standard xapps to XCB would give us some nice, simple demos. There's a nearly feature-complete clone of xdpyinfo among the XCB test apps already; more would be cool. (low priority)
 
-Porting xcompmgr would provide an excellent test of the [[XFIXES|FixesExt]], [[Composite|CompositeExt]], and [[DAMAGE|XDamage]] protocol descriptions.
+Porting xcompmgr would provide an excellent test of the [[XFIXES|FixesExt]], [[Composite|CompositeExt]], and [[DAMAGE|XDamage]] protocol descriptions. It could also be a useful demo for the xcb-wm bits.
 
 Make DPMS demo have full _xset dpms_ functionality. (very low priority)
 
@@ -48,18 +52,16 @@ For Xlib with counting mutexes, test the relative performance of UNIX98 recursiv
 
 This list might be roughly in order of importance.
 
-- There are multiple endianness issues that need to be fixed. XCB should be made to compile and run on a bunch of platforms, not just Linux/i386. (Some progress made: on Sparc Solaris, the bits of XCB that XCL needs compile and run.) (high priority)
 - The algorithm in the [["X meets Z" paper|xcb]] has not yet been implemented, and needs to be. ([[JameySharp]] and [[BartMassey]]--high priority)
 - There's lots to do with protocol extensions:
   - Lots more extensions need to be implemented.
-    - Required: XTEST ([[JameySharp]]--high priority)
-    - Useful: XVideo (medium priority)
+    - Required: XTEST (high priority)
+    - Useful: XVideo, XKB (medium priority)
   - Extensions need to be easy to compile as separate libraries and in separate source trees. Mostly done, but should be encapsulated in a shell script and autoconf macros, and simplified. (medium priority)
   - Check XCB extensions for conformance with their protocol documentation. (low priority)
 - XCB is missing some of the convenience functionality that Xlib layers atop the protocol. (Provide separate libraries that simplify the interface while providing missing functionality? )
-  - Split and format-convert PutImage requests as needed (high priority)
-  - Use SHM for images where available (high priority)
-  - Atom cache (medium priority)
+  - Split and format-convert PutImage requests as needed, for both core protocol and MIT-SHM ([[VincentTorri]]--high priority)
+  - Atom cache ([[JameySharp]]--medium priority)
 - Error detection and handling in XCB is not significantly worse than in Xlib, but it has a different set of problems. These need to be better addressed.
   - Consider mechanism for VOIDREQUESTs to report internal errors (i.e., "write error", "extension not available") to the caller directly. (high priority)
     - Possibility: add additional fields to cookies.
@@ -67,27 +69,26 @@ This list might be roughly in order of importance.
   - Connection setup errors should be handled better. (medium priority)
 - XCB APIs could stand to be reviewed for saneness. In particular, it seems like there ought to be a better interface for handling events in a type-safe manner; but hopefully it can be built on top of XCB's current API. (medium priority)
 - Document XCB internal APIs. (medium priority)
-- Implement an m4 metalanguage mechanism for requests and replies to declare enumerated and bitfield types, with hidden naming convention. X.h should be refactored into xcb.m4 using this mechanism. Existing XCBENUMs probably need to be refactored with it too. (medium priority) Need to determine whether this TODO item is still applicable now that the m4 macros have been replaced with XML-XCB.
+- Implement an XML metalanguage mechanism for requests and replies to declare enumerated and bitfield types, with hidden naming convention. X.h should be refactored into xcb.m4 using this mechanism. Existing XCBENUMs probably need to be refactored with it too. (medium priority)
 - Some existing toolkit should be ported to XCB. [Qt](http://www.trolltech.com/products/qt/) and [Gtk+](http://www.gtk.org/) are the obvious targets. (low priority)
-- A header declaring the pre-defined atoms as constant ATOMs would be useful. (low priority)
+- A header declaring the pre-defined atoms as constant ATOMs would be useful. ([[JameySharp]]--low priority)
 - Add synchronous mode support as in Xlib. (low priority)
-- Add convenience functions for non-void requests which make the request and wait for the reply in one operation. (low priority)
 - More cases where padding can be automatically generated should be identified and implemented. (low priority)
-- Consider writing a real compiler for the protocol description language. It might not be a waste of time, but it will take a lot of time. (low priority) Does XML-XCB address the issues that prompted this TODO item?
-- [[BartMassey]] once thought maybe we should split routines into one per object file. We investigated this; I believe the conclusion was that M4 makes it hard. However, csplit and a little bit of magic should let us do it fairly easily. (possibly bad idea, very low priority) Need to determine whether this TODO item is still applicable now that the m4 macros have been replaced with XML-XCB.
+- [[BartMassey]] once thought maybe we should split routines into one per object file. We investigated this; I believe the conclusion was that M4 makes it hard. However, csplit and a little bit of magic should let us do it fairly easily. (possibly bad idea, very low priority)
 
 ## Xlib on XCB
 
-- Test Xlib/XCB on as many platforms and with as many applications as we can find. ([[JameySharp]]--high priority)
+- Test Xlib/XCB on as many platforms and with as many applications as we can find. (high priority)
+- Fix assertion failures. (high priority)
 - Get Xlib/XCB ready for integration into X.org. ([[JameySharp]]--high priority)
-- XPutBackEvent is used by input methods, and should be made to work when XCB owns the event queue. (medium priority)
-- Extend the code generator to support generating glue for more of the protocol. (medium priority)
 
 # Other projects
 
 ## xcb-wm: Window manager toolkit
 
-Encapsulate ICCCM, window reparenting and event capture, and anything else that seems appropriate, in a library. It should be able to cooperate with other libraries; Cairo comes to mind. Perhaps SPLITTREE extension helpers would be useful too, so it can support compositing managers as well.
+Encapsulate ICCCM, window reparenting and event capture, and anything else that seems appropriate, in one or more libraries. It should be able to cooperate with other libraries; Cairo comes to mind. Perhaps COMPOSITE extension helpers would be useful too, so it can support compositing managers as well.
+
+A prototype implementation is available in the xcb-util module; more discussion is on the [[usingxcb]] page.
 
 ## Alternate targets
 
