@@ -1,0 +1,250 @@
+# 12 Feb 2005
+
+Added RandR and GLX support. Added xandr port (xcbrandr) to xcb-demoes.
+
+# 07 Nov 2004
+
+Merged all work from the XML-XCB project. All of the protocol descriptions are now XML files, and the C binding generator is an XSLT.
+
+Added protocol descriptions for [XFIXES](http://www.freedesktop.org/wiki/FixesExt), [Composite](http://www.freedesktop.org/wiki/CompositeExt), [DAMAGE](http://www.freedesktop.org/wiki/XDamage), and [XEvIE](http://www.freedesktop.org/wiki/XEvIE).
+
+-- Main.[[JoshTriplett]] - 07 Nov 2004
+
+# 17 Mar 2004
+
+Big API changes to allow XCB and Xlib headers to co-exist. (I think one more incompatible API change will be coming, but I think we're getting close to a stable API.) All public XCB symbols have an XCB prefix now, including typenames and #defines. Furthermore, extension symbols have the name of the extension automatically added to them, so those symbols start with, for example, XCBRender or XCBDPMS. As a result, these prefixes are no longer included in the protocol description. New restrictions on the description files:
+
+- event and error names now must be quoted;
+- typenames such as enumerations and structs must not have the same name as requests;
+- and extension typenames must not be the same as any core typenames.
+
+The M4 macros remember each name as it was given in the protocol description, and how that name mapped to the underlying C name. Later references to those names are thus mapped in the same way, so the renaming is transparent to the protocol descriptions. xproto.xcb pulls in all the names from xcb\_types.xcb, and extensions pull in those and the names in xproto.xcb.
+
+The XCB demos, hacks to Xlib, Cairo surface backend, and cairo-demo app have all been fixed to account for this API change. Cairo may now be compiled with both Xlib and XCB backends in the same library, too.
+
+Xlib, when compiled with XCB support, now:
+
+- Installs a new xcl.h header that provides access to the XCBConnection that underlies an Xlib Display. (That header also provides some functions convenient for converting Xlib XID types to equivalent XCB types.)
+- Calls !XInitThreads in !XOpenDisplay, so that LockDisplay and UnlockDisplay always do something.
+- Lock/Unlock pass control over XCB's output buffer back and forth between XCB and Xlib, so that calls into Xlib may be mixed with calls into XCB.
+- The original XCL's machine-generated bits are part of Xlib/XCB now too, with some modifications for the new world. So some Xlib stubs have been replaced by machine-generated code that delegates to XCB.
+- Applications can request that the event queue be managed either by Xlib or by XCB with !XSetEventQueueOwner, declared in xcl.h. Accesses to the wrong event queue will never see any events.
+
+Current known Xlib/XCB bugs:
+
+- Internal connections are broken, which I think means input methods won't work.
+- Apps sometimes hang until an event is received.
+- Last I checked, the display managers I tested crashed.
+
+Current known Cairo bug:
+
+- Text drawing renders garbage.
+
+-- Main.[[JameySharp]] - 17 Mar 2004
+
+# 10 Dec 2003
+
+XCB now conforms to ISO C99 and the Single Unix Specification. I had been trying for C89, but variable-length arrays are just too useful. (GDB doesn't handle them correctly at all, though, which is a pain.) Also, I guess gethostname is a BSDism standardized in SUS, so I'd rather say I conform to SUS than to BSD. The caddr_t type seems to be a BSDism too, so I removed casts to it; now I either let the compiler figure out how to assign to iov_base, or cast to void\* to get rid of constness.
+
+-- Main.[[JameySharp]] - 10 Dec 2003
+
+# 08 Dec 2003
+
+XCB refactoring and renaming
+
+- Globally replaced the term "seqnum" with either "request" or "sequence", following the principle that abbreviations should be avoided. (There are more things this principle should be applied to in this code base.)
+- Public API changes. Now,
+  - !XCBWaitSeqnum is called !XCBWaitReply.
+  - !XCBMaximumRequestLength is called !XCBGetMaximumRequestLength.
+  - XCBConnection is an opaque structure.
+  - Connection setup data is accessible with !XCBGetSetup.
+  - Connection file descriptor is accessible with !XCBGetFileDescriptor.
+  - !XCBGetLastSeqnumRead is gone.
+  - !XCBSetUnexpectedReplyHandler is part of the private interface, called _xcb_in_set_unexpected_reply_handler.
+  - The !XCBUnexpectedReplyFunc type is part of the private interface.
+- Major refactoring: stuff from xcb_conn, xcb_event, and xcb_io can now be found in xcb_conn, xcb_out, xcb_in, xcb_ext, xcb_xid, and xcb_util. Much of the complexity of the xcb_io layer disappeared along the way, and xcb\_conn now only deals with establishing the connection and running the select loop on it.
+- Major private API renaming: "XCB" prefix becomes "_xcb", and words are now separated with underscores: !XCBListRemoveHead becomes_ xcb_list_remove\_head.
+- Code style changes:
+  - Private API functions never lock anything (except _xcb_conn\_wait, which drops and reacquires the lock around select); while public API functions always grab exactly the locks they need.
+  - Source files should have three parts: declarations (including pre-processor includes and static functions), public functions, and private functions.
+- Finally shrank the input and output buffers to 4kB each, which Main.[[KeithPackard]] argues (coherently!) is about right.
+
+-- Main.[[JameySharp]] - 08 Dec 2003
+
+# 29 Nov 2003
+
+XCB clean-up
+
+- Changed the XCBENUM call in xproto.xcb to an ENUM call.
+- Removed more unused m4 macros - CPPDEFINE, CPPUNDEF, CONSTANT, CHAR, and XCBENUM.
+- Fixed the diversions that hide all output from generics.xcb and client-c.xcb. The generated xcb.h file is much cleaner as a result, with no extra blank lines or comments.
+- Updated the XCBProtocolLanguage documentation to describe more macros and to explain good style for using diversions.
+- No functions are inline any more. Some thought is needed to decide where inline functions have benefit, but a reasonable default seems to be to not use them anywhere.
+- The XCBGeneric\* and !XCBVoidCookie type declarations are generated by macros once again; only now, the macro invokations are in xcb.h.m4. They belong there rather than in xcb-proto somewhere because these types never go over the wire.
+
+-- Main.[[JameySharp]] - 29 Nov 2003
+
+# 28 Nov 2003
+
+XCL as configure-time option to Xlib
+
+- A better-tested version of XCL is now available as a configure-time option. Unlike the version that was on the XCL branch, this removes no code from CVS; but when --with-xcb is given to configure, the old code is simply not compiled. The new code is isolated in the xcl subdirectory.
+- Note that this version of XCL requires the XCB version with the pre\_sendrequest tag. Versions newer than that have API changes that XCL needs to track, but I wanted to commit the conditional compile patches first.
+
+-- Main.[[JameySharp]] - 28 Nov 2003
+
+# 21 Nov 2003
+
+XCB build system; internal API
+
+- Added configure option --with-opt for controlling optimization and debugging flags.
+- Move repeated parts of protocol implementation functions into !XCBSendRequest. Instead of !XCBAllocOut, allocate fixed-length request structures off the stack - the extra copy might be cheaper than the function call, and anyway this simplifies the API and keeps XCB's output buffer locked for less time. Protocol implementations no longer need xcbint.h; that header is now intended only for XCL to share. The current implementation no longer supports marshaling, nor request or response tracing; these should be easy to re-implement in the new architecture with minor additional API changes. Meanwhile, this shrinks XCB noticably.
+
+-- Main.[[JameySharp]] - 21 Nov 2003
+
+# 20 Nov 2003
+
+Support for big X requests
+
+- Added BIGREQUESTS extension support, and XCB automatically enables it if available at connection setup time.
+
+-- Main.[[JameySharp]] - 20 Nov 2003
+
+# 18 Nov 2003
+
+Sequence number, EOF, and other fixes
+
+- Various and sundry fixes to end-of-file detection in XCB. The apps I've tested all terminate when their X server dies now.
+- Remove !XCBPollEvent, because it had no means for reporting errors. !XCBEventQueueLength causes a read first now, so it may be used with !XCBWaitEvent for the same purpose.
+- Track 32-bit sequence numbers, using an Xlib-like trick to compute them from the 16-bit values in the protocol.
+- Removed !XCBEventQueueIsEmpty and !XCBListIsEmpty, because they were redundant and therefore a maintenance hassle.
+- Autotooled xcb-demo.
+- Updated the demos for today's XCB API changes.
+- Hypnomoire checks appropriately for terminated connection on every call to XCBSync now, and aborts.
+
+-- Main.[[JameySharp]] - 18 Nov 2003
+
+# 13 Nov 2003
+
+XCB bugfix
+
+- XCB sets the close-on-exec flag on any file-descriptor handed to it now. I was seeing apps exiting without their windows disappearing; Main.[[KeithPackard]] suggested that this would fix it.
+- Removed extra newlines (and trailing '\\0's) from error output on connection failure.
+
+-- Main.[[JameySharp]] - 13 Nov 2003
+
+XCL branch of Xlib
+
+- XCL lands in freedesktop.org CVS.
+
+-- Main.[[JameySharp]] - 13 Nov 2003
+
+# 09 Nov 2003
+
+XCB/XCL authorization stuff
+
+- Fixed Bart's failure to fail on failed authentication failure. "No auth info found" is not an error, but other errors should be paid attention to.
+- !XCBAuthInfo has pointers instead of static arrays now.
+- !XCBGetAuthInfo returns int, not an !XCBAuthInfo pointer.
+- Partially reverted my API change to XCBConnect; it takes an !XCBAuthInfo pointer again now.
+- Refactored xcb\_auth.c.
+
+-- Main.[[JameySharp]] - 09 Nov 2003
+
+# 06 Nov 2003
+
+XCB/XCL bug fixes: Mozilla with acroread and Flash plugins works
+
+- Added variant of XCBWrite that locks the mutex, for XCL.
+- Implemented writev handling; tested with a 256-byte output buffer, forcing plenty of writev calls. Left buffer size alone in committed copy, though. XCL's BIG-REQUESTS support works with this, so now we're ready to implement that in XCB too.
+
+-- Main.[[JameySharp]] - 06 Nov 2003
+
+XCB authenticated connection bits
+
+- Finished xdm-auth-1 connection authentication.
+- Have a linking scheme for Xau (must link against it) and Xdmcp (duplicated code and cleaned up some in process) good enough for now.
+- Report of bug with connection hanging on read with wrong authentication was probably caused by the fact that `XCBConnect()` failed to fail if authentication failed :-). Fixed.
+
+-- Main.[[BartMassey]] - 06 Nov 2003
+
+# 05 Nov 2003
+
+XCB bug fixes
+
+- Fix handling of replies larger than the read buffer. Fixes xfontsel, acroread. !XCBReadPacket does a blocking read, using XCBRead, as long as the first 32 bytes were already read. XCBRead moves as much as possible out of the input buffer, then keeps refilling and emptying the buffer until it has everything. At some point it would be nice to avoid a copy operation by reading directly into the memory allocated by !XCBReadPacket instead of filling the input buffer and copying, but that has to wait for us to fix up the "X meets Z" stuff.
+- Fixed parsing of DISPLAY to not clobber its input. This bug caused a second connection open in Xine to fail because DISPLAY became "".
+- Changed !XCBWaitSeqnum's third parameter from 'XCBGenericEvent \*\*' to 'XCBGenericError \*\*', and fixed everything that calls it. The old way was misleading.
+- Fixed error handling in _XReply in XCL. !XCBWaitSeqnum can return an error that was associated with the given sequence number; now_ XReply takes advantage of this feature, passing the error to _XError and returning success if_ XError returns.
+- Removed unused variable tmp from !XCBEventQueueClear.
+
+-- Main.[[JameySharp]] - 05 Nov 2003
+
+# 02 Nov 2003
+
+Cleaning XCB
+
+- XCB actually detects the endianness of the machine it's running on now. Doesn't mean it's portable yet, though...
+- Added XCBDisconnect, finally.
+- In implementing XCBDisconnect, added internal utility functions !XCBListClear and !XCBListDelete, which take a function pointer with the same prototype as free(3) to call on each element of the list. Wrote free functions for reply data and extension cache entries.
+- Fixed -pedantic warnings from commas at end of enums, explicit initialization for auto structures, arithmetic on a void\*, and a signedness difference in !XCBGetAuthInfo.
+- !XCBGetAuthInfo might use addr and addrlen unintialized; inited them to 0 to make the compiler shut up, because the authentication bits have to be examined carefully anyway and I don't want to do it right now.
+- Translate underscore-separated names in protocol descriptions to studly caps when they're used in function names. Added \[[XCBProtocolLanguage#SPLIT]\[SPLIT]], \[[XCBProtocolLanguage#UCFIRST]\[UCFIRST]], and \[[XCBProtocolLanguage#MAP]\[MAP]] macros to `generics.xcb` for this, and documented them.
+- Unified \[[XCBProtocolLanguage#UNION]\[UNION]] and \[[XCBProtocolLanguage#STRUCT]\[STRUCT]] macros in `client-c.xcb` into calls to new internal COMPOUND and ITERATOR macros.
+- Added an error message if a variable-length UNION is requested, because it doesn't make sense to do that.
+- Renamed !\*[[AfterIter]] functions to !\*End.
+- Optimized the generated code for iterators over fixed-length types.
+- Merged extensions back into libXCB. libXCB.a now has 33.9kB of text.
+- Changed libXCB_la_CFLAGS to AM\_CFLAGS to remove the prefix on \*.lo and \*.o files.
+- Removed ALLOC and REALLOC macros (and their documentation); nothing uses them now. Yay!
+- Split !XCBGetAuthInfo from xcb_conn.c into xcb_auth.c.
+- Moved struct !XCBAuthInfo to xcbint.h.
+- Merged !XCBConnectAuth into XCBConnect, removed the unused screen parameter, and made the resulting function take only a file descriptor and a nonce.
+- Split nonce generation into !XCBNextNonce in xcb\_auth.c, for when !XCBConnectBasic isn't powerful enough and the client (e.g. Xlib) wants to do things itself.
+- Split DISPLAY parsing from xcb_io.c/XCBOpen into xcb_conn.c/XCBParseDisplay.
+- Fixed buffer overflow in XCBOpen when building the path for a Unix socket.
+- XCBOpen takes a hostname and a display number, instead of a DISPLAY string and an int\* to stash the screen number in.
+- Removed unused #includes from xcb\_conn.c.
+
+-- Main.[[JameySharp]] - 02 Nov 2003
+
+# 01 Nov 2003
+
+Quick XCL's changes to XCB
+
+- Add unexpected reply handler functionality for Xlib.
+- Add -lXCB to libs list in xcb.pc.
+- Fix prototypes for functions with 0 params so gcc-2.95 doesn't whine.
+- Remove !XCBFillBufferLocked since nothing uses it; made !XCBFillBuffer package public.
+- Fix null pointer dereferences and a race condition.
+- Clean up types a little for xcb\_io reader callback.
+
+-- Main.[[JameySharp]] - 01 Nov 2003
+
+# 29 Oct 2003
+
+XCB code refactoring
+
+- XCB internal routines need to be clearly identified and hidden from applications, by using "internal" vs. "external" headers. Some modules are purely internal, such as the list code.
+- Convert all M4-obfuscated C to plain C. The XCBProtocolLanguage really should only be used for X protocol descriptions--only XCBSync remains here.
+
+-- Main.[[JameySharp]] - 29 Oct 2003
+
+# 26 Oct 2003
+
+Admin stuff
+
+- CVS moved to freedesktop.org.
+- xcb-proto and xcb are autotooled.
+- Some infrastructure is in place for compiling "\*.xcb" files from any source tree.
+- libXCB (25kB) only includes the core protocol now; libXCBext (11kB) has SHM, SHAPE, RENDER, and DPMS.
+
+-- Main.[[JameySharp]] - 26 Oct 2003
+
+# 23 Oct 2003
+
+Admin stuff
+
+- Most old URLs redirect to freedesktop.org.
+
+-- Main.[[JameySharp]] - 23 Oct 2003
