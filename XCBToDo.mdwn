@@ -61,6 +61,7 @@ This list might be roughly in order of importance.
   - Check XCB extensions for conformance with their protocol documentation. (low priority)
 - XCB is missing some of the convenience functionality that Xlib layers atop the protocol. (Provide separate libraries that simplify the interface while providing missing functionality? )
   - Split and format-convert PutImage requests as needed, for both core protocol and MIT-SHM ([[VincentTorri]]--high priority)
+  - [Keyboard input handling](http://lists.freedesktop.org/archives/xcb/2005-March/000417.html) (high priority)
   - Atom cache ([[JameySharp]]--medium priority)
 - Error detection and handling in XCB is not significantly worse than in Xlib, but it has a different set of problems. These need to be better addressed.
   - Consider mechanism for VOIDREQUESTs to report internal errors (i.e., "write error", "extension not available") to the caller directly. (high priority)
