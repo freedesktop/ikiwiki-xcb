@@ -1,6 +1,6 @@
 This is the timeline that I want to follow in [xcb [XCB]] development.
 
-# Prepare XCB and Xlib for integration into [http://w.org [X.org]]
+# Prepare XCB and Xlib for integration into [http://www.w.org [X.org]]
 
 ## Freeze public API: Monday July 19th, 2004
 
@@ -14,7 +14,7 @@ The \[[XTesting#Xtest\_suite]\[X Test Suite]] is a comprehensive test suite for 
 
 The patches to Xlib that make it use XCB need to pass the tests in this suite, or the suite needs to be shown to be defective and a fixed version should pass the new Xlib. The latter applies to the protocol tests, for example, where LockDisplay/UnlockDisplay were omitted from all of the tests, causing most to fail immediately under the new code.
 
-## Commit to [http://www.x.org [X.org]]: no date yet
+## Commit to [http://www.x.org/ [X.org]]: no date yet
 
 At this point, the default would be to compile Xlib without XCB. Committing all of the necessary pieces to \[[xorg]\[X.org]] makes it easier for new developers to turn on XCB support and try it out.
 
