@@ -1,0 +1,27 @@
+# Client needs
+
+Kinds of information about where the server is:
+
+- 1 Dumb client -&gt; just get an XCBConnection using env. var 1 Smarter client -&gt; display string? addr + dispnum + proto? 1 Client with a fd -&gt; set up the connection
+
+Kinds of information about how to authenticate:
+
+- 1 Dumb client -&gt; dig auth info from usual places 1 Client with authinfo -&gt; use it
+
+# XCB doesn't accept null-terminated strings.
+
+When what you really want is a counted string, there's no good way to produce a null-terminated string from it; but the other way around is easy.
+
+# XCB doesn't error-check data from the client or server.
+
+Validation can be built on top of XCB if desired, but is generally wasted code.
+
+# XCB doesn't associate errors with void requests for you.
+
+The sequence number is in the void\_cookie. The client application can filter the error from that if it needs to, perhaps using a library built on top of XCB.
+
+# When in synchronous mode, should all requests sync, or only void requests?
+
+Not sure yet.
+
+The goal of synchronous mode is to ensure that errors appear as soon as the requests that generated them are made. This should happen even if the client application is written to use latency hiding. Possibility: all requests could call XCBSync. Possibility: non-void requests could simply flush and block until their reply arrives, without removing the reply from the queue.
