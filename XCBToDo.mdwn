@@ -1,0 +1,139 @@
+Tasks requiring documentation as a product should have that documentation placed in the TWiki so that other contributors can learn from it.
+
+Please don't hesitate to add items to this list, or to add detail to existing items. You would be wise to notify the mailing list if the item is significant, too.
+
+Don't forget to ask for help on the mailing list if you get stuck.
+
+# Getting started
+
+If you're not sure where to start in learning about XCB and XCL, you might try these steps. Documenting your progress for others coming this way would be a great contribution too.
+
+- Check out and build the [[Xlib|X11]] source.
+- Check out and build the [[XCB/XCL|xcb]] sources.
+- Understand and document the DPMS extension implementation. Re-implementing it straight from the original extension documentation would be a good way to accomplish this. The [[XCBProtocolLanguage]] document is supposed to be sufficient to explain how to do this; if it isn't, fixing it would be wonderful.
+
+With that experience, the easiest thing you can do to help our efforts is to implement some extension that's currently unsupported by XCB.
+
+If you are familiar with Xlib or the X protocol, you might try porting some existing Xlib applications to XCB, or writing new applications.
+
+# Tasks
+
+## Administrative
+
+- Debian and RPM package build stuff would be a very welcome contribution to the CVS tree. (For the Debian bits, I strongly recommend checking out cdbs.) (medium priority)
+- The GNU autotool work for all modules should be inspected by somebody who knows what they're doing. (low priority)
+
+## Documentation
+
+- Understand and document X image formats, as per GetImage and PutImage, consulting documentation and &lt;del&gt;Keith Packard&lt;/del&gt; the mailing list as needed. (high priority)
+- Fully document the XML-based protocol description data format. (high priority, in progress) -- [[JoshTriplett]] - 07 Nov 2004
+
+## Tests and Demos
+
+Additionally, these specific features have been proposed as targets for simple test apps.
+
+- shape extension (port oclock?) (medium priority)
+- selections: clipboard server? (low priority)
+- ICCCM (see `xcb-wm` below]) (low priority)
+
+Porting the standard xapps to XCB would give us some nice, simple demos. There's a nearly feature-complete clone of xdpyinfo among the XCB test apps already; more would be cool. (low priority)
+
+Porting xcompmgr would provide an excellent test of the [[XFIXES|FixesExt]], [[Composite|CompositeExt]], and [[DAMAGE|XDamage]] protocol descriptions.
+
+Make DPMS demo have full _xset dpms_ functionality. (very low priority)
+
+For Xlib with counting mutexes, test the relative performance of UNIX98 recursive mutexes versus POSIX fast mutexes. The impact is expected to be nil, but it would be nice to be able to say so with certainty. (very low priority)
+
+## XCB
+
+This list might be roughly in order of importance.
+
+- There are multiple endianness issues that need to be fixed. XCB should be made to compile and run on a bunch of platforms, not just Linux/i386. (Some progress made: on Sparc Solaris, the bits of XCB that XCL needs compile and run.) (high priority)
+- The algorithm in the [["X meets Z" paper|xcb]] has not yet been implemented, and needs to be. ([[JameySharp]] and [[BartMassey]]--high priority)
+- There's lots to do with protocol extensions:
+  - Lots more extensions need to be implemented.
+    - Required: XTEST ([[JameySharp]]--high priority)
+    - Useful: XRandR, XVideo (medium priority)
+  - Extensions need to be easy to compile as separate libraries and in separate source trees. Mostly done, but should be encapsulated in a shell script and autoconf macros, and simplified. (medium priority)
+  - Check XCB extensions for conformance with their protocol documentation. (low priority)
+- XCB is missing some of the convenience functionality that Xlib layers atop the protocol. (Provide separate libraries that simplify the interface while providing missing functionality? )
+  - Split and format-convert PutImage requests as needed (high priority)
+  - Use SHM for images where available (high priority)
+  - Atom cache (medium priority)
+- Error detection and handling in XCB is not significantly worse than in Xlib, but it has a different set of problems. These need to be better addressed.
+  - Consider mechanism for VOIDREQUESTs to report internal errors (i.e., "write error", "extension not available") to the caller directly. (high priority)
+    - Possibility: add additional fields to cookies.
+    - Possibility: separate errors from events and generalize error structures to allow for origins other than the server.
+  - Connection setup errors should be handled better. (medium priority)
+- XCB APIs could stand to be reviewed for saneness. In particular, it seems like there ought to be a better interface for handling events in a type-safe manner; but hopefully it can be built on top of XCB's current API. (medium priority)
+- Document XCB internal APIs. (medium priority)
+- Implement an m4 metalanguage mechanism for requests and replies to declare enumerated and bitfield types, with hidden naming convention. X.h should be refactored into xcb.m4 using this mechanism. Existing XCBENUMs probably need to be refactored with it too. (medium priority) Need to determine whether this TODO item is still applicable now that the m4 macros have been replaced with XML-XCB.
+- Some existing toolkit should be ported to XCB. [Qt](http://www.trolltech.com/products/qt/) and [Gtk+](http://www.gtk.org/) are the obvious targets. (low priority)
+- A header declaring the pre-defined atoms as constant ATOMs would be useful. (low priority)
+- Add synchronous mode support as in Xlib. (low priority)
+- Add convenience functions for non-void requests which make the request and wait for the reply in one operation. (low priority)
+- More cases where padding can be automatically generated should be identified and implemented. (low priority)
+- Consider writing a real compiler for the protocol description language. It might not be a waste of time, but it will take a lot of time. (low priority) Does XML-XCB address the issues that prompted this TODO item?
+- [[BartMassey]] once thought maybe we should split routines into one per object file. We investigated this; I believe the conclusion was that M4 makes it hard. However, csplit and a little bit of magic should let us do it fairly easily. (possibly bad idea, very low priority) Need to determine whether this TODO item is still applicable now that the m4 macros have been replaced with XML-XCB.
+
+## Xlib on XCB
+
+- Test Xlib/XCB on as many platforms and with as many applications as we can find. ([[JameySharp]]--high priority)
+- Get Xlib/XCB ready for integration into X.org. ([[JameySharp]]--high priority)
+- XPutBackEvent is used by input methods, and should be made to work when XCB owns the event queue. (medium priority)
+- Extend the code generator to support generating glue for more of the protocol. (medium priority)
+
+# Other projects
+
+## xcb-wm: Window manager toolkit
+
+Encapsulate ICCCM, window reparenting and event capture, and anything else that seems appropriate, in a library. It should be able to cooperate with other libraries; Cairo comes to mind. Perhaps SPLITTREE extension helpers would be useful too, so it can support compositing managers as well.
+
+## Alternate targets
+
+The XCB protocol macros are largely target-language independent. There are some additional potential uses for the protocol descriptions that an M4 hacker could try implementing. The process of implementing these will reveal limits in the [[XCBProtocolLanguage]], for which it should be extended.
+
+### xcb-server
+
+XCB: not just for clients any more!
+
+Just as xcb handles the details of the protocol on client side, the server side protocol implementation could be auto-generated from the same protocol descriptions, with many of the same benefits: extension implementers can focus on making real contributions to X rather than writing protocol implementations, and the server can be made smaller and more reliable.
+
+A significant chunk of the time spent implementing extensions in the X server currently goes to typing byte-swapping code, which is often poorly tested and rarely exercised. There is sufficient information in the protocol description to infer which bytes should be swapped, and xcb-server would be able to generate that code.
+
+Better yet, smaller code can be generated easily than can be reliably produced by hand. [[KeithPackard]] suggested a printf-style description of the bytes that should be swapped, and said that when he has tried this in the past the overall code size was smaller, but that the format strings were too difficult to maintain by hand.
+
+### xcb-doc
+
+Most of the protocol descriptions presently in XCB were generated by reading protocol documentation and hand-translating it to our description language. Now it would be nice to be able to go the other way, instantly generating complete documentation for the core protocol and all extensions implemented for XCB, and perhaps targeting more convenient documentation formats like !LaTeX.
+
+[[AndyHowe]] has a "pre-alpha" implementation. If you ask him a second time, he'll tell you it's "pre-pre-alpha".
+
+Macros like [[COMMENT|XCBProtocolLanguage]] were intended to be read by this, but largely fail to be useful. We need a better set of macros that cover the natural sorts of human-readable documentation, and those macros need to clearly associate with the protocol elements that they describe.
+
+Computing the number of bytes each field occupies in the binary protocol requires some data that doesn't currently appear in any of our protocol descriptions. Recording the size of CARD\*, INT\*, BOOL, BYTE, etc. should enable this, since all the other types are composed from those.
+
+With the merge of XML-XCB, this could now be accomplished by integrating part or all of some existing XML documentation format into the XML-XCB data format.
+
+### xcb-pretty
+
+Sometimes applications want to print various parts of the X protocol in human-readable form. Error handlers and applications like the X Event Viewer (xev) and xscope come to mind. For these applications, it would be nice to auto-generate the protocol pretty-printer code.
+
+[[JoshTriplett]] is currently working on an X protocol dissector based on the XML-XCB protocol descriptions.
+
+### XCB for other languages
+
+Enabling clients written in languages other than C to take advantage of XCB's features would be great. That might mean generating simple bindings to the C code, or perhaps generating native code.
+
+Note that while the protocol layer could be native, the transport layer should probably be that of the XCB C library, so that languages with the ability to link with C code can call XCB on the same connection from both C and the other language.
+
+Obvious languages to target include:
+
+- nickle
+- Java
+- perl
+- python
+- Haskell
+- Ruby
+
+[[Completed Tasks|XCBCompletedTasks]]
