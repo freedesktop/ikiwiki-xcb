@@ -79,7 +79,7 @@ The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, X
 
 [[JameySharp]] has begun early work on new [[XCB-based libraries and applications|usingxcb]], in addition to the Xlib work described below.
 
-[[VincentTorri]] has begun a [tutorial](http://www.iecn.u-nancy.fr/~torri/files/xcb/doc/index.html) on XCB. There are also some simple [examples](http://www.iecn.u-nancy.fr/~torri/files/xcb/examples/) on how to use XCB, like drawing points and lines
+[[VincentTorri]] has begun a tutorial on XCB. It can be found in [/cvs/xcb/doc](http://cvs.freedesktop.org/xcb/). There are also some simple [examples](http://www.iecn.u-nancy.fr/~torri/files/xcb/examples/) on how to use XCB, like drawing points and lines. Additional examples about how XCBImage works could be found in [/cvs/xcb-demo/tests](http://cvs.freedesktop.org/xcb/).
 
 ### Xlib on XCB
 
