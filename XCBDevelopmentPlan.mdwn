@@ -1,4 +1,4 @@
-This is the timeline that I want to follow in [xcb XCB] development.
+This is the timeline that I want to follow in [[XCB]] development.
 
 # Prepare XCB and Xlib for integration into [X.org xorg]
 
@@ -6,7 +6,7 @@ This is the timeline that I want to follow in [xcb XCB] development.
 
 I'm going over the [[XcbApi]] a final time with the hope of preparing it for a freeze. In an effort to pick an API that developers may be able to live with for a long time, the public API is losing things that may be useful but don't clearly have a good/lasting interface, such as a TCP-specific connection function.
 
-To a small extent, this goal interacts with the timeline for [XML-XCB](http://linuxlab.cs.pdx.edu/~tripletj/xmlxcb/), which needs a stable \[[[[XcbApi]]\#Protocol_Stub_API]\[Protocol Stub API]].
+To a small extent, this goal interacts with the timeline for [[//linuxlab.cs.pdx.edu/~tripletj/xmlxcb/: XML-XCB|http]], which needs a stable [[Protocol Stub API|XcbApi]]].
 
 ## Pass all of the X Test Suite: Monday August 9th, 2004
 
@@ -14,9 +14,9 @@ The \[[XTesting#Xtest\_suite] X Test Suite] is a comprehensive test suite for th
 
 The patches to Xlib that make it use XCB need to pass the tests in this suite, or the suite needs to be shown to be defective and a fixed version should pass the new Xlib. The latter applies to the protocol tests, for example, where LockDisplay/UnlockDisplay were omitted from all of the tests, causing most to fail immediately under the new code.
 
-## Commit to [http://www.x.org/ X.org]: no date yet
+## Commit to [:xorg: X.org]: no date yet
 
-At this point, the default would be to compile Xlib without XCB. Committing all of the necessary pieces to [xorg X.org] makes it easier for new developers to turn on XCB support and try it out.
+At this point, the default would be to compile Xlib without XCB. Committing all of the necessary pieces to [[X.org|xorg]] makes it easier for new developers to turn on XCB support and try it out.
 
 # Document recommended replacements for Xlib components
 
