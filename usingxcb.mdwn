@@ -1,4 +1,4 @@
-(See also the [XCBToDo:XCBToDo] list and the \[[xcb]\[XCB]] project page.)
+(See also the [XCBToDo] list and the \[[xcb]\[XCB]] project page.)
 
 Now that we have this XCB library and it pretty much just works, what can we do with it? I'd like to make it easier to build new window managers. (For an example of a window manager, see fellow freedesktop.org project Waimea.) I've picked this goal partly because I want to see more experimentation in user-interface design through window managers, and partly because most of the needed pieces are more broadly applicable.
 
