@@ -25,7 +25,7 @@ If you are familiar with Xlib or the X protocol, you might try porting some exis
 
 ## Documentation
 
-- Understand and document X image formats, as per GetImage and PutImage, consulting documentation and &lt;del&gt;Keith Packard&lt;/del&gt; the mailing list as needed. ([[BartMassey]], high priority)
+- Understand and document X image formats, as per GetImage and PutImage, consulting documentation and &lt;del&gt;Keith Packard&lt;/del&gt; the mailing list as needed. ([[BartMassey]]--high priority)
 - Fully document the XML-based protocol description data format. (high priority, in progress) -- [[JoshTriplett]] - 07 Nov 2004
 
 ## Tests and Demos
@@ -71,8 +71,8 @@ This list might be roughly in order of importance.
 - XCB APIs could stand to be reviewed for saneness. In particular, it seems like there ought to be a better interface for handling events in a type-safe manner; but hopefully it can be built on top of XCB's current API. (medium priority)
 - Document XCB internal APIs. (medium priority)
 - Implement an XML metalanguage mechanism for requests and replies to declare enumerated and bitfield types, with hidden naming convention. X.h should be refactored into xcb.m4 using this mechanism. Existing XCBENUMs probably need to be refactored with it too. (medium priority)
+- [Port libGL to XCB](http://lists.freedesktop.org/archives/xcb/2005-February/000351.html). (low priority)
 - Some existing toolkit should be ported to XCB. [Qt](http://www.trolltech.com/products/qt/) and [Gtk+](http://www.gtk.org/) are the obvious targets. (low priority)
-- A header declaring the pre-defined atoms as constant ATOMs would be useful. ([[JameySharp]]--low priority)
 - Add synchronous mode support as in Xlib. (low priority)
 - More cases where padding can be automatically generated should be identified and implemented. (low priority)
 - [[BartMassey]] once thought maybe we should split routines into one per object file. We investigated this; I believe the conclusion was that M4 makes it hard. However, csplit and a little bit of magic should let us do it fairly easily. (possibly bad idea, very low priority)
