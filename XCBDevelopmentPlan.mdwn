@@ -6,7 +6,7 @@ This is the timeline that I want to follow in [[XCB]] development.
 
 I'm going over the [[XcbApi]] a final time with the hope of preparing it for a freeze. In an effort to pick an API that developers may be able to live with for a long time, the public API is losing things that may be useful but don't clearly have a good/lasting interface, such as a TCP-specific connection function.
 
-To a small extent, this goal interacts with the timeline for [[//linuxlab.cs.pdx.edu/~tripletj/xmlxcb/: XML-XCB|http]], which needs a stable [[Protocol Stub API|XcbApi]]].
+To a small extent, this goal interacts with the timeline for [XML-XCB](http://linuxlab.cs.pdx.edu/~tripletj/xmlxcb/), which needs a stable [[Protocol Stub API|XcbApi]]].
 
 ## Pass all of the X Test Suite: Monday August 9th, 2004
 
