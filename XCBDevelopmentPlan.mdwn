@@ -1,0 +1,23 @@
+This is the timeline that I want to follow in \[[XCB]] development.
+
+# Prepare XCB and Xlib for integration into \[[X.org]]
+
+## Freeze public API: Monday July 19th, 2004
+
+I'm going over the [[XcbApi]] a final time with the hope of preparing it for a freeze. In an effort to pick an API that developers may be able to live with for a long time, the public API is losing things that may be useful but don't clearly have a good/lasting interface, such as a TCP-specific connection function.
+
+To a small extent, this goal interacts with the timeline for [XML-XCB](http://linuxlab.cs.pdx.edu/~tripletj/xmlxcb/), which needs a stable \[[[[XcbApi]]\#Protocol_Stub_API]\[Protocol Stub API]].
+
+## Pass all of the X Test Suite: Monday August 9th, 2004
+
+The \[[XTesting#Xtest\_suite]\[X Test Suite]] is a comprehensive test suite for the conformance of Xlib implementations and X servers to the appropriate specifications. It can test a couple of extensions besides just the core protocol. It would be really nice if only it were completely replaced with something really nice.
+
+The patches to Xlib that make it use XCB need to pass the tests in this suite, or the suite needs to be shown to be defective and a fixed version should pass the new Xlib. The latter applies to the protocol tests, for example, where LockDisplay/UnlockDisplay were omitted from all of the tests, causing most to fail immediately under the new code.
+
+## Commit to \[[xorg]\[X.org]]: no date yet
+
+At this point, the default would be to compile Xlib without XCB. Committing all of the necessary pieces to \[[xorg]\[X.org]] makes it easier for new developers to turn on XCB support and try it out.
+
+# Document recommended replacements for Xlib components
+
+Toolkits rely on parts of Xlib that XCB doesn't (and will never) provide, so I want to find well-designed replacements for each of those parts. I expect I won't have to write much code: this should be mostly a documentation project. X Input Methods support is an obvious example of something that applications need and that people have been working on replacing anyway.
