@@ -2,7 +2,7 @@
 
 ## Introduction
 
-[Xlib](http://tronche.com/gui/x/xlib/introduction/) has been the standard C binding for the [X Window System](http://www.xfree86.org) protocol for many years now. It is an excellent piece of work, but there are applications for which it is not ideal, for example
+[Xlib](http://tronche.com/gui/x/xlib/introduction/) has been the standard C binding for the [X Window System](http://xorg.freedesktop.org) protocol for many years now. It is an excellent piece of work, but there are applications for which it is not ideal, for example
 
 - Small platforms: Xlib is a large piece of code, and it is difficult to make it smaller.
 - Latency hiding: Xlib requests requiring a reply are effectively synchronous: they block until the reply appears, whether the result is needed immediately or not.
