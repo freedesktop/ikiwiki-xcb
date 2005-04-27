@@ -71,7 +71,7 @@ This list might be roughly in order of importance.
 - XCB APIs could stand to be reviewed for saneness. In particular, it seems like there ought to be a better interface for handling events in a type-safe manner; but hopefully it can be built on top of XCB's current API. (medium priority)
 - Document XCB internal APIs. (medium priority)
 - Implement an XML metalanguage mechanism for requests and replies to declare enumerated and bitfield types, with hidden naming convention. X.h should be refactored into xcb.m4 using this mechanism. Existing XCBENUMs probably need to be refactored with it too. (medium priority)
-- [Port libGL to XCB](http://lists.freedesktop.org/archives/xcb/2005-February/000351.html). (low priority)
+- [Port libGL to XCB](http://lists.freedesktop.org/archives/xcb/2005-February/000351.html). (Jeremy Kolb--low priority)
 - Some existing toolkit should be ported to XCB. [Qt](http://www.trolltech.com/products/qt/) and [Gtk+](http://www.gtk.org/) are the obvious targets. (low priority)
 - Add synchronous mode support as in Xlib. (low priority)
 - More cases where padding can be automatically generated should be identified and implemented. (low priority)
