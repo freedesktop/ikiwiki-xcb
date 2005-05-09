@@ -55,6 +55,8 @@ When you configure the X11 module, give the '--with-xcb' flag.
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that Xproto and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
+If you run [Debian](http://www.debian.org), try [[JoshTriplett]]'s [Debian packages of modular xlibs CVS](http://freedesktop.org/~josh/debian/README), which include XCB packages as well as interchangeable packages of Xlib with and without XCB as the transport layer.
+
 The [mailing list](http://www.freedesktop.org/mailman/listinfo/xcb) has been hosted by freedesktop.org since October 2003, taking over from [[BartMassey]], who hosted it from February 2003. Before that it was hosted by [[KeithPackard]], beginning in June 2002. Old mailing list addresses are being forwarded to the current list; and everyone who was subscribed to those earlier lists should still be subscribed to this one.
 
 ## Implementation and Status
