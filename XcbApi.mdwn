@@ -12,7 +12,7 @@ These functions are declared in xcb.h.
 
 `typedef struct XCBConnection XCBConnection`
 
-An XCBConnection is an opaque structure containing all data that [xcb XCB] needs to communicate with an X server.
+An XCBConnection is an opaque structure containing all data that [[XCB]] needs to communicate with an X server.
 
 ## XCBExtension
 
@@ -36,7 +36,18 @@ An XCBExtension is an opaque structure used as key for [XCBGetExtensionData](htt
 
 Identifier for an X server.
 
-- family\*: one of the families defined in X.h or Xauth.h; usually [[FamilyInternet]] or [[FamilyLocal]]. address\*: interpreted in a family-specific manner; for [[FamilyInternet]], a `struct in_addr` (see ip(7)). display\*: string containing the display number.
+<dl>
+  <dt>family</dt>
+  <dd>
+    <p>one of the families defined in X.h or Xauth.h; usually [[FamilyInternet]] or [[FamilyLocal]].</p>
+  </dd>
+  <dt>address</dt>
+  <dd>
+    <p>interpreted in a family-specific manner; for [[FamilyInternet]], a <tt>struct in_addr</tt> (see ip(7)).</p>
+  </dd>
+  <dt>display</dt>
+  <dd>string containing the display number.</dd>
+</dl>
 
 ## XCBAuthInfo
 
@@ -51,7 +62,12 @@ Identifier for an X server.
 
 A container for authorization information to be sent to the X server.
 
-- name\*: string containing the authentication protocol name, such as "MIT-MAGIC-COOKIE-1" or "XDM-AUTHORIZATION-1". data\*: interpreted in a protocol-specific manner.
+<dl>
+  <dt>name</dt>
+  <dd>string containing the authentication protocol name, such as &quot;MIT-MAGIC-COOKIE-1&quot; or &quot;XDM-AUTHORIZATION-1&quot;.</dd>
+  <dt>data</dt>
+  <dd>interpreted in a protocol-specific manner.</dd>
+</dl>
 
 ## XCBConnect
 
@@ -88,7 +104,20 @@ Calls:
 
 Connects to an X server, given an open socket and a suitable [XCBAuthInfo](http://xcb.freedesktop.org/wiki/).
 
-- fd\*: a file descriptor bidirectionally connected to an X server. [XCBGetTCPFD](http://xcb.freedesktop.org/wiki/) and [XCBGetUnixFD](http://xcb.freedesktop.org/wiki/) return appropriate file descriptors. auth\_info\*: authentication data, or 0 if the connection should be unauthenticated. [XCBGetAuthInfo](http://xcb.freedesktop.org/wiki/) returns appropriate authentication data. Returns\*: an [XCBConnection](http://xcb.freedesktop.org/wiki/), or 0 on failure.
+<dl>
+  <dt>fd</dt>
+  <dd>
+    <p>a file descriptor bidirectionally connected to an X server. <a href="http://xcb.freedesktop.org/wiki/">XCBGetTCPFD</a> and <a href="http://xcb.freedesktop.org/wiki/">XCBGetUnixFD</a> return appropriate file descriptors.</p>
+  </dd>
+  <dt>auth_info</dt>
+  <dd>
+    <p>authentication data, or 0 if the connection should be unauthenticated. <a href="http://xcb.freedesktop.org/wiki/">XCBGetAuthInfo</a> returns appropriate authentication data.</p>
+  </dd>
+  <dt>Returns</dt>
+  <dd>
+    <p>an <a href="http://xcb.freedesktop.org/wiki/">XCBConnection</a>, or 0 on failure.</p>
+  </dd>
+</dl>
 
 See also [XCBConnect](http://xcb.freedesktop.org/wiki/).
 
@@ -100,7 +129,12 @@ See also [XCBConnect](http://xcb.freedesktop.org/wiki/).
 
 Closes the file descriptor and frees all memory associated with the connection.
 
-- c\*: a connection previously returned by [[\#XCBConnect](#XCBConnect)[XCBConnect]] and not previously passed to XCBDisconnect.
+<dl>
+  <dt>c</dt>
+  <dd>
+    <p>a connection previously returned by [<a href="#XCBConnect">#XCBConnect</a>[XCBConnect]] and not previously passed to XCBDisconnect.</p>
+  </dd>
+</dl>
 
 ## XCBGetFDFromDisplay
 
@@ -195,7 +229,7 @@ Returns the next event or error from the server, or returns null in the event of
 
 ## XCBPollForEvent
 
-(xcb\_in.c %P%)
+(xcb\_in.c)
 
 `XCBGenericEvent *XCBPollForEvent(XCBConnection *c, int *error)`
 
@@ -455,11 +489,20 @@ Care is required when calling these functions, as they generally do not have the
 
 Values for a particular request that are always constant.
 
-- count\*: number of elements in the iovec array. ext\*: extension identifier, or null for the core protocol. opcode\*: major opcode of the request for the core protocol, or minor opcode for an extension. isvoid\*: zero if this request will return a reply; non-zero otherwise.
+<dl>
+  <dt>count</dt>
+  <dd>number of elements in the iovec array.</dd>
+  <dt>ext</dt>
+  <dd>extension identifier, or null for the core protocol.</dd>
+  <dt>opcode</dt>
+  <dd>major opcode of the request for the core protocol, or minor opcode for an extension.</dd>
+  <dt>isvoid</dt>
+  <dd>zero if this request will return a reply; non-zero otherwise.</dd>
+</dl>
 
 ## XCBSendRequest
 
-(xcb\_out.c %P%)
+(xcb\_out.c)
 
 `int XCBSendRequest(XCBConnection *c, unsigned int *sequence, struct iovec *vector, const XCBProtocolRequest *request)`
 
