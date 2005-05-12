@@ -1,0 +1,9 @@
+XCB currently uses 'check' as a unit test framework. We've received some queries as to how to build without having check installed. We haven't found a clean answer yet, but here's one approach. Place this line in a new text file:
+
+    AC_DEFUN([AM_PATH_CHECK], [$3])
+
+The file can either be acinclude.m4, in the top-level xcb module directory, or it can be named anything you want as long as you put it in the system-wide autoconf macro directory (given by `aclocal --print-ac-dir`).
+
+At that point (assuming you have a version of XCB more recent than 12 May 2005) you should find that aclocal and hence autoconf run fine.
+
+We can't ship this as part of XCB source, because we don't know how to make a system-wide autoconf macro definition override one found in the project. (This is admittedly an unusual thing to want to do.)
