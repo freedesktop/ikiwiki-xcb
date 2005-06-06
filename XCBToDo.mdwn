@@ -56,7 +56,7 @@ This list might be roughly in order of importance.
 - There's lots to do with protocol extensions:
   - Lots more extensions need to be implemented.
     - Required: XTEST (high priority)
-    - Useful: XVideo, XKB (medium priority)
+    - Useful: XVideo (Jeremy), XKB (medium priority)
   - Extensions need to be easy to compile as separate libraries and in separate source trees. Mostly done, but should be encapsulated in a shell script and autoconf macros, and simplified. (medium priority)
   - Check XCB extensions for conformance with their protocol documentation. (low priority)
 - XCB is missing some of the convenience functionality that Xlib layers atop the protocol. (Provide separate libraries that simplify the interface while providing missing functionality? )
