@@ -1,8 +1,11 @@
 Describe DicksonPatton here.
 
-# Senoir in the PSU CS program, unused to wiki's or XCB
+### Senior in the PSU CS program
 
-## Trail through XCB (as requested on some page I passed through)
+Trail through XCB install
 
-- create account should display a page of available actions upon success
-- upon installation,
+- When logging in to my account I should see some home page or other, not an opportunity to change my account data.
+- The svc download worked fine, once I figured out that 'svc login looks' like it did absolutely nothing. Yes, I know that's the Unix paradigm but even UNIX lets you know when you've successfully logged in.
+- I didn't get configure with my download.
+- I didn't have autoconfig, so I got that and built it.
+- Trying to run config.ac through autoconfig gave three undefined macros, 11:AM\_PATH\_CHECK 12:AM\_CONDITIONAL 16:AC\_PROG\_LIBTOOL
