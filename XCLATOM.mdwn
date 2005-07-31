@@ -1,3 +1,5 @@
+The `XCLATOM` function casts an `Atom` object to an `XCBATOM` object.
+
 # Function Prototype
 
     static inline XCBATOM XCLATOM(Atom src);
