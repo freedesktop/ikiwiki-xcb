@@ -1,4 +1,4 @@
-The `XCLCOLORMAP` functions casts
+The `XCLCOLORMAP` functions casts a `Colormap` object to an `XCBCOLORMAP`.
 
 # Function Prototype
 
@@ -11,4 +11,4 @@ The `XCLCOLORMAP` functions casts
 # See Also
 
 - [[XcbPorting]]
-- Mailing list posts related to XCLCOLORMAP.
+- [Mailing list posts](http://www.google.com/search?q=site%3Alists.freedesktop.org+XCLCOLORMAP) related to XCLCOLORMAP.
