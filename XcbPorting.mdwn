@@ -14,6 +14,8 @@ To begin using the XCL just include the header file xcl.h rather than `Xlib.h`. 
 
 #### Functions and Macros Available in xcl.h
 
+- **XCBConnectionOfDisplay** — Casts a `Display` object to an `XCBConnection`.
+  - `XCBConnection *XCBConnectionOfDisplay(Display *dpy);`
 - **XCLWINDOW** — Casts a `Window` to an `XCBWINDOW`.
   - `static inline XCBWINDOW XCLWINDOW(Window src);`
 - **XCLPIXMAP** — Casts an `Pixmap` to an `XCBPIXMAP`.
@@ -22,6 +24,16 @@ To begin using the XCL just include the header file xcl.h rather than `Xlib.h`. 
   - `static inline XCBCURSOR XCLCURSOR(Cursor src);`
 - **XCLFONT** — Casts a `Font` to an `XCBFONT`.
   - `static inline XCBFONT XCLFONT(Font src);`
+- static inline XCBGCONTEXT XCLGCONTEXT(GContext src)
+- static inline XCBCOLORMAP XCLCOLORMAP(Colormap src)
+- static inline XCBATOM XCLATOM(Atom src)
+- static inline XCBDRAWABLE XCLDRAWABLE(Drawable src)
+- static inline XCBFONTABLE XCLFONTABLE(Font src)
+- static inline XCBVISUALID XCLVISUALID(VisualID src)
+- static inline XCBTIMESTAMP XCLTIMESTAMP(Time src)
+- static inline XCBKEYSYM XCLKEYSYM([[KeySym]] src)
+- static inline XCBKEYCODE XCLKEYCODE([[KeyCode]] src)
+- static inline XCBBUTTON XCLBUTTON(CARD8 src)
 
 ## Past Posts
 
