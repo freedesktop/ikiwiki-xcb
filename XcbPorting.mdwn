@@ -12,11 +12,16 @@ Before beginning to use the XCL, it is highly recommended that you read [[JameyS
 
 To begin using the XCL just include the header file xcl.h rather than `Xlib.h`. After doing so, you will be able to a large majority of Xlib functions and types; XCB's functions, macros, data types, etc; and some convenient macros for converting Xlib types to XCB types.
 
-#### Functions and Macros Available in \`xcl.h\`
+#### Functions and Macros Available in xcl.h
 
-- ff
-- ff
-- ff
+- **XCLWINDOW** — Casts a `Window` to an `XCBWINDOW`.
+  - `static inline XCBWINDOW XCLWINDOW(Window src);`
+- **XCLPIXMAP** — Casts an `Pixmap` to an `XCBPIXMAP`.
+  - `static inline XCBPIXMAP XCLPIXMAP(Pixmap src);`
+- **XCLCURSOR** — Casts an `XCursor` to an `XCBCURSOR`.
+  - `static inline XCBCURSOR XCLCURSOR(Cursor src);`
+- **XCLFONT** — Casts a `Font` to an `XCBFONT`.
+  - `static inline XCBFONT XCLFONT(Font src);`
 
 ## Past Posts
 
