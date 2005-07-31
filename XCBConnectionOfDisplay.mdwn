@@ -62,6 +62,10 @@ Some salient points in this example include the following:
 
 Though this example is contrived, `XCBConnectionOfDisplay` is an esential part of the porting process. For example, say you have some function that takes a `Display` object. You can leave the prototype unchanged, in the body of the function cast it to an `XCBConnection`, and port only that function. The rest of the code can remain unchanged. In this way, the process of converting the application to use XCB is staggered as necessary, time, knowledge, and knowledge permit.
 
+# Casting the Other Way
+
+How do you get a `Display` object given an `XCBConnection` object?
+
 # See Also
 
 - [[XcbPorting]]
