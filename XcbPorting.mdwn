@@ -1,6 +1,6 @@
 # Porting Applications to XCB
 
-This page provides information and resources about porting applications from Xlib to XCB. It discusses the Xlib Compatibility Layer (XCL), provides various examples, conglomeration past mailing list posts relating to poring various functionaly to XCB, and, hopefully, will eventually become an important reference for developers who wish to utalize the power and simplicity of XCB by reprogramming their applications to use XCB.
+This page provides information and resources about porting applications from Xlib to XCB. It discusses the Xlib Compatibility Layer (XCL), provides various examples, conglomerates past mailing list posts related to poring the functionaly of various applications to XCB, and hopefully will become an important reference for developers who wish to utalize the power and simplicity of XCB by reprogramming their applications to it.
 
 ## The XCL
 
