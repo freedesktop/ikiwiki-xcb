@@ -1,0 +1,14 @@
+The `XCLCOLORMAP` functions casts
+
+# Function Prototype
+
+    static inline XCBCOLORMAP XCLCOLORMAP(Colormap src);
+
+# Example
+
+    int foo;
+
+# See Also
+
+- [[XcbPorting]]
+- Mailing list posts related to XCLCOLORMAP.
