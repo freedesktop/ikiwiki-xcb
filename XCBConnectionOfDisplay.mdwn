@@ -1,3 +1,5 @@
+The `XCBConnectionOfDisplay` function casts an Xlib `Display` object to an `XCBConnection` object.
+
 # Function Prototype
 
     XCBConnection *XCBConnectionOfDisplay(Display *dpy);
