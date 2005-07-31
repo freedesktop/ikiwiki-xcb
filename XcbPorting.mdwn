@@ -14,24 +14,32 @@ To begin using the XCL just include the header file xcl.h rather than `Xlib.h`. 
 
 #### Functions and Macros Available in xcl.h
 
-- **XCBConnectionOfDisplay** — Casts a `Display` object to an `XCBConnection`.
+- **XCBConnectionOfDisplay** — Casts a `Display` object to an `XCBConnection` object.
   - `XCBConnection *XCBConnectionOfDisplay(Display *dpy);`
-- **XCLWINDOW** — Casts a `Window` to an `XCBWINDOW`.
+- **XCLWINDOW** — Casts a `Window` object to an `XCBWINDOW` object.
   - `static inline XCBWINDOW XCLWINDOW(Window src);`
-- **XCLPIXMAP** — Casts an `Pixmap` to an `XCBPIXMAP`.
+- **XCLPIXMAP** — Casts a `Pixmap` object to an `XCBPIXMAP` object.
   - `static inline XCBPIXMAP XCLPIXMAP(Pixmap src);`
-- **XCLCURSOR** — Casts an `XCursor` to an `XCBCURSOR`.
+- **XCLCURSOR** — Casts a `Cursor` object to an `XCBCURSOR` object.
   - `static inline XCBCURSOR XCLCURSOR(Cursor src);`
-- **XCLFONT** — Casts a `Font` to an `XCBFONT`.
+- **XCLFONT** — Casts a `Font` object to an `XCBFONT` object.
   - `static inline XCBFONT XCLFONT(Font src);`
-- static inline XCBGCONTEXT XCLGCONTEXT(GContext src)
-- static inline XCBCOLORMAP XCLCOLORMAP(Colormap src)
-- static inline XCBATOM XCLATOM(Atom src)
-- static inline XCBDRAWABLE XCLDRAWABLE(Drawable src)
-- static inline XCBFONTABLE XCLFONTABLE(Font src)
-- static inline XCBVISUALID XCLVISUALID(VisualID src)
-- static inline XCBTIMESTAMP XCLTIMESTAMP(Time src)
-- static inline XCBKEYSYM XCLKEYSYM([[KeySym]] src)
+- **XCLGCONTEXT** — Casts a `GContext object to an `XCBGCONTEXT\` object.
+  - `static inline XCBGCONTEXT XCLGCONTEXT(GContext src);`
+- **XCLCOLORMAP** — Casts a `Colormap` object to a `XCBCOLORMAP` object.
+  - `static inline XCBCOLORMAP XCLCOLORMAP(Colormap src);`
+- **XCLATOM** — Casts an `Atom` object to an `XCBATOM` object.
+  - `static inline XCBATOM XCLATOM(Atom src);`
+- **XCLDRAWABLE** — Casts a `Drawable` object to an `XCBDRAWABLE` object.
+  - `static inline XCBDRAWABLE XCLDRAWABLE(Drawable src);`
+- **XCLFONTABLE** — Casts a `Font` object to a `XCBFONTABLE` object.
+  - `static inline XCBFONTABLE XCLFONTABLE(Font src);`
+- **XCLVISUALID** — Casts a `VisualID` object to an `XCBVISUALID` object.
+  - `static inline XCBVISUALID XCLVISUALID(VisualID src);`
+- **XCLTIMESTAMP** — Casts a `Time` object to an `XCBTIMESTAMP` object.
+  - `static inline XCBTIMESTAMP XCLTIMESTAMP(Time src);`
+- **XCLKEYSYM** — Casts a `KeySym` object to an `XCBKEYSYM` object.
+  - `static inline XCBKEYSYM XCLKEYSYM(KeySym src);`
 - static inline XCBKEYCODE XCLKEYCODE([[KeyCode]] src)
 - static inline XCBBUTTON XCLBUTTON(CARD8 src)
 
