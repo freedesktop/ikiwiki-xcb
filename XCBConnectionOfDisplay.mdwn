@@ -2,9 +2,15 @@
 
 ## Function Prototype
 
-- `XCBConnection *XCBConnectionOfDisplay(Display *dpy);`
+    XCBConnection *XCBConnectionOfDisplay(Display *dpy);
 
 ## Example
 
     int foo;
     foo;
+
+Keep in mind that the `Display` object that this function takes **isn't** the one you may be used to from past Xlib programming. It is declared like this:
+
+    TODO: Fill in the Display struct declaration...
+
+This is significant because its additional member `xcl` can be used to access various members such as `connection` (which is all this function really does). With this in mind, you can do things such as ...
