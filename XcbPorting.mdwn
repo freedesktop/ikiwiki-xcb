@@ -24,7 +24,7 @@ To begin using the XCL just include the header file xcl.h rather than `Xlib.h`. 
   - `static inline XCBCURSOR XCLCURSOR(Cursor src);`
 - **XCLFONT** — Casts a `Font` object to an `XCBFONT` object.
   - `static inline XCBFONT XCLFONT(Font src);`
-- **XCLGCONTEXT** — Casts a `GContext object to an `XCBGCONTEXT\` object.
+- **XCLGCONTEXT** — Casts a `GContext` object to an `XCBGCONTEXT` object.
   - `static inline XCBGCONTEXT XCLGCONTEXT(GContext src);`
 - **XCLCOLORMAP** — Casts a `Colormap` object to a `XCBCOLORMAP` object.
   - `static inline XCBCOLORMAP XCLCOLORMAP(Colormap src);`
@@ -40,8 +40,10 @@ To begin using the XCL just include the header file xcl.h rather than `Xlib.h`. 
   - `static inline XCBTIMESTAMP XCLTIMESTAMP(Time src);`
 - **XCLKEYSYM** — Casts a `KeySym` object to an `XCBKEYSYM` object.
   - `static inline XCBKEYSYM XCLKEYSYM(KeySym src);`
-- static inline XCBKEYCODE XCLKEYCODE([[KeyCode]] src)
-- static inline XCBBUTTON XCLBUTTON(CARD8 src)
+- **XCLKEYCODE** — Casts a `KeyCode` object to an `XCBKEYCODE` object.
+  - `static inline XCBKEYCODE XCLKEYCODE(KeyCode src);`
+- **XCLBUTTON** — Casts a `CARD8` that refers to an Xlib Button object to an `XCBBUTTON` object.
+  - `static inline XCBBUTTON XCLBUTTON(CARD8 src);`
 
 ## Past Posts
 
