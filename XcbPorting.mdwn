@@ -6,44 +6,19 @@ This page provides information and resources about porting applications from Xli
 
 As mentioned [[elsewhere|xcb]], the Xlib Compatibility Layer or XCL for short emulates Xlib but is built on XCB. This allows current applications built with Xlib to begin leveraging XCB's capabilities slowly over time; the entire program doesn't have to be ported immediately. Rather, it can continue to use various Xlib functions, data types, etc. while also using XCB's facilities, structures, and other resources simultaneously.
 
-Before beginning to use the XCL, it is highly recommended that you read [[JameySharp]] and [[BartMassey]]'s paper _[XCL: An Xlib Compatibility Layer for XCB](http://www.usenix.org/events/usenix02/tech/freenix/sharp.html)_. (There are also formats and sources where this document can be found. See the [[Publications|xcb]] section of the [[XCB homepage|xcb]].)
+Before beginning to use the XCL, it is highly recommended that you read [[JameySharp]] and [[BartMassey]]'s paper _[XCL: An Xlib Compatibility Layer for XCB](http://www.usenix.org/events/usenix02/tech/freenix/sharp.html)_. (There are also other formats and sources where this document can be found. See the [[Publications|xcb]] section of the [[XCB homepage|xcb]].)
 
 ### Using the XCL
 
-To begin using the XCL just include the header file xcl.h rather than `Xlib.h`. After doing so, you will be able to a large majority of Xlib functions and types; XCB's functions, macros, data types, etc; and some convenient macros for converting Xlib types to XCB types.
+To begin using the XCL just include the header file `xcl.h` rather than `Xlib.h`. After doing so, you will be able to a large majority of Xlib functions and types; XCB's functions, macros, data types, etc; and some convenient macros for converting Xlib types to XCB types.
 
 #### Functions and Macros Available in xcl.h
 
-- **XCBConnectionOfDisplay** — Casts a `Display` object to an `XCBConnection` object.
-  - `XCBConnection *XCBConnectionOfDisplay(Display *dpy);`
-- **XCLWINDOW** — Casts a `Window` object to an `XCBWINDOW` object.
-  - `static inline XCBWINDOW XCLWINDOW(Window src);`
-- **XCLPIXMAP** — Casts a `Pixmap` object to an `XCBPIXMAP` object.
-  - `static inline XCBPIXMAP XCLPIXMAP(Pixmap src);`
-- **XCLCURSOR** — Casts a `Cursor` object to an `XCBCURSOR` object.
-  - `static inline XCBCURSOR XCLCURSOR(Cursor src);`
-- **XCLFONT** — Casts a `Font` object to an `XCBFONT` object.
-  - `static inline XCBFONT XCLFONT(Font src);`
-- **XCLGCONTEXT** — Casts a `GContext` object to an `XCBGCONTEXT` object.
-  - `static inline XCBGCONTEXT XCLGCONTEXT(GContext src);`
-- **XCLCOLORMAP** — Casts a `Colormap` object to a `XCBCOLORMAP` object.
-  - `static inline XCBCOLORMAP XCLCOLORMAP(Colormap src);`
-- **XCLATOM** — Casts an `Atom` object to an `XCBATOM` object.
-  - `static inline XCBATOM XCLATOM(Atom src);`
-- **XCLDRAWABLE** — Casts a `Drawable` object to an `XCBDRAWABLE` object.
-  - `static inline XCBDRAWABLE XCLDRAWABLE(Drawable src);`
-- **XCLFONTABLE** — Casts a `Font` object to a `XCBFONTABLE` object.
-  - `static inline XCBFONTABLE XCLFONTABLE(Font src);`
-- **XCLVISUALID** — Casts a `VisualID` object to an `XCBVISUALID` object.
-  - `static inline XCBVISUALID XCLVISUALID(VisualID src);`
-- **XCLTIMESTAMP** — Casts a `Time` object to an `XCBTIMESTAMP` object.
-  - `static inline XCBTIMESTAMP XCLTIMESTAMP(Time src);`
-- **XCLKEYSYM** — Casts a `KeySym` object to an `XCBKEYSYM` object.
-  - `static inline XCBKEYSYM XCLKEYSYM(KeySym src);`
-- **XCLKEYCODE** — Casts a `KeyCode` object to an `XCBKEYCODE` object.
-  - `static inline XCBKEYCODE XCLKEYCODE(KeyCode src);`
-- **XCLBUTTON** — Casts a `CARD8` that refers to an Xlib Button object to an `XCBBUTTON` object.
-  - `static inline XCBBUTTON XCLBUTTON(CARD8 src);`
+The following functions provided by `xcl.h` can be used to cast from Xlib types to XCB types:
+
+[[XCBConnectionOfDisplay]], [[XCLATOM]], [[XCLBUTTON]], [[XCLCOLORMAP]], [[XCLCURSOR]], [[XCLDRAWABLE]], [[XCLFONT]], [[XCLFONTABLE]], [[XCLGCONTEXT]], [[XCLKEYCODE]], [[XCLKEYSYM]], [[XCLPIXMAP]], [[XCLTIMESTAMP]], [[XCLVISUALID]], [[XCLWINDOW]], [[XSetEventQueueOwner]]
+
+Follow the function's link to see its prototype and an example of how to use it.
 
 ## Past Posts
 
