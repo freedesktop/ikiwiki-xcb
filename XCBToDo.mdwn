@@ -14,7 +14,7 @@ If you're not sure where to start in learning about XCB and XCL, you might try t
 
 With that experience, the easiest thing you can do to help our efforts is to implement some extension that's currently unsupported by XCB.
 
-If you are familiar with Xlib or the X protocol, you might try porting some existing Xlib applications to XCB, or writing new applications.
+If you are familiar with Xlib or the X protocol, you might try porting some existing Xlib applications to XCB, or writing new applications. See the page [[XcbPorting]] for pointers.
 
 # Tasks
 
