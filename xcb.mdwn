@@ -40,8 +40,8 @@ To build XCB from source, you need to have installed at least:
 
 There are multiple modules in CVS. The modules you need to checkout, build, and install for each part of the project are, in order:
 
-- Xproto from [[xlibs|Software/xlibs]]
-- Xau from [[xlibs|Software/xlibs]]
+- Xproto from [xlibs](http://www.freedesktop.org/Software/xlibs)
+- Xau from [xlibs](http://www.freedesktop.org/Software/xlibs)
 - xcb-proto
 - xcb
 
