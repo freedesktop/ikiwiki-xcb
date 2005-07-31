@@ -152,6 +152,8 @@ Closes the file descriptor and frees all memory associated with the connection.
   </dd>
 </dl>
 
+<a name="XCBGetFDFromDisplay" id="XCBGetFDFromDisplay"></a>
+
 ## XCBGetFDFromDisplay
 
 (xcb\_util.c %P%)
@@ -163,6 +165,8 @@ Calls:
 - [XCBParseDisplay](http://xcb.freedesktop.org/wiki/)
 - [XCBGetTCPFD](http://xcb.freedesktop.org/wiki/) or [XCBGetUnixFD](http://xcb.freedesktop.org/wiki/)
 
+<a name="XCBParseDisplay" id="XCBParseDisplay"></a>
+
 ## XCBParseDisplay
 
 (xcb\_util.c)
@@ -173,6 +177,8 @@ Parses a display string `name` in the form documented by X(7x). Has no side effe
 
 - name\*: the display name to parse. host\*: a non-null pointer to a pointer which will be set to a malloc'd copy of the hostname. display\*: a non-null pointer to an int which will be set to the display number. screen\*: a (possibly null) pointer to an int which will be set to the preferred screen number, or set to 0 if the display string does not contain a screen number. Returns\*: 0 on failure (perhaps `name` was null or unparsable); non-zero on success.
 
+<a name="XCBGetTCPFD" id="XCBGetTCPFD"></a>
+
 ## XCBGetTCPFD
 
 (xcb\_util.c %P%)
@@ -181,6 +187,8 @@ Parses a display string `name` in the form documented by X(7x). Has no side effe
 
 Opens a TCP socket to the given `hostname`. The destination port is `display` plus 6000. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](http://xcb.freedesktop.org/wiki/).
 
+<a name="XCBGetUnixFD" id="XCBGetUnixFD"></a>
+
 ## XCBGetUnixFD
 
 (xcb\_util.c %P%)
@@ -188,6 +196,8 @@ Opens a TCP socket to the given `hostname`. The destination port is `display` pl
 `int XCBGetUnixFD(unsigned short display, XCBAuthInfoHost *host)`
 
 Opens a Unix-domain socket. The filename is "/tmp/.X11-unix/X" plus `display`. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](http://xcb.freedesktop.org/wiki/).
+
+<a name="XCBGetAuthInfo" id="XCBGetAuthInfo"></a>
 
 ## XCBGetAuthInfo
 
@@ -198,6 +208,8 @@ Opens a Unix-domain socket. The filename is "/tmp/.X11-unix/X" plus `display`. I
 Looks up the best available authorization data for the given host.
 
 The current implementation is a wrapper around the Xau library, which looks up hosts in the file specified by the environment variable XAUTHORITY, or the file $HOME/.Xauthority if the first fails. To manipulate this file, see xauth(1x).
+
+<a name="XCBGetSetupData" id="XCBGetSetupData"></a>
 
 ## XCBGetSetupData
 
@@ -217,6 +229,8 @@ This data includes
 
 See the X protocol specification for more details.
 
+<a name="XCBGetFileDescriptor" id="XCBGetFileDescriptor"></a>
+
 ## XCBGetFileDescriptor
 
 (xcb\_conn.c)
@@ -224,6 +238,8 @@ See the X protocol specification for more details.
 `int XCBGetFileDescriptor(XCBConnection *c)`
 
 Accessor for the file descriptor that was passed to the [XCBConnectToFD](http://xcb.freedesktop.org/wiki/) call that returned `c`.
+
+<a name="XCBGetMaximumRequestLength" id="XCBGetMaximumRequestLength"></a>
 
 ## XCBGetMaximumRequestLength
 
@@ -235,6 +251,8 @@ In the absence of the BIG-REQUESTS extension, returns the maximum_request_length
 
 Note that this length is measured in four-byte units, making the theoretical maximum lengths roughly 256kB without BIG-REQUESTS and 16GB with.
 
+<a name="XCBWaitForEvent" id="XCBWaitForEvent"></a>
+
 ## XCBWaitForEvent
 
 (xcb\_in.c %P%)
@@ -242,6 +260,8 @@ Note that this length is measured in four-byte units, making the theoretical max
 `XCBGenericEvent *XCBWaitForEvent(XCBConnection *c)`
 
 Returns the next event or error from the server, or returns null in the event of an I/O error. Blocks until either an event or error arrive, or an I/O error occurs.
+
+<a name="XCBPollForEvent" id="XCBPollForEvent"></a>
 
 ## XCBPollForEvent
 
@@ -253,6 +273,8 @@ Returns the next event or error from the server, if one is available, or returns
 
 - error\*: pointer to an int to be filled in with the I/O error status of the operation. If \*error\* is null, terminates the application when an I/O error occurs.
 
+<a name="XCBFlush" id="XCBFlush"></a>
+
 ## XCBFlush
 
 (xcb\_out.c)
@@ -261,6 +283,8 @@ Returns the next event or error from the server, if one is available, or returns
 
 Forces any buffered output to be written to the server. Blocks until the write is complete.
 
+<a name="XCBSync" id="XCBSync"></a>
+
 ## XCBSync
 
 (xcb\_util.c)
@@ -268,6 +292,8 @@ Forces any buffered output to be written to the server. Blocks until the write i
 `int XCBSync(XCBConnection *c, XCBGenericError **e)`
 
 Blocks the calling thread for the duration of one round trip to the server, ensuring that all events and errors caused by previous requests are available to XCB.
+
+<a name="XCBExtensionData" id="XCBExtensionData"></a>
 
 ## XCBGetExtensionData
 
@@ -278,6 +304,8 @@ Blocks the calling thread for the duration of one round trip to the server, ensu
 This function is the primary interface to the "extension cache", which caches reply information from [[QueryExtension]] requests. Invoking this function may cause a call to XCBQueryExtension to retrieve extension information from the server, and may block until extension data is received from the server.
 
 Do not free the returned XCBQueryExtensionRep - this storage is managed by the cache itself.
+
+<a name="XCBPrefetchExtensionData" id="XCBPrefetchExtensionData"></a>
 
 ## XCBPrefetchExtensionData
 
