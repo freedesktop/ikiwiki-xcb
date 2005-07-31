@@ -16,6 +16,8 @@ These functions are declared in xcb.h.
 
 An XCBConnection is an opaque structure containing all data that [[XCB]] needs to communicate with an X server.
 
+<a name="XCBExtension" id="XCBExtension"></a>
+
 ## XCBExtension
 
 (xcb.h)
@@ -23,6 +25,8 @@ An XCBConnection is an opaque structure containing all data that [[XCB]] needs t
 `typedef struct XCBExtension XCBExtension`
 
 An XCBExtension is an opaque structure used as key for [XCBGetExtensionData](http://xcb.freedesktop.org/wiki/).
+
+<a name="XCBAuthInfoHost" id="XCBAuthInfoHost"></a>
 
 ## XCBAuthInfoHost
 
@@ -51,6 +55,8 @@ Identifier for an X server.
   <dd>string containing the display number.</dd>
 </dl>
 
+<a name="XCBAuthInfo" id="XCBAuthInfo"></a>
+
 ## XCBAuthInfo
 
 (xcb.h)
@@ -71,6 +77,8 @@ A container for authorization information to be sent to the X server.
   <dd>interpreted in a protocol-specific manner.</dd>
 </dl>
 
+<a name="XCBConnect" id="XCBConnect"></a>
+
 ## XCBConnect
 
 (xcb\_util.c %P%)
@@ -85,6 +93,8 @@ Calls:
 - [XCBGetAuthInfo](http://xcb.freedesktop.org/wiki/)
 - [XCBConnectToFD](http://xcb.freedesktop.org/wiki/)
 
+<a name="XCBConnectToDisplayWithAuthInfo" id="XCBConnectToDisplayWithAuthInfo"></a>
+
 ## XCBConnectToDisplayWithAuthInfo
 
 (xcb\_util.c %P%)
@@ -97,6 +107,8 @@ Calls:
 
 - [XCBGetFDFromDisplay](http://xcb.freedesktop.org/wiki/)
 - [XCBConnectToFD](http://xcb.freedesktop.org/wiki/)
+
+<a name="XCBConnectToDD" id="XCBConnectToDD"></a>
 
 ## XCBConnectToFD
 
@@ -122,6 +134,8 @@ Connects to an X server, given an open socket and a suitable [XCBAuthInfo](http:
 </dl>
 
 See also [XCBConnect](http://xcb.freedesktop.org/wiki/).
+
+<a name="XCBDisconnect" id="XCBDisconnect"></a>
 
 ## XCBDisconnect
 
