@@ -69,3 +69,4 @@ Though this example is contrived, `XCBConnectionOfDisplay` is an esential part o
 - [[XcbPorting]]
 - [[XCBConnection|XcbApi]]
 - [[XCBSync|XcbApi]]
+- [Mailing list posts](http://www.google.com/search?q=site%3Alists.freedesktop.org+XCBConnectionOfDisplay) related to XCBConnectionOfDisplay.
