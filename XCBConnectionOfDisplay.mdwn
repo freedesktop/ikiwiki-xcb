@@ -55,6 +55,15 @@
         return EXIT_SUCCESS;
     }
 
+Some salient points in this example include the following:
+
+- The only header that is included is `xcl.h`. The headers `Xlib.h` nor `xcb.h` are included, yet Xlib and XCB functions are used. This is because `xcl.h` includes `xcb.h` and `Xlib.h`.
+- The standard Xlib function `XOpenDisplay` is used to create a Display object.
+- The `Disply` object is cast to an `XCBConnection` object using `XCBConnectionOfDisplay`.
+- After the cast, the connection is passed to various other XCB functions.
+
+Though this example is contrived, it is helpful and useful when porting. For example, say you have some function that takes a `Display` object. You can leave the prototype unchanged, in the body of the function cast it to an `XCBConnection`, and port only that function. The rest of the code can remain unchanged. In this way, the process of converting the application to use XCB is staggered as necessary, time, knowledge, and knowledge permit.
+
 ## See Also
 
 - [[XcbPorting]]
