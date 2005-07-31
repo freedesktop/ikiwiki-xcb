@@ -6,8 +6,38 @@
 
 ## Example
 
-    int foo;
-    foo;
+    #include <X11/xcl.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+
+    int main()
+    {
+        Display *dpy = XOpenDisplay(NULL);
+        XCBConnection *c;
+
+        if (! dpy)
+        {
+            fprintf(stderr, "Could not open display.\n");
+            exit(EXIT_FAILURE);
+        }
+
+        /* Now that we have an open `Display' object, cast it to an
+         * `XCBConnection' object so it can be used with native XCB
+         * functions.
+         */
+        c = XCBConnectionOfDisplay(dpy);
+
+        if (! c)
+        {
+            fprintf(stderr, "Could not cast the Display object to an "
+                            "XCBConnection object.\n");
+            exit(EXIT_FAILURE);
+        }
+
+        /* Do something meaningful, fun, and interesting with the new XCBConnection object. */
+
+        return EXIT_SUCCESS;
+    }
 
 Keep in mind that the `Display` object that this function takes **isn't** the one you may be used to from past Xlib programming. It is declared like this:
 
