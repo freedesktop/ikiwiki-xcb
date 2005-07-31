@@ -26,8 +26,8 @@
             exit(EXIT_FAILURE);
         }
 
-        /* Now that we have an open `Display' object, cast it to an
-         * `XCBConnection' object so it can be used with native XCB
+        /* Now that we have an open Display object, cast it to an
+         * XCBConnection object so it can be used with native XCB
          * functions.
          */
         c = XCBConnectionOfDisplay(dpy);
