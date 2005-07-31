@@ -6,7 +6,7 @@ This page provides information and resources about porting applications from Xli
 
 As mentioned [[elsewhere|xcb]], the Xlib Compatibility Layer or XCL for short emulates Xlib but is built on XCB. This allows current applications built with Xlib to begin leveraging XCB's capabilities slowly over time; the entire program doesn't have to be ported immediately. Rather, it can continue to use various Xlib functions, data types, etc. while also using XCB's facilities, structures, and other resources simultaneously.
 
-Before beginning to use the XCL, it is highly recommended that you read [[JameySharp]] and [[BartMassey]]'s paper _[XCL: An Xlib Compatibility Layer for XCB](http://www.usenix.org/events/usenix02/tech/freenix/sharp.html)_ <sup><a name="fnref-e2f59c3e25baa2948fbfe7fc358462f6fd9c4da3-0" href="#fndef-e2f59c3e25baa2948fbfe7fc358462f6fd9c4da3-0" id="fnref-e2f59c3e25baa2948fbfe7fc358462f6fd9c4da3-0">1</a></sup>.
+Before beginning to use the XCL, it is highly recommended that you read [[JameySharp]] and [[BartMassey]]'s paper _[XCL: An Xlib Compatibility Layer for XCB](http://www.usenix.org/events/usenix02/tech/freenix/sharp.html)_
 
 ### Using the XCL
 
