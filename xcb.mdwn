@@ -97,9 +97,9 @@ Previous work on XCL is best considered a prototype. It was complete enough to r
 
 In 2004, [[JoshTriplett]] replaced the M4-based protocol description macros with an XML-based protocol description data format and an XSLT-based C binding generator, as part of the [[XML-XCB|Software/XML-XCB]] project. This work has been merged into XCB.
 
-## Publications
-
 <a name="publications" id="publications"></a>
+
+## Publications
 
 [[BartMassey]] and [[JameySharp]].<br /> XCB: An X Protocol C Binding.<br /> In _Proc. [2001 XFree86 Technical Conference](http://www.usenix.org/events/xfree86/)_, Oakland, CA, November 2001. USENIX.<br /> URL [http://www.linuxshowcase.org/2001/full\_papers/massey/massey.pdf](http://www.linuxshowcase.org/2001/full_papers/massey/massey.pdf).<br /> Local copies: [PDF](http://www.freedesktop.org/software/xcb/xfree86-xcb.pdf), [PS](http://www.freedesktop.org/software/xcb/xfree86-xcb.ps).
 
