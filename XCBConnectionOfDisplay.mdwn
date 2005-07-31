@@ -1,0 +1,10 @@
+# XCBConnectionOfDisplay
+
+## Function Prototype
+
+- `XCBConnection *XCBConnectionOfDisplay(Display *dpy);`
+
+## Example
+
+    int foo;
+    foo;
