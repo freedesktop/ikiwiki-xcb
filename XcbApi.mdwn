@@ -6,6 +6,8 @@ Each function and data structure documents the source file containing its declar
 
 These functions are declared in xcb.h.
 
+<a name="XCBConnection" id="XCBConnection"></a>
+
 ## XCBConnection
 
 (xcbint.h)
