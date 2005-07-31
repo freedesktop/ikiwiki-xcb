@@ -6,7 +6,22 @@ The `XCLATOM` function casts an `Atom` object to an `XCBATOM` object.
 
 # Example
 
-    int foo;
+    #include <X11/xcl.h>
+    #include <stdlib.h>
+    #include <assert.h>
+
+    int main(int argc, char* argv[])
+    {
+        Atom src, result;
+        XCBATOM dest = XCLATOM(src);
+
+        /* To cast back to an `Atom' from an `XCBATOM', just use the XCB
+           type's `xid' field. */
+        result = dest.xid;
+        assert(result == src);
+
+        return EXIT_SUCCESS;
+    }
 
 # See Also
 
