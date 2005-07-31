@@ -14,6 +14,11 @@
     {
         Display *dpy = XOpenDisplay(NULL);
         XCBConnection *c;
+        XCBSCREEN *screen;
+        XCBWINDOW window;
+
+        const int depth = 0, x = 0, y = 0, width = 150, height = 150,
+                  border_width = 1;
 
         if (! dpy)
         {
@@ -34,7 +39,18 @@
             exit(EXIT_FAILURE);
         }
 
-        /* Do something meaningful, fun, and interesting with the new XCBConnection object. */
+        /* Do something meaningful, fun, and interesting with the new
+         * XCBConnection object.
+         */
+        window = XCBWINDOWNew(c);
+        screen = XCBConnSetupSuccessRepRootsIter(XCBGetSetup(c)).data;
+
+        XCBCreateWindow(c, depth, window, screen->root, x, y, width, height,
+                        border_width, InputOutput, screen->root_visual, 0, NULL);
+        XCBMapWindow(c, window);
+        XCBSync(c, 0);
+
+        for (;;) /* Loop forever */ ;
 
         return EXIT_SUCCESS;
     }
