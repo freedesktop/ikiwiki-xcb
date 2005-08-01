@@ -13,12 +13,6 @@ The `XCLCOLORMAP` functions casts a `Colormap` object to an `XCBCOLORMAP`.
 
     static const int red = 0xFFFF, green = 0x0, blue = 0x0; /* Test values. */
 
-    /*
-       Like XAllocColor, this contrived wrapper returns a non-zero value
-       on success and zero on failure.
-    */
-    Status superduperColorAllocator(Display* dpy, int screen_num, XColor *color);
-
     int main(void)
     {
         Display *dpy = XOpenDisplay(NULL);
@@ -64,6 +58,8 @@ The `XCLCOLORMAP` functions casts a `Colormap` object to an `XCBCOLORMAP`.
 
         return result;
     }
+
+In this example, imagine the interface of `superduperColorAllocator` has been publicly released and can't be changed; however, since the XCL is binary compatible with Xlib, the internal implementation of this function can be ported to take advantage of XCB. Specifically, in this example, the result of `DefaultColormap` is cast from a `Colormap` to an `XCBCOLORMAP` using `XCLCOLORMAP`. After which, it allocates a new `XCBAllocColorRep` object using `XCBAllocColor` and `XCBAllocColorReply` in a way that is analogous to `XAllocColor`. This newly created `XCBAllocColorRep` object's data is then copied into the caller's `XColor` structure. Finally, like the Xlib's `XAllocColor` function, the new color must be freed because it is no longer needed. After returning to the client, the results are verified and printed.
 
 # See Also
 
