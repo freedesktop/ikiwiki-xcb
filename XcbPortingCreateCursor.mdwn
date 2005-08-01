@@ -19,6 +19,7 @@ This example creates a new `Display` and `Window` using the common Xlib function
         XCBCreateGlyphCursor(c, cursor, font, *mask_font, shape, shape + 1,
                              fgred, fggreen, fgblue, bgred, bggreen, bgblue);
         XDefineCursor(dpy, window.xid, cursor.xid);
+        XCBFreeCursor(c, cursor);
     }
 
     int main(void)
