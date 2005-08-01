@@ -62,11 +62,11 @@ Some salient points in this example include the following:
 - The `Display` object is cast to an `XCBConnection` object using `XCBConnectionOfDisplay`.
 - After the cast, the connection is passed to various other XCB functions.
 
-Though this example is contrived, `XCBConnectionOfDisplay` is an esential part of the porting process. For example, say you have some function that takes a `Display` object. You can leave the prototype unchanged, in the body of the function cast it to an `XCBConnection`, and port only that function. The rest of the code can remain unchanged. In this way, the process of converting the application to use XCB is staggered as necessary, time, knowledge, and knowledge permit.
+Though this example is contrived, `XCBConnectionOfDisplay` is an essential part of the porting process. For example, say you have some function that takes a `Display` object. You can leave the prototype unchanged, in the body of the function cast it to an `XCBConnection`, and port only that function. The rest of the code can remain unchanged. In this way, the process of converting the application to use XCB is staggered as necessary, time, knowledge, and knowledge permit.
 
 # Casting the Other Way
 
-How do you get a `Display` object given an `XCBConnection` object?
+How do you get a `Display` object given an `XCBConnection` object? You can't. So, if you find yourself needing to cast an `XCBConnection` to a `Display`, stop, rethink, and find another way to structure your code to work without the cast.
 
 # See Also
 
