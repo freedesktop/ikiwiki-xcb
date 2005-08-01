@@ -51,3 +51,9 @@ This example creates a new `Display` and `Window` using the common Xlib function
     }
 
 Suppose that the `attach_cursor` function was to be ported entirely to use XCB's functionality. How could the pointer's cursor be set to the specified symbol without using `XDefineCursor`?
+
+# See Also
+
+- [[XcbPorting]]
+- [[XCLWINDOW]]
+- [[XCBConnectionOfDisplay]]
