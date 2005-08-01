@@ -109,6 +109,8 @@ In 2004, [[JoshTriplett]] replaced the M4-based protocol description macros with
 
 [[JameySharp]].<br /> How Xlib is Implemented (And What We're Doing About It).<br /> In _Proc. [2004 Usenix Annual Technical Conference](http://www.usenix.org/events/usenix04/), Freenix Track_, Boston, MA, June 2004.<br /> URL <http://www.usenix.org/events/usenix04/tech/freenix/sharp.html>.<br /> Local copies: [PDF](http://www.freedesktop.org/software/xcb/xlib_impl.pdf), [PS](http://www.freedesktop.org/software/xcb/xlib_impl.ps).<br /> Slides: [PDF](http://www.freedesktop.org/software/xcb/xlib_impl_slides.pdf).
 
+[[JameySharp]].<br /> XCB and Xlib.<br /> Presented at [Desktop Developer's Conference 2005](http://desktopcon.org/2005/).<br /> Slides: [PDF](http://xcb.freedesktop.org/pubs/ddc2005.pdf) [SXI](http://xcb.freedesktop.org/pubs/ddc2005.sxi).
+
 ## Acknowledgements
 
 The authors are grateful to [[KeithPackard]] for his advice and assistance with X and XCB issues both philosophical and technical, and to Xlib author [[JimGettys]] for his advice and support. We are also grateful to [[AndyHowe]] for his efforts in testing XCB and finding ways to improve its implementation and documentation, and in implementing a significant portion of XCL.
