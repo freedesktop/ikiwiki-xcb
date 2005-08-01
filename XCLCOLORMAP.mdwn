@@ -6,7 +6,64 @@ The `XCLCOLORMAP` functions casts a `Colormap` object to an `XCBCOLORMAP`.
 
 # Example
 
-    int foo;
+    #include <X11/xcl.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <assert.h>
+
+    static const int red = 0xFFFF, green = 0x0, blue = 0x0; /* Test values. */
+
+    /*
+       Like XAllocColor, this contrived wrapper returns a non-zero value
+       on success and zero on failure.
+    */
+    Status superduperColorAllocator(Display* dpy, int screen_num, XColor *color);
+
+    int main(void)
+    {
+        Display *dpy = XOpenDisplay(NULL);
+        int screen_num = DefaultScreen(dpy);
+        XColor color;
+
+        superduperColorAllocator(dpy, screen_num, &color);
+
+        assert(color.red == red);
+        assert(color.green == green);
+        assert(color.blue == blue);
+
+        printf("Closest supported color value = 0x%X\n"
+               "Actual colors used:\n"
+               "    red = 0x%X\n"
+               "    green = 0x%X\n"
+               "    blue = 0x%X\n", color.pixel, color.red, color.green, color.blue);
+
+        return EXIT_SUCCESS;
+    }
+
+    Status superduperColorAllocator(Display* dpy, int screen_num, XColor *color)
+    {
+        Status result;
+        XCBConnection *c = XCBConnectionOfDisplay(dpy);
+        XCBCOLORMAP cmap = XCLCOLORMAP(DefaultColormap(dpy, screen_num));
+        XCBAllocColorCookie cookie = XCBAllocColor(c, cmap, red, green, blue);
+        XCBAllocColorRep *color_rep = XCBAllocColorReply(c, cookie, 0);
+
+        if (! color_rep)
+            result = 0;
+        else
+        {
+            result = 1;
+
+            color->pixel = color_rep->pixel;
+            color->red = color_rep->red;
+            color->blue = color_rep->blue;
+            color->green = color_rep->green;
+
+            free(color_rep);
+        }
+
+        return result;
+    }
 
 # See Also
 
