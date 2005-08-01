@@ -1,5 +1,9 @@
 This page provides information and resources about porting applications from Xlib to XCB. It discusses the Xlib Compatibility Layer, provides various examples, conglomerates past mailing list posts related to poring, and hopefully will become an important reference for developers who wish to utilize the power and simplicity of XCB by reprogramming their applications to it.
 
+# The Big Picture
+
+The recommended way to port an application from Xlib to XCB is to begin by converting the internal interfaces and structures from Xlib types to XCB. For libraries, a two step strategy is recommended. First, begin by porting the public interfaces to use XCB types. Then, provide a thin wrapper library that provides the old interface, so legacy applications can use the newly ported library without any alterations. To help with this process, a small abstraction layer called the XCL is available.
+
 # The XCL
 
 As mentioned [[elsewhere|xcb]], the Xlib Compatibility Layer or XCL for short emulates Xlib but is built on XCB. This allows current applications built with Xlib to begin leveraging XCB's capabilities slowly over time; the entire program doesn't have to be ported immediately. Rather, it can continue to use various Xlib functions, data types, etc. while also using XCB's facilities, structures, and other resources simultaneously.
