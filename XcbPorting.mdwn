@@ -23,3 +23,9 @@ Follow the function's link to see its prototype and an example of how to use it.
 ## Past Posts
 
 ## Examples
+
+<dl>
+  <dd>
+    <p>[[XcbPortingCreateCursor]] Creating a cursor from a standard font.</p>
+  </dd>
+</dl>
