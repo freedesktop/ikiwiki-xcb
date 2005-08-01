@@ -22,6 +22,12 @@ Follow the function's link to see its prototype and an example of how to use it.
 
 ## Past Posts
 
+<dl>
+  <dd>
+    <p><a href="http://lists.freedesktop.org/pipermail/xcb/2005-June/000825.html">XNextEvent</a> How to write the usual Xlib non-blocking event loop in XCB.</p>
+  </dd>
+</dl>
+
 ## Examples
 
 <dl>
