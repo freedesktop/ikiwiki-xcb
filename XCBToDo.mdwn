@@ -8,9 +8,9 @@ Don't forget to ask for help on the mailing list if you get stuck.
 
 If you're not sure where to start in learning about XCB and XCL, you might try these steps. Documenting your progress for others coming this way would be a great contribution too.
 
-- Check out and build the [[Xlib|X11]] source.
+- Check out and build the [Xlib](http://freedesktop.org/wiki/Software/X11) source.
 - Check out and build the [[XCB/XCL|xcb]] sources.
-- Understand and document the DPMS extension implementation. Re-implementing it straight from the original extension documentation would be a good way to accomplish this. The [[XCBProtocolLanguage]] document is supposed to be sufficient to explain how to do this; if it isn't, fixing it would be wonderful.
+- Understand and document the DPMS extension implementation. Re-implementing it straight from the original extension documentation would be a good way to accomplish this. The [[XmlXcb]] documentation should be sufficient to do this.
 
 With that experience, the easiest thing you can do to help our efforts is to implement some extension that's currently unsupported by XCB.
 
@@ -33,7 +33,7 @@ Tasks are ranked by priority:
 ## Documentation
 
 - {1} Understand and document X image formats, as per GetImage and PutImage, consulting documentation and &lt;del&gt;Keith Packard&lt;/del&gt; the mailing list as needed. ([[BartMassey]])
-- {1} Fully document the XML-based protocol description data format. (in progress) -- [[JoshTriplett]] - 07 Nov 2004
+- {1} Fully document the [[XmlXcb]] protocol description data format. (in progress) -- [[JoshTriplett]] - 07 Nov 2004
 
 ## Tests and Demos
 
@@ -101,7 +101,7 @@ A prototype implementation is available in the xcb-util module; more discussion 
 
 ## Alternate targets
 
-The XCB protocol descriptions are largely target-language independent. There are some additional potential uses for the protocol descriptions that an XSLT hacker could try implementing. The process of implementing these will reveal limits in the [[XCBProtocolLanguage]], for which it should be extended.
+The XCB protocol descriptions are largely target-language independent. There are some additional potential uses for the protocol descriptions that an XSLT hacker could try implementing. The process of implementing these will reveal limits in [[XmlXcb]], for which it should be extended.
 
 ### xcb-server
 
@@ -123,13 +123,13 @@ Macros like [[COMMENT|XCBProtocolLanguage]] were intended to be read by this, bu
 
 Computing the number of bytes each field occupies in the binary protocol requires some data that doesn't currently appear in any of our protocol descriptions. Recording the size of CARD\*, INT\*, BOOL, BYTE, etc. should enable this, since all the other types are composed from those.
 
-With the merge of XML-XCB, this could now be accomplished by integrating part or all of some existing XML documentation format into the XML-XCB data format.
+With the merge of [[XmlXcb]], this could now be accomplished by integrating part or all of some existing XML documentation format into the XML-XCB data format.
 
 ### xcb-pretty
 
 Sometimes applications want to print various parts of the X protocol in human-readable form. Error handlers and applications like the X Event Viewer (xev) and xscope come to mind. For these applications, it would be nice to auto-generate the protocol pretty-printer code.
 
-[[JoshTriplett]] is currently working on an X protocol dissector (Xamine) based on the XML-XCB protocol descriptions.
+[[JoshTriplett]] is currently working on an X protocol dissector (Xamine) based on the [[XmlXcb]] protocol descriptions.
 
 ### XCB for other languages
 
