@@ -2,7 +2,7 @@
 
 ## Description
 
-The [[XCB|Software/xcb]] project is a replacement for the X Window System library Xlib. One major feature of XCB is the automatic generation of C bindings to the X protocol based on a description of that protocol. Previously, these descriptions were written in a [[protocol description language|Software/XCBProtocolLanguage]] defined by a set of [M4](http://www.gnu.org/software/m4) macros. The XML-XCB project replaced the M4-based protocol description language and macros with an [XML](http://www.w3.org/XML)-based protocol description language and an [XSLT](http://www.w3.org/TR/xslt)-based binding generator.
+The [[XCB]] project is a replacement for the X Window System library Xlib. One major feature of XCB is the automatic generation of C bindings to the X protocol based on a description of that protocol. Previously, these descriptions were written in a [protocol description language](http://freedesktop.org/wiki/Software/XCBProtocolLanguage) defined by a set of [M4](http://www.gnu.org/software/m4) macros. The XML-XCB project replaced the M4-based protocol description language and macros with an [XML](http://www.w3.org/XML)-based protocol description language and an [XSLT](http://www.w3.org/TR/xslt)-based binding generator.
 
 This new approach has several advantages:
 
