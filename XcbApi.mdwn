@@ -26,7 +26,7 @@ An XCBConnection is an opaque structure containing all data that [[XCB]] needs t
 
 `typedef struct XCBExtension XCBExtension`
 
-An XCBExtension is an opaque structure used as key for [XCBGetExtensionData](http://xcb.freedesktop.org/wiki/).
+An XCBExtension is an opaque structure used as key for [XCBGetExtensionData](#XCBGetExtensionData).
 
 <a name="XCBAuthInfoHost"></a>
 
@@ -91,9 +91,9 @@ Connects to the X server specified by `display`. If `display` is null, uses the 
 
 Calls:
 
-- [XCBGetFDFromDisplay](http://xcb.freedesktop.org/wiki/)
-- [XCBGetAuthInfo](http://xcb.freedesktop.org/wiki/)
-- [XCBConnectToFD](http://xcb.freedesktop.org/wiki/)
+- [XCBGetFDFromDisplay](#XCBGetFDFromDisplay)
+- [XCBGetAuthInfo](#XCBGetAuthInfo)
+- [XCBConnectToFD](#XCBConnectToFD)
 
 <a name="XCBConnectToDisplayWithAuthInfo"></a>
 
@@ -107,8 +107,8 @@ Connects to the X server specified by `display`, using the given authorization i
 
 Calls:
 
-- [XCBGetFDFromDisplay](http://xcb.freedesktop.org/wiki/)
-- [XCBConnectToFD](http://xcb.freedesktop.org/wiki/)
+- [XCBGetFDFromDisplay](#XCBGetFDFromDisplay)
+- [XCBConnectToFD](#XCBConnectToFD)
 
 <a name="XCBConnectToDD"></a>
 
@@ -123,19 +123,19 @@ Connects to an X server, given an open socket and a suitable [XCBAuthInfo](http:
 <dl>
   <dt>fd</dt>
   <dd>
-    <p>a file descriptor bidirectionally connected to an X server. <a href="http://xcb.freedesktop.org/wiki/">XCBGetTCPFD</a> and <a href="http://xcb.freedesktop.org/wiki/">XCBGetUnixFD</a> return appropriate file descriptors.</p>
+    <p>a file descriptor bidirectionally connected to an X server. <a href="#XCBGetTCPFD">XCBGetTCPFD</a> and <a href="#XCBGetUnixFD">XCBGetUnixFD</a> return appropriate file descriptors.</p>
   </dd>
   <dt>auth_info</dt>
   <dd>
-    <p>authentication data, or 0 if the connection should be unauthenticated. <a href="http://xcb.freedesktop.org/wiki/">XCBGetAuthInfo</a> returns appropriate authentication data.</p>
+    <p>authentication data, or 0 if the connection should be unauthenticated. <a href="#XCBGetAuthInfo">XCBGetAuthInfo</a> returns appropriate authentication data.</p>
   </dd>
   <dt>Returns</dt>
   <dd>
-    <p>an <a href="http://xcb.freedesktop.org/wiki/">XCBConnection</a>, or 0 on failure.</p>
+    <p>an <a href="#XCBConnection">XCBConnection</a>, or 0 on failure.</p>
   </dd>
 </dl>
 
-See also [XCBConnect](http://xcb.freedesktop.org/wiki/).
+See also [XCBConnect](#XCBConnect).
 
 <a name="XCBDisconnect"></a>
 
@@ -150,7 +150,7 @@ Closes the file descriptor and frees all memory associated with the connection.
 <dl>
   <dt>c</dt>
   <dd>
-    <p>a connection previously returned by [<a href="#XCBConnect">#XCBConnect</a>[XCBConnect]] and not previously passed to XCBDisconnect.</p>
+    <p>a connection previously returned by <a href="#XCBConnect">XCBConnect</a> and not previously passed to XCBDisconnect.</p>
   </dd>
 </dl>
 
@@ -164,8 +164,8 @@ Closes the file descriptor and frees all memory associated with the connection.
 
 Calls:
 
-- [XCBParseDisplay](http://xcb.freedesktop.org/wiki/)
-- [XCBGetTCPFD](http://xcb.freedesktop.org/wiki/) or [XCBGetUnixFD](http://xcb.freedesktop.org/wiki/)
+- [XCBParseDisplay](#XCBParseDisplay)
+- [XCBGetTCPFD](#XCBGetTCPFD) or [XCBGetUnixFD](#XCBGetUnixFD)
 
 <a name="XCBParseDisplay"></a>
 
@@ -187,7 +187,7 @@ Parses a display string `name` in the form documented by X(7x). Has no side effe
 
 `int XCBGetTCPFD(const char *hostname, unsigned short display, XCBAuthInfoHost *host)`
 
-Opens a TCP socket to the given `hostname`. The destination port is `display` plus 6000. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](http://xcb.freedesktop.org/wiki/).
+Opens a TCP socket to the given `hostname`. The destination port is `display` plus 6000. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](#XCBGetAuthInfo).
 
 <a name="XCBGetUnixFD"></a>
 
@@ -197,7 +197,7 @@ Opens a TCP socket to the given `hostname`. The destination port is `display` pl
 
 `int XCBGetUnixFD(unsigned short display, XCBAuthInfoHost *host)`
 
-Opens a Unix-domain socket. The filename is "/tmp/.X11-unix/X" plus `display`. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](http://xcb.freedesktop.org/wiki/).
+Opens a Unix-domain socket. The filename is "/tmp/.X11-unix/X" plus `display`. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](#XCBGetAuthInfo).
 
 <a name="XCBGetAuthInfo"></a>
 
@@ -219,7 +219,7 @@ The current implementation is a wrapper around the Xau library, which looks up h
 
 `XCBConnSetupSuccessRep *XCBGetSetupData(XCBConnection *c)`
 
-Accessor for the data returned by the server when the [XCBConnection](http://xcb.freedesktop.org/wiki/) was initialized.
+Accessor for the data returned by the server when the [XCBConnection](#XCBConnection) was initialized.
 
 This data includes
 
@@ -239,7 +239,7 @@ See the X protocol specification for more details.
 
 `int XCBGetFileDescriptor(XCBConnection *c)`
 
-Accessor for the file descriptor that was passed to the [XCBConnectToFD](http://xcb.freedesktop.org/wiki/) call that returned `c`.
+Accessor for the file descriptor that was passed to the [XCBConnectToFD](#XCBConnectToFD) call that returned `c`.
 
 <a name="XCBGetMaximumRequestLength"></a>
 
@@ -315,7 +315,7 @@ Do not free the returned XCBQueryExtensionRep - this storage is managed by the c
 
 `void XCBPrefetchExtensionData(XCBConnection *c, XCBExtension *ext)`
 
-This function allows a "prefetch" of extension data into the extension cache. Invoking the function may cause a call to XCBQueryExtension, but will not block waiting for the reply. [XCBGetExtensionData](http://xcb.freedesktop.org/wiki/) will return the prefetched data after possibly blocking while it is retrieved.
+This function allows a "prefetch" of extension data into the extension cache. Invoking the function may cause a call to XCBQueryExtension, but will not block waiting for the reply. [XCBGetExtensionData](#XCBGetExtensionData) will return the prefetched data after possibly blocking while it is retrieved.
 
 # Protocol Stub API
 
@@ -327,9 +327,9 @@ One of the design goals of this API is that users should be able to learn these 
 
 ### XCB"&lt;Extension&gt;"Id
 
-`[:#XCBExtension: XCBExtension] XCB"<Extension>"Id`
+`[#XCBExtension XCBExtension] XCB"<Extension>"Id`
 
-A unique object identifying this extension for [XCBGetExtensionData](http://xcb.freedesktop.org/wiki/).
+A unique object identifying this extension for [XCBGetExtensionData](#XCBGetExtensionData).
 
 ## Fields
 
@@ -343,7 +343,11 @@ Several conventions apply to field names.
 
 The C name for the X type with name "Name" is XCB&lt;"Name"&gt;. If the type is from an extension, then "Name" is composed by prefixing the extension name onto the type name.
 
+[!] _**TODO:**Links to XCBProtocolLanguage should be changed to point to appropriate [[XmlXcb]] documentation._
+
 Types are declared using the [[STRUCT|XCBProtocolLanguage]], [[UNION|XCBProtocolLanguage]], [[XIDTYPE|XCBProtocolLanguage]], [[ENUM|XCBProtocolLanguage]], and ["XCBProtocolLanguage#TYPEDEF: TYPEDEF] protocol description macros.
+
+<a name="XCBNameIter"></a>
 
 ### XCB&lt;Name&gt;Iter
 
@@ -361,13 +365,13 @@ A special iterator type, XCBGenericIter, is declared in xcb.h.
 
 `void XCB&<"Name">Next(XCB<"Name">Iter *i)`
 
-Every [iterator](http://xcb.freedesktop.org/wiki/) has a XCB&lt;"Name"&gt;Next function.
+Every [iterator](#XCBNameIter) has a XCB&lt;"Name"&gt;Next function.
 
 ### XCB&lt;Name&gt;End
 
 `XCBGenericIter XCB<Name">End(XCB<"Name">Iter i)`
 
-Every [iterator](http://xcb.freedesktop.org/wiki/) has a XCB&lt;"Name"&gt;End function.
+Every [iterator](#XCBNameIter) has a XCB&lt;"Name"&gt;End function.
 
 ### XCB&lt;TypeName&gt;&lt;Field&gt;Iter
 
@@ -413,7 +417,7 @@ The base C name for all types and functions related to the X request with name "
              unsigned int sequence;
     } XCB<Name>Cookie;
 
-A special cookie type, XCBVoidCookie, is declared in xcb.h. See [XCB&lt;Name&gt;](http://xcb.freedesktop.org/wiki/).
+A special cookie type, XCBVoidCookie, is declared in xcb.h. See [XCB&lt;Name&gt;](#XCBName).
 
 ### XCB&lt;Name&gt;Req
 
@@ -439,17 +443,21 @@ A special cookie type, XCBVoidCookie, is declared in xcb.h. See [XCB&lt;Name&gt;
 
 A special reply type, XCBGenericRep, is declared in xcb.h. It contains only the fields common to all replies.
 
+<a name="XCBName"></a>
+
 ### XCB&lt;Name&gt;
 
 `XCB<"Name">VoidCookie XCB<"Name">(XCBConnection *c, ...)`
 
 Delivers a request with the specified arguments to the X server.
 
-If the request will cause a reply to be generated, then an [XCB&lt;"Name"&gt;Cookie](http://xcb.freedesktop.org/wiki/)] will be returned and the [XCB&lt;"Name"&gt;Reply](http://xcb.freedesktop.org/wiki/) function should be used to obtain the actual reply.
+If the request will cause a reply to be generated, then an [XCB&lt;"Name"&gt;Cookie](#XCBNameCookie)] will be returned and the [XCB&lt;Name&gt;Reply](#XCBNameReply) function should be used to obtain the actual reply.
 
-Otherwise, an [XCBVoidCookie](http://xcb.freedesktop.org/wiki/) will be returned, and no [XCB&lt;"Name"&gt;Reply](http://xcb.freedesktop.org/wiki/) function will be provided.
+Otherwise, an [XCBVoidCookie](#XCBNameCookie) will be returned, and no [XCB&lt;Name&gt;Reply](#XCBNameReply) function will be provided.
 
-### XCB&lt;"Name"&gt;Reply
+<a name="XCBNameReply"></a>
+
+### XCB&lt;Name&gt;Reply
 
 `XCB<"Name">Rep *XCB<"Name">Reply(XCBConnection *c, XCB<"Name">Cookie cookie, XCBGenericError **e)`
 
@@ -481,9 +489,11 @@ Otherwise, an [XCBVoidCookie](http://xcb.freedesktop.org/wiki/) will be returned
              /* padding to 32 bytes */
     } XCB<EventName>Event;
 
-`response_type` equals the event number. See [XCB&lt;EventName&gt;](http://xcb.freedesktop.org/wiki/).
+`response_type` equals the event number. See [XCB&lt;EventName&gt;](#XCBEventName).
 
 A special event type, XCBGenericEvent, is declared in xcb.h. It contains only the fields common to all events.
+
+<a name="XCBEventName"></a>
 
 ### XCB&lt;EventName&gt;
 
@@ -501,9 +511,11 @@ A special event type, XCBGenericEvent, is declared in xcb.h. It contains only th
 
 `response_type` always equals 0 for errors.
 
-`error_code` equals the error number. See [XCB&lt;ErrorName&gt;](http://xcb.freedesktop.org/wiki/).
+`error_code` equals the error number. See [XCB&lt;ErrorName&gt;](#XCBErrorName).
 
 A special event type, XCBGenericEvent, is declared in xcb.h. It contains only the fields common to all errors.
+
+<a name="XCBErrorName"></a>
 
 ### XCB&lt;ErrorName&gt;
 
