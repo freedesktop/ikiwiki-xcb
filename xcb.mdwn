@@ -81,7 +81,7 @@ The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, X
 
 [[JameySharp]] has written some documentation for those who might want to understand the M4-based [[protocol description language|XCBProtocolLanguage]] previously used in XCB.
 
-[[BartMassey]] has done some work on establishing correctness properties of the core data dispatch mechanism of XCB using a model of XCB written in the [Z](http://www.afm.sbu.ac.uk/z/) formal specification notation (see below). This is good, since the mechanism is complex, and the previous version was known to have defects.
+[[BartMassey]] has done some [work](#Publications) on establishing correctness properties of the core data dispatch mechanism of XCB using a model of XCB written in the [Z](http://www.afm.sbu.ac.uk/z/) formal specification notation. This is good, since the mechanism is complex, and the previous version was known to have defects.
 
 [[JameySharp]] has begun early work on new [[XCB-based libraries and applications|usingxcb]], in addition to the Xlib work described below.
 
