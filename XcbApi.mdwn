@@ -110,7 +110,7 @@ Calls:
 - [XCBGetFDFromDisplay](#XCBGetFDFromDisplay)
 - [XCBConnectToFD](#XCBConnectToFD)
 
-<a name="XCBConnectToDD"></a>
+<a name="XCBConnectToFD"></a>
 
 ## XCBConnectToFD
 
@@ -295,7 +295,7 @@ Forces any buffered output to be written to the server. Blocks until the write i
 
 Blocks the calling thread for the duration of one round trip to the server, ensuring that all events and errors caused by previous requests are available to XCB.
 
-<a name="XCBExtensionData"></a>
+<a name="XCBGetExtensionData"></a>
 
 ## XCBGetExtensionData
 
@@ -411,6 +411,8 @@ Every request declared using the [[REQUEST|XCBProtocolLanguage]] or [[VOIDREQUES
 
 The base C name for all types and functions related to the X request with name "Name" is XCB&lt;"Name"&gt;. If the request is from an extension, then "Name" is composed by prefixing the extension name onto the request name.
 
+<a name="XCBNameCookie"></a>
+
 ### XCB&lt;Name&gt;Cookie
 
     typedef struct {
@@ -451,7 +453,7 @@ A special reply type, XCBGenericRep, is declared in xcb.h. It contains only the 
 
 Delivers a request with the specified arguments to the X server.
 
-If the request will cause a reply to be generated, then an [XCB&lt;"Name"&gt;Cookie](#XCBNameCookie)] will be returned and the [XCB&lt;Name&gt;Reply](#XCBNameReply) function should be used to obtain the actual reply.
+If the request will cause a reply to be generated, then an [XCB&lt;"Name"&gt;Cookie](#XCBNameCookie) will be returned and the [XCB&lt;Name&gt;Reply](#XCBNameReply) function should be used to obtain the actual reply.
 
 Otherwise, an [XCBVoidCookie](#XCBNameCookie) will be returned, and no [XCB&lt;Name&gt;Reply](#XCBNameReply) function will be provided.
 
