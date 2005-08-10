@@ -39,7 +39,7 @@ Tasks are ranked by priority:
 
 {2} A full inspection of XCB and XCL sources would be wise.
 
-{2} XCB and XCL need a wider variety of test cases to help demonstrate correctness. We should enhance the code to support the existing X Window System test framework through XCL, which would provide a wide variety of tests of both components. (This may be about done - I'm seeing good results from XCL these days.)
+{2} XCB and XCL need a wider variety of [test cases](http://www.x.org/TestGroup) to help demonstrate correctness. We should enhance the code to support the existing [X Window System test framework](http://freedesktop.org/wiki/Software/XTesting) through XCL, which would provide a wide variety of tests of both components. (This may be about done - I'm seeing good results from XCL these days.)
 
 Additionally, these specific features have been proposed as targets for simple test apps.
 
