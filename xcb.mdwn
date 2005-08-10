@@ -95,7 +95,7 @@ Previous work on XCL is best considered a prototype. It was complete enough to r
 
 ### XML-XCB
 
-In 2004, [[JoshTriplett]] replaced the M4-based protocol description macros with an XML-based protocol description data format and an XSLT-based C binding generator, as part of the [[XML-XCB|Software/XML-XCB]] project. This work has been merged into XCB.
+In 2004, [[JoshTriplett]] replaced the M4-based protocol description macros with an XML-based protocol description data format and an XSLT-based C binding generator, as part of the [[XmlXcb]] project. This work has been merged into XCB.
 
 <a name="Publications" id="Publications"></a>
 
