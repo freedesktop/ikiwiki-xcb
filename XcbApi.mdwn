@@ -177,7 +177,20 @@ Calls:
 
 Parses a display string `name` in the form documented by X(7x). Has no side effects on failure.
 
-- name\*: the display name to parse. host\*: a non-null pointer to a pointer which will be set to a malloc'd copy of the hostname. display\*: a non-null pointer to an int which will be set to the display number. screen\*: a (possibly null) pointer to an int which will be set to the preferred screen number, or set to 0 if the display string does not contain a screen number. Returns\*: 0 on failure (perhaps `name` was null or unparsable); non-zero on success.
+<dl>
+  <dt>name</dt>
+  <dd>the display name to parse.</dd>
+  <dt>host</dt>
+  <dd>a non-null pointer to a pointer which will be set to a malloc&#39;d copy of the hostname.</dd>
+  <dt>display</dt>
+  <dd>a non-null pointer to an int which will be set to the display number.</dd>
+  <dt>screen</dt>
+  <dd>a (possibly null) pointer to an int which will be set to the preferred screen number, or set to 0 if the display string does not contain a screen number.</dd>
+  <dt>Returns</dt>
+  <dd>
+    <p>0 on failure (perhaps <tt>name</tt> was null or unparsable); non-zero on success.</p>
+  </dd>
+</dl>
 
 <a name="XCBGetTCPFD"></a>
 
@@ -273,7 +286,10 @@ Returns the next event or error from the server, or returns null in the event of
 
 Returns the next event or error from the server, if one is available, or returns null otherwise. If no event is available, that might be because an I/O error like connection close occurred while attempting to read the next event.
 
-- error\*: pointer to an int to be filled in with the I/O error status of the operation. If \*error\* is null, terminates the application when an I/O error occurs.
+<dl>
+  <dt>error</dt>
+  <dd>pointer to an int to be filled in with the I/O error status of the operation. If *error* is null, terminates the application when an I/O error occurs.</dd>
+</dl>
 
 <a name="XCBFlush"></a>
 
@@ -323,11 +339,13 @@ These are not single functions or types, but rather naming conventions intended 
 
 One of the design goals of this API is that users should be able to learn these conventions, then read documentation on the binary encoding of the core protocol or any extension, and immediately determine the correct function name and argument list to generate the desired request.
 
+[!] _**TODO:** link to online descriptions of the core X protocol as well as de-facto standard extension protocols._
+
 ## Extensions
 
 ### XCB"&lt;Extension&gt;"Id
 
-`[#XCBExtension XCBExtension] XCB"<Extension>"Id`
+`XCBExtension XCB"<Extension>"Id`
 
 A unique object identifying this extension for [XCBGetExtensionData](#XCBGetExtensionData).
 
@@ -535,8 +553,12 @@ Care is required when calling these functions, as they generally do not have the
              const char *name;
              int global_id;
     };
-
-- name\*: the X name of this extension, stored as a null-terminated string. global\_id\*: a small integer unique across all extensions in the current process.
+<dl>
+  <dt>name</dt>
+  <dd>the X name of this extension, stored as a null-terminated string.</dd>
+  <dt>global_id</dt>
+  <dd>a small integer unique across all extensions in the current process.</dd>
+</dl>
 
 ## XCBProtocolRequest
 
