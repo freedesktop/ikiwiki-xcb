@@ -1,0 +1,169 @@
+# XML-XCB
+
+## Description
+
+The [[XCB|Software/xcb]] project is a replacement for the X Window System library Xlib. One major feature of XCB is the automatic generation of C bindings to the X protocol based on a description of that protocol. Previously, these descriptions were written in a [[protocol description language|Software/XCBProtocolLanguage]] defined by a set of [M4](http://www.gnu.org/software/m4) macros. The XML-XCB project replaced the M4-based protocol description language and macros with an [XML](http://www.w3.org/XML)-based protocol description language and an [XSLT](http://www.w3.org/TR/xslt)-based binding generator.
+
+This new approach has several advantages:
+
+- XML and XSLT are much more widely understood than M4.
+- There are many more tools that understand XML and XSLT. Only the M4 macro processor understands M4, and creating new operations based on the M4 protocol descriptions would require writing new sets of macros with the same API. XML protocol descriptions simply provide structured data for use either by XSLT or by any programming language with an XML library. This greatly reduces duplication of effort between different operations on the protocol descriptions. The structured format of XML also enables processing based on the structure of the data, rather than just executing macros as they are encountered.
+- Many more uses of the data become possible, through accessing the XML protocol descriptions from a program, rather than treating them as a program themselves. For some examples, see the Future Directions section.
+
+## Architecture
+
+XML-XCB consists of the following components:
+
+- An XML Schema, defining an XML data format for X protocol descriptions.
+- X protocol descriptions for the core X protocol and all extensions, written in the format defined by the XML schema.
+- An XSL Transform (XSLT) to generate C bindings to the X protocol from the XML descriptions. These bindings are implemented on top of the existing XCB transport layer.
+
+## Plan
+
+<div>
+  <table>
+    <tbody>
+      <tr>
+        <td style="width: 70%; text-align: center">
+          <p><strong>Milestone</strong></p>
+        </td>
+        <td style="width: 30%; text-align: center">
+          <p><strong>Status</strong></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Write the XML Schema.</p>
+        </td>
+        <td>
+          <p>Done: the <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/xcb.xsd">XML-XCB schema</a> is available.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert one of the smaller extensions to the XML description format, to provide some data to work with.</p>
+        </td>
+        <td>
+          <p>Done: converted dpms.xcb to <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/dpms.xml">dpms.xml</a>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Write the XSLT for the most needed protocol elements, including all those used by the converted extension.</p>
+        </td>
+        <td>
+          <p>Done: <a href="http://cvs.freedesktop.org/xcb/xcb/src/c-client.xsl">c-client.xsl</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert xcb_types to the XML description format, and write the additional XSLT to support it.</p>
+        </td>
+        <td>
+          <p>Done: converted xcb_types.xcb to <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/xcb_types.xml">xcb_types.xml</a>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert the remaining extensions to the XML description format.</p>
+        </td>
+        <td>
+          <p>Done: see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/bigreq.xml">bigreq.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/render.xml">render.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/shape.xml">shape.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/shm.xml">shm.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/sync.xml">sync.xml</a>, and <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/xc_misc.xml">xc_misc.xml</a>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert the core X protocol description to the XML description format.</p>
+        </td>
+        <td>
+          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/xproto.xml">xproto.xml</a>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Add the XSLT for the protocol elements needed by the remaining extensions.</p>
+        </td>
+        <td>
+          <p>Done.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Write XSLT to handle variable-length structures.</p>
+        </td>
+        <td>
+          <p>Done.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Complete all remaining XSLT, and ensure that the generated C code matches the code generated by the M4 macros.</p>
+        </td>
+        <td>
+          <p>Done.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Integrate into XCB.</p>
+        </td>
+        <td>
+          <p>Done.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Add support for one extension referencing the types of another.</p>
+        </td>
+        <td>
+          <p>Done.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert the XFIXES extension to the XML description format.</p>
+        </td>
+        <td>
+          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/xfixes.xml">xfixes.xml</a>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert the DAMAGE extension to the XML description format.</p>
+        </td>
+        <td>
+          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/damage.xml">damage.xml</a>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert the Composite extension to the XML description format.</p>
+        </td>
+        <td>
+          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/composite.xml">composite.xml</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Convert the XEvIE extension to the XML description format.</p>
+        </td>
+        <td>
+          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/xevie.xml">xevie.xml</a></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## Presentation
+
+You can download my [project presentation](http://freedesktop.org/~josh/xmlxcb/cs410-presentation-2004-08-11.pdf) for C410 "Open Source Software Development", or the [LaTeX source for that presentation](http://freedesktop.org/~josh/xmlxcb/cs410-presentation-2004-08-11.tex).
+
+## Future Directions
+
+Some possible enhancements enabled by the XML data format include:
+
+- Using the XML protocol descriptions, a program could analyze dumped X protocol streams and generate a listing of the X requests and results in that stream.
+- Bindings for different languages (whether native or just wrappers around the C API) would simply be additional XSLTs. These XSLTs could generate the bindings directly, or output information for an existing language-binding generator.
+- An automatically-generated server-side protocol handler would also be just another XSLT.
+- Documentation for the X protocol could be embedded in the XML using an existing XML documentation format, or a subset or superset of such a format. Protocol documentation could then be generated through XSLT, including API listings generated from the protocol descriptions themselves.
