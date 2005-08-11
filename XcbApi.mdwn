@@ -6,21 +6,23 @@ Each function and data structure documents the source file containing its declar
 
 # Public API
 
-These functions are declared in xcb.h.
+## Types
+
+These types are declared in xcb.h.
 
 <a name="XCBConnection"></a>
 
-## XCBConnection
+### XCBConnection
 
-(xcbint.h)
+(xcb.h)
 
 `typedef struct XCBConnection XCBConnection`
 
-An XCBConnection is an opaque structure containing all data that [[XCB]] needs to communicate with an X server.
+An XCBConnection is an opaque structure containing all data that [[XCB]] needs to communicate with an X server. The structure is defined in xcbint.h.
 
 <a name="XCBExtension"></a>
 
-## XCBExtension
+### XCBExtension
 
 (xcb.h)
 
@@ -30,7 +32,7 @@ An XCBExtension is an opaque structure used as key for [XCBGetExtensionData](#XC
 
 <a name="XCBAuthInfoHost"></a>
 
-## XCBAuthInfoHost
+### XCBAuthInfoHost
 
 (xcb.h [!] )
 
@@ -59,7 +61,7 @@ Identifier for an X server.
 
 <a name="XCBAuthInfo"></a>
 
-## XCBAuthInfo
+### XCBAuthInfo
 
 (xcb.h)
 
@@ -78,6 +80,10 @@ A container for authorization information to be sent to the X server.
   <dt>data</dt>
   <dd>interpreted in a protocol-specific manner.</dd>
 </dl>
+
+----
+
+These functions are declared in xcb.h.
 
 <a name="XCBConnect"></a>
 
@@ -258,7 +264,7 @@ Accessor for the file descriptor that was passed to the [XCBConnectToFD](#XCBCon
 
 ## XCBGetMaximumRequestLength
 
-(xcb\_conn.c)
+(xcb\_out.c)
 
 `CARD32 XCBGetMaximumRequestLength(XCBConnection *c)`
 
@@ -270,7 +276,7 @@ Note that this length is measured in four-byte units, making the theoretical max
 
 ## XCBWaitForEvent
 
-(xcb\_in.c [!] )
+(xcb\_in.c)
 
 `XCBGenericEvent *XCBWaitForEvent(XCBConnection *c)`
 
@@ -291,6 +297,16 @@ Returns the next event or error from the server, if one is available, or returns
   <dd>pointer to an int to be filled in with the I/O error status of the operation. If *error* is null, terminates the application when an I/O error occurs.</dd>
 </dl>
 
+## XCBGetRequestRead
+
+(xcb\_in.c)
+
+`unsigned int XCBGetRequestRead(XCBConnection *c)`
+
+[!] _**TODO:** review_
+
+Returns the last sequence number that the server is known to have processed. This function enables apps to determine whether forcing a cookie is going to block.
+
 <a name="XCBFlush"></a>
 
 ## XCBFlush
@@ -300,6 +316,8 @@ Returns the next event or error from the server, if one is available, or returns
 `int XCBFlush(XCBConnection *c)`
 
 Forces any buffered output to be written to the server. Blocks until the write is complete.
+
+[!] Returns: ?
 
 <a name="XCBSync"></a>
 
@@ -311,6 +329,8 @@ Forces any buffered output to be written to the server. Blocks until the write i
 
 Blocks the calling thread for the duration of one round trip to the server, ensuring that all events and errors caused by previous requests are available to XCB.
 
+[!] Returns: ?
+
 <a name="XCBGetExtensionData"></a>
 
 ## XCBGetExtensionData
@@ -321,7 +341,7 @@ Blocks the calling thread for the duration of one round trip to the server, ensu
 
 This function is the primary interface to the "extension cache", which caches reply information from [[QueryExtension]] requests. Invoking this function may cause a call to XCBQueryExtension to retrieve extension information from the server, and may block until extension data is received from the server.
 
-Do not free the returned XCBQueryExtensionRep - this storage is managed by the cache itself.
+Do **not** free the returned XCBQueryExtensionRep - this storage is managed by the cache itself.
 
 <a name="XCBPrefetchExtensionData"></a>
 
@@ -347,7 +367,9 @@ One of the design goals of this API is that users should be able to learn these 
 
 `XCBExtension XCB"<Extension>"Id`
 
-A unique object identifying this extension for [XCBGetExtensionData](#XCBGetExtensionData).
+(xcb.h)
+
+A unique, opaque object identifying this extension for [XCBGetExtensionData](#XCBGetExtensionData).
 
 ## Fields
 
@@ -370,7 +392,7 @@ Types are declared using the [[STRUCT|XCBProtocolLanguage]], [[UNION|XCBProtocol
 ### XCB&lt;Name&gt;Iter
 
     typedef struct {
-             XCB<Name>; *data;
+             XCB<Name> *data;
              int rem;
              int index;
     } XCB<Name>Iter;
@@ -533,7 +555,7 @@ A special event type, XCBGenericEvent, is declared in xcb.h. It contains only th
 
 `error_code` equals the error number. See [XCB&lt;ErrorName&gt;](#XCBErrorName).
 
-A special event type, XCBGenericEvent, is declared in xcb.h. It contains only the fields common to all errors.
+A special error type, XCBGenericError, is declared in xcb.h. It contains only the fields common to all errors.
 
 <a name="XCBErrorName"></a>
 
