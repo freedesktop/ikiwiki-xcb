@@ -2,7 +2,7 @@
 
 Added Screen Saver extension -- [[VincentTorri]]
 
-Added Print extension -- [[JeremyKolb]]
+Added [Print](http://freedesktop.org/wiki/Software/xprint) extension -- [[JeremyKolb]]
 
 # May 2005
 
@@ -22,7 +22,7 @@ Added RandR and GLX support. Added xandr port (xcbrandr) to xcb-demoes.
 
 Merged all work from the [[XmlXcb]] project. All of the protocol descriptions are now XML files, and the C binding generator is an XSLT.
 
-Added protocol descriptions for [XFIXES](http://www.freedesktop.org/wiki/FixesExt), [Composite](http://www.freedesktop.org/wiki/CompositeExt), [DAMAGE](http://www.freedesktop.org/wiki/XDamage), and [XEvIE](http://www.freedesktop.org/wiki/XEvIE).
+Added protocol descriptions for [XFIXES](http://freedesktop.org/wiki/Software/FixesExt), [Composite](http://freedesktop.org/wiki/Software/CompositeExt), [DAMAGE](http://freedesktop.org/wiki/Software/DamageExt), and [XEvIE](http://freedesktop.org/wiki/Software/XEvIE).
 
 -- Main.[[JoshTriplett]] - 07 Nov 2004
 
