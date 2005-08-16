@@ -124,7 +124,7 @@ Calls:
 
 `XCBConnection *XCBConnectToFD(int fd, XCBAuthInfo *auth_info)`
 
-Connects to an X server, given an open socket and a suitable [XCBAuthInfo](http://xcb.freedesktop.org/wiki/).
+Connects to an X server, given an open socket and a suitable [XCBAuthInfo](#XCBAuthInfo).
 
 <dl>
   <dt>fd</dt>
