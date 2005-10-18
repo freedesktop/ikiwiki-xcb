@@ -1,4 +1,4 @@
-# XCB/XCL
+# XCB and Xlib/XCB
 
 ## Introduction
 
@@ -10,9 +10,9 @@
 - Threaded applications: While Xlib does attempt to support multithreading, the API makes this difficult and error-prone.
 - New extensions: The Xlib infrastructure provides limited support for the creation of X extension client side code.
 
-### XCB: an X C Binding
+### XCB: an X protocol C Binding
 
-For these reasons, among others, we are working on XCB, an X C Binding which is designed to solve the above problems and thus provide a base for
+For these reasons, among others, we are working on XCB, an X protocol C Binding which is designed to solve the above problems and thus provide a base for
 
 - Toolkit implementation.
 - Direct protocol-level programming.
@@ -20,11 +20,17 @@ For these reasons, among others, we are working on XCB, an X C Binding which is 
 
 ### XCL: an Xlib Compatibility Layer
 
-We are also working on XCL, an Xlib Compatibility Layer, which builds on XCB to emulate Xlib. We expect in doing this to allow the large base of existing applications built on Xlib to begin to take advantage of XCB's capabilities.
+We previously worked on XCL, an Xlib Compatibility Layer, which built on XCB to emulate Xlib. We expected in doing this to allow the large base of existing applications built on Xlib to begin to take advantage of XCB's capabilities.
+
+XCL was a qualified success. The more arcane features of Xlib were difficult to capture in new code. We eventually chose a different approach for Xlib compatibility.
+
+### Xlib/XCB: Xlib with XCB transport
+
+Our experience with XCL convinced us that significant wins were available in providing a library at once binary-compatible with Xlib and built atop XCB. Our second, much more successful attempt at achieving this goal was to rip much of the insides out of stock Xlib and replace it with calls into XCB (and some XCL) code. The result is Xlib/XCB, a library that allows existing application binaries linked against Xlib to run unmodified, allows new applications to mix calls to XCB and Xlib (providing an incremental porting path), and achieves significant savings over stock Xlib in size and complexity.
 
 ## Availability
 
-XCB and Xlib development efforts are coordinated using CVS, this Wiki, and the mailing list.
+XCB and Xlib/XCB development efforts are coordinated using CVS, this Wiki, and the mailing list.
 
 The CVS repository is hosted by freedesktop.org since October 2003, replacing the repository on [Keith Packard's server](http://home.keithp.com). See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/).
 
@@ -87,7 +93,7 @@ The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, X
 
 [[VincentTorri]] has begun a tutorial on XCB. It can be found in the source code repository's [tutorial subdirectory](http://cvs.freedesktop.org/xcb/xcb/doc/tutorial/) and [read on-line](http://cvs.freedesktop.org/*checkout*/xcb/xcb/doc/tutorial/index.html). There are also some simple [examples](http://www.iecn.u-nancy.fr/~torri/files/xcb/examples/) on how to use XCB, like drawing points and lines. Additional examples about how XCBImage works could be found in [/cvs/xcb-demo/tests](http://cvs.freedesktop.org/xcb/).
 
-### Xlib on XCB
+### Xlib/XCB
 
 In September 2002, [[JameySharp]] [proposed](http://nexp.cs.pdx.edu/pipermail/xcb/2002-September/000031.html) a modification to Xlib that would maintain binary compatibility with Xlib extensions and applications. The day before Halloween 2003, [[JameySharp]] and [[KeithPackard]] hashed out a better-informed approach, which certainly maintains binary compatibility with applications, and might not require recompiles of extensions either. This was mostly implemented two days later. As of June 2004, the result is quite usable for real work, although some rare but annoying bugs remain.
 
