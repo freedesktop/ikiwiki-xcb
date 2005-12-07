@@ -1,3 +1,7 @@
+# September 2005
+
+Xlib/XCB nearly passes the X Test Suite (only a couple of FAILs).
+
 # July 2005
 
 Added Screen Saver extension -- [[VincentTorri]]
