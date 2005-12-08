@@ -1,8 +1,6 @@
 [[toc levels="6"]]
 
-This is the API for [[XCB]]. At this moment the code does not reflect the API described here, which is undergoing what I hope will be the last publically-visible changes (aside from any future additions). Entries where the documentation does not agree with current CVS are marked with this symbol: [!] . If you have any comments, now is the time: they will be welcomed.
-
-Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
+This is the API for [[XCB]]. Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
 
 # Public API
 
@@ -29,35 +27,6 @@ An XCBConnection is an opaque structure containing all data that [[XCB]] needs t
 `typedef struct XCBExtension XCBExtension`
 
 An XCBExtension is an opaque structure used as key for [XCBGetExtensionData](#XCBGetExtensionData).
-
-<a name="XCBAuthInfoHost"></a>
-
-### XCBAuthInfoHost
-
-(xcb.h [!] )
-
-    typedef struct XCBAuthInfoHost {
-             unsigned short family;
-             unsigned short addresslen;
-             char *address;
-             unsigned short displaylen;
-             char *display;
-    } XCBAuthInfoHost;
-
-Identifier for an X server.
-
-<dl>
-  <dt>family</dt>
-  <dd>
-    <p>one of the families defined in X.h or Xauth.h; usually [[FamilyInternet]] or [[FamilyLocal]].</p>
-  </dd>
-  <dt>address</dt>
-  <dd>
-    <p>interpreted in a family-specific manner; for [[FamilyInternet]], a <tt>struct in_addr</tt> (see ip(7)).</p>
-  </dd>
-  <dt>display</dt>
-  <dd>string containing the display number.</dd>
-</dl>
 
 <a name="XCBAuthInfo"></a>
 
@@ -89,7 +58,7 @@ These functions are declared in xcb.h.
 
 ## XCBConnect
 
-(xcb\_util.c [!] )
+(xcb\_util.c)
 
 `XCBConnection *XCBConnect(const char *display, int *screen)`
 
@@ -105,7 +74,7 @@ Calls:
 
 ## XCBConnectToDisplayWithAuthInfo
 
-(xcb\_util.c [!] )
+(xcb\_util.c)
 
 `XCBConnection *XCBConnectToDisplayWithAuthInfo(const char *display, XCBAuthInfo *auth, int *screen)`
 
@@ -120,7 +89,7 @@ Calls:
 
 ## XCBConnectToFD
 
-(xcb\_conn.c [!] )
+(xcb\_conn.c)
 
 `XCBConnection *XCBConnectToFD(int fd, XCBAuthInfo *auth_info)`
 
@@ -160,19 +129,6 @@ Closes the file descriptor and frees all memory associated with the connection.
   </dd>
 </dl>
 
-<a name="XCBGetFDFromDisplay"></a>
-
-## XCBGetFDFromDisplay
-
-(xcb\_util.c [!] )
-
-`int XCBGetFDFromDisplay(const char *name, int *screenp, XCBAuthInfoHost *host)`
-
-Calls:
-
-- [XCBParseDisplay](#XCBParseDisplay)
-- [XCBGetTCPFD](#XCBGetTCPFD) or [XCBGetUnixFD](#XCBGetUnixFD)
-
 <a name="XCBParseDisplay"></a>
 
 ## XCBParseDisplay
@@ -198,45 +154,13 @@ Parses a display string `name` in the form documented by X(7x). Has no side effe
   </dd>
 </dl>
 
-<a name="XCBGetTCPFD"></a>
-
-## XCBGetTCPFD
-
-(xcb\_util.c [!] )
-
-`int XCBGetTCPFD(const char *hostname, unsigned short display, XCBAuthInfoHost *host)`
-
-Opens a TCP socket to the given `hostname`. The destination port is `display` plus 6000. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](#XCBGetAuthInfo).
-
-<a name="XCBGetUnixFD"></a>
-
-## XCBGetUnixFD
-
-(xcb\_util.c [!] )
-
-`int XCBGetUnixFD(unsigned short display, XCBAuthInfoHost *host)`
-
-Opens a Unix-domain socket. The filename is "/tmp/.X11-unix/X" plus `display`. If `host` is not null, it is filled in with values appropriate for passing to [XCBGetAuthInfo](#XCBGetAuthInfo).
-
-<a name="XCBGetAuthInfo"></a>
-
-## XCBGetAuthInfo
-
-(xcb\_auth.c [!] )
-
-`int XCBGetAuthInfo(XCBAuthInfoHost *host, XCBAuthInfo *info)`
-
-Looks up the best available authorization data for the given host.
-
-The current implementation is a wrapper around the Xau library, which looks up hosts in the file specified by the environment variable XAUTHORITY, or the file $HOME/.Xauthority if the first fails. To manipulate this file, see xauth(1x).
-
 <a name="XCBGetSetupData"></a>
 
 ## XCBGetSetupData
 
-(xcb\_conn.c [!] )
+(xcb\_conn.c)
 
-`XCBConnSetupSuccessRep *XCBGetSetupData(XCBConnection *c)`
+`XCBConnSetupSuccessRep *XCBGetSetup(XCBConnection *c)`
 
 Accessor for the data returned by the server when the [XCBConnection](#XCBConnection) was initialized.
 
@@ -317,7 +241,7 @@ Returns the last sequence number that the server is known to have processed. Thi
 
 Forces any buffered output to be written to the server. Blocks until the write is complete.
 
-[!] Returns: ?
+Returns: &lt;= 0 on error, &gt;0 on success [!] TODO: well, that's a dumb return value.
 
 <a name="XCBSync"></a>
 
@@ -329,7 +253,7 @@ Forces any buffered output to be written to the server. Blocks until the write i
 
 Blocks the calling thread for the duration of one round trip to the server, ensuring that all events and errors caused by previous requests are available to XCB.
 
-[!] Returns: ?
+Returns: 1 on success, 0 on failure
 
 <a name="XCBGetExtensionData"></a>
 
