@@ -64,12 +64,6 @@ These functions are declared in xcb.h.
 
 Connects to the X server specified by `display`. If `display` is null, uses the value of the DISPLAY environment variable. If a particular screen on that server is preferred, the int pointed to by `screen` (if non-null) will be set to that screen; otherwise the screen will be set to 0.
 
-Calls:
-
-- [XCBGetFDFromDisplay](#XCBGetFDFromDisplay)
-- [XCBGetAuthInfo](#XCBGetAuthInfo)
-- [XCBConnectToFD](#XCBConnectToFD)
-
 <a name="XCBConnectToDisplayWithAuthInfo"></a>
 
 ## XCBConnectToDisplayWithAuthInfo
@@ -79,11 +73,6 @@ Calls:
 `XCBConnection *XCBConnectToDisplayWithAuthInfo(const char *display, XCBAuthInfo *auth, int *screen)`
 
 Connects to the X server specified by `display`, using the given authorization information. If a particular screen on that server is preferred, the int pointed to by `screen` (if non-null) will be set to that screen; otherwise the screen will be set to 0.
-
-Calls:
-
-- [XCBGetFDFromDisplay](#XCBGetFDFromDisplay)
-- [XCBConnectToFD](#XCBConnectToFD)
 
 <a name="XCBConnectToFD"></a>
 
@@ -141,7 +130,7 @@ Parses a display string `name` in the form documented by X(7x). Has no side effe
 
 <dl>
   <dt>name</dt>
-  <dd>the display name to parse.</dd>
+  <dd>the display name to parse; if null or empty, uses the environment variable DISPLAY.</dd>
   <dt>host</dt>
   <dd>a non-null pointer to a pointer which will be set to a malloc&#39;d copy of the hostname.</dd>
   <dt>display</dt>
@@ -150,13 +139,13 @@ Parses a display string `name` in the form documented by X(7x). Has no side effe
   <dd>a (possibly null) pointer to an int which will be set to the preferred screen number, or set to 0 if the display string does not contain a screen number.</dd>
   <dt>Returns</dt>
   <dd>
-    <p>0 on failure (perhaps <tt>name</tt> was null or unparsable); non-zero on success.</p>
+    <p>0 on failure (perhaps <tt>name</tt> was null or unparsable, or malloc failed); non-zero on success.</p>
   </dd>
 </dl>
 
 <a name="XCBGetSetupData"></a>
 
-## XCBGetSetupData
+## XCBGetSetup
 
 (xcb\_conn.c)
 
@@ -200,7 +189,7 @@ Note that this length is measured in four-byte units, making the theoretical max
 
 ## XCBWaitForEvent
 
-(xcb\_in.c)
+(xcb\_in.c [!] )
 
 `XCBGenericEvent *XCBWaitForEvent(XCBConnection *c)`
 
@@ -241,7 +230,9 @@ Returns the last sequence number that the server is known to have processed. Thi
 
 Forces any buffered output to be written to the server. Blocks until the write is complete.
 
-Returns: &lt;= 0 on error, &gt;0 on success [!] TODO: well, that's a dumb return value.
+Returns: &lt;= 0 on error, &gt;0 on success
+
+[!] FIXME: well, that's a dumb return value.
 
 <a name="XCBSync"></a>
 
