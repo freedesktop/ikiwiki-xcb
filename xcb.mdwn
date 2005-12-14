@@ -36,7 +36,7 @@ The CVS repository is hosted by freedesktop.org since October 2003, replacing th
 
 To build XCB from source, you need to have installed at least:
 
-- pkgconfig 0.15.0
+- [pkgconfig](http://pkgconfig.freedesktop.org) 0.15.0
 - automake 1.7
 - autoconf 2.50
 - [check](http://check.sourceforge.net) (but see [[NoCheck]] if you don't want to install this)
