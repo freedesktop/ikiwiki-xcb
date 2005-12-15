@@ -39,10 +39,11 @@ To build XCB from source, you need to have installed at least:
 - [pkgconfig](http://pkgconfig.freedesktop.org) 0.15.0
 - automake 1.7
 - autoconf 2.50
+- libtool 1.5.6
 - [check](http://check.sourceforge.net) (but see [[NoCheck]] if you don't want to install this)
 - xsltproc
 
-(Trivial patches to support earlier versions would be welcome.)
+(Trivial patches to support earlier versions, or a note that earlier versions "just work", would be welcome.)
 
 There are multiple modules in CVS. The modules you need to checkout, build, and install for each part of the project are, in order:
 
