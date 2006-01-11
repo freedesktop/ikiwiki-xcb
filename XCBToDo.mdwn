@@ -139,11 +139,11 @@ Note that while the protocol layer could be native, the transport layer should p
 
 Obvious languages to target include:
 
+- [Haskell](http://cvs.freedesktop.org/xcb/xhsb/): lazy evaluation works well to hide latency, and it is convenient to garbage-collect replies
 - nickle
 - Java
 - perl
 - python
-- Haskell
 - Ruby
 
 [[Completed Tasks|XCBCompletedTasks]]
