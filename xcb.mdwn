@@ -48,8 +48,8 @@ To build XCB from source, you need to have installed at least:
 
 There are multiple modules in CVS. The modules you need to checkout, build, and install for each part of the project are, in order:
 
-- Xproto from [xlibs](http://www.freedesktop.org/Software/xlibs)
-- Xau from [xlibs](http://www.freedesktop.org/Software/xlibs)
+- Xproto from [xorg](http://www.freedesktop.org/Software/xorg)
+- Xau from [xorg](http://www.freedesktop.org/Software/xorg)
 - xcb-proto
 - xcb
 
@@ -62,8 +62,6 @@ To build Xlib with support for XCB, first build XCB as above. After that, the mo
 When you configure the X11 module, give the '--with-xcb' flag.
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that Xproto and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
-
-If you run [Debian](http://www.debian.org), try [[JoshTriplett]]'s [Debian packages of modular xlibs CVS](http://freedesktop.org/~josh/debian/README), which include XCB packages as well as interchangeable packages of Xlib with and without XCB as the transport layer.
 
 ### Mailing List
 
