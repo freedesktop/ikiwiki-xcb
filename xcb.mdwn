@@ -48,20 +48,25 @@ To build XCB from source, you need to have installed at least:
 
 There are multiple modules in CVS. The modules you need to checkout, build, and install for each part of the project are, in order:
 
-- Xproto from [xorg](http://www.freedesktop.org/Software/xorg)
-- Xau from [xorg](http://www.freedesktop.org/Software/xorg)
-- xcb-proto
-- xcb
+- from [xorg](http://www.freedesktop.org/Software/xorg) CVS:
+  - proto/X11
+  - lib/Xau
+- git://anongit.freedesktop.org/git/xcb: build and install
+  - xcb-proto
+  - xcb
 
 To build Xlib with support for XCB, first build XCB as above. After that, the modules you need to checkout, build, and install for each part of the project are, in order:
 
-- XExtensions from [xlibs](http://www.freedesktop.org/Software/xlibs)
-- xtrans from [xlibs](http://www.freedesktop.org/Software/xlibs)
-- X11 from [xlibs](http://www.freedesktop.org/Software/xlibs)
+- from [xorg](http://www.freedesktop.org/Software/xorg) CVS:
+  - proto/XExt
+  - proto/KB
+  - proto/Input
+  - lib/xtrans
+- git://anongit.freedesktop.org/git/xorg/lib/libX11
 
-When you configure the X11 module, give the '--with-xcb' flag.
+When you configure libX11, give the '--with-xcb' flag.
 
-This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that Xproto and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
+This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
 ### Mailing List
 
