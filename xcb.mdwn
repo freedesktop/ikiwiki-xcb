@@ -79,7 +79,7 @@ This is a quick guide for users (not developers, developers are recommended to r
 - How to check for updates:
   - Go to the directory where you have your xcb/libX11 sources and type: "git pull". This will download and apply updates to your local repository.
 - How to switch from 'head' to an available version:
-  - \# git reset --hard [[NameOfTheTag]] (you can see all the available tags doing ls .git/refs/tags. Warning: Don't do this this way if you're a developer)
+  - \# git reset --hard nameofthetag (you can see all the available tags doing ls .git/refs/tags. Warning: Don't do this this way if you're a developer)
 - How to switch back to 'head':
   - \# git checkout -f master
   - You can also switch your sources to any given commit in the past passing a commit-id to 'git reset --hard' (check the docs to learn what it's a 'commit-id')
