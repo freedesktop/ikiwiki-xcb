@@ -73,32 +73,32 @@ libX11 and xcb repositories are using [git](http://git.or.cz/) as SCM. Git is a 
 This is a quick guide for users (not developers, developers are recommended to read the previous documentation). First of all, you need to [install GIT](http://www.kernel.org/pub/software/scm/git/) (it's already available in many distros like debian testing, gentoo, etc). Make sure you have at least version 1.2 of GIT; older versions have problems.
 
 - How to get a copy of xcb/libX11:
-  - \# git clone git://anongit.freedesktop.org/git/xcb (this will create a 'xcb' directory in the working directory)
-  - \# git clone git://anongit.freedesktop.org/git/xorg/lib/libX11 (same for libX11)
-  - git will create a '.git' directory inside the source directory where it stores all the info
+  - `git clone git://anongit.freedesktop.org/git/xcb` (this will create an 'xcb' directory in the working directory)
+  - `git clone git://anongit.freedesktop.org/git/xorg/lib/libX11` (same for libX11)
+  - git will create a `.git` directory inside the source directory where it stores all the info
 - How to check for updates:
-  - Go to the directory where you have your xcb/libX11 sources and type: "git pull". This will download and apply updates to your local repository.
+  - Go to the directory where you have your xcb/libX11 sources and type: `git pull`. This will download and apply updates to your local repository.
 - How to create a branch from given tag or commit id:
-  - \# git checkout -b newbranchname tagname-or-commit-id (you can see all the available tags doing ls .git/refs/tags; commit ids are SHA1 values)
+  - `git checkout -b newbranchname tagname-or-commit-id` (you can see all the available tags doing `ls .git/refs/tags`; commit ids are SHA1 values)
 - How to switch to an existing branch:
-  - \# git checkout branchname (you can see the available branches with 'git branch'; that will also tell you which branch you are currently on)
+  - `git checkout branchname` (you can see the available branches with `git branch`, which will also tell you which branch you are currently on)
 - How to switch back to 'head':
-  - \# git checkout master
+  - `git checkout master`
 - Bisection search:
   - This a brute-force but very useful method to find out what change causes a given bug, specially if you are not a developer and you know (neither you want to know) nothing about what is going on in the code. You tell git what was the last version that worked, the first version where you noticed the bug (of course you need to have a reproduceable bug in order to do this ), and git will set your repository to a state somewhere in the middle of those two 'points'. After testing it, you tell git if the bug is there or not, and git will set your repository to another state which is closer to the bug. After compiling and testing a few revisions, git will be able to tell you what commit causes the bug. For example, let's say I found a reproduceable bug in libX11 between the XORG-6\_8\_1 tag and XORG-6\_8\_99\_9 (cd libX11; ls .git/refs/tags).
-  - Tell git to start bisection search: 'git bisect start'
-  - Tell git about the bad version: 'git bisect bad XORG-6\_8\_99\_9'
-  - Tell git about the good version: 'git bisect good XORG-6\_8\_1'
-  - Compile and test. Is the bug there? Type 'git bisect bad' Everything works well? Type 'git bisect good'. Git will tell you how many revisions you need to test.
-  - If you can't test a given 'state' (ej: git bisectin put all your sources ina state somewhere in the middle of a merge and it doesn't compile) type 'git bisect good/bad' and Git will give you another 'state' to test.
+  - Tell git to start bisection search: `git bisect start`
+  - Tell git about the bad version: `git bisect bad XORG-6_8_99_9`
+  - Tell git about the good version: `git bisect good XORG-6_8_1`
+  - Compile and test. Is the bug there? Type `git bisect bad` Everything works well? Type `git bisect good`. Git will tell you how many revisions you need to test.
+  - If you can't test a given 'state' (ej: git bisectin put all your sources ina state somewhere in the middle of a merge and it doesn't compile) type `git bisect good/bad` and Git will give you another 'state' to test.
   - More details and tricks at <http://www.kernel.org/pub/software/scm/git/docs/howto/isolate-bugs-with-bisect.txt>
 - To summarize and extend a bit, here's Josh's quick translations of CVS commands:
-  - cvs checkout … → git-clone git+ssh://git.freedesktop.org/git/xcb
-  - cvs add file → git-add file
-  - cvs status → git-status -a
-  - cvs diff → git-status -a -v
-  - cvs commit → git-commit -a ; git-push
-  - cvs update → git-pull
+  - `cvs checkout` → `git-clone git+ssh://git.freedesktop.org/git/xcb`
+  - `cvs add file` → `git-add file`
+  - `cvs status` → `git-status -a`
+  - `cvs diff` → `git-status -a -v`
+  - `cvs commit` → `git-commit -a ; git-push origin`
+  - `cvs update` → `git-pull`
 - If you feel curious about git, don't forget Jeff's Garzik [howto](http://linux.yyz.us/git-howto.html), the [short tutorial](http://www.kernel.org/pub/software/scm/git/docs/core-tutorial.html) and the [full documentation](http://www.kernel.org/pub/software/scm/git/docs/) (included as man pages)
 
 ### Mailing List
