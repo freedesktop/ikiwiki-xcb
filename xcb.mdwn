@@ -32,10 +32,11 @@ Our experience with XCL convinced us that significant wins were available in pro
 
 XCB and Xlib/XCB development efforts are coordinated using CVS and git, this Wiki, and the mailing list.
 
-The CVS repository is hosted by freedesktop.org since October 2003, replacing the repository on [Keith Packard's server](http://home.keithp.com). See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/). The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS
+The CVS repository is hosted by freedesktop.org since October 2003, replacing the repository on [Keith Packard's server](http://home.keithp.com). See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/). The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS.
 
 To build XCB from source, you need to have installed at least:
 
+- git 1.2
 - [pkgconfig](http://pkgconfig.freedesktop.org) 0.15.0
 - automake 1.7
 - autoconf 2.50
