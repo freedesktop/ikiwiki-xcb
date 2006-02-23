@@ -63,7 +63,7 @@ To build Xlib with support for XCB, first build XCB as above. After that, the mo
   - proto/KB
   - proto/Input
   - lib/xtrans
-- from git: git://anongit.freedesktop.org/git/xorg/lib/libX11 (when you configure libX11, give the '--with-xcb' flag)
+- from git: git://anongit.freedesktop.org/git/xorg/lib/libX11
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
