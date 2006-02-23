@@ -49,7 +49,7 @@ To build XCB from source, you need to have installed at least:
 
 There are multiple modules. The modules you need to checkout, build, and install for each part of the project are, in order:
 
-- from [xorg](http://www.freedesktop.org/Software/xorg) CVS:
+- from [xorg](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) CVS:
   - proto/X11
   - lib/Xau
 - from git: git://anongit.freedesktop.org/git/xcb:
@@ -58,7 +58,7 @@ There are multiple modules. The modules you need to checkout, build, and install
 
 To build Xlib with support for XCB, first build XCB as above. After that, the modules you need to checkout, build, and install for each part of the project are, in order:
 
-- from [xorg](http://www.freedesktop.org/Software/xorg) CVS:
+- from [xorg](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) CVS:
   - proto/XExt
   - proto/KB
   - proto/Input
