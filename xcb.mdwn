@@ -50,6 +50,7 @@ To build XCB from source, you need to have installed at least:
 There are multiple modules. The modules you need to checkout, build, and install for each part of the project are, in order:
 
 - from [xorg](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) CVS:
+  - utils/macros
   - proto/X11
   - lib/Xau
 - from git: git://anongit.freedesktop.org/git/xcb:
