@@ -52,7 +52,7 @@ Please familiarize yourself with the [Modular Developer's Guide](http://xorg.fre
 There are multiple modules. The modules you need to checkout, build, and install for XCB are, in order:
 
 - from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) CVS:
-  - utils/macros (see note below)
+  - util/macros (see note below)
   - proto/X11
   - lib/Xau
 - from git: git://anongit.freedesktop.org/git/xcb:
