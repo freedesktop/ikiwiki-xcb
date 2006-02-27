@@ -68,7 +68,7 @@ To build Xlib with support for XCB, first build XCB as above. After that, the mo
   - lib/xtrans
 - from git: git://anongit.freedesktop.org/git/xorg/lib/libX11
 
-Note that aclocal needs to be able to find the files installed from utils/macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
+Note that aclocal needs to be able to find the files installed from util/macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
