@@ -59,6 +59,11 @@ There are multiple modules. The modules you need to checkout, build, and install
   - xcb-proto
   - xcb
 
+To build the XCB demos, from git: git://anongit.freedesktop.org/git/xcb:
+
+- xcb-util
+- xcb-demo
+
 To build Xlib with support for XCB, first build XCB as above. After that, the modules you need to checkout, build, and install for Xlib are, in order:
 
 - from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) CVS:
