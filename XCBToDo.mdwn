@@ -1,6 +1,10 @@
-Tasks requiring documentation as a product should have that documentation placed in the TWiki so that other contributors can learn from it.
+[[toc levels="6"]]
 
-Please don't hesitate to add items to this list, or to add detail to existing items. You would be wise to notify the mailing list if the item is significant, too.
+Tasks requiring documentation as a product should have that documentation placed in the wiki so that other contributors can learn from it.
+
+/!\ **Now that XCB is official, we should transition the to-do list to the [freedesktop Bugzilla](https://bugs.freedesktop.org/) bug database (Product = XCB).**
+
+Please don't hesitate to add new items or add detail to items in Bugzilla. You would be wise to notify the mailing list if the item is significant, too.
 
 Don't forget to ask for help on the mailing list if you get stuck.
 
