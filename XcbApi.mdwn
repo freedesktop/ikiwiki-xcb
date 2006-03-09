@@ -230,9 +230,7 @@ Returns the last sequence number that the server is known to have processed. Thi
 
 Forces any buffered output to be written to the server. Blocks until the write is complete.
 
-Returns: &lt;= 0 on error, &gt;0 on success
-
-[!] FIXME: well, that's a dumb return value.
+Returns: 1 on success, 0 on failure
 
 <a name="XCBSync"></a>
 
