@@ -29,23 +29,9 @@ Tasks are ranked by priority:
 - {3} Low priority
 - {3} {3} Very low priority
 
-## Administrative
-
-- {2} Debian and RPM package build stuff would be a very welcome contribution to the CVS tree. (For the Debian bits, I strongly recommend checking out cdbs.)
-- {3} The GNU autotool work for all modules should be inspected by somebody who knows what they're doing.
-
-## Documentation
-
-- {1} Understand and document X image formats, as per GetImage and PutImage, consulting documentation and &lt;del&gt;Keith Packard&lt;/del&gt; the mailing list as needed. ([[BartMassey]])
-- {1} Fully document the [[XmlXcb]] protocol description data format. (in progress) -- [[JoshTriplett]] - 07 Nov 2004
-
 ## Tests and Demos
 
-{2} A full inspection of XCB and XCL sources would be wise.
-
-{2} XCB and XCL need a wider variety of [test cases](http://www.x.org/TestGroup) to help demonstrate correctness. We should enhance the code to support the existing [X Window System test framework](http://freedesktop.org/wiki/Software/XTesting) through XCL, which would provide a wide variety of tests of both components. (This may be about done - I'm seeing good results from XCL these days.)
-
-Additionally, these specific features have been proposed as targets for simple test apps.
+These specific features have been proposed as targets for simple test apps.
 
 - {2} shape extension (port oclock?)
 - {3} selections: clipboard server?
@@ -63,38 +49,19 @@ Additionally, these specific features have been proposed as targets for simple t
 
 This list might be roughly in order of importance.
 
-- {1} The algorithm in the [["X meets Z" paper|xcb]] has not yet been implemented, and needs to be. ([[JameySharp]] and [[BartMassey]])
-- There's lots to do with protocol extensions:
-  - Lots more extensions need to be implemented.
-    - {1} Required: XTEST
-    - {2} XKB
-    - {3} See <http://cvs.freedesktop.org/xcb/xcb-proto/TODO?view=markup>
-  - {2} Extensions need to be easy to compile as separate libraries and in separate source trees. Mostly done, but should be encapsulated in a shell script and autoconf macros, and simplified.
-  - {3} Check XCB extensions for conformance with their protocol documentation.
 - XCB is missing some of the convenience functionality that Xlib layers atop the protocol. (Provide separate libraries that simplify the interface while providing missing functionality? )
-  - {1} Split and format-convert PutImage requests as needed, for both core protocol and MIT-SHM ([[VincentTorri]])
-  - {1} [Keyboard input handling](http://lists.freedesktop.org/archives/xcb/2005-March/000417.html)
   - {2} Atom cache ([[JameySharp]])
 - Error detection and handling in XCB is not significantly worse than in Xlib, but it has a different set of problems. These need to be better addressed.
-  - {1} Consider mechanism for VOIDREQUESTs to report internal errors (i.e., "write error", "extension not available") to the caller directly.
-    - Possibility: add additional fields to cookies.
-    - Possibility: separate errors from events and generalize error structures to allow for origins other than the server.
   - {2} Connection setup errors should be handled better.
-- {2} XCB APIs could stand to be reviewed for saneness. In particular, it seems like there ought to be a better interface for handling events in a type-safe manner; but hopefully it can be built on top of XCB's current API.
 - {2} Document XCB internal APIs.
 - {2} Implement an XML metalanguage mechanism for requests and replies to declare enumerated and bitfield types, with hidden naming convention. X.h should be refactored into xcb.m4 using this mechanism. Existing XCBENUMs probably need to be refactored with it too.
 - {3} [Port libGL to XCB](http://lists.freedesktop.org/archives/xcb/2005-February/000351.html). (Jeremy Kolb)
-  - {3} Iovec in XCBSendRequest - Needed to support Vendor requests in libGL. <http://lists.freedesktop.org/archives/xcb/2005-May/000713.html>
 - {3} Some existing toolkit should be ported to XCB. [Qt](http://www.trolltech.com/products/qt/) and [Gtk+](http://www.gtk.org/) are the obvious targets.
-- {3} Add synchronous mode support as in Xlib.
 - {3} More cases where padding can be automatically generated should be identified and implemented.
-- {3} {3} [[BartMassey]] once thought maybe we should split routines into one per object file. We investigated this; I believe the conclusion was that M4 makes it hard. However, csplit and a little bit of magic should let us do it fairly easily. (possibly bad idea)
 
 ## Xlib on XCB
 
 - {1} Test Xlib/XCB on as many platforms and with as many applications as we can find.
-- {1} Fix assertion failures.
-- {1} Get Xlib/XCB ready for integration into X.org. ([[JameySharp]])
 
 # Other projects
 
