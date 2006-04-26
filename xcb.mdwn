@@ -132,7 +132,7 @@ The structure of XCB is designed to be as simple as possible while making common
 
 The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, XC-Misc, SHAPE, SHM, DPMS, Render, Randr, GLX, [XFIXES](http://www.freedesktop.org/Software/FixesExt), [Composite](http://www.freedesktop.org/Software/CompositeExt), [DAMAGE](http://www.freedesktop.org/Software/XDamage) and [XEvIE](http://www.freedesktop.org/Software/XEvIE) extensions. A multithreaded demonstration program uses XCB for animated graphics in multiple windows. Other demos for Render, event monitoring, access to connection setup data, and DPMS also exist.
 
-[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://cvs.freedesktop.org/xcb/xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
+[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://gitweb.freedesktop.org/?p=xcb;a=blob;f=xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
 [[JameySharp]] has written some documentation for those who might want to understand the M4-based [[protocol description language|XCBProtocolLanguage]] previously used in XCB.
 
@@ -140,7 +140,7 @@ The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, X
 
 [[JameySharp]] has begun early work on new [[XCB-based libraries and applications|usingxcb]], in addition to the Xlib work described below.
 
-[[VincentTorri]] has begun a tutorial on XCB. It can be found in the source code repository's [tutorial subdirectory](http://cvs.freedesktop.org/xcb/xcb/doc/tutorial/) and [read on-line](http://cvs.freedesktop.org/*checkout*/xcb/xcb/doc/tutorial/index.html). There are also some simple [examples](http://www.iecn.u-nancy.fr/~torri/files/xcb/examples/) on how to use XCB, like drawing points and lines. Additional examples about how XCBImage works could be found in [/cvs/xcb-demo/tests](http://cvs.freedesktop.org/xcb/).
+[[VincentTorri]] has begun a tutorial on XCB. It can be found in the source code repository's [tutorial subdirectory](http://gitweb.freedesktop.org/?p=xcb;a=tree;f=xcb/doc/tutorial) and an [old version](http://cvs.freedesktop.org/*checkout*/xcb/xcb/doc/tutorial/index.html) can be read on-line. There are also some simple [examples](http://www.iecn.u-nancy.fr/~torri/files/xcb/examples/) on how to use XCB, like drawing points and lines. Additional examples about how XCBImage works could be found in [xcb-demo/tests](http://gitweb.freedesktop.org/?p=xcb;a=tree;f=xcb-demo/tests).
 
 ### Xlib/XCB
 
