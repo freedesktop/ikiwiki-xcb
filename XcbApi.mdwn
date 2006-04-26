@@ -519,6 +519,12 @@ Values for a particular request that are always constant.
 
 `void *XCBWaitForReply(XCBConnection *c, unsigned int request, XCBGenericError **e)`
 
+## XCBPollForReply
+
+(xcb\_in.c)
+
+`void *XCBPollForReply(XCBConnection *c, unsigned int request, void **reply, XCBGenericError **e)`
+
 ## XCBGenerateID
 
 (xcb\_xid.c)
