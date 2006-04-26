@@ -210,16 +210,6 @@ Returns the next event or error from the server, if one is available, or returns
   <dd>pointer to an int to be filled in with the I/O error status of the operation. If *error* is null, terminates the application when an I/O error occurs.</dd>
 </dl>
 
-## XCBGetRequestRead
-
-(xcb\_in.c)
-
-`unsigned int XCBGetRequestRead(XCBConnection *c)`
-
-[!] _**TODO:** review_
-
-Returns the last sequence number that the server is known to have processed. This function enables apps to determine whether forcing a cookie is going to block.
-
 <a name="XCBFlush"></a>
 
 ## XCBFlush
