@@ -262,6 +262,8 @@ These are not single functions or types, but rather naming conventions intended 
 
 One of the design goals of this API is that users should be able to learn these conventions, then read documentation on the binary encoding of the core protocol or any extension, and immediately determine the correct function name and argument list to generate the desired request.
 
+Most of the X Window Protocol documentation lives in <http://webcvs.freedesktop.org/xorg/doc/xorg-docs> . For example, the [postscript version](http://webcvs.freedesktop.org/xorg/doc/xorg-docs/hardcopy/XProtocol/) of the core protocol. (Freedesktop is looking for volunteers to convert their existing documents to a more modern format.)
+
 [!] _**TODO:** link to online descriptions of the core X protocol as well as de-facto standard extension protocols._
 
 ## Extensions
