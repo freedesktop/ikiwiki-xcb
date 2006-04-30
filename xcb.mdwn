@@ -34,7 +34,7 @@ XCB and Xlib/XCB development efforts are coordinated using CVS and git, this Wik
 
 You can obtain released versions of XCB from <http://xcb.freedesktop.org/dist> . Follow the instructions below to build, except that you can use released versions of the dependencies, and you don't need git, automake, autoconf, or libtool.
 
-The CVS repository is hosted by freedesktop.org since October 2003, replacing the repository on [Keith Packard's server](http://home.keithp.com). See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/). The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS.
+The CVS repository is hosted by freedesktop.org since October 2003, replacing the repository on [Keith Packard's server](http://home.keithp.com). See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/). [libX11](http://gitweb.freedesktop.org/?p=xorg-lib-libX11) and [xcb](http://gitweb.freedesktop.org/?p=xcb) repositories now use [git](http://git.or.cz/) as SCM. The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS.
 
 To build XCB from source, you need to have installed at least:
 
@@ -49,7 +49,12 @@ To build XCB from source, you need to have installed at least:
 
 (Trivial patches to support earlier versions, or a note that earlier versions "just work", would be welcome.)
 
-Please familiarize yourself with the [Modular Developer's Guide](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) before trying to build any part of X.org.
+Please familiarize yourself with the [Modular Developer's Guide](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) before trying to build any part of X.org. Freedesktop's main site has detailed instructions for [using git](http://freedesktop.org/wiki/UsingGit) for everyday development.
+
+- How to get a copy of xcb/libX11:
+  - `git clone git://anongit.freedesktop.org/git/xcb` (this will create an 'xcb' directory in the working directory)
+  - `git clone git://anongit.freedesktop.org/git/xorg/lib/libX11` (same for libX11)
+  - git will create a `.git` directory inside the source directory where it stores all the info
 
 There are multiple modules. The modules you need to checkout, build, and install for XCB are, in order:
 
@@ -78,41 +83,6 @@ To build Xlib with support for XCB, first build XCB as above. After that, the mo
 Note that aclocal needs to be able to find the files installed from util/macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
-
-## Using Git
-
-[libX11](http://gitweb.freedesktop.org/?p=xorg-lib-libX11) and [xcb](http://gitweb.freedesktop.org/?p=xcb) repositories are using [git](http://git.or.cz/) as SCM. Git is a powerful SCM started by Linus Torvalds as a tool to handle the Linux Kernel development. You can download it from <http://www.kernel.org/pub/software/scm/git/>. To learn how to use git, you can read the [short tutorial](http://www.kernel.org/pub/software/scm/git/docs/core-tutorial.html), the [full documentation](http://www.kernel.org/pub/software/scm/git/docs/) (included with git as man pages) or Jeff's Garzik [Kernel-hacker howto](http://linux.yyz.us/git-howto.html) (which was written for kernel developers but it's useful for any project).
-
-This is a quick guide for users (not developers, developers are recommended to read the previous documentation). First of all, you need to [install GIT](http://www.kernel.org/pub/software/scm/git/) (it's already available in many distros, including Debian and Gentoo). Make sure you have at least version 1.2 of GIT; older versions have problems.
-
-- How to get a copy of xcb/libX11:
-  - `git clone git://anongit.freedesktop.org/git/xcb` (this will create an 'xcb' directory in the working directory)
-  - `git clone git://anongit.freedesktop.org/git/xorg/lib/libX11` (same for libX11)
-  - git will create a `.git` directory inside the source directory where it stores all the info
-- How to check for updates:
-  - Go to the directory where you have your xcb/libX11 sources and type: `git pull`. This will download and apply updates to your local repository.
-- How to create a branch from given tag or commit id:
-  - `git checkout -b newbranchname tagname-or-commit-id` (you can see all the available tags doing `ls .git/refs/tags`; commit ids are SHA1 values)
-- How to switch to an existing branch:
-  - `git checkout branchname` (you can see the available branches with `git branch`, which will also tell you which branch you are currently on)
-- How to switch back to 'head':
-  - `git checkout master`
-- Bisection search:
-  - This a brute-force but very useful method to find out what change causes a given bug, specially if you are not a developer and you know (neither you want to know) nothing about what is going on in the code. You tell git what was the last version that worked, the first version where you noticed the bug (of course you need to have a reproduceable bug in order to do this ), and git will set your repository to a state somewhere in the middle of those two 'points'. After testing it, you tell git if the bug is there or not, and git will set your repository to another state which is closer to the bug. After compiling and testing a few revisions, git will be able to tell you what commit causes the bug. For example, let's say I found a reproduceable bug in libX11 between the XORG-6\_8\_1 tag and XORG-6\_8\_99\_9 (cd libX11; ls .git/refs/tags).
-  - Tell git to start bisection search: `git bisect start`
-  - Tell git about the bad version: `git bisect bad XORG-6_8_99_9`
-  - Tell git about the good version: `git bisect good XORG-6_8_1`
-  - Compile and test. Is the bug there? Type `git bisect bad` Everything works well? Type `git bisect good`. Git will tell you how many revisions you need to test.
-  - If you can't test a given 'state' (ej: git bisectin put all your sources ina state somewhere in the middle of a merge and it doesn't compile) type `git bisect good/bad` and Git will give you another 'state' to test.
-  - More details and tricks at <http://www.kernel.org/pub/software/scm/git/docs/howto/isolate-bugs-with-bisect.txt>
-- To summarize and extend a bit, here's Josh's quick translations of CVS commands:
-  - `cvs checkout` → `git-clone git+ssh://git.freedesktop.org/git/xcb`
-  - `cvs add file` → `git-add file`
-  - `cvs status` → `git-status -a`
-  - `cvs diff` → `git-status -a -v`
-  - `cvs commit` → `git-commit -a ; git-push origin`
-  - `cvs update` → `git-pull`
-- If you feel curious about git, don't forget Jeff's Garzik [howto](http://linux.yyz.us/git-howto.html), the [short tutorial](http://www.kernel.org/pub/software/scm/git/docs/core-tutorial.html) and the [full documentation](http://www.kernel.org/pub/software/scm/git/docs/) (included as man pages)
 
 ### Mailing List
 
