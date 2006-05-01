@@ -8,4 +8,4 @@ To aid porting applications, you can configure Xlib to use XCB for the transport
 
 If you wish to work on XCB, please read the [[DevelopersGuide]].
 
-The XCB project has a long [History], during which it has produced many academic [Publications].
+The XCB project has a long [[history]], during which it has produced many academic [[publications]].
