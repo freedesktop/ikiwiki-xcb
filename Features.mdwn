@@ -12,8 +12,4 @@ For these reasons, among others, we are working on XCB, an X protocol C Binding 
 
 - Toolkit implementation.
 - Direct protocol-level programming.
-- Lightweight emulation of commonly used portions of the Xlib API (in progress, see below).
-
-### Xlib/XCB: Xlib with XCB transport
-
-Our experience with [[XCL|History]] convinced us that significant wins were available in providing a library at once binary-compatible with Xlib and built atop XCB. Our second, much more successful attempt at achieving this goal was to rip much of the insides out of stock Xlib and replace it with calls into XCB (and some XCL) code. The result is Xlib/XCB, a library that allows existing application binaries linked against Xlib to run unmodified, allows new applications to mix calls to XCB and Xlib (providing an incremental porting path), and achieves significant savings over stock Xlib in size and complexity.
+- Lightweight emulation of commonly used portions of the Xlib API (in progress, see [[XlibXcb]]).
