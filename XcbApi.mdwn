@@ -2,6 +2,8 @@
 
 This is the API for [[XCB]]. Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
 
+See also [[UsingXcb]] for tips and tricks on how to properly use the API.
+
 # Public API
 
 ## Types
@@ -513,7 +515,16 @@ Values for a particular request that are always constant.
 
 (xcb\_out.c)
 
-`int XCBSendRequest(XCBConnection *c, unsigned int *sequence, struct iovec *vector, const XCBProtocolRequest *request)`
+`int XCBSendRequest(XCBConnection *c, int flags, unsigned int *sequence, struct iovec *vector, const XCBProtocolRequest *request)`
+
+<dl>
+  <dt>flags</dt>
+  <dd>a combination of the following flags</dd>
+</dl>
+
+- `XCB_REQUEST_CHECKED`
+- `XCB_REQUEST_RAW`
+- `XCB_REQUEST_DISCARD_REPLY`
 
 ## XCBWaitForReply
 
@@ -545,19 +556,4 @@ Returns the number of bits in the binary representation of `mask` that are equal
 
 # Xlib/XCB API
 
-Xlib currently uses undocumented parts of XCB from xcbint.h. This interface may change without notice and must not be used: ask for a new API on the mailing list if there's some functionality that you would find useful. At some point in the future, we will design and publish an interface for Xlib, and we'd love to make it as generally useful as possible. Note that when the new API is available, xcbint.h will no longer be installed.
-
-# Tips and Tricks
-
-## Lists and Replies
-
-All replies must be freed after they are used to prevent memory leaks. Please note that when a reply is allocated it includes any lists that are returned. Therefore if the list needs to be used after the reply has been freed it must be copied before any use of free() occurs.
-
-    /* Get the reply */
-    XCBGlxReadPixelsRep *reply = XCBGlxReadPixelsReply(c, XCBGlxReadPixels(c, ...), NULL);
-
-    /* The data list must be copied to (GLvoid *) pixels, for later use. */
-    (void)memcpy(pixels, XCBGlxReadPixelsData(reply), XCBGlxReadPixelsDataLength(reply) * sizeof(GLvoid));
-
-    /* free the reply */
-    free(reply);
+[[XlibXcb]] currently uses undocumented parts of XCB from xcbint.h. This interface may change without notice and must not be used: ask for a new API on the mailing list if there's some functionality that you would find useful. At some point in the future, we will design and publish an interface for Xlib, and we'd love to make it as generally useful as possible. Note that when the new API is available, xcbint.h will no longer be installed.
