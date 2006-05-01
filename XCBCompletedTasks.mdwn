@@ -1,3 +1,29 @@
+# April 2006
+
+XCB 0.9 preview release, including Debian packages.
+
+Split extensions into their own libraries. -- [[JoshTriplett]]
+
+Added X-Test extension. -- [[IanOsgood]]
+
+# February 2006
+
+Moved main XCB and Xlib repositories from CVS to git.
+
+[[XlibXcb]] lands on Xorg HEAD. -- [[JameySharp]]
+
+# January 2006
+
+Added Xv, XvMC, XPrint, and X-Resource extensions. -- [[JeremyKolb]]
+
+Start of a Haskell binding. -- [[JameySharp]]
+
+# December 2005
+
+[[XlibXcb]] passes the X Test Suite. -- [[JameySharp]]
+
+[[XcbApi]] announced stable. -- [[JameySharp]]
+
 # September 2005
 
 Xlib/XCB nearly passes the X Test Suite (only a couple of FAILs).
