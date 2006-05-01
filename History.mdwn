@@ -1,0 +1,25 @@
+Described here are some of the decisions in XCB of historical interest.
+
+### Life before freedesktop.org
+
+The [mailing list](http://www.freedesktop.org/mailman/listinfo/xcb) has been hosted by freedesktop.org since October 2003, taking over from [[BartMassey]], who hosted it from February 2003. Before that it was hosted by [[KeithPackard]], beginning in June 2002. Old mailing list addresses are being forwarded to the current list; and everyone who was subscribed to those earlier lists should still be subscribed to this one.
+
+### XCL: an Xlib Compatibility Layer
+
+We previously worked on XCL, an Xlib Compatibility Layer, which built on XCB to emulate Xlib. We expected in doing this to allow the large base of existing applications built on Xlib to begin to take advantage of XCB's capabilities.
+
+XCL was a qualified success. The more arcane features of Xlib were difficult to capture in new code. We eventually chose a different approach for Xlib compatibility.
+
+In September 2002, [[JameySharp]] [proposed](http://nexp.cs.pdx.edu/pipermail/xcb/2002-September/000031.html) a modification to Xlib that would maintain binary compatibility with Xlib extensions and applications. The day before Halloween 2003, [[JameySharp]] and [[KeithPackard]] hashed out a better-informed approach, which certainly maintains binary compatibility with applications, and might not require recompiles of extensions either. This was mostly implemented two days later. As of June 2004, the result is quite usable for real work, although some rare but annoying bugs remain.
+
+Previous work on XCL is best considered a prototype. It was complete enough to run rxvt and some small utilities like xlsatoms without any changes, but more of Xlib needed to be emulated to support most applications. This new approach enables slowly migrating Xlib internals and applications to XCB, without losing any of Xlib's functionality at any point, with the exception of support for arbitrary thread packages (only pthreads is supported by XCB) and some transports and authentication methods that haven't been implemented for XCB yet. An important feature of this strategy is that fixes to XFree86's implementation may still be imported where applicable since we're not making gratuitous modifications now.
+
+### Early work on XCB applications
+
+[[JameySharp]] did some early work on new [[XCB-based libraries and applications|usingxcb]], in addition to the Xlib work described above. These have become the xcb-util libraries and xcb-demo applications.
+
+### M4 protocol descriptions
+
+[[JameySharp]] has written some documentation for those who might want to understand the M4-based [[protocol description language|XCBProtocolLanguage]] previously used in XCB.
+
+In 2004, [[JoshTriplett]] replaced the M4-based protocol description macros with an XML-based protocol description data format and an XSLT-based C binding generator, as part of the [[XmlXcb]] project. This work has been merged into XCB.
