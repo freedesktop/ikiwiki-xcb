@@ -1,0 +1,19 @@
+## Publications
+
+[[BartMassey]] and [[JameySharp]].<br /> XCB: An X Protocol C Binding.<br /> In _Proc. [2001 XFree86 Technical Conference](http://www.usenix.org/events/xfree86/)_, Oakland, CA, November 2001. USENIX.<br /> URL [http://www.linuxshowcase.org/2001/full\_papers/massey/massey.pdf](http://www.linuxshowcase.org/2001/full_papers/massey/massey.pdf).<br /> Local copies: [PDF](http://www.freedesktop.org/software/xcb/xfree86-xcb.pdf), [PS](http://www.freedesktop.org/software/xcb/xfree86-xcb.ps).
+
+[[BartMassey]] and Robert Bauer.<br /> X meets Z: Verifying correctness in the presence of POSIX Threads.<br /> In _Proc. [2002 Usenix Annual Technical Conference](http://www.usenix.org/events/usenix02/), Freenix Track_, Monterey, CA, June 2002.<br /> URL <http://www.usenix.org/events/usenix02/tech/freenix/massey.html>.<br /> Local copies: [PDF](http://www.freedesktop.org/software/xcb/usenix-zxcb.pdf), [PS](http://www.freedesktop.org/software/xcb/usenix-zxcb.ps).
+
+[[JameySharp]] and [[BartMassey]].<br /> XCL: An Xlib Compatibility Layer for XCB.<br /> In _Proc. [2002 Usenix Annual Technical Conference](http://www.usenix.org/events/usenix02/), Freenix Track_, Monterey, CA, June 2002.<br /> URL <http://www.usenix.org/events/usenix02/tech/freenix/sharp.html>.<br /> Local copies: [PDF](http://www.freedesktop.org/software/xcb/usenix-xcl.pdf), [PS](http://www.freedesktop.org/software/xcb/usenix-xcl.ps).<br /> Slides: [PDF](http://www.freedesktop.org/software/xcb/xcl-talk.pdf), [PS](http://www.freedesktop.org/software/xcb/xcl-talk.ps).
+
+[[JameySharp]].<br /> How Xlib is Implemented (And What We're Doing About It).<br /> In _Proc. [2004 Usenix Annual Technical Conference](http://www.usenix.org/events/usenix04/), Freenix Track_, Boston, MA, June 2004.<br /> URL <http://www.usenix.org/events/usenix04/tech/freenix/sharp.html>.<br /> Local copies: [PDF](http://www.freedesktop.org/software/xcb/xlib_impl.pdf), [PS](http://www.freedesktop.org/software/xcb/xlib_impl.ps).<br /> Slides: [PDF](http://www.freedesktop.org/software/xcb/xlib_impl_slides.pdf).
+
+[[JameySharp]].<br /> XCB and Xlib.<br /> Presented at [Desktop Developer's Conference 2005](http://desktopcon.org/2005/).<br /> Slides: [PDF](http://xcb.freedesktop.org/pubs/ddc2005.pdf) [SXI](http://xcb.freedesktop.org/pubs/ddc2005.sxi).
+
+## Acknowledgements
+
+The authors are grateful to [[KeithPackard]] for his advice and assistance with X and XCB issues both philosophical and technical, and to Xlib author [[JimGettys]] for his advice and support. We are also grateful to [[AndyHowe]] for his efforts in testing XCB and finding ways to improve its implementation and documentation, and in implementing a significant portion of XCL.
+
+In addition, we thank the [Usenix](http://www.usenix.org) Association for their financial and staff support of ALS and the XFree86 Technical Conference. A Student Stipend awarded by the Usenix Association made it possible for Jamey to attend the 2001 XFree86 Technical Conference.
+
+Finally, we are grateful to [Portland State University](http://www.pdx.edu), the [College of Engineering and Computer Science](http://www.cecs.pdx.edu), and particularly the [Computer Science Department](http://www.cs.pdx.edu) for their support and forbearance during this work. Bart's travel expenses for the 2001 XFree86 Technical Conference and for Usenix 2002 were paid by the PSU CS Dept., making it possible for him to attend. The University is also currently providing the bandwidth and rack space to host [freedesktop.org](http://www.freedesktop.org), including this project. [HP](http://hp.com) has generously provided the machine hosting `freedesktop.org`.
