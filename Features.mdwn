@@ -1,0 +1,19 @@
+[Xlib](http://tronche.com/gui/x/xlib/introduction/) has been the standard C binding for the [X Window System](http://xorg.freedesktop.org) protocol for many years now. It is an excellent piece of work, but there are applications for which it is not ideal, for example
+
+- Small platforms: Xlib is a large piece of code, and it is difficult to make it smaller.
+- Latency hiding: Xlib requests requiring a reply are effectively synchronous: they block until the reply appears, whether the result is needed immediately or not.
+- Direct access to the protocol: Xlib does quite a bit of caching, layering, and similar optimizations. While this is normally a feature, it makes it difficult to simply emit specified X protocol requests and process specific responses.
+- Threaded applications: While Xlib does attempt to support multithreading, the API makes this difficult and error-prone.
+- New extensions: The Xlib infrastructure provides limited support for the creation of X extension client side code.
+
+### XCB: an X protocol C Binding
+
+For these reasons, among others, we are working on XCB, an X protocol C Binding which is designed to solve the above problems and thus provide a base for
+
+- Toolkit implementation.
+- Direct protocol-level programming.
+- Lightweight emulation of commonly used portions of the Xlib API (in progress, see below).
+
+### Xlib/XCB: Xlib with XCB transport
+
+Our experience with [[XCL|History]] convinced us that significant wins were available in providing a library at once binary-compatible with Xlib and built atop XCB. Our second, much more successful attempt at achieving this goal was to rip much of the insides out of stock Xlib and replace it with calls into XCB (and some XCL) code. The result is Xlib/XCB, a library that allows existing application binaries linked against Xlib to run unmodified, allows new applications to mix calls to XCB and Xlib (providing an incremental porting path), and achieves significant savings over stock Xlib in size and complexity.
