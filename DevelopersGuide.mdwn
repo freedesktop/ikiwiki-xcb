@@ -1,6 +1,6 @@
-XCB and Xlib/XCB development efforts are coordinated using CVS and git, this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
+XCB and Xlib/XCB development efforts are coordinated using CVS and git, [bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
 
-The CVS repository is hosted by freedesktop.org since October 2003, replacing the repository on [Keith Packard's server](http://home.keithp.com). See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/). [libX11](http://gitweb.freedesktop.org/?p=xorg-lib-libX11) and [xcb](http://gitweb.freedesktop.org/?p=xcb) repositories now use [git](http://git.or.cz/) as SCM. The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS.
+[libX11](http://gitweb.freedesktop.org/?p=xorg-lib-libX11) and [xcb](http://gitweb.freedesktop.org/?p=xcb) repositories now use [git](http://git.or.cz/) as SCM. The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our old CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/).
 
 To build XCB from source, you need to have installed at least:
 
@@ -50,13 +50,15 @@ Note that aclocal needs to be able to find the files installed from util/macros.
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
-### Mailing List
+### Mailing List and other resources
 
 The [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb) is hosted by freedesktop.org.
 
-Jeremy has set up a new [xcb-commit](http://www.freedesktop.org/mailman/listinfo/xcb-commit) mailing list to notify users of cvs commits. We also have a [CIA project page](http://cia.navi.cx/stats/project/xcb) where people can find RSS feeds of xcb commits.
+Jeremy has set up a new [xcb-commit](http://www.freedesktop.org/mailman/listinfo/xcb-commit) mailing list to notify users of cvs commits. We also have a [CIA project page](http://cia.navi.cx/stats/project/xcb) where people can find RSS feeds of xcb commits (/!\\ currently not tracking git commits).
 
-There is also an #xcb IRC channel.
+Freedesktop's [bugzilla](https://bugs.freedesktop.org/buglist.cgi?bug_status=__open__&product=XCB) is used to report bugs, suggest enhancements, and submit patches. Use the build product **XCB**.
+
+There is also an #xcb IRC channel on freenode.net.
 
 ### Implementation and Status
 
@@ -64,10 +66,10 @@ Both XCB and our [[XlibXcb]] efforts are works in progress; [[XCBToDo]] describe
 
 The protocol layer of XCB is implemented as a set of [XML](http://www.w3.org/XML) protocol descriptions, along with an [XSLT](http://www.w3.org/TR/xslt)-based C binding generator. The remainder of XCB consists of C code.
 
+[[JoshTriplett]] has documented the [[XmlXcb]] [protocol description format](http://gitweb.freedesktop.org/?p=xcb;a=blob;f=xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
+
 The structure of XCB is designed to be as simple as possible while making common usage convenient and reasonably efficient. XCB is designed to work transparently with POSIX Thread programs or single-threaded programs: on platforms where POSIX threads are unavailable, it will be compilable without.
 
 The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, XC-Misc, SHAPE, SHM, DPMS, Render, Randr, GLX, [XFIXES](http://www.freedesktop.org/Software/FixesExt), [Composite](http://www.freedesktop.org/Software/CompositeExt), [DAMAGE](http://www.freedesktop.org/Software/XDamage) and [XEvIE](http://www.freedesktop.org/Software/XEvIE) extensions. A multithreaded demonstration program uses XCB for animated graphics in multiple windows. Other demos for Render, event monitoring, access to connection setup data, and DPMS also exist.
-
-[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://gitweb.freedesktop.org/?p=xcb;a=blob;f=xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
 [[BartMassey]] has done some [[work|Publications]] on establishing correctness properties of the core data dispatch mechanism of XCB using a model of XCB written in the [Z](http://www.afm.sbu.ac.uk/z/) formal specification notation. This is good, since the mechanism is complex, and the previous version was known to have defects.
