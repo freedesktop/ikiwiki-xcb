@@ -28,6 +28,7 @@ There are multiple modules. The modules you need to checkout, build, and install
   - util/macros (see note below)
   - proto/X11
   - lib/Xau
+    - lib/Xdmcp, to optionally support XDM-AUTHORIZATION-1
 - from git: git://anongit.freedesktop.org/git/xcb:
   - xcb-proto
   - xcb
@@ -54,7 +55,7 @@ This is a fairly complex operation at this point. Watch out for pkgconfig proble
 
 The [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb) is hosted by freedesktop.org.
 
-Jeremy has set up a new [xcb-commit](http://www.freedesktop.org/mailman/listinfo/xcb-commit) mailing list to notify users of cvs commits. We also have a [CIA project page](http://cia.navi.cx/stats/project/xcb) where people can find RSS feeds of xcb commits (/!\\ currently not tracking git commits).
+Jeremy has set up a new [xcb-commit](http://www.freedesktop.org/mailman/listinfo/xcb-commit) mailing list to notify users of cvs commits. We also have a [CIA project page](http://cia.navi.cx/stats/project/xcb) where people can find RSS feeds of xcb commits ( [!] currently not tracking git commits).
 
 Freedesktop's [bugzilla](https://bugs.freedesktop.org/buglist.cgi?bug_status=__open__&product=XCB) is used to report bugs, suggest enhancements, and submit patches. Use the build product **XCB**.
 
