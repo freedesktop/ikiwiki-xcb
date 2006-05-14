@@ -6,6 +6,6 @@ The [[XcbApi]] is documented. There is also a [tutorial](http://gitweb.freedeskt
 
 To aid porting applications, you can configure Xlib to use XCB for the transport layer. We call this [[Xlib/XCB|XlibXcb]].
 
-If you wish to work on XCB, please read the [[DevelopersGuide]].
+If you wish to work on XCB, please read the [[DevelopersGuide]]. Discussion of XCB and Xlib/XCB is through the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
 
 The XCB project has a long [[history]], during which it has produced many academic [[publications]].
