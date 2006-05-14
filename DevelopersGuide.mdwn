@@ -67,7 +67,7 @@ Both XCB and our [[XlibXcb]] efforts are works in progress; [[XCBToDo]] describe
 
 The protocol layer of XCB is implemented as a set of [XML](http://www.w3.org/XML) protocol descriptions, along with an [XSLT](http://www.w3.org/TR/xslt)-based C binding generator. The remainder of XCB consists of C code.
 
-[[JoshTriplett]] has documented the [[XmlXcb]] [protocol description format](http://gitweb.freedesktop.org/?p=xcb;a=blob;f=xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
+[[JoshTriplett]] has documented the XML/XCB [protocol description format](http://gitweb.freedesktop.org/?p=xcb;a=blob;f=xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
 The structure of XCB is designed to be as simple as possible while making common usage convenient and reasonably efficient. XCB is designed to work transparently with POSIX Thread programs or single-threaded programs: on platforms where POSIX threads are unavailable, it will be compilable without.
 
