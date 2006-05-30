@@ -224,18 +224,6 @@ Forces any buffered output to be written to the server. Blocks until the write i
 
 Returns: 1 on success, 0 on failure
 
-<a name="XCBSync"></a>
-
-## XCBSync
-
-(xcb\_util.c)
-
-`int XCBSync(XCBConnection *c, XCBGenericError **e)`
-
-Blocks the calling thread for the duration of one round trip to the server, ensuring that all events and errors caused by previous requests are available to XCB.
-
-Returns: 1 on success, 0 on failure
-
 <a name="XCBGetExtensionData"></a>
 
 ## XCBGetExtensionData
