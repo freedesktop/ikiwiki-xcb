@@ -1,6 +1,6 @@
-XCB and Xlib/XCB development efforts are coordinated using CVS and git, [bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
+XCB and Xlib/XCB development efforts are coordinated using git, [bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
 
-[libX11](http://gitweb.freedesktop.org/?p=xorg-lib-libX11) and [xcb](http://gitweb.freedesktop.org/?p=xcb) repositories now use [git](http://git.or.cz/) as SCM. The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for freedesktop.org CVS](http://www.freedesktop.org/wiki/GettingInvolved); our old CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/).
+[libX11](http://gitweb.freedesktop.org/?p=xorg-lib-libX11) and [xcb](http://gitweb.freedesktop.org/?p=xcb) repositories now use [git](http://git.or.cz/) as SCM. The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for using freedesktop.org repositories](http://www.freedesktop.org/wiki/GettingInvolved).
 
 To build XCB from source, you need to have installed at least:
 
@@ -19,16 +19,16 @@ Please familiarize yourself with the [Modular Developer's Guide](http://xorg.fre
 
 - How to get a copy of xcb/libX11:
   - `git clone git://anongit.freedesktop.org/git/xcb` (this will create an 'xcb' directory in the working directory)
-  - `git clone git://anongit.freedesktop.org/git/xorg/lib/libX11` (same for libX11)
+  - `git clone git://anongit.freedesktop.org/git/xorg-lib-libX11` (same for libX11)
   - git will create a `.git` directory inside the source directory where it stores all the info
 
 There are multiple modules. The modules you need to checkout, build, and install for XCB are, in order:
 
-- from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) CVS:
-  - util/macros (see note below)
-  - proto/X11
-  - lib/Xau
-    - lib/Xdmcp, to optionally support XDM-AUTHORIZATION-1
+- from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) git:
+  - xorg-util-macros (see note below)
+  - xorg-proto-x11proto
+  - xorg-lib-libXau
+    - xorg-lib-libXdmcp, to optionally support XDM-AUTHORIZATION-1
 - from git: git://anongit.freedesktop.org/git/xcb:
   - xcb-proto
   - xcb
@@ -40,14 +40,14 @@ To build the XCB demos, from git: git://anongit.freedesktop.org/git/xcb:
 
 To build Xlib with support for XCB, first build XCB as above. After that, the modules you need to checkout, build, and install for Xlib are, in order:
 
-- from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) CVS:
-  - proto/XExt
-  - proto/KB
-  - proto/Input
-  - lib/xtrans
-- from git: git://anongit.freedesktop.org/git/xorg/lib/libX11
+- from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) git:
+  - xorg-proto-xextproto
+  - xorg-proto-kbproto
+  - xorg-proto-inputproto
+  - xorg-lib-libxtrans
+  - xorg-lib-libX11
 
-Note that aclocal needs to be able to find the files installed from util/macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
+Note that aclocal needs to be able to find the files installed from xorg-util-macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
