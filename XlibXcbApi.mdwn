@@ -1,6 +1,8 @@
 A "semi-private" API exists for applications that want to avoid the XCB top-half and work directly with the bottom half. The file "xcbxlib.h" contains the interface specification. It is an extremely small interface.
 
-<a name="XCBGetRequestSent" id="XCBGetRequestSent"></a>
+[[toc levels="6"]]
+
+<a name="XCBGetRequestSent"></a>
 
 ## XCBGetRequestSent
 
@@ -17,7 +19,7 @@ Returns the XCB sequence number of the last request sent on the given connection
   <dd>a sequence number.</dd>
 </dl>
 
-<a name="XCBGetIOLock" id="XCBGetIOLock"></a>
+<a name="XCBGetIOLock"></a>
 
 ## XCBGetIOLock
 
