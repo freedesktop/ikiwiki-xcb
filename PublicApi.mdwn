@@ -1,7 +1,5 @@
 [[toc levels="6"]]
 
-# Public API
-
 ## Types
 
 These types are declared in xcb.h.
