@@ -2,6 +2,10 @@ Described here are some of the decisions in XCB of historical interest.
 
 You can view [[completed tasks|XCBCompletedTasks]].
 
+### Life before git
+
+Our old freedesktop.org CVSROOT is in [/cvs/xcb](http://cvs.freedesktop.org/xcb/).
+
 ### Life before freedesktop.org
 
 The [mailing list](http://www.freedesktop.org/mailman/listinfo/xcb) has been hosted by freedesktop.org since October 2003, taking over from [[BartMassey]], who hosted it from February 2003. Before that it was hosted by [[KeithPackard]], beginning in June 2002. Old mailing list addresses are being forwarded to the current list; and everyone who was subscribed to those earlier lists should still be subscribed to this one.
