@@ -1,5 +1,35 @@
-[[toc levels="6"]]
+A "semi-private" API exists for applications that want to avoid the XCB top-half and work directly with the bottom half. The file "xcbxlib.h" contains the interface specification. It is an extremely small interface.
 
-# Xlib/XCB API
+<a name="XCBGetRequestSent" id="XCBGetRequestSent"></a>
 
-[[XlibXcb]] currently uses undocumented parts of XCB from xcbint.h. This interface may change without notice and must not be used: ask for a new API on the mailing list if there's some functionality that you would find useful. At some point in the future, we will design and publish an interface for Xlib, and we'd love to make it as generally useful as possible. Note that when the new API is available, xcbint.h will no longer be installed.
+## XCBGetRequestSent
+
+(xcb\_xlib.c)
+
+`unsigned int XCBGetRequestSent(XCBConnection *c)`
+
+Returns the XCB sequence number of the last request sent on the given connection.
+
+<dl>
+  <dt>c</dt>
+  <dd>an XCB connection</dd>
+  <dt>Returns</dt>
+  <dd>a sequence number.</dd>
+</dl>
+
+<a name="XCBGetIOLock" id="XCBGetIOLock"></a>
+
+## XCBGetIOLock
+
+(xcb\_xlib.c)
+
+`pthread_mutex_t *XCBGetIOLock(XCBConnection *c)`
+
+Returns the address of the mutex serving as the XCB IO lock on the given connection.
+
+<dl>
+  <dt>c</dt>
+  <dd>an XCB connection</dd>
+  <dt>Returns</dt>
+  <dd>a mutex.</dd>
+</dl>
