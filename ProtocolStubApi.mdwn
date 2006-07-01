@@ -1,7 +1,3 @@
-[[toc levels="6"]]
-
-# Protocol Stub API
-
 These are not single functions or types, but rather naming conventions intended to be used in the core protocol API and the public API for all extensions. All declarations associated with the core protocol are in xcb.h, while each extension provides all of its declarations in its own header file.
 
 One of the design goals of this API is that users should be able to learn these conventions, then read documentation on the binary encoding of the core protocol or any extension, and immediately determine the correct function name and argument list to generate the desired request.
@@ -9,6 +5,8 @@ One of the design goals of this API is that users should be able to learn these 
 Most of the X Window Protocol documentation lives in <http://webcvs.freedesktop.org/xorg/doc/xorg-docs> . For example, the [postscript version](http://webcvs.freedesktop.org/xorg/doc/xorg-docs/hardcopy/XProtocol/) of the core protocol. (Freedesktop is looking for volunteers to convert their existing documents to a more modern format.)
 
 [!] _**TODO:** link to online descriptions of the core X protocol as well as de-facto standard extension protocols._
+
+[[toc levels="6"]]
 
 ## Extensions
 
