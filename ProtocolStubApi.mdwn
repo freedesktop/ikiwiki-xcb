@@ -150,6 +150,8 @@ Otherwise, an [XCBVoidCookie](#XCBNameCookie) will be returned, and no [XCB&lt;N
 
 `XCB<"Name">Rep *XCB<"Name">Reply(XCBConnection *c, XCB<"Name">Cookie cookie, XCBGenericError **e)`
 
+/!\ In the upcoming "Plan 7" error handling, the `XCBGenericError **e` supplied to this function must be 0 unless the corresponding request function committed to storing an error here. See [XCB&lt;"Name"&gt;()](#XCBName), [XCB&lt;"Name"&gt;Just()](#XCBNameJust), and [XCB&lt;"Name"&gt;Check()](#XCBNameCheck).
+
 ### XCB&lt;Name&gt;&lt;Field&gt;Iter
 
 `XCB<"BaseType">Iter XCB<"Name"><"Field">Iter(XCB<"Name">Rep *R)`
