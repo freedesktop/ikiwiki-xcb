@@ -1,0 +1,213 @@
+[[toc levels="6"]]
+
+# Protocol Stub API
+
+These are not single functions or types, but rather naming conventions intended to be used in the core protocol API and the public API for all extensions. All declarations associated with the core protocol are in xcb.h, while each extension provides all of its declarations in its own header file.
+
+One of the design goals of this API is that users should be able to learn these conventions, then read documentation on the binary encoding of the core protocol or any extension, and immediately determine the correct function name and argument list to generate the desired request.
+
+Most of the X Window Protocol documentation lives in <http://webcvs.freedesktop.org/xorg/doc/xorg-docs> . For example, the [postscript version](http://webcvs.freedesktop.org/xorg/doc/xorg-docs/hardcopy/XProtocol/) of the core protocol. (Freedesktop is looking for volunteers to convert their existing documents to a more modern format.)
+
+[!] _**TODO:** link to online descriptions of the core X protocol as well as de-facto standard extension protocols._
+
+## Extensions
+
+### XCB"&lt;Extension&gt;"Id
+
+`XCBExtension XCB"<Extension>"Id`
+
+(xcb.h)
+
+A unique, opaque object identifying this extension for [XCBGetExtensionData](#XCBGetExtensionData).
+
+## Fields
+
+Several conventions apply to field names.
+
+- Fields have underscore-separated lower-case names.
+- Where a field represents an object in an X protocol specification document, the name is formed by replacing dash ("-") and space (" ") characters with underscores ("\_").
+- Where a field holds the length of field "foo", its name is "foo\_len".
+
+## Types
+
+The C name for the X type with name "Name" is XCB&lt;"Name"&gt;. If the type is from an extension, then "Name" is composed by prefixing the extension name onto the type name.
+
+[!] _**TODO:**Links to XCBProtocolLanguage should be changed to point to appropriate [[XmlXcb]] documentation._
+
+Types are declared using the [[XCBProtocolLanguage#STRUCT|XCBProtocolLanguage]], [[XCBProtocolLanguage#UNION|XCBProtocolLanguage]], [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]], [[XCBProtocolLanguage#ENUM|XCBProtocolLanguage]], and ["XCBProtocolLanguage#TYPEDEF: TYPEDEF] protocol description macros.
+
+<a name="XCBNameIter"></a>
+
+### XCB&lt;Name&gt;Iter
+
+    typedef struct {
+             XCB<Name> *data;
+             int rem;
+             int index;
+    } XCB<Name>Iter;
+
+An iterator may only be created for types declared using the [[XCBProtocolLanguage#STRUCT|XCBProtocolLanguage]] and [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]] protocol description macros.
+
+A special iterator type, XCBGenericIter, is declared in xcb.h.
+
+### XCB&lt;Name&gt;Next
+
+`void XCB&<"Name">Next(XCB<"Name">Iter *i)`
+
+Every [iterator](#XCBNameIter) has a XCB&lt;"Name"&gt;Next function.
+
+### XCB&lt;Name&gt;End
+
+`XCBGenericIter XCB<Name">End(XCB<"Name">Iter i)`
+
+Every [iterator](#XCBNameIter) has a XCB&lt;"Name"&gt;End function.
+
+### XCB&lt;TypeName&gt;&lt;Field&gt;Iter
+
+`XCB<"BaseType">Iter XCB<"TypeName"><"Field">Iter(XCB<"TypeName"> *R)`
+
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+
+### XCB&lt;TypeName&gt;&lt;Field&gt;
+
+`<"BaseType"> *XCB<"TypeName"><"Field">(XCB<"TypeName"> *R)`
+
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+
+### XCB&lt;TypeName&gt;&lt;Field&gt;Length
+
+`int XCB<"TypeName"><"Field">Length(XCB<"TypeName"> *R)`
+
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+
+### XCB&lt;TypeName&gt;&lt;Field&gt;End
+
+`XCBGenericIter XCB<"TypeName"><"Field">End(XCB<"TypeName"> *R)`
+
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+
+### XCB&lt;Name&gt;New
+
+`XCB<"Name"> XCB<"Name">New(XCBConnection *c)`
+
+Allocate a new XID of the appropriate kind.
+
+Declared by the [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]] protocol description macro.
+
+## Requests
+
+Every request declared using the [[XCBProtocolLanguage#REQUEST|XCBProtocolLanguage]] or [[XCBProtocolLanguage#VOIDREQUEST|XCBProtocolLanguage]] protocol description macros generates an assortment of types and functions.
+
+The base C name for all types and functions related to the X request with name "Name" is XCB&lt;"Name"&gt;. If the request is from an extension, then "Name" is composed by prefixing the extension name onto the request name.
+
+<a name="XCBNameCookie"></a>
+
+### XCB&lt;Name&gt;Cookie
+
+    typedef struct {
+             unsigned int sequence;
+    } XCB<Name>Cookie;
+
+A special cookie type, XCBVoidCookie, is declared in xcb.h. See [XCB&lt;Name&gt;](#XCBName).
+
+### XCB&lt;Name&gt;Req
+
+    typedef struct {
+             CARD8 major_opcode;
+             /* first single-byte field, CARD8 minor_opcode, or one byte of padding */
+             CARD16 length;
+             ...
+    } XCB<Name>Req;
+
+### XCB&lt;Name&gt;Rep
+
+    typedef struct {
+             BYTE response_type;
+             /* first single-byte field or one byte of padding */
+             CARD16 sequence;
+             CARD32 length;
+             ...
+             /* padding to 32 bytes */
+    } XCB<Name>Rep;
+
+`response_type` always equals 1 in a reply.
+
+A special reply type, XCBGenericRep, is declared in xcb.h. It contains only the fields common to all replies.
+
+<a name="XCBName"></a>
+
+### XCB&lt;Name&gt;
+
+`XCB<"Name">VoidCookie XCB<"Name">(XCBConnection *c, ...)`
+
+Delivers a request with the specified arguments to the X server.
+
+If the request will cause a reply to be generated, then an [XCB&lt;"Name"&gt;Cookie](#XCBNameCookie) will be returned and the [XCB&lt;Name&gt;Reply](#XCBNameReply) function should be used to obtain the actual reply.
+
+Otherwise, an [XCBVoidCookie](#XCBNameCookie) will be returned, and no [XCB&lt;Name&gt;Reply](#XCBNameReply) function will be provided.
+
+<a name="XCBNameReply"></a>
+
+### XCB&lt;Name&gt;Reply
+
+`XCB<"Name">Rep *XCB<"Name">Reply(XCBConnection *c, XCB<"Name">Cookie cookie, XCBGenericError **e)`
+
+### XCB&lt;Name&gt;&lt;Field&gt;Iter
+
+`XCB<"BaseType">Iter XCB<"Name"><"Field">Iter(XCB<"Name">Rep *R)`
+
+### XCB&lt;Name&gt;&lt;Field&gt;
+
+`<"BaseType"> *XCB<"Name"><"Field">(XCB<"Name">Rep *R)`
+
+### XCB&lt;Name&gt;&lt;Field&gt;Length
+
+`int XCB<"Name"><"Field">Length(XCB<"Name">Rep *R)`
+
+### XCB&lt;Name&gt;&lt;Field&gt;End
+
+`XCBGenericIter XCB<"Name"><"Field">End(XCB<"Name">Rep *R)`
+
+## Events and Errors
+
+### XCB&lt;EventName&gt;Event
+
+    typedef struct {
+             BYTE response_type;
+             /* first single-byte field or one byte of padding */
+             CARD16 sequence;
+             ...
+             /* padding to 32 bytes */
+    } XCB<EventName>Event;
+
+`response_type` equals the event number. See [XCB&lt;EventName&gt;](#XCBEventName).
+
+A special event type, XCBGenericEvent, is declared in xcb.h. It contains only the fields common to all events.
+
+<a name="XCBEventName"></a>
+
+### XCB&lt;EventName&gt;
+
+`#define XCB<EventName> <number>`
+
+### XCB&lt;ErrorName&gt;Error
+
+    typedef struct {
+             BYTE response_type;
+             BYTE error_code;
+             CARD16 sequence;
+             ...
+             /* padding to 32 bytes */
+    } XCB<ErrorName>Error;
+
+`response_type` always equals 0 for errors.
+
+`error_code` equals the error number. See [XCB&lt;ErrorName&gt;](#XCBErrorName).
+
+A special error type, XCBGenericError, is declared in xcb.h. It contains only the fields common to all errors.
+
+<a name="XCBErrorName"></a>
+
+### XCB&lt;ErrorName&gt;
+
+`#define XCB<ErrorName> <number>`
