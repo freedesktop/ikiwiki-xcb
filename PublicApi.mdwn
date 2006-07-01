@@ -1,3 +1,5 @@
+The XCB public API contains functions that are auxilliary to the X Protocol.
+
 [[toc levels="6"]]
 
 ## Types
