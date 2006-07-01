@@ -1,8 +1,15 @@
+_Refactoring this page...please be patient..._
+
 [[toc levels="6"]]
 
 This is the API for [[XCB]]. Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
 
 See also [[UsingXcb]] for tips and tricks on how to properly use the API.
+
+1. [[Public API|PublicApi]]
+2. [[Protocol Stub API|ProtocolStubApi]]
+3. [[Protocol Extension API|ProtocolExtensionApi]]
+4. [[Xlib/XCB API|XlibXcbApi]]
 
 # Public API
 
@@ -280,7 +287,7 @@ The C name for the X type with name "Name" is XCB&lt;"Name"&gt;. If the type is 
 
 [!] _**TODO:**Links to XCBProtocolLanguage should be changed to point to appropriate [[XmlXcb]] documentation._
 
-Types are declared using the [[STRUCT|XCBProtocolLanguage]], [[UNION|XCBProtocolLanguage]], [[XIDTYPE|XCBProtocolLanguage]], [[ENUM|XCBProtocolLanguage]], and ["XCBProtocolLanguage#TYPEDEF: TYPEDEF] protocol description macros.
+Types are declared using the [[XCBProtocolLanguage#STRUCT|XCBProtocolLanguage]], [[XCBProtocolLanguage#UNION|XCBProtocolLanguage]], [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]], [[XCBProtocolLanguage#ENUM|XCBProtocolLanguage]], and ["XCBProtocolLanguage#TYPEDEF: TYPEDEF] protocol description macros.
 
 <a name="XCBNameIter"></a>
 
@@ -292,7 +299,7 @@ Types are declared using the [[STRUCT|XCBProtocolLanguage]], [[UNION|XCBProtocol
              int index;
     } XCB<Name>Iter;
 
-An iterator may only be created for types declared using the [[STRUCT|XCBProtocolLanguage]] and [[XIDTYPE|XCBProtocolLanguage]] protocol description macros.
+An iterator may only be created for types declared using the [[XCBProtocolLanguage#STRUCT|XCBProtocolLanguage]] and [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]] protocol description macros.
 
 A special iterator type, XCBGenericIter, is declared in xcb.h.
 
@@ -312,25 +319,25 @@ Every [iterator](#XCBNameIter) has a XCB&lt;"Name"&gt;End function.
 
 `XCB<"BaseType">Iter XCB<"TypeName"><"Field">Iter(XCB<"TypeName"> *R)`
 
-Declared by the [[LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
 ### XCB&lt;TypeName&gt;&lt;Field&gt;
 
 `<"BaseType"> *XCB<"TypeName"><"Field">(XCB<"TypeName"> *R)`
 
-Declared by the [[LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
 ### XCB&lt;TypeName&gt;&lt;Field&gt;Length
 
 `int XCB<"TypeName"><"Field">Length(XCB<"TypeName"> *R)`
 
-Declared by the [[LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
 ### XCB&lt;TypeName&gt;&lt;Field&gt;End
 
 `XCBGenericIter XCB<"TypeName"><"Field">End(XCB<"TypeName"> *R)`
 
-Declared by the [[LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
 ### XCB&lt;Name&gt;New
 
@@ -338,11 +345,11 @@ Declared by the [[LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
 Allocate a new XID of the appropriate kind.
 
-Declared by the [[XIDTYPE|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]] protocol description macro.
 
 ## Requests
 
-Every request declared using the [[REQUEST|XCBProtocolLanguage]] or [[VOIDREQUEST|XCBProtocolLanguage]] protocol description macros generates an assortment of types and functions.
+Every request declared using the [[XCBProtocolLanguage#REQUEST|XCBProtocolLanguage]] or [[XCBProtocolLanguage#VOIDREQUEST|XCBProtocolLanguage]] protocol description macros generates an assortment of types and functions.
 
 The base C name for all types and functions related to the X request with name "Name" is XCB&lt;"Name"&gt;. If the request is from an extension, then "Name" is composed by prefixing the extension name onto the request name.
 
@@ -510,9 +517,11 @@ Values for a particular request that are always constant.
   <dd>a combination of the following flags</dd>
 </dl>
 
-- `XCB_REQUEST_CHECKED`
-- `XCB_REQUEST_RAW`
-- `XCB_REQUEST_DISCARD_REPLY`
+`XCB_REQUEST_CHECKED`
+
+`XCB_REQUEST_RAW`
+
+`XCB_REQUEST_DISCARD_REPLY`
 
 ## XCBWaitForReply
 
