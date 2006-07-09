@@ -186,7 +186,7 @@ This form can be used only if the request will cause a reply to be generated. It
 
 /!\ This function is part of the upcoming "Plan 7" error handling. The `XCBVoidCookie cookie` supplied to this function must have resulted from a call to [XCB&lt;"Name"&gt;Checked()](#XCBNameChecked). This function will block until one of two conditions happens. If an error is received, it will be returned. If no error can be received, because the sequence number has advanced beyond that provided in `cookie`, 0 will be returned.
 
-/!\ Note that this function will block indefinitely if there are no outstanding requests which return a reply or an error. If you have not issued a request that expects a reply after the call to [XCB&lt;"Name"&gt;Checked()](#XCBNameChecked), you probably want to do so, perhaps by calling `XCBAuxRequestCheck()`, which does an implicit XCBAuxSync(). Hanging indefinitely due to the misuse of `XCBRequestCheck()` is entirely the responsibility of the user. The management takes no responsibility: there is no warranty, express or implied.
+/!\ Note that this function will send perform an `XCBAuxSync()` if needed to ensure that the sequence number will advance beyond that provided in `cookie`; this is a convenience to avoid races in determining whether the sync is needed. If you want a version of this call that never performs this implicit sync (e.g. because you are writing in a multi-threaded implementation in which another thread will eventually issue a request), please let us know, and we will consider adding it.
 
 ### XCB&lt;Name&gt;&lt;Field&gt;Iter
 
