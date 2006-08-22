@@ -2,7 +2,7 @@ The X protocol C-language Binding (XCB) is a replacement for Xlib [[featuring|Fe
 
 You can obtain released versions of XCB from <http://xcb.freedesktop.org/dist> . Follow the instructions from the [[DevelopersGuide]] to build, except that you can use released versions of the dependencies, and you don't need git, automake, autoconf, or libtool.
 
-The [[XcbApi]] is documented. There is also a [tutorial](http://gitweb.freedesktop.org/?p=xcb;a=tree;f=xcb/doc/tutorial).
+The [[XcbApi]] is documented. There is also a [tutorial](http://gitweb.freedesktop.org/?p=xcb;a=tree;f=xcb/doc/tutorial) and some random [[notes|XcbNotes]].
 
 To aid porting applications, you can configure Xlib to use XCB for the transport layer. We call this [[Xlib/XCB|XlibXcb]].
 
