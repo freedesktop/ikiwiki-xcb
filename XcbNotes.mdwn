@@ -1,0 +1,1 @@
+- Double buffering on X is kind of a mess. Here's documentation on the [Multi-Buffering](XcbNotes/buffer.pdf) and [XDBE](XcbNotes/dbe.pdf) extensions in case someone wants to write a protocol description for XCB.
