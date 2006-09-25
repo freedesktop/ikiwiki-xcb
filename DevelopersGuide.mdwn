@@ -25,7 +25,6 @@ There are multiple modules. The modules you need to checkout, build, and install
 
 - from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) git:
   - xorg/util/macros.git (see note below)
-  - xorg/proto/x11proto.git
   - xorg/lib/libXau.git
     - xorg/lib/libXdmcp.git, to optionally support XDM-AUTHORIZATION-1
 - two of the XCB repositories:
@@ -35,23 +34,23 @@ There are multiple modules. The modules you need to checkout, build, and install
 To build Xlib with support for XCB, first build XCB as above. After that, the modules you need to checkout, build, and install for Xlib are, in order:
 
 - from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) git:
-  - xorg/proto/xextproto
-  - xorg/proto/kbproto
-  - xorg/proto/inputproto
-  - xorg/lib/libxtrans
-  - xorg/lib/libX11
+  - xorg/proto/xextproto.git
+  - xorg/proto/kbproto.git
+  - xorg/proto/inputproto.git
+  - xorg/lib/libxtrans.git
+  - xorg/lib/libX11.git
 
 Note that aclocal needs to be able to find the files installed from xorg/util/macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
 
 To build the XCB demos, you need two more repositories:
 
-- xcb/util (also needed for the XCB backend of [cairo](http://cairographics.org/))
-- xcb/demo
+- xcb/util.git (also needed for the XCB backend of [cairo](http://cairographics.org/))
+- xcb/demo.git
 
-There are also two further experimental XCB repositories:
+There are also two experimental XCB repositories:
 
-- xcb/xhsb (experimental Haskell bindings)
-- xcb/libXamine (X protocol debugging library which makes use of the XML protocol descriptions)
+- xcb/xhsb.git (experimental Haskell bindings)
+- xcb/libXamine.git (X protocol debugging library which makes use of the XML protocol descriptions)
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
