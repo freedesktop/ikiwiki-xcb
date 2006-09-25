@@ -1,6 +1,6 @@
 XCB and Xlib/XCB development efforts are coordinated using git, [bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
 
-[libX11](http://gitweb.freedesktop.org/?p=xorg-lib-libX11) and [xcb](http://gitweb.freedesktop.org/?p=xcb) repositories now use [git](http://git.or.cz/) as SCM. The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for using freedesktop.org repositories](http://www.freedesktop.org/wiki/GettingInvolved).
+[libX11](http://gitweb.freedesktop.org/?p=xorg/lib/libX11) and XCB repositories now use [git](http://git.or.cz/) for source control management (SCM). The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for using freedesktop.org repositories](http://www.freedesktop.org/wiki/GettingInvolved).
 
 To build XCB from source, you need to have installed at least:
 
@@ -11,43 +11,47 @@ To build XCB from source, you need to have installed at least:
 - libtool 1.5.6
 - [check](http://check.sourceforge.net) (but see [[NoCheck]] if you don't want to install this)
 - xsltproc
-- gperf 3.0.1
+- gperf 3.0.1 (for some of the xcb/util libraries)
 
 (Trivial patches to support earlier versions, or a note that earlier versions "just work", would be welcome.)
 
 Please familiarize yourself with the [Modular Developer's Guide](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) before trying to build any part of X.org. Freedesktop's main site has detailed instructions for [using git](http://freedesktop.org/wiki/UsingGit) for everyday development.
 
-- How to get a copy of xcb/libX11:
-  - `git clone git://anongit.freedesktop.org/git/xcb` (this will create an 'xcb' directory in the working directory)
-  - `git clone git://anongit.freedesktop.org/git/xorg-lib-libX11` (same for libX11)
+- How to get a copy of a git module:
+  - `git clone git://anongit.freedesktop.org/git/xorg/lib/libX11.git` (this will create a 'libX11' directory in the working directory)
   - git will create a `.git` directory inside the source directory where it stores all the info
 
 There are multiple modules. The modules you need to checkout, build, and install for XCB are, in order:
 
 - from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) git:
-  - xorg-util-macros (see note below)
-  - xorg-proto-x11proto
-  - xorg-lib-libXau
-    - xorg-lib-libXdmcp, to optionally support XDM-AUTHORIZATION-1
-- from git: git://anongit.freedesktop.org/git/xcb:
-  - xcb-proto
-  - xcb
-
-To build the XCB demos, from git: git://anongit.freedesktop.org/git/xcb:
-
-- xcb-util
-- xcb-demo
+  - xorg/util/macros.git (see note below)
+  - xorg/proto/x11proto.git
+  - xorg/lib/libXau.git
+    - xorg/lib/libXdmcp.git, to optionally support XDM-AUTHORIZATION-1
+- two of the XCB repositories:
+  - xcb/proto.git
+  - xcb/libxcb.git
 
 To build Xlib with support for XCB, first build XCB as above. After that, the modules you need to checkout, build, and install for Xlib are, in order:
 
 - from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) git:
-  - xorg-proto-xextproto
-  - xorg-proto-kbproto
-  - xorg-proto-inputproto
-  - xorg-lib-libxtrans
-  - xorg-lib-libX11
+  - xorg/proto/xextproto
+  - xorg/proto/kbproto
+  - xorg/proto/inputproto
+  - xorg/lib/libxtrans
+  - xorg/lib/libX11
 
-Note that aclocal needs to be able to find the files installed from xorg-util-macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
+Note that aclocal needs to be able to find the files installed from xorg/util/macros. You may need to set ACLOCAL="aclocal -I /usr/local/share/aclocal" or similar before running autogen.sh or autoreconf.
+
+To build the XCB demos, you need two more repositories:
+
+- xcb/util (also needed for the XCB backend of [cairo](http://cairographics.org/))
+- xcb/demo
+
+There are also two further experimental XCB repositories:
+
+- xcb/xhsb (experimental Haskell bindings)
+- xcb/libXamine (X protocol debugging library which makes use of the XML protocol descriptions)
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
@@ -67,7 +71,7 @@ Both XCB and our [[XlibXcb]] efforts are works in progress; [[XCBToDo]] describe
 
 The protocol layer of XCB is implemented as a set of [XML](http://www.w3.org/XML) protocol descriptions, along with an [XSLT](http://www.w3.org/TR/xslt)-based C binding generator. The remainder of XCB consists of C code.
 
-[[JoshTriplett]] has documented the XML/XCB [protocol description format](http://gitweb.freedesktop.org/?p=xcb;a=blob;f=xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
+[[JoshTriplett]] has documented the XML/XCB [protocol description format](http://gitweb.freedesktop.org/?p=xcb/proto;a=blob;f=doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
 The structure of XCB is designed to be as simple as possible while making common usage convenient and reasonably efficient. XCB is designed to work transparently with POSIX Thread programs or single-threaded programs: on platforms where POSIX threads are unavailable, it will be compilable without.
 
