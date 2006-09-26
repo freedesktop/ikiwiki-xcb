@@ -4,9 +4,9 @@ Care is required when calling these functions, as they generally do not have the
 
 [[toc levels="6"]]
 
-## struct XCBExtension
+## struct xcb\_extension\_t
 
-    struct XCBExtension {
+    struct xcb_extension_t {
              const char *name;
              int global_id;
     };
@@ -17,14 +17,14 @@ Care is required when calling these functions, as they generally do not have the
   <dd>a small integer unique across all extensions in the current process.</dd>
 </dl>
 
-## XCBProtocolRequest
+## xcb\_protocol\_request\_t
 
     typedef struct {
              size_t count;
-             XCBExtension *ext;
-             CARD8 opcode;
-             BOOL isvoid;
-    } XCBProtocolRequest;
+             xcb_extension_t *ext;
+             uint8_t opcode;
+             uint8_t isvoid;
+    } xcb_protocol_request_t;
 
 Values for a particular request that are always constant.
 
@@ -39,11 +39,11 @@ Values for a particular request that are always constant.
   <dd>zero if this request will return a reply; non-zero otherwise.</dd>
 </dl>
 
-## XCBSendRequest
+## xcb\_send\_request
 
 (xcb\_out.c)
 
-`int XCBSendRequest(XCBConnection *c, int flags, unsigned int *sequence, struct iovec *vector, const XCBProtocolRequest *request)`
+`int xcb_send_request(xcb_connection *c, int flags, unsigned int *sequence, struct iovec *vector, const xcb_protocol_request_t *request)`
 
 <dl>
   <dt>flags</dt>
@@ -56,30 +56,30 @@ Values for a particular request that are always constant.
 
 `XCB_REQUEST_DISCARD_REPLY`
 
-## XCBWaitForReply
+## xcb\_wait\_for\_reply
 
 (xcb\_in.c)
 
-`void *XCBWaitForReply(XCBConnection *c, unsigned int request, XCBGenericError **e)`
+`void * xcb_wait_for_reply(xcb_connection *c, unsigned int request, xcb_generic_error_t **e)`
 
-## XCBPollForReply
+## xcb\_poll\_for\_reply
 
 (xcb\_in.c)
 
-`int XCBPollForReply(XCBConnection *c, unsigned int request, void **reply, XCBGenericError **e)`
+`int xcb_poll_for_reply(xcb_connection *c, unsigned int request, void **reply, xcb_generic_error_t **e)`
 
 Returns: 1 if the reply was recieved (reply or error is filled in), 0 if the reply has not yet arrived.
 
-## XCBGenerateID
+## xcb\_generate\_id
 
 (xcb\_xid.c)
 
-`CARD32 XCBGenerateID(XCBConnection *c)`
+`uint32_t xcb_generate_id(xcb_connection *c)`
 
-## XCBPopcount
+## xcb\_popcount
 
 (xcb\_util.c)
 
-`int XCBPopcount(CARD32 mask)`
+`int xcb_popcount(uint32_t mask)`
 
 Returns the number of bits in the binary representation of `mask` that are equal to 1. This is also called a "population count".
