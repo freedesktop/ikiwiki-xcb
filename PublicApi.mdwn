@@ -6,38 +6,38 @@ The XCB public API contains functions that are auxilliary to the X Protocol.
 
 These types are declared in xcb.h.
 
-<a name="XCBConnection"></a>
+<a name="xcb_connection_t"></a>
 
-### XCBConnection
-
-(xcb.h)
-
-`typedef struct XCBConnection XCBConnection`
-
-An XCBConnection is an opaque structure containing all data that [[XCB]] needs to communicate with an X server. The structure is defined in xcbint.h.
-
-<a name="XCBExtension"></a>
-
-### XCBExtension
+### xcb\_connection\_t
 
 (xcb.h)
 
-`typedef struct XCBExtension XCBExtension`
+`typedef struct xcb_connection_t xcb_connection_t`
 
-An XCBExtension is an opaque structure used as key for [XCBGetExtensionData](#XCBGetExtensionData).
+An xcb\_connection\_t is an opaque structure containing all data that [[XCB]] needs to communicate with an X server. The structure is defined in xcbint.h.
 
-<a name="XCBAuthInfo"></a>
+<a name="xcb_extension_t"></a>
 
-### XCBAuthInfo
+### xcb\_extension\_t
 
 (xcb.h)
 
-    typedef struct XCBAuthInfo {
+`typedef struct xcb_extension_t xcb_extension_t`
+
+An xcb\_extension\_t is an opaque structure used as key for [xcb\_get\_extension\_data](#xcb_get_extension_data).
+
+<a name="xcb_auth_info_t"></a>
+
+### xcb\_auth\_info\_t
+
+(xcb.h)
+
+    typedef struct xcb_auth_info_t {
              int namelen;
              char *name;
              int datalen;
              char *data;
-    } XCBAuthInfo;
+    } xcb_auth_info_t;
 
 A container for authorization information to be sent to the X server.
 
@@ -52,77 +52,75 @@ A container for authorization information to be sent to the X server.
 
 These functions are declared in xcb.h.
 
-<a name="XCBConnect"></a>
+<a name="xcb_connect"></a>
 
-## XCBConnect
+## xcb\_connect
 
 (xcb\_util.c)
 
-`XCBConnection *XCBConnect(const char *display, int *screen)`
+`xcb_connection_t *xcb_connect(const char *display, int *screen)`
 
 Connects to the X server specified by `display`. If `display` is null, uses the value of the DISPLAY environment variable. If a particular screen on that server is preferred, the int pointed to by `screen` (if non-null) will be set to that screen; otherwise the screen will be set to 0.
 
-<a name="XCBConnectToDisplayWithAuthInfo"></a>
+<a name="xcb_connect_to_display_with_auth_info"></a>
 
-## XCBConnectToDisplayWithAuthInfo
+## xcb\_connect\_to\_display\_with\_auth\_info
 
 (xcb\_util.c)
 
-`XCBConnection *XCBConnectToDisplayWithAuthInfo(const char *display, XCBAuthInfo *auth, int *screen)`
+`xcb_connection_t *xcb_connect_to_display_with_auth_info(const char *display, xcb_auth_info_t *auth, int *screen)`
 
 Connects to the X server specified by `display`, using the given authorization information. If a particular screen on that server is preferred, the int pointed to by `screen` (if non-null) will be set to that screen; otherwise the screen will be set to 0.
 
-<a name="XCBConnectToFD"></a>
+<a name="xcb_connect_to_fd"></a>
 
-## XCBConnectToFD
+## xcb\_connect\_to\_fd
 
 (xcb\_conn.c)
 
-`XCBConnection *XCBConnectToFD(int fd, XCBAuthInfo *auth_info)`
+`xcb_connection_t *xcb_connect_to_fd(int fd, xcb_auth_info_t *auth_info)`
 
-Connects to an X server, given an open socket and a suitable [XCBAuthInfo](#XCBAuthInfo).
+Connects to an X server, given an open socket and a suitable [xcb\_auth\_info\_t](#xcb_auth_info_t).
 
 <dl>
   <dt>fd</dt>
-  <dd>
-    <p>a file descriptor bidirectionally connected to an X server. <a href="#XCBGetTCPFD">XCBGetTCPFD</a> and <a href="#XCBGetUnixFD">XCBGetUnixFD</a> return appropriate file descriptors.</p>
-  </dd>
+  <dd>a file descriptor bidirectionally connected to an X server.</dd>
   <dt>auth_info</dt>
   <dd>
-    <p>authentication data, or 0 if the connection should be unauthenticated. <a href="#XCBGetAuthInfo">XCBGetAuthInfo</a> returns appropriate authentication data.</p>
+    <p>authentication data, or 0 if the connection should be unauthenticated. <a href="#xcb_get_auth_info">xcb_get_auth_info</a> returns appropriate authentication data.</p>
   </dd>
   <dt>Returns</dt>
   <dd>
-    <p>an <a href="#XCBConnection">XCBConnection</a>, or 0 on failure.</p>
+    <p>an <a href="#xcb_connection_t">xcb_connection_t</a>.</p>
   </dd>
 </dl>
 
-See also [XCBConnect](#XCBConnect).
+See also [xcb\_connect](#xcb_connect).
 
-<a name="XCBDisconnect"></a>
+<a name="xcb_disconnect"></a>
 
-## XCBDisconnect
+## xcb\_disconnect
 
 (xcb\_conn.c)
 
-`void XCBDisconnect(XCBConnection *c)`
+`void xcb_disconnect(xcb_connection *c)`
 
 Closes the file descriptor and frees all memory associated with the connection.
 
 <dl>
   <dt>c</dt>
   <dd>
-    <p>a connection previously returned by <a href="#XCBConnect">XCBConnect</a> and not previously passed to XCBDisconnect.</p>
+    <p>a connection previously returned by <a href="#xcb_connect">xcb_connect</a> and not previously passed to xcb_disconnect.</p>
   </dd>
 </dl>
 
-<a name="XCBParseDisplay"></a>
+<a name="xcb_parse_display"></a>
 
-## XCBParseDisplay
+## xcb\_parse\_display
 
 (xcb\_util.c)
 
-`int XCBParseDisplay(const char *name, char **host, int *display, int *screen)`
+`int xcb_parse_display(const char *name, char **host, int *display, int *screen)`
 
 Parses a display string `name` in the form documented by X(7x). Has no side effects on failure.
 
@@ -141,15 +139,15 @@ Parses a display string `name` in the form documented by X(7x). Has no side effe
   </dd>
 </dl>
 
-<a name="XCBGetSetupData"></a>
+<a name="xcb_get_setup"></a>
 
-## XCBGetSetup
+## xcb\_get\_setup
 
 (xcb\_conn.c)
 
-`const XCBSetup *XCBGetSetup(XCBConnection *c)`
+`const xcb_setup_t *xcb_get_setup(xcb_connection_t *c)`
 
-Accessor for the data returned by the server when the [XCBConnection](#XCBConnection) was initialized.
+Accessor for the data returned by the server when the [xcb\_connection\_t](#xcb_connection_t) was initialized.
 
 This data includes
 
@@ -161,45 +159,45 @@ This data includes
 
 See the X protocol specification and xcb\_types.h for more details.
 
-<a name="XCBGetFileDescriptor"></a>
+<a name="xcb_get_file_descriptor"></a>
 
-## XCBGetFileDescriptor
+## xcb\_get\_file\_descriptor
 
 (xcb\_conn.c)
 
-`int XCBGetFileDescriptor(XCBConnection *c)`
+`int xcb_get_file_descriptor(xcb_connection_t *c)`
 
-Accessor for the file descriptor that was passed to the [XCBConnectToFD](#XCBConnectToFD) call that returned `c`.
+Accessor for the file descriptor that was passed to the [xcb\_connect\_to\_fd](#xcb_connect_to_fd) call that returned `c`.
 
-<a name="XCBGetMaximumRequestLength"></a>
+<a name="xcb_get_maximum_request_length"></a>
 
-## XCBGetMaximumRequestLength
+## xcb\_get\_maximum\_request\_length
 
 (xcb\_out.c)
 
-`CARD32 XCBGetMaximumRequestLength(XCBConnection *c)`
+`uint32_t xcb_get_maximum_request_length(xcb_connection_t *c)`
 
 In the absence of the BIG-REQUESTS extension, returns the maximum_request_length field from the connection setup data, which may be as much as 65535. If the server supports BIG-REQUESTS, then the maximum_request_length field from the reply to the [[BigRequestsEnable]] request will be returned instead.
 
 Note that this length is measured in four-byte units, making the theoretical maximum lengths roughly 256kB without BIG-REQUESTS and 16GB with.
 
-<a name="XCBWaitForEvent"></a>
+<a name="xcb_wait_for_event"></a>
 
-## XCBWaitForEvent
+## xcb\_wait\_for\_event
 
 (xcb\_in.c [!] )
 
-`XCBGenericEvent *XCBWaitForEvent(XCBConnection *c)`
+`xcb_generic_event_t *xcb_wait_for_event(xcb_connection_t *c)`
 
 Returns the next event or error from the server, or returns null in the event of an I/O error. Blocks until either an event or error arrive, or an I/O error occurs.
 
-<a name="XCBPollForEvent"></a>
+<a name="xcb_poll_for_event"></a>
 
-## XCBPollForEvent
+## xcb\_poll\_for\_event
 
 (xcb\_in.c)
 
-`XCBGenericEvent *XCBPollForEvent(XCBConnection *c, int *error)`
+`xcb_generic_event_t *xcb_poll_for_event(xcb_connection_t *c, int *error)`
 
 Returns the next event or error from the server, if one is available, or returns null otherwise. If no event is available, that might be because an I/O error like connection close occurred while attempting to read the next event.
 
@@ -208,36 +206,36 @@ Returns the next event or error from the server, if one is available, or returns
   <dd>pointer to an int to be filled in with the I/O error status of the operation. If *error* is null, terminates the application when an I/O error occurs.</dd>
 </dl>
 
-<a name="XCBFlush"></a>
+<a name="xcb_flush"></a>
 
-## XCBFlush
+## xcb\_flush
 
 (xcb\_out.c)
 
-`int XCBFlush(XCBConnection *c)`
+`int xcb_flush(xcb_connection_t *c)`
 
 Forces any buffered output to be written to the server. Blocks until the write is complete.
 
 Returns: 1 on success, 0 on failure
 
-<a name="XCBGetExtensionData"></a>
+<a name="xcb_get_extension_data"></a>
 
-## XCBGetExtensionData
-
-(xcb\_ext.c)
-
-`const XCBQueryExtensionRep *XCBGetExtensionData(XCBConnection *c, XCBExtension *ext)`
-
-This function is the primary interface to the "extension cache", which caches reply information from [[QueryExtension]] requests. Invoking this function may cause a call to XCBQueryExtension to retrieve extension information from the server, and may block until extension data is received from the server.
-
-Do **not** free the returned XCBQueryExtensionRep - this storage is managed by the cache itself.
-
-<a name="XCBPrefetchExtensionData"></a>
-
-## XCBPrefetchExtensionData
+## xcb\_get\_extension\_data
 
 (xcb\_ext.c)
 
-`void XCBPrefetchExtensionData(XCBConnection *c, XCBExtension *ext)`
+`const xcb_query_extension_reply_t *xcb_get_extension_data(xcb_connection_t *c, xcb_extension_t *ext)`
 
-This function allows a "prefetch" of extension data into the extension cache. Invoking the function may cause a call to XCBQueryExtension, but will not block waiting for the reply. [XCBGetExtensionData](#XCBGetExtensionData) will return the prefetched data after possibly blocking while it is retrieved.
+This function is the primary interface to the "extension cache", which caches reply information from [[QueryExtension]] requests. Invoking this function may cause a call to xcb\_query\_extension to retrieve extension information from the server, and may block until extension data is received from the server.
+
+Do **not** free the returned xcb\_query\_extension\_reply\_t - this storage is managed by the cache itself.
+
+<a name="xcb_prefetch_extension_data"></a>
+
+## xcb\_prefetch\_extension\_data
+
+(xcb\_ext.c)
+
+`void xcb_prefetch_extension_data(xcb_connection_t *c, xcb_extension_t *ext)`
+
+This function allows a "prefetch" of extension data into the extension cache. Invoking the function may cause a call to xcb\_query\_extension, but will not block waiting for the reply. [xcb\_get\_extension\_data](#xcb_get_extension_data) will return the prefetched data after possibly blocking while it is retrieved.
