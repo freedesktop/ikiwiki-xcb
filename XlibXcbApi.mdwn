@@ -2,13 +2,13 @@ A "semi-private" API exists for applications that want to avoid the XCB top-half
 
 [[toc levels="6"]]
 
-<a name="XCBGetRequestSent"></a>
+<a name="xcb_get_request_sent"></a>
 
-## XCBGetRequestSent
+## xcb\_get\_request\_sent
 
 (xcb\_xlib.c)
 
-`unsigned int XCBGetRequestSent(XCBConnection *c)`
+`unsigned int xcb_get_request_sent(xcb_connection_t *c)`
 
 Returns the XCB sequence number of the last request sent on the given connection.
 
@@ -19,13 +19,13 @@ Returns the XCB sequence number of the last request sent on the given connection
   <dd>a sequence number.</dd>
 </dl>
 
-<a name="XCBGetIOLock"></a>
+<a name="xcb_get_io_lock"></a>
 
-## XCBGetIOLock
+## xcb\_get\_io\_lock
 
 (xcb\_xlib.c)
 
-`pthread_mutex_t *XCBGetIOLock(XCBConnection *c)`
+`pthread_mutex_t * xcb_get_io_lock(xcb_connection_t *c)`
 
 Returns the address of the mutex serving as the XCB IO lock on the given connection.
 
