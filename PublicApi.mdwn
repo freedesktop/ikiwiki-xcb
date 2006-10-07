@@ -239,3 +239,14 @@ Do **not** free the returned xcb\_query\_extension\_reply\_t - this storage is m
 `void xcb_prefetch_extension_data(xcb_connection_t *c, xcb_extension_t *ext)`
 
 This function allows a "prefetch" of extension data into the extension cache. Invoking the function may cause a call to xcb\_query\_extension, but will not block waiting for the reply. [xcb\_get\_extension\_data](#xcb_get_extension_data) will return the prefetched data after possibly blocking while it is retrieved.
+
+## xcb\_generate\_id
+
+(xcb\_xid.c)
+
+`uint32_t xcb_generate_id(xcb_connection *c)`
+
+This function allocates an XID prior to creating a new X object. For example, xcb\_create\_window:
+
+      xcb_window_t window = xcb_generate_id(c);
+      xcb_create_window( c, depth, window, ... );
