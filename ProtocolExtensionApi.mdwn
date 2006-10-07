@@ -70,12 +70,6 @@ Values for a particular request that are always constant.
 
 Returns: 1 if the reply was recieved (reply or error is filled in), 0 if the reply has not yet arrived.
 
-## xcb\_generate\_id
-
-(xcb\_xid.c)
-
-`uint32_t xcb_generate_id(xcb_connection *c)`
-
 ## xcb\_popcount
 
 (xcb\_util.c)
