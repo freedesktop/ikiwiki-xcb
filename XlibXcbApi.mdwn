@@ -10,7 +10,7 @@ A "semi-private" API exists for applications that want to avoid the XCB top-half
 
 `unsigned int xcb_get_request_sent(xcb_connection_t *c)`
 
-Returns the XCB sequence number of the last request sent on the given connection.
+Returns the XCB sequence number of the last request sent on the given connection. Must be used while the connection is locked, using the xlib\_lock functions below.
 
 <dl>
   <dt>c</dt>
@@ -19,19 +19,20 @@ Returns the XCB sequence number of the last request sent on the given connection
   <dd>a sequence number.</dd>
 </dl>
 
-<a name="xcb_get_io_lock"></a>
+## xcb\_xlib\_lock
 
-## xcb\_get\_io\_lock
-
-(xcb\_xlib.c)
-
-`pthread_mutex_t * xcb_get_io_lock(xcb_connection_t *c)`
-
-Returns the address of the mutex serving as the XCB IO lock on the given connection.
+`void xcb_xlib_lock(xcb_connection_t *c)`
 
 <dl>
   <dt>c</dt>
   <dd>an XCB connection</dd>
-  <dt>Returns</dt>
-  <dd>a mutex.</dd>
+</dl>
+
+## xcb\_xlib\_unlock
+
+`void xcb_xlib_unlock(xcb_connection_t *c)`
+
+<dl>
+  <dt>c</dt>
+  <dd>an XCB connection</dd>
 </dl>
