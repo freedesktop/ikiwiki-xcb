@@ -84,14 +84,6 @@ Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol d
 
 Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
-### XCB&lt;Name&gt;New
-
-`XCB<"Name"> XCB<"Name">New(XCBConnection *c)`
-
-Allocate a new XID of the appropriate kind.
-
-Declared by the [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]] protocol description macro.
-
 ## Requests
 
 Every request declared using the [[XCBProtocolLanguage#REQUEST|XCBProtocolLanguage]] or [[XCBProtocolLanguage#VOIDREQUEST|XCBProtocolLanguage]] protocol description macros generates an assortment of types and functions.
