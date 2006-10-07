@@ -197,14 +197,17 @@ Returns the next event or error from the server, or returns null in the event of
 
 (xcb\_in.c)
 
-`xcb_generic_event_t *xcb_poll_for_event(xcb_connection_t *c, int *error)`
+`xcb_generic_event_t *xcb_poll_for_event(xcb_connection_t *c)`
 
-Returns the next event or error from the server, if one is available, or returns null otherwise. If no event is available, that might be because an I/O error like connection close occurred while attempting to read the next event.
+Returns the next event or error from the server, if one is available, or returns null otherwise. If no event is available, that might be because an I/O error like connection close occurred while attempting to read the next event. You can use [xcb\_connection\_has\_error](#xcb_connection_has_error) to check for this condition.
 
-<dl>
-  <dt>error</dt>
-  <dd>pointer to an int to be filled in with the I/O error status of the operation. If *error* is null, terminates the application when an I/O error occurs.</dd>
-</dl>
+<a name="xcb_connection_has_error"></a>
+
+## xcb\_connection\_has\_error
+
+`int xcb_connection_has_error(xcb_connection_t *c)`
+
+Returns non-zero if the connection has an error or zero if the connection is still valid. If this ever returns non-zero, then the connection is invalid, as if xcb\_disconnect had been called.
 
 <a name="xcb_flush"></a>
 
