@@ -1,6 +1,6 @@
 # XML-XCB
 
-[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://cvs.freedesktop.org/xcb/xcb-proto/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
+[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=blob;hb=HEAD;f=doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
 ## Description
 
