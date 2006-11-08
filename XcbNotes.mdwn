@@ -1,1 +1,23 @@
-- Double buffering on X is kind of a mess. Here's documentation on the [Multi-Buffering](XcbNotes/buffer.pdf) and [XDBE](XcbNotes/dbe.pdf) extensions in case someone wants to write a protocol description for XCB.
+### Cookies and Latency Hiding
+
+The general ruleset I always intended for using a cookie to hide latency is this:
+
+1. Always send a request as soon as you legally can.
+2. Never force the returned cookie until you actually need to examine the result.
+
+In the presence of multiple requests, it gets a bit more complicated.
+
+1. Always send each request as soon as you legally can.<br /> 1a. If you can send multiple requests at the same time, send the one whose value you expect to need first, first.<br /> 1b. If rule 1a doesn't help, a secondary tiebreaker is that it's better to send requests the server can process quickly first, followed by those the server might run slowly.
+2. Never force a returned cookie until you actually need to examine the result.
+
+The idea of rule 1b is that if you're lucky, you can be working on the quick results while the server is processing the slow request. In general, don't worry about ordering of simultaneous requests too much. It's hard to construct a realistic example where these kinds of corner cases matter.
+
+Note that rule 2 is stronger than necessary in the presence of multiple requests. If you need to force a cookie returned for a request r, it is harmless to also force cookies returned from requests earlier than r: these values will be available anyway, since the server always returns results in order. However, it is also harmless to wait to force a cookie until you need the value, and it makes it clearer that you've done the right thing.
+
+If you follow these rules, you will be getting about all the latency hiding you can expect from what is a fundamentally serialized protocol without using threading or some equivalent mechanism.
+
+Hope this helps. Comment welcome.
+
+### Double Buffering
+
+Double buffering on X is kind of a mess. Here's documentation on the [Multi-Buffering](XcbNotes/buffer.pdf) and [XDBE](XcbNotes/dbe.pdf) extensions in case someone wants to write a protocol description for XCB.
