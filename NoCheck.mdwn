@@ -1,3 +1,5 @@
+**As of November 2006, version 0.9.4 of check is required. It now uses pkg-config so that it can be reliably detected without the deprecated AM\_PATH\_CHECK macro.**
+
 XCB currently uses 'check' as a unit test framework. We've received some queries as to how to build without having check installed. We haven't found a clean answer yet, but here's one approach. Place this line in a new text file:
 
     AC_DEFUN([AM_PATH_CHECK], [$3])
