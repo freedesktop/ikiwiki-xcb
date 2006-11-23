@@ -30,7 +30,8 @@ There are multiple modules. The modules you need to checkout, build, and install
   - xorg/util/macros (see note below)
   - xorg/lib/libXau
     - xorg/lib/libXdmcp, to optionally support XDM-AUTHORIZATION-1
-- two of the XCB repositories:
+- three of the XCB repositories:
+  - xcb/pthread-stubs
   - xcb/proto
   - xcb/libxcb
 
