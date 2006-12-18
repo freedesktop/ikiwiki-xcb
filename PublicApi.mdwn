@@ -14,7 +14,7 @@ These types are declared in xcb.h.
 
 `typedef struct xcb_connection_t xcb_connection_t`
 
-An xcb\_connection\_t is an opaque structure containing all data that [[XCB]] needs to communicate with an X server. The structure is defined in xcbint.h.
+An xcb\_connection\_t is an opaque structure containing all data that [[XCB|index]] needs to communicate with an X server. The structure is defined in xcbint.h.
 
 <a name="xcb_extension_t"></a>
 

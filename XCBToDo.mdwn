@@ -13,7 +13,7 @@ Don't forget to ask for help on the mailing list if you get stuck.
 If you're not sure where to start in learning about XCB and XCL, you might try these steps. Documenting your progress for others coming this way would be a great contribution too.
 
 - Check out and build the [Xlib](http://freedesktop.org/wiki/Software/X11) source.
-- Check out and build the [[XCB/XCL|xcb]] sources.
+- Check out and build the [[XCB/XCL|index]] sources.
 - Understand and document the DPMS extension implementation. Re-implementing it straight from the original extension documentation would be a good way to accomplish this. The [[XmlXcb]] documentation should be sufficient to do this.
 
 With that experience, the easiest thing you can do to help our efforts is to implement some extension that's currently unsupported by XCB.
