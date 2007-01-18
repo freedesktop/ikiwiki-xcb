@@ -1,6 +1,6 @@
 # XML-XCB
 
-[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=blob;hb=HEAD;f=doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
+[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
 ## Description
 
@@ -16,8 +16,8 @@ This new approach has several advantages:
 
 XML-XCB consists of the following components:
 
-- An XML Schema, defining an XML data format for X protocol descriptions.
-- X protocol descriptions for the core X protocol and all extensions, written in the format defined by the XML schema.
+- An [XML Schema](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xcb.xsd), defining an XML data format for X protocol descriptions.
+- [X protocol descriptions for the core X protocol and all extensions](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=tree;hb=HEAD;f=src), written in the format defined by the XML schema.
 - An XSL Transform (XSLT) to generate C bindings to the X protocol from the XML descriptions. These bindings are implemented on top of the existing XCB transport layer.
 
 ## Plan
@@ -38,7 +38,7 @@ XML-XCB consists of the following components:
           <p>Write the XML Schema.</p>
         </td>
         <td>
-          <p>Done: the <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/xcb.xsd">XML-XCB schema</a> is available.</p>
+          <p>Done: the <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xcb.xsd">XML-XCB schema</a> is available.</p>
         </td>
       </tr>
       <tr>
@@ -46,7 +46,7 @@ XML-XCB consists of the following components:
           <p>Convert one of the smaller extensions to the XML description format, to provide some data to work with.</p>
         </td>
         <td>
-          <p>Done: converted dpms.xcb to <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/dpms.xml">dpms.xml</a>.</p>
+          <p>Done: converted dpms.xcb to <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/dpms.xml">dpms.xml</a>.</p>
         </td>
       </tr>
       <tr>
@@ -54,7 +54,7 @@ XML-XCB consists of the following components:
           <p>Write the XSLT for the most needed protocol elements, including all those used by the converted extension.</p>
         </td>
         <td>
-          <p>Done: <a href="http://cvs.freedesktop.org/xcb/xcb/src/c-client.xsl">c-client.xsl</a></p>
+          <p>Done: <a href="http://gitweb.freedesktop.org/?p=xcb/libxcb.git;a=history;hb=HEAD;f=src/c-client.xsl">c-client.xsl</a></p>
         </td>
       </tr>
       <tr>
@@ -62,7 +62,7 @@ XML-XCB consists of the following components:
           <p>Convert xcb_types to the XML description format, and write the additional XSLT to support it.</p>
         </td>
         <td>
-          <p>Done: converted xcb_types.xcb to <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/xcb_types.xml">xcb_types.xml</a>.</p>
+          <p>Done: converted xcb_types.xcb to <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xcb_types.xml">xcb_types.xml</a>. (Update: now obsolete and merged into <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xproto.xml">xproto.xml</a>.)</p>
         </td>
       </tr>
       <tr>
@@ -70,7 +70,7 @@ XML-XCB consists of the following components:
           <p>Convert the remaining extensions to the XML description format.</p>
         </td>
         <td>
-          <p>Done: see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/bigreq.xml">bigreq.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/render.xml">render.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/shape.xml">shape.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/shm.xml">shm.xml</a>, <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/sync.xml">sync.xml</a>, and <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/xc_misc.xml">xc_misc.xml</a>.</p>
+          <p>Done: see <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/bigreq.xml">bigreq.xml</a>, <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/render.xml">render.xml</a>, <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/shape.xml">shape.xml</a>, <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/shm.xml">shm.xml</a>, <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/sync.xml">sync.xml</a>, and <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xc_misc.xml">xc_misc.xml</a>.</p>
         </td>
       </tr>
       <tr>
@@ -78,7 +78,7 @@ XML-XCB consists of the following components:
           <p>Convert the core X protocol description to the XML description format.</p>
         </td>
         <td>
-          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/xproto.xml">xproto.xml</a>.</p>
+          <p>Done; see <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xproto.xml">xproto.xml</a>.</p>
         </td>
       </tr>
       <tr>
@@ -126,7 +126,7 @@ XML-XCB consists of the following components:
           <p>Convert the XFIXES extension to the XML description format.</p>
         </td>
         <td>
-          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/xfixes.xml">xfixes.xml</a>.</p>
+          <p>Done; see <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xfixes.xml">xfixes.xml</a>.</p>
         </td>
       </tr>
       <tr>
@@ -134,7 +134,7 @@ XML-XCB consists of the following components:
           <p>Convert the DAMAGE extension to the XML description format.</p>
         </td>
         <td>
-          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/damage.xml">damage.xml</a>.</p>
+          <p>Done; see <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/damage.xml">damage.xml</a>.</p>
         </td>
       </tr>
       <tr>
@@ -142,7 +142,7 @@ XML-XCB consists of the following components:
           <p>Convert the Composite extension to the XML description format.</p>
         </td>
         <td>
-          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/composite.xml">composite.xml</a></p>
+          <p>Done; see <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/composite.xml">composite.xml</a></p>
         </td>
       </tr>
       <tr>
@@ -150,7 +150,7 @@ XML-XCB consists of the following components:
           <p>Convert the XEvIE extension to the XML description format.</p>
         </td>
         <td>
-          <p>Done; see <a href="http://cvs.freedesktop.org/xcb/xcb-proto/src/extensions/xevie.xml">xevie.xml</a></p>
+          <p>Done; see <a href="http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xevie.xml">xevie.xml</a></p>
         </td>
       </tr>
     </tbody>
