@@ -16,4 +16,4 @@ Status: I've written a pretty minimal window manager using prototypes of each of
 
 I have API designs and architectures in my head for each of these components, though I don't have any evidence yet that they're \*good\* designs. Now that these libraries are available to the public, we can gain experience with the current designs and try out alternate designs, producing other interesting libraries and applications along the way.
 
--- Main.[[JameySharp]] - 29 Jun 2004
+-- [[JameySharp]] - 29 Jun 2004
