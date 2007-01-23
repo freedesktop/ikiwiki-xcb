@@ -1,10 +1,10 @@
-XCB and Xlib/XCB development efforts are coordinated using git, [bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
+XCB and Xlib/XCB development efforts are coordinated using [git](http://git.or.cz), [bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
 
 [libX11](http://gitweb.freedesktop.org/?p=xorg/lib/libX11) and XCB repositories now use [git](http://git.or.cz/) for source control management (SCM). The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for using freedesktop.org repositories](http://www.freedesktop.org/wiki/GettingInvolved).
 
 To build XCB from source, you need to have installed at least:
 
-- git 1.2
+- [git](http://git.or.cz) 1.2
 - [pkgconfig](http://pkgconfig.freedesktop.org) 0.15.0
 - automake 1.7
 - autoconf 2.50
