@@ -10,7 +10,7 @@ To build XCB from source, you need to have installed at least:
 - autoconf 2.50
 - libtool 1.5.6
 - xsltproc (but using libxslt1.1.17 or earlier, or libxslt1.1.20 or newer)
-- gperf 3.0.1 (for some of the xcb/util libraries)
+- [gperf](http://www.gnu.org/software/gperf/) 3.0.1 (for some of the xcb/util libraries)
 
 (Trivial patches to support earlier versions, or a note that earlier versions "just work", would be welcome.)
 
