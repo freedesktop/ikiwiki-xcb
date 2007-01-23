@@ -12,11 +12,11 @@ To build XCB from source, you need to have installed at least:
 - xsltproc (but using libxslt1.1.17 or earlier, or libxslt1.1.20 or newer)
 - gperf 3.0.1 (for some of the xcb/util libraries)
 
+(Trivial patches to support earlier versions, or a note that earlier versions "just work", would be welcome.)
+
 To do 'make check' or 'make dist', you also need:
 
 - [check](http://check.sourceforge.net) 0.9.4
-
-(Trivial patches to support earlier versions, or a note that earlier versions "just work", would be welcome.)
 
 Please familiarize yourself with the [Modular Developer's Guide](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) before trying to build any part of X.org. Freedesktop's main site has detailed instructions for [using git](http://freedesktop.org/wiki/UsingGit) for everyday development.
 
