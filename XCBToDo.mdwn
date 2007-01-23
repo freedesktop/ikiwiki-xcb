@@ -31,6 +31,11 @@ Tasks are ranked by priority:
 
 ## Tests and Demos
 
+{1} Now that XCB has released version 1.0 and promised API compatibility, merge
+all XCB ports of standard X utilities back into their upstream repositories
+(perhaps on a branch at first).  Make sure to remove the use of xcb-util first,
+though.
+
 These specific features have been proposed as targets for simple test apps.
 
 - {2} shape extension (port oclock?)
