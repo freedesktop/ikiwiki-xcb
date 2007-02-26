@@ -1,0 +1,562 @@
+**** BEGIN LOGGING AT Tue Feb 20 10:28:48 2007
+
+Feb 20 10:28:48 -->	You are now talking on #xcb
+Feb 20 10:28:48 ---	Topic for #xcb is XCB 1.0 released at http://xcb.freedesktop.org/dist/ | libX11 1.1 released at http://xorg.freedesktop.org/releases/individual/lib/ | Packages in Debian experimental |  xsltproc 1.1.18 and 1.1.19 have problems; use 1.1.20 | Please review the new wiki at <http://xcb.freedesktop.org/ikiwiki> | <jameysharp> eee, it has that new wiki smell
+Feb 20 10:28:48 ---	Topic for #xcb set by JoshTriplett at Thu Jan 18 03:31:01 2007
+Feb 20 10:29:31 <jkolb_>	i'm at work so i could be drifting in and out
+Feb 20 10:30:05 <Bart_Massey>	Works for me
+Feb 20 10:30:05 <iano>	me too. I normally have a daily meeting right now.
+Feb 20 10:30:28 <Bart_Massey>	OK, well, let's run the agenda and get out of here. :-)
+Feb 20 10:30:55 <iano>	Is Josh coming?
+Feb 20 10:31:19 <Bart_Massey>	iano: I would think so.  I'll call him
+Feb 20 10:31:39 <Bart_Massey>	Can I get everyone to post their name and email for the log, please?
+Feb 20 10:31:50 <Bart_Massey>	Bart Massey <bart@cs.pdx.edu>
+Feb 20 10:31:57 <jkolb_>	Jeremy Kolb <jkolb@brandeis.edu>
+Feb 20 10:32:03 <jameysharp>	Jamey Sharp <jamey@minilop.net>
+Feb 20 10:32:07 <iano>	Ian Osgood <iano@quirkster.com>
+Feb 20 10:32:07 <thun>	Thomas Hunger <hto@arcor.de>
+Feb 20 10:32:24 <Bart_Massey>	I'm calling Josh now
+Feb 20 10:32:58 <Bart_Massey>	Josh somehow missed the message, but he's joining now
+Feb 20 10:33:23 -->	JoshTriplett (n=josh@unaffiliated/joshtriplett) has joined #xcb
+Feb 20 10:33:36 <jameysharp>	JoshTriplett: Hi!
+Feb 20 10:33:41 <Bart_Massey>	So, I have a bunch of items for the agenda.  Let's start, though, by seeing what you folks have
+Feb 20 10:34:17 *	Bart_Massey listens to crickets for a moment, then continues...
+Feb 20 10:34:26 <JoshTriplett>	OK.  We now have an xcb user on freedesktop.org, and anyone in the xcb group has sudo access to it.  That should allow us to finish setting up the ikiwiki.
+Feb 20 10:35:01 <JoshTriplett>	The only remaining issue: we need to get CGI turned on for us.
+Feb 20 10:35:11 <Bart_Massey>	Josh, Jamey et al: thanks huge for helping to set this up
+Feb 20 10:35:45 <JoshTriplett>	Once we get the CGI turned on, we'll leave the new wiki open for editing for a while, and then switch it over to live directly at http://xcb.freedesktop.org/
+Feb 20 10:35:45 <jkolb_>	I think we need to define some goals... things that we want to have happen so that other people will adopt xcb.  Right now no one really uses it and I don't want to see it just rotting underneath libx11.
+Feb 20 10:35:56 <JoshTriplett>	jkolb_: Hear hear.
+Feb 20 10:36:15 <Bart_Massey>	I definitely have several agenda items there...
+Feb 20 10:36:19 <JoshTriplett>	jkolb_: I'd like to take a look at the GTK+ bits that someone handed us some time ago.
+Feb 20 10:36:39 <jameysharp>	That includes adoption of both the libxcb code and the xcb-proto descriptions.
+Feb 20 10:36:46 <JoshTriplett>	jkolb_: Let me rephrase.  The GTK+ bits need looking at. :)
+Feb 20 10:36:49 <Bart_Massey>	That's one.  I think we're going to need to be way more pro-active about getting XCB into Gtk and Qt
+Feb 20 10:36:54 <JoshTriplett>	jameysharp: Yes, and thanks. :)
+Feb 20 10:36:58 <jameysharp>	I don't want xcb-proto rotting under libxcb either. :-)
+Feb 20 10:37:01 <jkolb_>	JoshTriplett: hehe yeah I bet there's a lot there
+Feb 20 10:37:20 <JoshTriplett>	Bart_Massey: Yes.  We should actively start trolling for trolls.
+Feb 20 10:37:37 <jameysharp>	JoshTriplett: OK, that took me a minute.
+Feb 20 10:37:51 <jkolb_>	I believe caro already has a good lead on ecore/evas though I don't know where he stands. It's certainly a good test case
+Feb 20 10:38:41 <Bart_Massey>	One of us here at the meeting probably needs to be in charge of working with Gtk XCB guy to see about getting his work in or notto see if 
+Feb 20 10:38:55 <Bart_Massey>	s/to see if$//
+Feb 20 10:39:11 <Bart_Massey>	Do I hear a volunteer?
+Feb 20 10:39:46 <jameysharp>	Do we have, er, allies in the Gnome camp?
+Feb 20 10:39:55 <Bart_Massey>	Yes, caro's evas bits are awesome, but I think we need to get XCB into one of the mainstream toolkits at this point
+Feb 20 10:40:05 <JoshTriplett>	We preferably want someone who actually knows GTK+.
+Feb 20 10:40:09 <jkolb_>	what about cworth?
+Feb 20 10:40:39 <Bart_Massey>	jameysharp: I think that I can help with the politics.  I need someone to look at the tech side of that work to see if it's OK
+Feb 20 10:40:40 <jkolb_>	wasn't he a gtk guy at one point before cairo?
+Feb 20 10:40:46 <jameysharp>	Yeah, cworth and keithp both seem to have a lot of contacts in the GTK+/Gnome community and I think are reasonably well respected.
+Feb 20 10:40:52 <iano>	cworth probably would rather support GTK on cairo on XCB
+Feb 20 10:41:05 <JoshTriplett>	iano: Any port of GTK+ at this point will likely look like that.
+Feb 20 10:41:13 <JoshTriplett>	iano: And that seems like a feature.
+Feb 20 10:41:15 <jameysharp>	Yeah, we need people hacking on the Cairo/XCB backend too.
+Feb 20 10:41:18 <Bart_Massey>	JoshTriplett: I don't think special GTK knowledge is necessary, assuming the GTK bits we have been given are any good
+Feb 20 10:41:33 <jameysharp>	Bart_Massey: I agree, probably.
+Feb 20 10:41:49 <Bart_Massey>	jameysharp: yes, another one of my agenda items is to get the Cairo backend brought back into good working order
+Feb 20 10:41:58 <iano>	Currently, XCB is working well under cairo, but it requires xcb/util/renderutil from git
+Feb 20 10:42:17 <jameysharp>	iano: Right, so release management is presumably an agenda point today.
+Feb 20 10:42:25 <JoshTriplett>	iano: Excellent point.  Agenda item: get libxcbrenderutil into a state we feel comfortable releasing, and do so.
+Feb 20 10:42:25 *	jameysharp runs screaming.
+Feb 20 10:42:27 <Bart_Massey>	jameysharp: indeed
+Feb 20 10:42:28 <iano>	plus there was a big Xlib glyph patch which the XCB cairo backend needs to duplicate
+Feb 20 10:42:55 <jameysharp>	iano: Though IIRC that could mostly go hide in renderutil, usefully.
+Feb 20 10:44:07 <iano>	jameysharp: possibly. I haven't looked at the patch in detail. Render glyph management scares me.
+Feb 20 10:44:08 <Bart_Massey>	I think we need to have a big walk-through of util / renderutil RSN, and then figure out what the future of that codebase is
+Feb 20 10:44:30 <Bart_Massey>	jameysharp: keithp will help us, I'm sure
+Feb 20 10:44:36 <jameysharp>	Hmm. Anyone want to combine this chat with a gobby session writing a to-do/agenda list?
+Feb 20 10:44:54 <JoshTriplett>	In my opinion, I think util has no future as a monolithic package, but individual libraries have a future as standalone packages.
+Feb 20 10:44:58 <Bart_Massey>	That would be good, although we could also dig it all back out of the logs
+Feb 20 10:45:02 <Bart_Massey>	(jamey)
+Feb 20 10:45:03 <JoshTriplett>	jameysharp: Sounds good to me.
+Feb 20 10:45:03 <jameysharp>	JoshTriplett: Agreed.
+Feb 20 10:45:11 <iano>	JoshTriplett: good point
+Feb 20 10:45:32 <Bart_Massey>	JoshTriplett: agreed.  someone needs to take on this refactoring
+Feb 20 10:45:44 <jameysharp>	sobby is up on svcs.cs.pdx.edu:6522, if anyone wants to connect with gobby.
+Feb 20 10:45:45 <iano>	besides, git.freedesktop could use some more modules ;)
+Feb 20 10:45:54 <Bart_Massey>	I guess the big question is if I start nominating people for stuff, will anyone get ticked off?
+Feb 20 10:45:59 <jameysharp>	iano: Yes, it doesn't take long enough to load that page yet. :-)
+Feb 20 10:46:16 <jameysharp>	Bart_Massey: Um... Yeah, kinda?
+Feb 20 10:46:32 <JoshTriplett>	Bart_Massey: The refactoring doesn't seem as difficult as getting the libraries into releasable shape.
+Feb 20 10:46:46 <JoshTriplett>	Bart_Massey: I'll second that "kinda".
+Feb 20 10:47:02 <JoshTriplett>	Bart_Massey: Let's start by finishing the agenda, and then go from there.
+Feb 20 10:47:20 <iano>	before refactoring util (and maybe demo), why not release them as-is?
+Feb 20 10:47:20 <jkolb_>	We should also talk about the transport layer in mesa
+Feb 20 10:47:32 <iano>	They all need updates for the  Great Renaming.
+Feb 20 10:47:38 <jameysharp>	iano: I guess that would be OK.
+Feb 20 10:47:45 <Bart_Massey>	it's all negotiable, obviously: I just don't want to end this meeting where we started it, with a lot of big plans and no one executing any of them
+Feb 20 10:47:47 <JoshTriplett>	iano: That seems reasonable.  We could put out an 0.2.
+Feb 20 10:48:17 <JoshTriplett>	Bart_Massey: Well, this meeting started out with not so many plans, and nobody executing said nonexistent plans. :)
+Feb 20 10:48:20 <Bart_Massey>	yes, we should release the renamed utils now; no reason not to
+Feb 20 10:48:25 <JoshTriplett>	Bart_Massey: So having plans seems like an improvement.
+Feb 20 10:48:28 -->	cworth (n=cworth@c-67-160-161-141.hsd1.or.comcast.net) has joined #xcb
+Feb 20 10:48:34 <Bart_Massey>	Yah, cworth!
+Feb 20 10:48:39 <jkolb_>	there he is
+Feb 20 10:48:45 <cworth>	Bart_Massey: Josh lured me in. :-)
+Feb 20 10:49:18 <caro>	was on the phone
+Feb 20 10:49:26 <caro>	damn, you talk a lot
+Feb 20 10:50:25 <caro>	Bart_Massey: Vincent Torri <vtorri@univ-evry.fr>
+Feb 20 10:50:30 <Bart_Massey>	So who's going to take point on the utils work, along with caro?  I'm not allowed to suggest anyone, apparently. :-)
+Feb 20 10:50:36 <Bart_Massey>	caro: thanks :-)
+Feb 20 10:51:39 *	Bart_Massey listens to more crickets
+Feb 20 10:51:43 <jameysharp>	Bart_Massey: Oh, right, you said "nominating". "Suggest" had the right connotations. Please, suggest away. :-)
+Feb 20 10:51:59 <Bart_Massey>	iano: any chance we could draft you?
+Feb 20 10:52:05 <thun>	I can help out if there is something concrete to do - I am missing the big picture, so no design choices from me
+Feb 20 10:52:17 <jameysharp>	thun: Hah! Concrete, we can do.
+Feb 20 10:52:30 <jameysharp>	thun: How do you feel about release management? :-)
+Feb 20 10:52:42 <Bart_Massey>	thun: we'd love your help.  I think we'll all be happy to help with design; there's just a lot of C code to wade through, refactor, release, etc
+Feb 20 10:52:51 <JoshTriplett>	Bart_Massey: So, a util release requires two items: finishing the Lesser XCB Renaming in the remaining util libraries, and doing the actual distribution/release.
+Feb 20 10:52:54 <thun>	woa. guided?
+Feb 20 10:52:56 <iano>	Bart_Massey: maaaaaybe
+Feb 20 10:53:04 <jameysharp>	thun: Yes, we'll help.
+Feb 20 10:53:10 <thun>	ok then
+Feb 20 10:53:14 <iano>	I have never released a package before
+Feb 20 10:53:25 <jameysharp>	JoshTriplett: I believe everything in xcb/util compiles today.
+Feb 20 10:53:34 <Bart_Massey>	jameysharp: agree
+Feb 20 10:53:39 <jkolb_>	yes it does
+Feb 20 10:53:48 -->	chrr_ (n=chrr@e179108002.adsl.alicedsl.de) has joined #xcb
+Feb 20 10:54:03 <JoshTriplett>	jameysharp: Yes.  I meant, renaming the APIs *exposed* by the util libraries.
+Feb 20 10:54:30 <JoshTriplett>	jameysharp: Recent commits by Thomas Hunger did that for wm and icccm.
+Feb 20 10:54:32 <iano>	JoshTriplett: Right. We got a patch to two of the libraries a few weeks ago.
+Feb 20 10:54:32 <caro>	JoshTriplett: afaik, the reanming is done, no ?
+Feb 20 10:54:42 <JoshTriplett>	caro: Checking...
+Feb 20 10:54:51 <Bart_Massey>	OK, so it looks like the utils team is caro, iano, thun; I'll let you folks sort out how to proceed and bug us for help on the list as needed?
+Feb 20 10:55:13 <JoshTriplett>	reply looks renamed.
+Feb 20 10:55:15 <caro>	JoshTriplett: also, did you see my mail about the doc ?
+Feb 20 10:55:31 <jameysharp>	I was hoping release management would cover libxcb as well, as we need a minor update release for NetBSD or something.
+Feb 20 10:55:39 <JoshTriplett>	caro: If it went to the XCB list, probably not; I have a sizable backlog there.
+Feb 20 10:55:48 <Bart_Massey>	cworth: we were discussing earlier about how to proceed with the lovely GTK bits someone wrote for us and then had various kinds of trouble with.  help/advice?
+Feb 20 10:56:15 <jameysharp>	That's been one of the big troubles with "unanswered mail" on the XCB list: people seem to rely on Josh and me to answer things, oddly. :-)
+Feb 20 10:56:15 <caro>	JoshTriplett: http://lists.freedesktop.org/archives/xcb/2007-January/002535.html
+Feb 20 10:56:37 <JoshTriplett>	jameysharp: Well, partly because we need to *do* things. :)
+Feb 20 10:57:13 <Bart_Massey>	cworth: we think the Cairo backend is up to date if you run the git XCB stuff; we'll try to release these bits soon as per discussion above; comments?
+Feb 20 10:57:39 <Bart_Massey>	So two of my agenda items have to do with jameysharp and JoshTriplett being stuck with things
+Feb 20 10:57:40 <caro>	about the tutorial, any ideas / improvements ?
+Feb 20 10:57:55 <caro>	I have to add the plan 9
+Feb 20 10:57:57 <caro>	heu 7
+Feb 20 10:58:04 <jameysharp>	caro: heh.
+Feb 20 10:58:06 <cworth>	Bart_Massey: I don't know anything about the GTK bits. That's a port of GTK+ from Xlib to XCB ?
+Feb 20 10:58:13 <jameysharp>	cworth: Yes.
+Feb 20 10:58:25 <iano>	cworth: also cairo has a unit testing and performance testing framework that is the envy of most open source projects. XCB would do well to learn from it.
+Feb 20 10:58:26 <JoshTriplett>	cworth: In more detail: someone sent us GTK+-on-XCB bits, and we need to review them.  So far, it looks like they may have picked an old version of GTK+ to start from.  Also, GTK+ apparently has some issues that require things like a global sequence number.
+Feb 20 10:58:30 <jameysharp>	A somewhat stale version of GTK+ at this point, unfortunately.
+Feb 20 10:58:36 <cworth>	Bart_Massey: As for the cairo backend, now that XCB is all 1.0 and stable and such, it would be quite nice to have cairo's XCB backend now be officiall supported.
+Feb 20 10:58:43 <jameysharp>	iano: Good point. Thanks for volunteering. ;-)
+Feb 20 10:58:59 <JoshTriplett>	cworth: Can a backend become officially supported if it doesn't yet pass the test suite? :/
+Feb 20 10:59:00 <caro>	christoph4 has also port xine to xcb, with big improvmeents (no seg fault :D )
+Feb 20 10:59:09 <caro>	improvements compared to Xlib
+Feb 20 10:59:11 <cworth>	In cairo-land, we're cooking up a major (1.4) release right now, so we can target that, if someone can move quickly on remaining issues.
+Feb 20 10:59:39 <caro>	cworth: which issues ?
+Feb 20 11:00:00 <cworth>	JoshTriplett: I'm not good for GTK+ review. I wonder who the right person for that would be.
+Feb 20 11:00:23 <JoshTriplett>	cworth: I don't have enough experience as either an X client author or a GTK+ user.
+Feb 20 11:00:29 <cworth>	JoshTriplett: Indeed. The test suite should pass for the backend to be supported.
+Feb 20 11:00:37 <iano>	I know of one other Xlib/XCB cairo difference: no support for XRes.
+Feb 20 11:00:48 <jameysharp>	cworth: Define "pass". The Xlib backend doesn't pass, does it?
+Feb 20 11:00:55 <iano>	cairo-xlib uses that for some font prefs I think
+Feb 20 11:00:57 <jkolb_>	iano: XRes extension?
+Feb 20 11:00:59 <Bart_Massey>	iano: XRes?
+Feb 20 11:01:11 <iano>	jkolb_: yes
+Feb 20 11:01:25 <JoshTriplett>	iano: I thought we had that...
+Feb 20 11:01:29 <jameysharp>	Oh, the X resource database.
+Feb 20 11:01:32 <jameysharp>	That isn't an extension.
+Feb 20 11:01:37 <JoshTriplett>	Ah, right.
+Feb 20 11:01:47 <JoshTriplett>	Yeah, that sounds like a utility library we need.
+Feb 20 11:01:56 <iano>	Oh, it's pure client-side? Didn't know that.
+Feb 20 11:01:58 <jkolb_>	isn't that for motif?
+Feb 20 11:02:03 <JoshTriplett>	...to port.
+Feb 20 11:02:15 <cworth>	caro: One old issue was cairo-xcb vs. cairo-xlib mismatch, (a missing visual parameter I think). A quick check suggests that's already been cleared up now.
+Feb 20 11:02:18 <jameysharp>	iano: It just uses the core protocol to request/replace a property on the root window.
+Feb 20 11:02:19 <JoshTriplett>	jkolb_: No, many non-toolkit X programs use it.
+Feb 20 11:02:34 <cworth>	But cairo-xlib does have several trivial little functions that cairo-xcb doesn't yet.
+Feb 20 11:02:47 <jkolb_>	JoshTriplett: ok
+Feb 20 11:02:48 <cworth>	cairo_xlib_surface_set_drawable
+Feb 20 11:02:51 <iano>	mostly for debugging, right?
+Feb 20 11:02:54 <cworth>	cairo_xlib_surface_get_display
+Feb 20 11:02:58 <cworth>	cairo_xlib_surface_get_drawable
+Feb 20 11:02:59 <cworth>	etc.
+Feb 20 11:03:09 <caro>	cworth: is it possible for you to list them in the xcb file ?
+Feb 20 11:03:14 <jameysharp>	cworth: How long would you like to wait before moving the Cairo Xlib backend to rely on Xlib/XCB?
+Feb 20 11:03:23 <caro>	I can write a patch for it
+Feb 20 11:03:31 <iano>	well, obviously there won't be an xcb_get_display :)
+Feb 20 11:03:35 <caro>	(once I know what I hace to do)
+Feb 20 11:03:38 <Bart_Massey>	caro: that would be great
+Feb 20 11:03:45 <jameysharp>	iano: xcb_get_connection, I guess.
+Feb 20 11:03:58 <cworth>	caro: Just cut-and-paste cairo-xlib.h. I don't know the mapping very well to gie you precise prototypes.
+Feb 20 11:04:02 <iano>	who uses these private data accessors and why?
+Feb 20 11:04:46 <cworth>	The XRes stuff is just for getting antialiasing properties, etc. from the root window.
+Feb 20 11:05:14 <iano>	cworth: thanks, I'd forgotten what it was used for.
+Feb 20 11:05:24 <cworth>	iano: I could go back and look for who requested the accessors.
+Feb 20 11:06:08 <cworth>	iano: But the set_drawable thing was pretty important for certain double-buffering applications.
+Feb 20 11:06:22 <iano>	cworth: no problem, I could go look up the git history myself
+Feb 20 11:06:32 <cworth>	Oh, I think it was mozilla that needed the accessors---for plugins probably.
+Feb 20 11:06:42 <Bart_Massey>	OK, so cworth and iano will work on the Cairo stuff and sort out what needs to be done?
+Feb 20 11:06:48 <iano>	cworth: ah, thanks. Could you point me at a codebase that uses it?
+Feb 20 11:07:02 <iano>	cworth: mozilla, right
+Feb 20 11:07:16 <cworth>	Bart_Massey: sure
+Feb 20 11:07:25 <Bart_Massey>	Awesome
+Feb 20 11:07:27 <iano>	cworth: I'll look into it... should be easy to add.
+Feb 20 11:07:41 <Bart_Massey>	OK, on the agenda we're building are two items worth discussion
+Feb 20 11:07:57 <Bart_Massey>	First, we think it's time to move from XSLT, to get Josh out of the bottleneck
+Feb 20 11:07:59 <Bart_Massey>	comments?
+Feb 20 11:08:08 <jkolb_>	agreed
+Feb 20 11:08:10 <iano>	cworth: so.... eventually mozilla would need some XCB-backend specific code?
+Feb 20 11:08:10 <Bart_Massey>	suggested languages to replace?
+Feb 20 11:08:20 <JoshTriplett>	For the record: based the weight of evidence I agree with that.
+Feb 20 11:08:27 <caro>	python ?
+Feb 20 11:08:30 <JoshTriplett>	I'd lean towards Python.
+Feb 20 11:08:36 <thun>	xslt should be replaced by python. I think so. too. I have long and bad experience with xslt
+Feb 20 11:08:40 <jkolb_>	Bart_Massey: python comes to mind but it's a large dependency isn't it
+Feb 20 11:08:49 <JoshTriplett>	jkolb_: Mesa already requires it, so we have precedent.
+Feb 20 11:08:57 <Bart_Massey>	jkolb_: I think the dependency is NBD
+Feb 20 11:09:07 <caro>	nbd ?
+Feb 20 11:09:08 <jkolb_>	JoshTriplett: true. that's how we generate the xcb layer for mesa
+Feb 20 11:09:09 <cworth>	iano: Oh, cool. It was keithp's "cairo-5c" nickle bindings for cairo that first motivated the set_drawable thing.
+Feb 20 11:09:14 <Bart_Massey>	caro: No Big Deal
+Feb 20 11:09:34 <JoshTriplett>	OK, I think we have a consensus on Python.
+Feb 20 11:09:37 <Bart_Massey>	The philosophy has always been that only developers need the processing anyway, and they can look out for themselves.  It's not like it's a dependency on the resulting libraries
+Feb 20 11:09:38 <caro>	ha, i thought it was the National Bank of Dubai
+Feb 20 11:09:49 <iano>	cworth: well, dang! we gotta have full nickle support!
+Feb 20 11:09:52 <JoshTriplett>	Bart_Massey: Right, as long as we deal with "make dist" properly.
+Feb 20 11:10:11 <jkolb_>	that sounds good then.  I would definitely support a move to python
+Feb 20 11:10:11 <caro>	does someone hare have a good knowledge of python ?
+Feb 20 11:10:11 <iano>	cworth: but then we can assign the work to Bart ;)
+Feb 20 11:10:17 <cworth>	iano: Well, I think the specific problem they were dealing with was binary-only plugins using Xlib. So...
+Feb 20 11:10:37 *	JoshTriplett has a strong knowledge of Python, and in particular its XML processing.
+Feb 20 11:10:38 <thun>	I have a python converter half finished. I have some problems with the protocol description. But I can ask the questions another time
+Feb 20 11:10:45 <Bart_Massey>	So that seems good.  The other thing is that Jamey and I are about to try to do a serious walkthrough / documentation of the XCB transport layer, so that he isn't the only one who can fix it anymore
+Feb 20 11:10:57 <jameysharp>	JoshTriplett: (Shh! Do you *want* to get assigned this task?) ;-)
+Feb 20 11:10:58 <Bart_Massey>	thun: if you wanted to work with Josh on that, that would be truly cool
+Feb 20 11:11:20 <thun>	ok
+Feb 20 11:11:23 <JoshTriplett>	thun: Nice!  Please, get it up somewhere for us to look at.
+Feb 20 11:11:31 <iano>	I'm good with Python
+Feb 20 11:11:34 <jkolb_>	I know some python as well
+Feb 20 11:11:34 <JoshTriplett>	jameysharp: Yes, actually. :)
+Feb 20 11:11:42 <caro>	what about adding a branch for that python stuff ?
+Feb 20 11:11:43 <jameysharp>	JoshTriplett: Oh, well, OK then. :-)
+Feb 20 11:11:51 <iano>	but is there a standard Python XML module?
+Feb 20 11:12:00 <Bart_Massey>	caro: branch as you like---that's the joy of GIT :-)
+Feb 20 11:12:02 <thun>	python 2.5 brings in elementree
+Feb 20 11:12:13 <JoshTriplett>	iano: Several. :)
+Feb 20 11:12:25 <caro>	Bart_Massey: :)
+Feb 20 11:12:26 <jkolb_>	lots of options
+Feb 20 11:12:37 <JoshTriplett>	I'd like to avoid using libraries not found in the Python core.
+Feb 20 11:12:43 <jameysharp>	iano: You might take a look at what I did in xcb-proto for some examples of simple Python XML processing scripts.
+Feb 20 11:12:56 <iano>	it would be good not to require bleeding edge Python. Many are still stuck with 2.3!
+Feb 20 11:12:59 <JoshTriplett>	"You need Python" seems reasonable.  "You need Python and python-magicxpathlib" doesn't...
+Feb 20 11:13:04 <Bart_Massey>	So I think we can probably get X.org to fund an XCB workshop if we ask them.  Money for workshop hosting plus travel money for those who need it.  Sound good?  Portland OK?  When?
+Feb 20 11:13:09 <jkolb_>	or the python stuff in mesa. it would be similar
+Feb 20 11:13:24 <JoshTriplett>	Bart_Massey: Excellent idea.  XCB miniconf.
+Feb 20 11:13:27 <iano>	jameysharp: right
+Feb 20 11:13:36 <Bart_Massey>	iano: I'm hoping developers can take care of themselves wrt Python
+Feb 20 11:14:00 <jameysharp>	jkolb_: Except the mesa bits are frightening, IIRC. :-)
+Feb 20 11:14:07 <Bart_Massey>	Out of town folks: want to come visit us in PDX?
+Feb 20 11:14:09 <JoshTriplett>	iano: Debian at least has 2.4 by default.  I don't know anything I can't live without in 2.4 and 2.5.
+Feb 20 11:14:12 <jkolb_>	jameysharp: yes they are ;)
+Feb 20 11:14:19 <iano>	a workshop would be way cool! I'd like to meet all you guys
+Feb 20 11:14:26 <JoshTriplett>	Seconded.
+Feb 20 11:14:33 <jameysharp>	iano: I'd like to meet you too! Oh wait.
+Feb 20 11:14:42 <caro>	Bart_Massey: for me, it highly depends on the date and the fact that the travel is paid from France :)
+Feb 20 11:14:58 <Bart_Massey>	caro: the funding shouldn't be a big deal.  the date we can set.  preferences?
+Feb 20 11:15:01 <jameysharp>	caro: I'm pretty sure Bart knew that when he offered. :-)
+Feb 20 11:15:36 <JoshTriplett>	Bart_Massey: As far as dates, I think we need to figure out a time that people *don't* have school.  I wonder if people's winter-to-spring breaks overlap?
+Feb 20 11:15:40 <caro>	from June to august. Not around the 1st August
+Feb 20 11:15:42 <Bart_Massey>	I'm actually not in a hurry for the workshop; I was kind of thinking late summer
+Feb 20 11:15:50 <JoshTriplett>	Bart_Massey: Ah.  That sounds promising.
+Feb 20 11:15:59 <jkolb_>	I'd say august
+Feb 20 11:16:04 <jkolb_>	for me that is ;)
+Feb 20 11:16:13 <Bart_Massey>	Sounds like mid to late August for most folks?
+Feb 20 11:16:24 <caro>	btw, will some of you go to fosdem ?
+Feb 20 11:16:25 <jameysharp>	Yeah, June and July are not so good for me; August should be good.
+Feb 20 11:16:27 <iano>	[aside] XCB needs a logo
+Feb 20 11:16:31 <Bart_Massey>	thun: joining us?
+Feb 20 11:16:35 <JoshTriplett>	iano: Yes, definitely.
+Feb 20 11:16:42 <jameysharp>	cworth: iano says XCB needs a logo. help? ;-)
+Feb 20 11:16:42 <Bart_Massey>	iano: strongly agree; got dropped off my agenda by mistake
+Feb 20 11:16:44 <iano>	[aside] I nominate a neko from the demo/neko
+Feb 20 11:16:50 <JoshTriplett>	August seems reasonable.
+Feb 20 11:17:06 <jameysharp>	iano: kawaii neko!
+Feb 20 11:17:07 <Bart_Massey>	iano: neko may be trademarked?
+Feb 20 11:17:16 <JoshTriplett>	iano: If not for the previous existence of xneko, I'd agree. :)
+Feb 20 11:17:26 <JoshTriplett>	Bart_Massey: Right.
+Feb 20 11:17:28 <thun>	Bart_Massey: Cannot say yet. Depends on how well I manage my time.
+Feb 20 11:17:32 <iano>	[aside] because everyone would love X if they knew it ran on kittens :)
+Feb 20 11:17:37 <jameysharp>	neko, 8-bit style.
+Feb 20 11:17:49 <caro>	I can ask a guy from e world, which is good at drawing (for the logo). I made all the e17 icons
+Feb 20 11:18:02 <cworth>	jameysharp: I have no skills, but I might run into some artists at FOSDEM this weekend. I'll see what recruiting I can do...
+Feb 20 11:18:08 <JoshTriplett>	iano: Since someone has to say it: every time you use Xlib, God kills a kitten.  Please, think of the kittens.
+Feb 20 11:18:17 <cworth>	Of course, if there's a concept I can provide the artist...
+Feb 20 11:18:20 <jkolb_>	JoshTriplett: I hate you ;)
+Feb 20 11:18:28 <Bart_Massey>	So I think we're agreed that we need a kitten, anyway... :-)
+Feb 20 11:18:38 <iano>	JoshTriplett: no that was reserved for XKB (== X Kitten Butcher)
+Feb 20 11:18:40 <jkolb_>	if you want to fight nouveau for the kitten thing ;)
+Feb 20 11:18:43 *	cworth likes the kitten idea
+Feb 20 11:19:10 <Bart_Massey>	jkolb_: really?  oops; let me look at what they have
+Feb 20 11:19:27 <jkolb_>	Bart_Massey: actually it's not a logo but more of a 'theme'
+Feb 20 11:19:28 <JoshTriplett>	Bart_Massey: I don't think they have it as a logo.  They just have the binary drivers/kittens connection.
+Feb 20 11:19:57 <Bart_Massey>	Oh, then we're fine
+Feb 20 11:20:12 <JoshTriplett>	Yeah.
+Feb 20 11:20:15 <jameysharp>	Many things in X kill kittens. We fix one of them.
+Feb 20 11:20:17 <Bart_Massey>	Yep; need a cute kitten.  Check
+Feb 20 11:20:18 *	cworth was lost looking for nouveau kittens as well...
+Feb 20 11:20:20 <caro>	so, for the doc, we let it buried until python is used ?
+Feb 20 11:20:35 <Bart_Massey>	caro: I think so; we're looking pretty swamped right now
+Feb 20 11:20:44 <caro>	ok
+Feb 20 11:20:50 <iano>	Bart_Massey: I think the entire thing was released into the public domain (which I why I could use it for a demo)
+Feb 20 11:20:54 <jameysharp>	caro: Well, if someone wants to brave the XSLT, they should feel free to do documentation stuff.
+Feb 20 11:20:57 <caro>	that xslt stuff drove me mad
+Feb 20 11:21:22 <thun>	yes, xslt definitly kills kittens
+Feb 20 11:21:29 <caro>	jameysharp: as I said, I need a little help from my friends (Josh), as the Beatles say
+Feb 20 11:21:34 <Bart_Massey>	iano: I'm not sure the image trademark was actually theirs to give away---they may have "fudged" it
+Feb 20 11:21:51 <jkolb_>	Bart_Massey: it was originally from a fark photoshop
+Feb 20 11:21:57 <jkolb_>	iirc
+Feb 20 11:22:04 <Bart_Massey>	Anyway, so about the workshop I think we have buy in from most folks, so I'll write a proposal and circulate it on the list.  Definitely consider helping with recruiting and setup...
+Feb 20 11:22:22 <jameysharp>	It's sad that I know the Beatles reference only from a Ursula LeGuin book.
+Feb 20 11:22:29 <Bart_Massey>	jkolb_: I thought there was a commercial Neko for windows, but I may be wrong
+Feb 20 11:22:49 <jameysharp>	Bart_Massey: You sure that didn't come after xneko? xneko is "old".
+Feb 20 11:22:51 <JoshTriplett>	caro: So, as I understand it, you have the doc XSLT working, except that it doesn't handle parameters?
+Feb 20 11:23:13 <JoshTriplett>	Bart_Massey: http://en.wikipedia.org/wiki/Neko_%28computer_program%29
+Feb 20 11:23:14 <caro>	jameysharp: http://www.rasterman.com/files/c_song.txt
+Feb 20 11:23:24 <caro>	JoshTriplett: yes
+Feb 20 11:23:46 <JoshTriplett>	caro: So, first of all, go ahead and commit the parameterless version, if you haven't already.
+Feb 20 11:23:50 <jameysharp>	caro: awesome. :-)
+Feb 20 11:23:53 <iano>	Bart Massey: well, at least we have a name to contact for permission; see the README in the demo
+Feb 20 11:24:31 <JoshTriplett>	Lack of logo-design skill notwithstanding, I think we should just come up with our own original neko or kitten.
+Feb 20 11:24:38 <Bart_Massey>	OK, so we'll sort out whether we want the Neko kitten or some other kitten (I still lean toward the latter, but I'm good either way)
+Feb 20 11:24:55 <caro>	JoshTriplett: ok
+Feb 20 11:25:12 <jameysharp>	jkolb_: the fark thing was the domo-kun/kitten thing, right? that's completely different...
+Feb 20 11:25:12 <JoshTriplett>	Bart_Massey: Design thought: simplistic like the neko seems like a feature, given XCB's focus on simplicity and transparency.
+Feb 20 11:25:18 <Bart_Massey>	So one more thing on my agenda list: the XDC folks really want someone to take on "server-side XCB" = doing protocol parsing with XCB bits in the server
+Feb 20 11:25:20 <caro>	jameysharp: I want to remove all the not correct doc that you added
+Feb 20 11:25:38 <jameysharp>	caro: I added documentation? And it was wrong?
+Feb 20 11:25:51 <JoshTriplett>	jameysharp added documentation?
+Feb 20 11:26:05 <jameysharp>	JoshTriplett: Yeah, you're as surprised as me.
+Feb 20 11:26:09 *	iano shocked
+Feb 20 11:26:10 <caro>	jameysharp: not wrong, but completely useless, except that doxygen gives no warnings
+Feb 20 11:26:13 <Bart_Massey>	I'm thinking this needs to wait until after the move to Python, and that we can then recruit some newbie to do it, but if one of you wants it, or if you know someone who might, let me know
+Feb 20 11:26:15 <caro>	jameysharp: BUT
+Feb 20 11:26:21 <jameysharp>	caro: Oh, that sounds familiar.
+Feb 20 11:26:31 <caro>	jameysharp: always a but : you can remove them in the Doxyfile
+Feb 20 11:26:33 <Bart_Massey>	(last re: server-side XCB)
+Feb 20 11:26:45 <JoshTriplett>	Bart_Massey: I agree re: move to python first.
+Feb 20 11:26:53 <jameysharp>	caro: Yeah, except I'm not really a fan of turning off warnings.
+Feb 20 11:27:05 <caro>	jameysharp: me too
+Feb 20 11:27:23 <caro>	jameysharp: I prefer warnings than wrong documentation
+Feb 20 11:27:32 <caro>	jameysharp: but you added them for that
+Feb 20 11:27:36 <jameysharp>	Bart_Massey: No need to wait on what we do in the client to get started on the server.
+Feb 20 11:27:50 <JoshTriplett>	Bart_Massey: Python should make it fairly easy to modularize; we want one module that parses the format and generates data structures, and any number of modules that do stuff with those data structures.
+Feb 20 11:27:53 <Bart_Massey>	jameysharp: I just want to let the server-side person not have to deal with XSLT
+Feb 20 11:27:53 <jameysharp>	caro: Yeah, I see your argument.
+Feb 20 11:28:05 <jameysharp>	Bart_Massey: They don't have to.
+Feb 20 11:28:14 <jameysharp>	It's just XML. They can use whatever they want.
+Feb 20 11:28:26 <jameysharp>	The current XSLT is basically useless for server-side bits anyway, I think.
+Feb 20 11:28:28 <Bart_Massey>	jameysharp: I'm thinking they'll want to reuse parts of our XML processing infrastructure, though
+Feb 20 11:28:35 <JoshTriplett>	So, one more agenda item not yet covered:
+Feb 20 11:28:41 <JoshTriplett>	We have lots of interesting demos in xcb-demos.
+Feb 20 11:28:47 <JoshTriplett>	Several of them consist of ports of existing X apps.
+Feb 20 11:29:04 <caro>	Bart_Massey: don't they want to wait a bit until our python stuff works ?
+Feb 20 11:29:19 <jameysharp>	caro: That's exactly what I'm arguing isn't true.
+Feb 20 11:29:35 <JoshTriplett>	Now that we've released 1.0 and finalized the API, we should push those ports into the X apps.
+Feb 20 11:29:53 <Bart_Massey>	JoshTriplett: Great idea!
+Feb 20 11:29:56 <jameysharp>	Is X.org 7.2 released yet?
+Feb 20 11:29:59 <JoshTriplett>	yes.
+Feb 20 11:30:01 <JoshTriplett>	xdpyinfo, xrandr, etc.
+Feb 20 11:30:04 <Bart_Massey>	jameysharp: two days ago
+Feb 20 11:30:05 <caro>	JoshTriplett: about that, maybe we should list really all the apps that need to be ported
+Feb 20 11:30:11 <JoshTriplett>	Those should just drop the Xlib dependencies.
+Feb 20 11:30:14 <caro>	a big fat TODO list
+Feb 20 11:30:19 <jameysharp>	Bart_Massey: Ah. OK. We can do stuff now, then.
+Feb 20 11:30:19 <JoshTriplett>	caro: Yes.
+Feb 20 11:30:41 <JoshTriplett>	caro: A big one: if we want to make progress with many of the xorg apps, we might need an Xt port. :(
+Feb 20 11:30:51 <caro>	Xt ?
+Feb 20 11:31:00 <caro>	what is that bug
+Feb 20 11:31:03 <caro>	heu beast
+Feb 20 11:31:10 <caro>	?
+Feb 20 11:31:12 <jkolb_>	oh god that would be awful
+Feb 20 11:31:15 <Bart_Massey>	There was sentiment at XDC that most of the X apps should be dropped by 7.3 anyway, so we don't want to go overboard
+Feb 20 11:31:21 *	jameysharp has 1476 unread messages from the xorg list... can't keep track of a little thing like "is 7.2 out yet" that way...
+Feb 20 11:31:25 <JoshTriplett>	Bart_Massey: Hmmm, fair.
+Feb 20 11:31:35 <JoshTriplett>	Bart_Massey: But we should at least push the ports we have already.
+Feb 20 11:31:39 <iano>	JoshTriplett: since XCB is still optional, how shall we configure the x apps to work with either Xlib or XCB?
+Feb 20 11:31:48 <jameysharp>	iano: No, it isn't optional.
+Feb 20 11:31:51 <Bart_Massey>	JoshTriplett: agree --- those aren't candidates for the axe anyhow
+Feb 20 11:31:54 <jameysharp>	iano: That's why I asked about 7.2.
+Feb 20 11:31:55 <JoshTriplett>	iano: We have Git; branches exist.
+Feb 20 11:32:07 <JoshTriplett>	iano: Anyone can fork the old Xlib version if they want.
+Feb 20 11:32:28 <Bart_Massey>	I think that rather than port Xt, we should just move any Xt apps we want to support to some better toolkit at the same time
+Feb 20 11:32:33 <JoshTriplett>	Bart_Massey: We have a sympathetic xrandr author.  We need to get the new 1.2 bits ported, though.
+Feb 20 11:32:38 <JoshTriplett>	Bart_Massey: Agreed. :)
+Feb 20 11:32:45 <Bart_Massey>	Most of their GUIs are trivial, so should be NBD
+Feb 20 11:32:46 <JoshTriplett>	Bart_Massey: xlogo clearly needs to use cairo. :)
+Feb 20 11:33:13 <cworth>	JoshTriplett: There's a secret -render option, (better output, but predates cairo).
+Feb 20 11:33:13 <Bart_Massey>	So before I lose anyone, one big thing: I think this meeting has been really useful.  Again, soon?  When?
+Feb 20 11:33:20 <jkolb_>	What's the need for proto versioning in our schema?
+Feb 20 11:33:27 <iano>	jameysharp: Um, you can still configure Xlib to *not* use XCB, right?
+Feb 20 11:33:40 <jameysharp>	iano: Yeah, but at this point that's completely untested. :-)
+Feb 20 11:33:40 <caro>	Bart_Massey: for the time, it's perfect for me
+Feb 20 11:33:43 <JoshTriplett>	iano: For 7.2, yes.  Perhaps not for 7.3. :)
+Feb 20 11:33:44 <jkolb_>	Bart_Massey: yeah I think this is good. we should do it more often
+Feb 20 11:33:51 <caro>	Bart_Massey: for the date, as you want
+Feb 20 11:33:58 <Bart_Massey>	jkolb_: proto versioning does need to be looked at
+Feb 20 11:34:05 <JoshTriplett>	jkolb_: Do you mean proto format versioning or X proto versioning?
+Feb 20 11:34:12 <JoshTriplett>	jkolb_: I'd like to avoid the latter for a while longer yet.
+Feb 20 11:34:15 <JoshTriplett>	jkolb_: Er, former.
+Feb 20 11:34:16 <jkolb_>	JoshTriplett: X proto
+Feb 20 11:34:20 <JoshTriplett>	jkolb_: The latter seems highly useful.
+Feb 20 11:34:26 <caro>	Bart_Massey: the main problem : where are the latest versions of the protcol extensions ?
+Feb 20 11:34:31 <jameysharp>	JoshTriplett: I don't know what distinction you're drawing.
+Feb 20 11:34:39 <caro>	in xorg git ?
+Feb 20 11:34:47 <JoshTriplett>	jameysharp: Version of the XML-XCB format versus version of the X extensions they describe.
+Feb 20 11:34:57 <iano>	I would love to port the simplest X apps and utilities to XCB, given a good strategy
+Feb 20 11:35:05 <jkolb_>	I have no idea what we should do for proto versioning but I think it needs to be addressed. I can't think of a good way to do it
+Feb 20 11:35:17 <jameysharp>	JoshTriplett: Ah, yes. I don't think versioning the XML tagset is useful at this point.
+Feb 20 11:35:22 <iano>	most of them only use Xt for simple things, like command-line geometry setup and such
+Feb 20 11:35:52 <JoshTriplett>	iano: Now that we have a stable release, we should just make branches in each app, do the port, and get approval to mainline the branch.
+Feb 20 11:35:53 <Bart_Massey>	iano: do we need to convert eg fltk so that we have a simple modern toolkit?
+Feb 20 11:35:54 <iano>	and half of them are obsolete (iso? bitmap editor?)
+Feb 20 11:36:12 <jameysharp>	iano: I think you can make good progress without dealing with the Xt apps.
+Feb 20 11:36:13 <Bart_Massey>	Meet here same time (10:30 PDT Tuesday 27 Feb) next week?
+Feb 20 11:36:22 <jameysharp>	JoshTriplett: Why branch? :-)
+Feb 20 11:36:30 <iano>	good question. what is the simplest toolkit?
+Feb 20 11:36:41 <Bart_Massey>	I'm thinking that an fltk port might be really easy if someone wanted to look at it
+Feb 20 11:36:43 <JoshTriplett>	Bart_Massey: I tend to have lots to do on Tuesdays, but I can try to make it again.
+Feb 20 11:37:13 <jkolb_>	And server side xcb is slated for the 7.3 release....
+Feb 20 11:37:14 <Bart_Massey>	JoshTriplett: we'll try to officially adjourn after an hour, although it looks like folks may hang around longer :-)
+Feb 20 11:37:18 <jameysharp>	I think I'd prefer a Monday or Wednesday morning, fwiw.
+Feb 20 11:37:25 <iano>	(BTW, there is a page on xorg.freedesktop which attempts to categorize the legacy x apps)
+Feb 20 11:37:29 <jameysharp>	But any day is OK.
+Feb 20 11:37:36 <Bart_Massey>	jkolb_: server side xcb in 7.3 would be awesome
+Feb 20 11:37:45 <Bart_Massey>	iano: tnx
+Feb 20 11:38:01 <caro>	Bart_Massey: for the toolkit, once raster will accept ecore_xcb, you'll have 2 toolkits for free (etk and ewl)
+Feb 20 11:38:03 <jkolb_>	Bart_Massey: it's on the roadmap but we need to know what it is. I guess pthon is blocking it atm
+Feb 20 11:38:18 <jameysharp>	jkolb_: I really don't think so.
+Feb 20 11:38:22 <Bart_Massey>	caro: good point
+Feb 20 11:38:24 <iano>	lets port ewl to KDE!!!  obtaining kewl  ;)
+Feb 20 11:38:31 <caro>	haha
+Feb 20 11:38:38 <jkolb_>	jameysharp: no? We're talking about server side stub generator right?
+Feb 20 11:38:58 <jameysharp>	jkolb_: Yes, but I don't think that *requires* any client-side python to have been built.
+Feb 20 11:39:03 <JoshTriplett>	jkolb_: I think jameysharp suggests that someone writing server-side stubs could go ahead and start on a Python script. :)
+Feb 20 11:39:13 <Bart_Massey>	jameysharp: I really think that there will be some possibility of shared effort between the server-side and client-side Python efforts
+Feb 20 11:39:14 <jameysharp>	They'll probably share code eventually, but they don't have to start that way.
+Feb 20 11:39:22 <JoshTriplett>	Bart_Massey: Likely, yes.
+Feb 20 11:39:23 <Bart_Massey>	jameysharp: true enough
+Feb 20 11:39:25 <iano>	not 10:30, please.  Either earler or later
+Feb 20 11:39:32 <caro>	Bart_Massey: is the wm in util have to be improved in any manner ?
+Feb 20 11:39:36 <jameysharp>	I just don't want to see people waiting around when they don't have to.
+Feb 20 11:39:37 <Bart_Massey>	iano: does a different day help?
+Feb 20 11:39:47 <jameysharp>	caro: That wm is awful. Why? :-)
+Feb 20 11:39:54 <iano>	bart: no this is a daily meeting (though I lucked out today!)
+Feb 20 11:40:04 <caro>	jameysharp: :)
+Feb 20 11:40:04 <Bart_Massey>	caro: I dunno.  The utils team needs to look carefully at it :-)
+Feb 20 11:40:14 <caro>	ok
+Feb 20 11:40:44 <caro>	another point : is it possible to automatically save the logs of that chan, in case someone can't come ?
+Feb 20 11:41:00 <Bart_Massey>	Does anyone have a problem with 9:30 PDT Wednesday 28 Feb for next meeting?
+Feb 20 11:41:02 *	JoshTriplett wonders if any existing logbots exist that we could just ask to join our channel.
+Feb 20 11:41:16 <Bart_Massey>	caro: I'm logging now...
+Feb 20 11:41:28 *	JoshTriplett too.
+Feb 20 11:41:28 <Bart_Massey>	JoshTriplett: Yes, I can get daniels to help us with a logbot
+Feb 20 11:41:35 <jkolb_>	I guess I'll poke around versioning and see if I can't figure something out
+Feb 20 11:41:49 <iano>	Bart_Massey: good for me.  Announce on the list if finalized
+Feb 20 11:41:57 <Bart_Massey>	jkolb_: thanks much
+Feb 20 11:41:59 <caro>	9:30 pdt ? is it one hour before the time we meet today ?
+Feb 20 11:42:06 <Bart_Massey>	caro: yes
+Feb 20 11:42:37 <caro>	i'll not be able to come, but i'mm read the log, then
+Feb 20 11:42:44 <caro>	ll*
+Feb 20 11:42:56 <Bart_Massey>	gah: 11:30?  (one hour later than now?)
+Feb 20 11:43:18 <jkolb_>	either one works for me
+Feb 20 11:43:21 <iano>	that works too
+Feb 20 11:43:35 <caro>	Bart_Massey: anyway, i don't think that wednesday is a good day for me, next week
+Feb 20 11:43:45 <caro>	Bart_Massey: don't worry, I'll read the logs
+Feb 20 11:43:48 <JoshTriplett>	Random suggestion: Fridays, anyone?
+Feb 20 11:43:51 <Bart_Massey>	caro: 11:30 Tuesday?
+Feb 20 11:44:00 <caro>	tuesday is good for me
+Feb 20 11:44:10 <caro>	any time
+Feb 20 11:44:22 <Bart_Massey>	I have 11:30 Tuesday going once, going twice...
+Feb 20 11:44:29 <jameysharp>	Uh...
+Feb 20 11:44:29 <JoshTriplett>	Bart_Massey: We could really use that "meeting time finder" thing you mentioned here. :)
+Feb 20 11:44:37 <Bart_Massey>	JoshTriplett: Yep :-)
+Feb 20 11:44:55 <Bart_Massey>	jameysharp: "Uh..."?
+Feb 20 11:44:58 <JoshTriplett>	caro: regarding parameters for your doc XSLT, I think you wondered about this line: <xsl:apply-templates select="$req/*[not(self::reply)]" mode="param" /> ?
+Feb 20 11:45:12 <Bart_Massey>	Josh!  Not *in public*!  
+Feb 20 11:45:14 <caro>	JoshTriplett: yes :D
+Feb 20 11:45:20 <Bart_Massey>	Put that away this instant!
+Feb 20 11:45:34 <Bart_Massey>	:-) :-)
+Feb 20 11:45:41 <caro>	:)
+Feb 20 11:45:52 <Bart_Massey>	OK, Tuesday 27 Feb 11:30 PDT it is
+Feb 20 11:46:05 <jameysharp>	Gah, I was on the phone.
+Feb 20 11:46:05 <caro>	JoshTriplett: i tried to use it, in a lot of manner, without success
+Feb 20 11:46:23 <iano>	[aside] I wish we had used a better message for the xcb-locking assert; it sucks that everyong blames XCB for application locking bugs
+Feb 20 11:46:31 <JoshTriplett>	iano: Agreed.
+Feb 20 11:46:33 <JoshTriplett>	iano: Idea:
+Feb 20 11:46:41 <JoshTriplett>	iano: glibc has some backtrace-generating functions.
+Feb 20 11:46:43 <jameysharp>	I was hoping to not have my Tuesday/Thursday times broken up any more than this already did.
+Feb 20 11:46:53 <JoshTriplett>	iano: We could check for them in configure.
+Feb 20 11:47:02 <JoshTriplett>	iano: And if present, we could make a more detailed backtrace.
+Feb 20 11:47:04 <Bart_Massey>	jameysharp: can we do this for next week?  it doesn't have to be permanent
+Feb 20 11:47:10 <jameysharp>	Bart_Massey: OK.
+Feb 20 11:47:16 <Bart_Massey>	jameysharp: tnx
+Feb 20 11:47:28 <iano>	JoshTriplett: way cool! we should make a patch to support this.
+Feb 20 11:47:37 <caro>	good for me (the 4th, iirc)
+Feb 20 11:47:51 <jkolb_>	i have a function right in front of me that will print out a backtrace
+Feb 20 11:48:01 <Bart_Massey>	OK.  I'll announce the next mtg to the list
+Feb 20 11:48:14 <jkolb_>	can we get a recap of this one too?
+Feb 20 11:48:35 <jameysharp>	jkolb_: It'd help if more people gobby'd our agenda/notes. :-)
+Feb 20 11:48:43 <jkolb_>	what's gobby?
+Feb 20 11:48:45 <iano>	how about a meeting minutes page on the wiki? With ikiwiki, it could even be a blog...
+Feb 20 11:48:45 <caro>	especially, which gueana pig is assigned to which task :D
+Feb 20 11:48:53 <Bart_Massey>	jkolb_: I think we captured an OK to-do list of most of it with Gobby.  I'll put that and the IRC log on the wiki shortly
+Feb 20 11:49:06 <jameysharp>	http://gobby.0x539.de/trac/
+Feb 20 11:49:16 <JoshTriplett>	iano: Yes.  And we should split out a TODO list.
+Feb 20 11:49:28 <jkolb_>	jameysharp: thanks
+Feb 20 11:50:39 <caro>	i like the irc stuff in that gobby :)
+Feb 20 11:51:12 <JoshTriplett>	iano: http://www.gnu.org/software/libc/manual/html_mono/libc.html#Backtraces
+Feb 20 11:51:50 <JoshTriplett>	iano: backtrace() and backtrace_symbols_fd to stderr seems promising.
+Feb 20 11:52:30 <Bart_Massey>	caro: it *is* a little disconcerting to bounce back and forth between Gobby and Xchat
+Feb 20 11:53:33 <jkolb_>	do we have any extensions that are out of date?
+Feb 20 11:54:33 <caro>	jkolb_: anyway, they all need a review
+Feb 20 11:54:43 <iano>	JoshTriplett: thx
+Feb 20 11:54:49 <JoshTriplett>	iano: if(broken locking) { void *array[20]; size_t size; fprintf(stderr, ...); size = backtrace(array, 20); backtrace_symbols_fd(array, 20, STDERR_FILENO); assert(0); }
+Feb 20 11:55:22 <JoshTriplett>	iano: Or more likely, wrap that into our own assert.
+Feb 20 11:55:59 <iano>	jkolb_: I think XFixes is about to get a bump for more cursor status requests.
+Feb 20 11:56:11 *	JoshTriplett wonders if we have randr 1.2.
+Feb 20 11:56:26 <iano>	jkolb_: but it should be easy to check git for modifications to the proto modules
+Feb 20 11:57:01 <JoshTriplett>	iano: Then just put that inside HAVE_BACKTRACE.
+Feb 20 11:57:15 <iano>	JoshTriplett: randr is up to 1.2 by yours truely :) including finding some bugs in keithp's libraries and documents
+Feb 20 11:57:30 <JoshTriplett>	iano: I saw the bugfixes to the libs and docs.
+Feb 20 11:57:45 <JoshTriplett>	iano: Nice work.
+Feb 20 11:57:54 <JoshTriplett>	iano: On that and the protocol itself, I mean.
+Feb 20 11:57:55 <Bart_Massey>	jkolb_: Somebody needs to finish up and integrate Peter Hutterer's MPX extensions
+Feb 20 11:57:59 <iano>	JoshTriplett: but I don't think it is all tested. We should update our randr demo. Volunteers?
+Feb 20 11:58:10 <JoshTriplett>	Bart_Massey: That much does need to wait on the Python, actually.
+Feb 20 11:58:10 <Bart_Massey>	He gave us XML, but we kind of dropped the ball on finishing it
+Feb 20 11:58:14 <caro>	jkolb_ is :)
+Feb 20 11:58:17 <JoshTriplett>	Bart_Massey: Sorta.
+Feb 20 11:58:32 <iano>	XKB still looms large in my mind....
+Feb 20 11:58:33 <JoshTriplett>	Bart_Massey: (last re: wait on Python)
+Feb 20 11:58:42 <Bart_Massey>	iano: thanks!
+Feb 20 11:58:43 <JoshTriplett>	iano: Also needs to wait for the Python.
+Feb 20 11:58:48 <caro>	omg, xkb...
+Feb 20 11:58:50 <iano>	That and XInput
+Feb 20 11:59:11 <iano>	real world toolkits will use both of them
+Feb 20 11:59:14 <JoshTriplett>	iano: Right.  XKB and XInput do nasty, listfontswithinfo-like things.
+Feb 20 11:59:20 <JoshTriplett>	iano: And the current XSLT doesn't support that.
+Feb 20 11:59:34 <Bart_Massey>	The thing about XKB and XInput is that they're more ports than extensions; most of their code is client-side
+Feb 20 11:59:59 <Bart_Massey>	Josh is right; we really need to just fix that problem
+Feb 20 12:00:36 <iano>	Is there any chance that we could regularize XKB and XInput by bumping the protocol versions and obsoleting the difficult bits? 
+Feb 20 12:00:50 <jameysharp>	JoshTriplett: Well, listfontswithinfo isn't a problem for the XSLT (any more); XKB and XI are worse than that. :-)
+Feb 20 12:00:51 <JoshTriplett>	iano: Probably not, no.
+Feb 20 12:00:57 <JoshTriplett>	jameysharp: Well, yes.
+Feb 20 12:01:02 <Bart_Massey>	iano: excellent suggestion, but we'd have to support the old ones forever anyhow
+Feb 20 12:01:43 <Bart_Massey>	Sadly, I must run.  Will catch you all on the list and in a week
+Feb 20 12:01:49 <jameysharp>	Bart_Massey: see ya!
+Feb 20 12:01:51 <JoshTriplett>	Same here.
+Feb 20 12:01:55 <iano>	bye
+Feb 20 12:01:57 <JoshTriplett>	See you all later.
+Feb 20 12:02:03 <caro>	bye
+Feb 20 12:02:05 <Bart_Massey>	Peace and Joy!
+Feb 20 12:02:06 <thun>	bye
+Feb 20 12:02:15 <--	JoshTriplett (n=josh@unaffiliated/joshtriplett) has left #xcb
+Feb 20 12:02:22 Tcl interface unloaded
+Feb 20 12:02:22 Python interface unloaded
+**** ENDING LOGGING AT Tue Feb 20 12:02:22 2007
+
