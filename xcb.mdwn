@@ -7,3 +7,5 @@ If you wish to work on XCB, please read the [[DevelopersGuide]]. Discussion of X
 To aid porting applications, you can configure Xlib to use XCB for the transport layer. We call this [[Xlib/XCB|XlibXcb]].
 
 XCB is built atop an XML description of the X core protocol and common extension protocols called [[XML/XCB|XmlXcb]]. This protocol can be used in other interesting ways.
+
+Of course, there's still a lot [[to do|TODO]] .
