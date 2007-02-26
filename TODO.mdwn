@@ -2,7 +2,7 @@ _To Do_ list:
 
 - Get ikiwiki up: need CGI and final setup
 - Want adoption of libxcb and xcb-proto
-  - evas: in progress (caro)
+  - evas and ecore: in progress (caro)
   - Cairo: in progress (iano)
     - Try to target "supported" status for upcoming Cairo 1.4 release
     - Need to get the test suite to pass
