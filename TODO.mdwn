@@ -1,0 +1,49 @@
+_To Do_ list:
+
+- Get ikiwiki up: need CGI and final setup
+- Want adoption of libxcb and xcb-proto
+  - evas: in progress (caro)
+  - Cairo: in progress (iano)
+    - Try to target "supported" status for upcoming Cairo 1.4 release
+    - Need to get the test suite to pass
+    - Need X resource database support for anti-aliasing properties
+    - Need to match the cairo-xlib public API
+    - Port cairo-xlib to require Xlib/XCB and delegate to cairo-xcb
+  - GTK+: need reviewer for existing bits
+    - Existing bits seem to use old version?
+    - Organizational interface help from bart, cworth, keithp?
+  - Qt: Need help
+  - Xine bits from christoph4: need to review
+- Vincent, Ian, Thomas: utils stuff
+  - finish renaming
+  - release an 0.2
+  - split out libs we care about and release them (notably renderutil, maybe aux)
+  - renderutil may have more extensions to the glyph abstractions coming
+- Thomas, with help: release management (util or libxcb first?)
+- Josh, Thomas, Ian, Jeremy:
+  - Switch to python from XSLT
+  - Deal with 'make dist' properly
+- Vincent and Jeremy: protocol documentation in XML + generating Doxygen comments
+- Ian: start porting xorg/apps to XCB
+  - Some apps are to be dropped in X.org 7.3: don't bother with those (see some page on xorg.fd.o)
+- Josh and Ian: produce a better locking-bug message with backtrace on glibc
+- Jeremy: versioning in the XML protocol descriptions
+- Jamey and Bart: clean up XCB transport layer code, so people can grok it
+- Bart: XCB workshop in mid/late August
+- Someone: Finish MPX/XKB/XI extensions
+- Someone: extensions need review and possibly new versions
+- Someone: X resource database utility library
+- Someone: Unit testing XCB
+- Someone: server-side XCB
+- Someone: finish xhsb
+- Someone: design and implement an X-independent library for pixel format conversion
+- XCB needs a kitten logo
+  - **iano:** [aside] I nominate a neko from the demo/neko
+  - **iano:** [aside] because everyone would love X if they knew it ran on kittens :)
+  - **JoshTriplett:** every time you use Xlib, God kills a kitten. Please, think of the kittens.
+  - **iano:** JoshTriplett: no that was reserved for XKB (== X Kitten Butcher)
+  - **\*\*\*cworth** likes the kitten idea
+  - **Bart\_Massey:** Yep; need a cute kitten. Check
+  - **JoshTriplett:** Lack of logo-design skill notwithstanding, I think we should just come up with our own original neko or kitten.
+  - **JoshTriplett:** Bart\_Massey: Design thought: simplistic like the neko seems like a feature, given XCB's focus on simplicity and transparency.
+- Vincent: wants review/help with the XCB tutorial. We should get it into the wiki.
