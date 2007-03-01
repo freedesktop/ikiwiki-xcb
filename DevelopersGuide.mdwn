@@ -9,7 +9,7 @@ To build XCB from source, you need to have installed at least:
 - automake 1.7
 - autoconf 2.50
 - libtool 1.5.6
-- xsltproc
+- xsltproc (but using libxslt1.1.17 or earlier, or libxslt1.1.20 or newer)
 - gperf 3.0.1 (for some of the xcb/util libraries)
 
 To do 'make check' or 'make dist', you also need:
