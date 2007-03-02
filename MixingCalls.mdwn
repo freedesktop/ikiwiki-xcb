@@ -1,0 +1,9 @@
+### Xlib/XCB: Mixing Xlib and XCB Calls
+
+One of the nice features of Xlib/XCB is that it supports a gradual transition from Xlib to XCB, by permitting mixing Xlib and XCB calls in programs.
+
+To make this work, you'll need both an XCB connection and Xlib dipslay. Get this by using XOpenDisplay() to get an Xlib Display, then calling XGetXCBConnection() (from "Xlib-xcb.h") on the Xlib Display to get an XCBConnection.
+
+You can now mix calls to XCB and Xlib. The datatypes of the two systems are somewhat interoperable; for example, you can use an Xlib Window anywhere an xcb\_window\_t is required. In general, XID types like Window (X.h:typedef XID) are synonymous with their XCB equivalents.
+
+Only one of Xlib and XCB can manage the event queue. By default, Xlib does. To change this, call XSetEventQueueOwner() (from "Xlib-xcb.h").
