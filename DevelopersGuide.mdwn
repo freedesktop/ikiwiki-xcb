@@ -58,6 +58,8 @@ There are also two experimental XCB repositories:
 
 This is a fairly complex operation at this point. Watch out for pkgconfig problems, esp. distinguishing `/usr/local`, `/usr`, and `/usr/X11R6` in the config. Note that proto/X11 and xcb-proto exist only to install header files, so typing `make` or `make all` will produce the message "Nothing to be done for 'all'". That's normal.
 
+We have documented our procedure for [[ReleasingXcb]].
+
 ### Mailing List and other resources
 
 The [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb) is hosted by freedesktop.org.
