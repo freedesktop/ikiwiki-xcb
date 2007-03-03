@@ -16,10 +16,10 @@ _To Do_ list:
   - Xine bits from christoph4: need to review
 - Vincent, Ian, Thomas: utils stuff
   - finish renaming
-  - release an 0.2
   - split out libs we care about and release them (notably renderutil, maybe aux)
   - renderutil may have more extensions to the glyph abstractions coming
 - Thomas, with help: release management (util or libxcb first?)
+  - added [[ReleasingXcb]]
 - Josh, Thomas, Ian, Jeremy:
   - Switch to python from XSLT
   - Deal with 'make dist' properly
