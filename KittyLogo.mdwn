@@ -1,1 +1,7 @@
-Gearóid Molloy of the fine webcomic [Neko the Kitty](http://www.nekothekitty.net/) was kind enough to donate a [drawing](KittyLogo/graphics.png) of a cute kitty that will eventually become the new XCB logo. Philipp Heise set the image against the XCB text and then did a nice vectorization of it to turn it into a candidate logo in [SVG](KittyLogo/nekosvg.svg); he also rendered it as a [PNG](KittyLogo/nekosvg.png).
+Gearóid Molloy of the fine webcomic [Neko the Kitty](http://www.nekothekitty.net/) was kind enough to donate a drawing of a cute kitty that will eventually become the new XCB logo.
+
+[[|./KittyLogo?action=AttachFile&do=get&target=graphics.png]]
+
+Philipp Heise set the image against the XCB text and then did a nice vectorization of it to turn it into a candidate logo in [SVG](KittyLogo/nekosvg.svg). He also rendered it as a PNG.
+
+[[|./KittyLogo?action=AttachFile&do=get&target=nekosvg.png]]
