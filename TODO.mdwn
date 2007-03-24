@@ -37,6 +37,7 @@ _To Do_ list:
 - Someone: server-side XCB
 - Someone: finish xhsb
 - Someone: design and implement an X-independent library for pixel format conversion
+- Someone: implement some of the most ugly functions of glx (in util ?)
 - XCB needs a kitten logo
   - **iano:** [aside] I nominate a neko from the demo/neko
   - **iano:** [aside] because everyone would love X if they knew it ran on kittens :)
