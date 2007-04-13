@@ -29,7 +29,7 @@ There are multiple modules. The modules you need to checkout, build, and install
 - from [X.org](http://xorg.freedesktop.org/wiki/ModularDevelopersGuide) git:
   - xorg/util/macros (see note below)
   - xorg/lib/libXau
-    - xorg/lib/libXdmcp, to optionally support XDM-AUTHORIZATION-1
+    - xorg/proto/x11proto and xorg/lib/libXdmcp, to optionally support XDM-AUTHORIZATION-1
 - three of the XCB repositories:
   - xcb/pthread-stubs
   - xcb/proto
