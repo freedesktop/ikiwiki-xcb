@@ -23,3 +23,12 @@ Hope this helps. Comment welcome.
 Double buffering on X is kind of a mess. Here's documentation on the [Multi-Buffering](XcbNotes/buffer.pdf) and [XDBE](XcbNotes/dbe.pdf) extensions in case someone wants to write a protocol description for XCB. Note: Multibuffer is deprecated in favour of DBE. It also seems that DBE is deprecated. See [this](http://lists.freedesktop.org/archives/xcb/2006-August/001854.html) thread.
 
 A conversation with keithp indicates that his current thinking is that the right way to do double buffering is via an explicit copy from a separate pixmap. This is portable to absolutely everywhere, and requires no magic. Probably there will soon be a convention for the compositing manager to handle the double buffering on systems where one is running, since it needs to buffer anyhow. But this would be in the future.
+
+### checked vs. unchecked
+
+The plan 7 error handling follows the these rules.
+
+1. If a request has no reply (xcb\_void\_cookie\_t) the default is to call unchecked. To check the result use xxx\_checked.
+2. If a request has a reply cookie, the default is to call checked. If you are not interested in checking, use xxx\_unchecked.
+
+[(see this mail)](http://lists.freedesktop.org/archives/xcb/2007-April/002760.html)
