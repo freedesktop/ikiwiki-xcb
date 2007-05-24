@@ -1,1 +1,1 @@
-XCB developers sometimes use the instant messaging system Internet Relay Chat (IRC) to communicate. The semi-official XCB IRC channel is <irc://irc.freenode.net/#xcb> . You will need an IRC client to particpate: a variety are available.
+XCB developers sometimes use the instant messaging system Internet Relay Chat (IRC) to communicate. The semi-official XCB IRC channel is #xcb on irc.freenode.net. You will need an IRC client to particpate: a variety are available.
