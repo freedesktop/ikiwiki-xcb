@@ -1,4 +1,4 @@
-[![XCB](KittyLogo/nekosvg1.png)](KittyLogo)
+[![XCB](KittyLogo/neko.png)](KittyLogo)
 
 # Introduction
 

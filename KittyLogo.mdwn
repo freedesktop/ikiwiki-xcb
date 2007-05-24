@@ -2,6 +2,6 @@ Gearóid Molloy of the fine webcomic [Neko the Kitty](http://www.nekothekitty.ne
 
 [[graphics.png]]
 
-Philipp Heise set the image against the XCB text and then did a nice vectorization of it to turn it into a candidate logo in [SVG](nekosvg.svg). He also rendered it as a PNG.
+Philipp Heise set the image against the XCB text and then did a nice vectorization of it to turn it into a candidate logo in [SVG](neko.svg). He also rendered it as a PNG.
 
-[[nekosvg1.png]]
+[[neko.png]]
