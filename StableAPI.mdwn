@@ -1,0 +1,7 @@
+### This site is under construction ...
+
+General notes about the purpose & the usage of this site.
+
+### Remove *request_t and the opcodes from the public API [new / --pfister]
+
+Reasons: less lines needed to keep stable / not needed for using xcb / compile time speedup
