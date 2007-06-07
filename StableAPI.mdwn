@@ -1,7 +1,20 @@
-### This site is under construction ...
+## Overview
 
-General notes about the purpose & the usage of this site.
+There have been some suggestions for api-incompatible improvements recently especially with regards to the new python generator.
 
-### Remove *request_t and the opcodes from the public API [new / --pfister]
+This page is here to keep track of such proposals so that they aren't lost. Discussion about the items happens on the xcb mailing list and the status, comments and different points of view should be tracked here.
 
-Reasons: less lines needed to keep stable / not needed for using xcb / compile time speedup
+### Cleanup iterators stuff [Christoph Pfister / new]
+
+* Proposal: have a function which returns a pointer to the first element and a function which returns the number of elements; when needed a function to get the next element is provided; otherwise you advance by incrementing the pointer
+* Reasons: it should be possible to live without *iterator_t which would decrease the size of the headers and the code
+* Caveats: not checked whether all stuff can be handled this way; danger that next-element functions aren't used when they should be; maybe the effects of this change are too big?
+
+### Normalization of naming with regards to numbers [Thomas Hunger / new]
+
+* Proposal: always have numbers stick to the previous word (handle them as lower case letters)
+* Reasons: consistency
+
+### Remove *request_t and the opcodes from the public API [Christoph Pfister (originally by Thomas Hunger) / new]
+
+* Reasons: less lines needed to keep stable / not needed for using xcb / compile time speedup
