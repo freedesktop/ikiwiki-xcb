@@ -6,9 +6,9 @@ This page is here to keep track of such proposals so that they aren't lost. Disc
 
 ### Cleanup iterators stuff [Christoph Pfister / new]
 
-* Proposal: have a function which returns a pointer to the first element and a function which returns the number of elements; when needed a function to get the next element is provided; otherwise you advance by incrementing the pointer
-* Reasons: it should be possible to live without *iterator_t which would decrease the size of the headers and the code
-* Caveats: not checked whether all stuff can be handled this way; danger that next-element functions aren't used when they should be; maybe the effects of this change are too big?
+* Reasons: it should be possible to reduce the number of *iterator_t structs and helper functions which would decrease the size of the headers and the code
+* Proposal: if elements occupy adjacent memory positions you have two functions: one to get the number of elements and one to get a pointer to the first element (you advance by incrementing the pointer); else you have an iterator struct which contains only a pointer to the data and three functions: one to get the number of elements, one to get an iterator and one to advance it
+* Caveats: not checked whether all stuff can be handled this way; maybe the effects of this change are too big?
 
 ### Normalization of naming with regards to numbers [Thomas Hunger / new]
 
