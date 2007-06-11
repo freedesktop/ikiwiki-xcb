@@ -6,9 +6,8 @@ This page is here to keep track of such proposals so that they aren't lost. Disc
 
 ### Cleanup iterators stuff [Christoph Pfister / new]
 
-* Reasons: it should be possible to reduce the number of *iterator_t structs and helper functions which would decrease the size of the headers and the code
-* Proposal: if elements occupy adjacent memory positions you have two functions: one to get the number of elements and one to get a pointer to the first element (you advance by incrementing the pointer); else you have an iterator struct which contains only a pointer to the data and three functions: one to get the number of elements, one to get an iterator and one to advance it
-* Caveats: not checked whether all stuff can be handled this way; maybe the effects of this change are too big?
+* Reasons: reduce confusion because sometimes you have to advance the pointer in the iterator struct yourself and sometimes you must not
+* Proposal: provide _next() functions for every kind of iterator so you never have to modify the content of an iterator yourself
 
 ### Normalization of naming with regards to numbers [Thomas Hunger / new]
 
@@ -18,3 +17,9 @@ This page is here to keep track of such proposals so that they aren't lost. Disc
 ### Remove *request_t and the opcodes from the public API [Christoph Pfister (originally by Thomas Hunger) / new]
 
 * Reasons: less lines needed to keep stable / not needed for using xcb / compile time speedup
+
+### Cleanup iterators stuff [Christoph Pfister / postponed till next major API breaking release]
+
+* Reasons: it should be possible to reduce the number of *iterator_t structs and helper functions which would decrease the size of the headers and the code
+* Proposal: if elements occupy adjacent memory positions you have two functions: one to get the number of elements and one to get a pointer to the first element (you advance by incrementing the pointer); else you have an iterator struct which contains only a pointer to the data and three functions: one to get the number of elements, one to get an iterator and one to advance it
+* Caveats: not checked whether all stuff can be handled this way
