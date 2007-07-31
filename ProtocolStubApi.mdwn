@@ -10,13 +10,13 @@ Most of the X Window Protocol documentation lives in <http://webcvs.freedesktop.
 
 ## Extensions
 
-### XCB"&lt;Extension&gt;"Id
+### xcb_extension_id
 
-`XCBExtension XCB"<Extension>"Id`
+`xcb_extension_t xcb_extension_id`
 
 (xcb.h)
 
-A unique, opaque object identifying this extension for [XCBGetExtensionData](#XCBGetExtensionData).
+A unique, opaque object identifying this extension for [xcb_get_extension_data()](#xcb_get_extension_data).
 
 ## Fields
 
@@ -28,59 +28,59 @@ Several conventions apply to field names.
 
 ## Types
 
-The C name for the X type with name "Name" is XCB&lt;"Name"&gt;. If the type is from an extension, then "Name" is composed by prefixing the extension name onto the type name.
+The C name for the X type with name "Name" is xcb_name_t. If the type is from an extension, then "Name" is composed by prefixing the extension name onto the type name.
 
 [!] _**TODO:**Links to XCBProtocolLanguage should be changed to point to appropriate [[XmlXcb]] documentation._
 
 Types are declared using the [[XCBProtocolLanguage#STRUCT|XCBProtocolLanguage]], [[XCBProtocolLanguage#UNION|XCBProtocolLanguage]], [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]], [[XCBProtocolLanguage#ENUM|XCBProtocolLanguage]], and ["XCBProtocolLanguage#TYPEDEF: TYPEDEF] protocol description macros.
 
-<a name="XCBNameIter"></a>
+<a name="xcb_name_iterator_t"></a>
 
-### XCB&lt;Name&gt;Iter
+### xcb_name_iterator_t
 
     typedef struct {
-             XCB<Name> *data;
+             xcb_name_t *data;
              int rem;
              int index;
-    } XCB<Name>Iter;
+    } xcb_name_iterator_t;
 
 An iterator may only be created for types declared using the [[XCBProtocolLanguage#STRUCT|XCBProtocolLanguage]] and [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]] protocol description macros.
 
-A special iterator type, XCBGenericIter, is declared in xcb.h.
+A special iterator type, xcb_generic_iterator_t, is declared in xcb.h.
 
-### XCB&lt;Name&gt;Next
+### xcb_name_next
 
-`void XCB&<"Name">Next(XCB<"Name">Iter *i)`
+`void xcb_name_next(xcb_name_iterator_t *i)`
 
-Every [iterator](#XCBNameIter) has a XCB&lt;"Name"&gt;Next function.
+Every [iterator](#xcb_name_iterator_t) has a xcb_name_next function.
 
-### XCB&lt;Name&gt;End
+### xcb_name_end
 
-`XCBGenericIter XCB<Name">End(XCB<"Name">Iter i)`
+`xcb_generic_iterator_t xcb_name_end(xcb_name_iterator_t i)`
 
-Every [iterator](#XCBNameIter) has a XCB&lt;"Name"&gt;End function.
+Every [iterator](#xcb_name_iterator_t) has a xcb_name_end function.
 
-### XCB&lt;TypeName&gt;&lt;Field&gt;Iter
+### xcb_type_name_field_iterator
 
-`XCB<"BaseType">Iter XCB<"TypeName"><"Field">Iter(XCB<"TypeName"> *R)`
-
-Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
-
-### XCB&lt;TypeName&gt;&lt;Field&gt;
-
-`<"BaseType"> *XCB<"TypeName"><"Field">(XCB<"TypeName"> *R)`
+`xcb_base_type_iterator_t xcb_type_name_field_iterator(xcb_type_name_t *R)`
 
 Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
-### XCB&lt;TypeName&gt;&lt;Field&gt;Length
+### xcb_type_name_field
 
-`int XCB<"TypeName"><"Field">Length(XCB<"TypeName"> *R)`
+`BaseType *xcb_type_name_field(xcb_type_name_t *R)`
 
 Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
-### XCB&lt;TypeName&gt;&lt;Field&gt;End
+### xcb_type_name_field_length
 
-`XCBGenericIter XCB<"TypeName"><"Field">End(XCB<"TypeName"> *R)`
+`int xcb_type_name_field_length(xcb_type_name_t *R)`
+
+Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+
+### xcb_type_name_field_end
+
+`xcb_generic_iterator_t xcb_type_name_field_end(xcb_type_name_t *R)`
 
 Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
 
@@ -88,154 +88,148 @@ Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol d
 
 Every request declared using the [[XCBProtocolLanguage#REQUEST|XCBProtocolLanguage]] or [[XCBProtocolLanguage#VOIDREQUEST|XCBProtocolLanguage]] protocol description macros generates an assortment of types and functions.
 
-The base C name for all types and functions related to the X request with name "Name" is XCB&lt;"Name"&gt;. If the request is from an extension, then "Name" is composed by prefixing the extension name onto the request name.
+The base C name for all types and functions related to the X request with name "Name" is xcb_name. If the request is from an extension, then "Name" is composed by prefixing the extension name onto the request name.
 
-<a name="XCBNameCookie"></a>
+<a name="xcb_name_cookie_t"></a>
 
-### XCB&lt;Name&gt;Cookie
+### xcb_name_cookie_t
 
     typedef struct {
              unsigned int sequence;
-    } XCB<Name>Cookie;
+    } xcb_name_cookie_t;
 
-A special cookie type, XCBVoidCookie, is declared in xcb.h. See [XCB&lt;Name&gt;](#XCBName).
+A special cookie type, xcb_void_cookie_t, is declared in xcb.h. See [xcb_name](#xcb_name).
 
-### XCB&lt;Name&gt;Req
+### xcb_name_request_t
 
     typedef struct {
-             CARD8 major_opcode;
-             /* first single-byte field, CARD8 minor_opcode, or one byte of padding */
-             CARD16 length;
+             uint8_t major_opcode;
+             /* first single-byte field, uint8_t minor_opcode, or one byte of padding */
+             uint16_t length;
              ...
-    } XCB<Name>Req;
+    } xcb_name_request_t;
 
-### XCB&lt;Name&gt;Rep
+### xcb_name_reply_t
 
     typedef struct {
-             BYTE response_type;
+             uint8_t response_type;
              /* first single-byte field or one byte of padding */
-             CARD16 sequence;
-             CARD32 length;
+             uint16_t sequence;
+             uint32_t length;
              ...
              /* padding to 32 bytes */
-    } XCB<Name>Rep;
+    } xcb_name_reply_t;
 
 `response_type` always equals 1 in a reply.
 
-A special reply type, XCBGenericRep, is declared in xcb.h. It contains only the fields common to all replies.
+A special reply type, xcb_generic_reply_t, is declared in xcb.h. It contains only the fields common to all replies.
 
-<a name="XCBName"></a>
+<a name="xcb_name"></a>
 
-### XCB&lt;Name&gt;
+### xcb_name
 
-`''Cookie'' XCB<"Name">(XCBConnection *c, ...)`
-
-Delivers a request with the specified arguments to the X server.
-
-If the request will cause a reply to be generated, then an [XCB&lt;"Name"&gt;Cookie](#XCBNameCookie) will be returned and the [XCB&lt;Name&gt;Reply](#XCBNameReply) function should be used to obtain the actual reply.
-
-Otherwise, an [XCBVoidCookie](#XCBNameCookie) will be returned, and no [XCB&lt;Name&gt;Reply](#XCBNameReply) function will be provided.
-
-/!\ In the upcoming "Plan 7" error handling, errors returned as the result of this request will be handled differently depending on whether the request expects a reply. If the request expects a reply, any error will be returned through any supplied error pointer in the corresponding Reply function rather than being placed in the event queue. If the request does not expect a reply (and thus returns an `XCBVoidCookie`), any error will be placed in the event queue.
-
-<a name="XCBNameChecked"></a>
-
-### XCB&lt;Name&gt;Checked
-
-`XCBVoidCookie XCB<"Name">Checked(XCBConnection *c, ...)`
-
-/!\ This function is part of the upcoming "Plan 7" error handling API.
+`''Cookie'' xcb_name(xcb_connection_t *c, ...)`
 
 Delivers a request with the specified arguments to the X server.
 
-This form can be used only if the request will not cause a reply to be generated. It behaves as `XCB<"Name">`, except that any returned error will be saved for handling by [XCBRequestCheck()](#XCBRequestCheck) rather than being placed in the event queue.
+If the request will cause a reply to be generated, then an [xcb_name_cookie_t](#xcb_name_cookie_t) will be returned and the [xcb_name_reply_t](#xcb_name_reply_t) function should be used to obtain the actual reply. Any error generated by the X server in response to this request will be returned through any supplied error pointer in the corresponding Reply function rather than being placed in the event queue. If no error pointer is supplied, the error will be discarded.
 
-<a name="XCBNameUnchecked"></a>
+Otherwise, an [xcb_void_cookie_t](#xcb_name_cookie_t) will be returned, and no [xcb_name_reply_t](#xcb_name_reply_t) function will be provided. Any error generated by the X server in response to this request will be placed in the event queue.
 
-### XCB&lt;Name&gt;Unchecked
+<a name="xcb_name_checked"></a>
 
-`''Cookie'' XCB<"Name">Unchecked(XCBConnection *c, ...)`
+### xcb_name_checked
 
-/!\ This function is part of the upcoming "Plan 7" error handling API.
+`xcb_void_cookie_t xcb_name_checked(xcb_connection_t *c, ...)`
 
 Delivers a request with the specified arguments to the X server.
 
-This form can be used only if the request will cause a reply to be generated. It behaves as `XCB<"Name">`, except that any returned error will be placed in the event queue rather than being handled by [XCB&lt;"Name"&gt;Reply](#XCBNameReply).
+This form can be used only if the request will not cause a reply to be generated. It behaves as `xcb_name`, except that any returned error will be saved for handling by [xcb_request_check()](#xcb_request_check) rather than being placed in the event queue.
 
-<a name="XCBNameReply"></a>
+<a name="xcb_name_unchecked"></a>
 
-### XCB&lt;Name&gt;Reply
+### xcb_name_unchecked
 
-`XCB<"Name">Rep *XCB<"Name">Reply(XCBConnection *c, XCB<"Name">Cookie cookie, XCBGenericError **e)`
+`''Cookie'' xcb_name_unchecked(xcb_connection_t *c, ...)`
 
-/!\ In the upcoming "Plan 7" error handling, the `XCBGenericError **e` supplied to this function must be 0 unless the corresponding request function committed to storing an error here. See [XCB&lt;"Name"&gt;()](#XCBName), [XCB&lt;"Name"&gt;Checked()](#XCBNameChecked), and [XCB&lt;"Name"&gt;Unchecked()](#XCBNameUnchecked).
+Delivers a request with the specified arguments to the X server.
 
-<a name="XCBRequestCheck"></a>
+This form can be used only if the request will cause a reply to be generated. It behaves as `xcb_name`, except that any returned error will be placed in the event queue rather than being handled by [xcb_name_reply()](#xcb_name_reply).
 
-### XCBRequestCheck
+<a name="xcb_name_reply"></a>
 
-`XCBGenericError *XCBRequestCheck(XCBConnection *c, XCBVoidCookie cookie)`
+### xcb_name_reply
 
-/!\ This function is part of the upcoming "Plan 7" error handling. The `XCBVoidCookie cookie` supplied to this function must have resulted from a call to [XCB&lt;"Name"&gt;Checked()](#XCBNameChecked). This function will block until one of two conditions happens. If an error is received, it will be returned. If no error can be received, because the sequence number has advanced beyond that provided in `cookie`, 0 will be returned.
+`xcb_name_reply_t *xcb_name_reply(xcb_connection_t *c, xcb_name_cookie_t cookie, xcb_generic_error_t **e)`
 
-/!\ Note that this function will send perform an `XCBAuxSync()` if needed to ensure that the sequence number will advance beyond that provided in `cookie`; this is a convenience to avoid races in determining whether the sync is needed. If you want a version of this call that never performs this implicit sync (e.g. because you are writing in a multi-threaded implementation in which another thread will eventually issue a request), please let us know, and we will consider adding it.
+The `xcb_generic_error_t **e` supplied to this function must be 0 unless the corresponding request function committed to storing an error here. See [xcb_name()](#xcb_name), [xcb_name_checked()](#xcb_name_checked), and [xcb_name_unchecked()](#xcb_name_unchecked).
 
-### XCB&lt;Name&gt;&lt;Field&gt;Iter
+<a name="xcb_request_check"></a>
 
-`XCB<"BaseType">Iter XCB<"Name"><"Field">Iter(XCB<"Name">Rep *R)`
+### xcb_request_check
 
-### XCB&lt;Name&gt;&lt;Field&gt;
+`xcb_generic_error_t *xcb_request_check(xcb_connection_t *c, xcb_void_cookie_t cookie)`
 
-`<"BaseType"> *XCB<"Name"><"Field">(XCB<"Name">Rep *R)`
+The `xcb_void_cookie_t cookie` supplied to this function must have resulted from a call to [xcb_name_checked()](#xcb_name_checked). This function will block until one of two conditions happens. If an error is received, it will be returned. If no error can be received, because the sequence number has advanced beyond that provided in `cookie`, 0 will be returned.
 
-### XCB&lt;Name&gt;&lt;Field&gt;Length
+/!\ Note that this function will perform an `xcb_aux_sync()` if needed to ensure that the sequence number will advance beyond that provided in `cookie`; this is a convenience to avoid races in determining whether the sync is needed. If you want a version of this call that never performs this implicit sync (e.g. because you are writing in a multi-threaded implementation in which another thread will eventually issue a request), please let us know, and we will consider adding it.
 
-`int XCB<"Name"><"Field">Length(XCB<"Name">Rep *R)`
+### xcb_name_field_iterator
 
-### XCB&lt;Name&gt;&lt;Field&gt;End
+`xcb_base_type_iterator_t xcb_name_field_iterator(xcb_name_reply_t *R)`
 
-`XCBGenericIter XCB<"Name"><"Field">End(XCB<"Name">Rep *R)`
+### xcb_name_field
+
+`BaseType *xcb_name_field(xcb_name_reply_t *R)`
+
+### xcb_name_field_length
+
+`int xcb_name_field_length(xcb_name_reply_t *R)`
+
+### xcb_name_field_end
+
+`xcb_generic_iterator_t xcb_name_field_end(xcb_name_reply_t *R)`
 
 ## Events and Errors
 
-### XCB&lt;EventName&gt;Event
+### xcb_event_name_event_t
 
     typedef struct {
-             BYTE response_type;
+             uint8_t response_type;
              /* first single-byte field or one byte of padding */
-             CARD16 sequence;
+             uint16_t sequence;
              ...
              /* padding to 32 bytes */
-    } XCB<EventName>Event;
+    } xcb_event_name_event_t;
 
-`response_type` equals the event number. See [XCB&lt;EventName&gt;](#XCBEventName).
+`response_type` equals the event number. See [XCB_EVENT_NAME](#XCB_EVENT_NAME).
 
-A special event type, XCBGenericEvent, is declared in xcb.h. It contains only the fields common to all events.
+A special event type, xcb_generic_event_t, is declared in xcb.h. It contains only the fields common to all events.
 
-<a name="XCBEventName"></a>
+<a name="XCB_EVENT_NAME"></a>
 
-### XCB&lt;EventName&gt;
+### XCB_EVENT_NAME
 
-`#define XCB<EventName> <number>`
+`#define XCB_EVENT_NAME number`
 
-### XCB&lt;ErrorName&gt;Error
+### xcb_error_name_error_t
 
     typedef struct {
-             BYTE response_type;
-             BYTE error_code;
-             CARD16 sequence;
+             uint8_t response_type;
+             uint8_t error_code;
+             uint16_t sequence;
              ...
              /* padding to 32 bytes */
-    } XCB<ErrorName>Error;
+    } xcb_error_name_error_t;
 
 `response_type` always equals 0 for errors.
 
-`error_code` equals the error number. See [XCB&lt;ErrorName&gt;](#XCBErrorName).
+`error_code` equals the error number. See [XCB_ERROR_NAME](#XCB_ERROR_NAME).
 
-A special error type, XCBGenericError, is declared in xcb.h. It contains only the fields common to all errors.
+A special error type, xcb_generic_error_t, is declared in xcb.h. It contains only the fields common to all errors.
 
-<a name="XCBErrorName"></a>
+<a name="XCB_ERROR_NAME"></a>
 
-### XCB&lt;ErrorName&gt;
+### XCB_ERROR_NAME
 
-`#define XCB<ErrorName> <number>`
+`#define XCB_ERROR_NAME number`
