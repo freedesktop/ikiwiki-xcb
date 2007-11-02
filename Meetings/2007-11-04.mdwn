@@ -1,0 +1,8 @@
+Agenda for upcoming [[IRC]] meeting at 18:00 UTC (11am PDT). Feel free
+to expand on this with as much detail as you want.
+
+- Review the [[TODO]] list.
+- Review changes in libxcb since last release and check whether we're
+  ready for a new release.
+- Find bug reports and e-mail that hasn't been properly responded to.
+- Review the new Python code generator.
