@@ -1,8 +1,27 @@
-Agenda for upcoming [[IRC]] meeting at 18:00 UTC (11am PDT). Feel free
+Minutes for [[IRC]] meeting at 18:00 UTC (10am PST). Feel free
 to expand on this with as much detail as you want.
 
+Attendees: Jamey Sharp, Christoph Pfister, Vincent Torri,
+Josh Triplett, Julien Cristau, Rob Taylor, Thomas Hunger,
+Ian Osgood, Bart Massey
+
 - Review the [[TODO]] list.
+  - Define new goals for near future.
+  - Missing extensions / features.
+  - Fix Sync extension init request.
+  - Fix struct padding issue.
 - Review changes in libxcb since last release and check whether we're
   ready for a new release.
+  - There are 34 commits including some major bug fixes.
+  - What else should be done before a release?
+    [[ReleasingXcb]]
+- Review remaining issues blocking use of Xlib/XCB by default.
+  - What about the other deadlock with ico (process_responses)?
 - Find bug reports and e-mail that hasn't been properly responded to.
+  - There are 27 open bugs in bugzilla; find the important ones.
 - Review the new Python code generator.
+  - Who has Python skills?
+- I'm partway done with converting x11perf to XCB.
+  - May need some help.
+  - Suggested changes to util
+  - util canonization schedule / plan
