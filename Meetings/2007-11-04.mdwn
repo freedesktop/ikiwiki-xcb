@@ -10,18 +10,32 @@ Ian Osgood, Bart Massey
   - Missing extensions / features.
   - Fix Sync extension init request.
   - Fix struct padding issue.
-- Review changes in libxcb since last release and check whether we're
-  ready for a new release.
-  - There are 34 commits including some major bug fixes.
-  - What else should be done before a release?
-    [[ReleasingXcb]]
+    - Short-term fix: __attribute__((packed))?
+    - Long-term fix: rewrite output layer?
+  - Output layer could use a mechanism like output iterators, writing a
+    struct at a time.  xcb_foo_request_start(),
+    xcb_foo_request_some_component()*, xcb_foo_request_end()
+- We're almost ready for a new libxcb release, after:
+  - Update the version dependency on xcb-proto.
+  - [[ReleasingXcb]]
 - Review remaining issues blocking use of Xlib/XCB by default.
   - What about the other deadlock with ico (process_responses)?
 - Find bug reports and e-mail that hasn't been properly responded to.
   - There are 27 open bugs in bugzilla; find the important ones.
 - Review the new Python code generator.
   - Who has Python skills?
-- I'm partway done with converting x11perf to XCB.
+- Bart partway done with converting x11perf to XCB.
   - May need some help.
   - Suggested changes to util
-  - util canonization schedule / plan
+- util canonization schedule / plan
+  - Obviously not everything is at the same stage
+    - aux has high priority
+- Getting more projects to convert to XCB
+  - ecore-xcb: running, but some points missing [Vincent]
+- Documentation needs help
+  - wiki is broken
+  - move core api docs into doxygen headers [Bart]
+  - generate protocol docs from XML <doc> comments [Thomas, Vincent]
+  - add error management in the tutorial [Vincent ;)]
+- Include xinput.xml in proto
+- Ping Zack Rusin about porting Qt
