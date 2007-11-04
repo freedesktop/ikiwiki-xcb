@@ -14,7 +14,7 @@ The X protocol C-language Binding (XCB) is a replacement for Xlib [[featuring|Fe
 - If you wish to work on XCB, please read the [[DevelopersGuide]].
 - **Mailing list**: Discussion of XCB and Xlib/XCB is through the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
 - **IRC**: XCB developers also hang out on [[IRC]], and have occasional [[meetings]].
-- Of course, there's still a lot [[to do|TODO]] .
+- Of course, there's still a lot [[to_do|TODO]] .
 
 # Documentation
 
