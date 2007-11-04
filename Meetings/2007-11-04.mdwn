@@ -22,6 +22,15 @@ Ian Osgood, Bart Massey
   - What about the other deadlock with ico (process_responses)?
 - Find bug reports and e-mail that hasn't been properly responded to.
   - There are 27 open bugs in bugzilla; find the important ones.
+  - 5960: arguably not XCB's bug; apps should retry if they want that.
+  - 6682 (X meets Z): not ready yet
+  - 6812 (change isvoid to flags): API/ABI break, not very important
+  - 9944: should already be fixed in git and the upcoming release
+  - 10637: code generation bug, not critical
+- Bugs against things other than the XCB core:
+  - 9463: needs to happen, eventually
+  - 11285 (memory leak in Xlib/XCB): need investigation
+  - 11751: probable process_responses bug, needs investigation
 - Review the new Python code generator.
   - Who has Python skills?
 - Bart partway done with converting x11perf to XCB.
@@ -32,10 +41,20 @@ Ian Osgood, Bart Massey
     - aux has high priority
 - Getting more projects to convert to XCB
   - ecore-xcb: running, but some points missing [Vincent]
+  - porting toolkits based on evas and ecore [Vincent]
+  - keyboard hell!
+  - Wine, gstreamer (potentially fixes locking bugs), mplayer
+  - Window managers
+  - Language bindings
 - Documentation needs help
   - wiki is broken
   - move core api docs into doxygen headers [Bart]
   - generate protocol docs from XML <doc> comments [Thomas, Vincent]
-  - add error management in the tutorial [Vincent ;)]
+  - add error management in the tutorial [Vincent]
 - Include xinput.xml in proto
+- consider bugs 5962, 6105, 6684, 6686, 5958 for python generator
 - Ping Zack Rusin about porting Qt
+
+Future meetings:
+- xcb-util refactor and release (Bart)
+- XKB, XKB2, how to stop butchering kittens (coordinate with Daniel Stone)
