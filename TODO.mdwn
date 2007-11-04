@@ -1,6 +1,5 @@
 _To Do_ list:
 
-- Get ikiwiki up: need CGI and final setup
 - Want adoption of libxcb and xcb-proto
   - evas and ecore: in progress (caro)
   - Cairo: in progress (iano)
