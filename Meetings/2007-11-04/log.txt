@@ -1,0 +1,1467 @@
+Conversation with #xcb at Sat 03 Nov 2007 11:17:00 PM PDT on jameysharp@irc.freenode.net (irc)
+(11:17:01 PM) #xcb: The topic for #xcb is: XCB 1.0 released at http://xcb.freedesktop.org/dist/ | libX11 1.1 released at http://xorg.freedesktop.org/releases/individual/lib/ | Packages in Debian testing | New wiki up at <http://xcb.freedesktop.org> | <jameysharp> eee, it has that new wiki smell | next save-the-kitty session on Sunday, November 4th, at 18:00 UTC
+(11:17:55 PM) Jamey Sharp: with T-12 hours or so to the save-the-kitty session, I'm going to bed. see y'all then.
+(11:43:28 PM) caro[vtorri] [n=torri@alf94-3-82-66-248-160.fbx.proxad.net] entered the room.
+(04:59:53 AM) christoph4 [n=lxuser@16-200.2-85.cust.bluewin.ch] entered the room.
+(05:04:04 AM) christoph4: .oO ( zzZZZzz )
+(05:06:35 AM) christoph4: hi guys
+(05:11:17 AM) christoph4: hmm - experimenting with gobby
+(05:13:55 AM) caro[vtorri]: ?
+(05:14:00 AM) caro[vtorri]: christoph4: hey
+(05:14:11 AM) caro[vtorri]: christoph4: when does the meeting begins ?
+(05:14:27 AM) christoph4: in 5 hours
+(05:22:39 AM) christoph4!n=lxuser@16-200.2-85.cust.bluewin.ch: christoph4 has changed the topic to: XCB 1.0 released at http://xcb.freedesktop.org/dist/ | libX11 1.1 released at http://xorg.freedesktop.org/releases/individual/lib/ | Packages in Debian testing | New wiki up at <http://xcb.freedesktop.org> | <jameysharp> eee, it has that new wiki smell | next save-the-kitty session on Sunday, November 4th, at 18:00 UTC ; gobby at xcb.cs.pdx.edu:6522
+(05:41:15 AM) christoph4_ [n=lxuser@16-200.2-85.cust.bluewin.ch] entered the room.
+(05:42:02 AM) christoph4 left the room (quit: Read error: 104 (Connection reset by peer)).
+(05:42:07 AM) christoph4_ is now known as christoph4
+(05:51:46 AM) caro[vtorri]: what is gobby ?
+(06:00:25 AM) christoph4: caro[vtorri]: http://fr.wikipedia.org/wiki/Gobby ;)
+(06:00:54 AM) christoph4: didn't know it before jamey told me about it
+(06:01:24 AM) caro[vtorri]: and what's the interest for xcb, for instance ?
+(06:01:45 AM) christoph4: ?
+(06:02:04 AM) christoph4: you can use it during the meeting to work on a summary
+(06:02:23 AM) caro[vtorri]: ha
+(06:02:54 AM) caro[vtorri]: i'm installing gobby, in case i'll need it
+(06:03:25 AM) christoph4: i don't know what he has in mind, but it's also nice to create the agenda
+(07:39:51 AM) jkolb [n=jkolb@c-75-68-110-106.hsd1.nh.comcast.net] entered the room.
+(08:05:41 AM) maxtoo left the room (quit: "WeeChat 0.2.6").
+(09:03:36 AM) Jamey Sharp: of course I'd pick the day of the US daylight savings time change.
+(09:04:42 AM) christoph4: that's today?
+(09:04:51 AM) christoph4: in europe it was in october ...
+(09:05:04 AM) Jamey Sharp: yeah, our beloved president moved it.
+(09:05:17 AM) christoph4: and when is it?
+(09:05:31 AM) christoph4: s/is/was ?-)
+(09:05:40 AM) Jamey Sharp: I think 3am this morning?
+(09:06:18 AM) christoph4: dunno - i don't care about us daylight saving stuff normally
+(09:06:35 AM) Jamey Sharp: that's just as well. :-)
+(09:06:45 AM) Jamey Sharp: I'm still calling it 18:00 UTC.
+(09:07:25 AM) christoph4: well, utc isn't affected by daylight saving times
+(09:08:01 AM) Jamey Sharp: right. :-)
+(09:08:46 AM) christoph4: so you're here too early now?
+(09:09:33 AM) Jamey Sharp: no, I'd be here an hour late if I hadn't realized this.
+(09:10:41 AM) christoph4: oops ;)
+(09:10:46 AM) Jamey Sharp: yeah.
+(09:10:51 AM) Jamey Sharp: so I'm mailing the list.
+(09:11:40 AM) christoph4: well, the meeting starts in 49 mins, no?
+(09:11:41 AM) christoph4: hmm
+(09:11:55 AM) Jamey Sharp: right.
+(09:12:33 AM) christoph4: (is the 11am thing problematic?)
+(09:13:37 AM) Jamey Sharp: I'll probably phone a couple local folks in a few minutes, and I think since jkolb is already here he'll be fine.
+(09:13:55 AM) christoph4: ok
+(09:15:11 AM) jkolb: i think they actually change it at 2am but maybe not
+(09:16:03 AM) JoshTriplett [n=josh@unaffiliated/joshtriplett] entered the room.
+(09:16:21 AM) Jamey Sharp: JoshTriplett: oh, I guess you can ignore the voice mail I just left you. :-)
+(09:16:56 AM) jcristau [n=jcristau@hydrogene.pps.jussieu.fr] entered the room.
+(09:16:57 AM) JoshTriplett: jameysharp: -ENOGOBBY?
+(09:17:06 AM) Jamey Sharp: JoshTriplett: works for me...
+(09:17:15 AM) Jamey Sharp: jcristau: hello!
+(09:17:21 AM) christoph4: works over here, too
+(09:17:28 AM) jcristau: hi jamey
+(09:17:46 AM) christoph4: so josh is there as well ;)
+(09:27:31 AM) caro[vtorri]: hey
+(09:27:38 AM) Jamey Sharp: caro[vtorri]: hello!
+(09:27:45 AM) caro[vtorri]: i'll do a phone call in some minutes
+(09:27:56 AM) caro[vtorri]: so i won't be here immediatly :)
+(09:28:30 AM) caro[vtorri]: some people arem issing, it seems
+(09:28:50 AM) christoph4: mhm
+(09:29:09 AM) christoph4: bart, ian, ...
+(09:29:11 AM) Jamey Sharp: iano will join us; I made sure he knows about the time change etc.
+(09:29:17 AM) caro[vtorri]: thomas too
+(09:29:23 AM) caro[vtorri]: haha
+(09:34:06 AM) ***robtaylor waves hello
+(09:34:14 AM) Jamey Sharp: robtaylor: hello!
+(09:34:36 AM) Jamey Sharp: robtaylor: you had the sync extension issues that I've been forgetting about, right?
+(09:34:43 AM) robtaylor: jameysharp: aye!
+(09:34:52 AM) Jamey Sharp: robtaylor: my apologies for that.
+(09:35:01 AM) robtaylor: jameysharp: I figure it need the python stuff in place before we can fix it,
+(09:35:16 AM) Jamey Sharp: that may be true.
+(09:35:42 AM) thun [n=thun@e177045216.adsl.alicedsl.de] entered the room.
+(09:35:46 AM) robtaylor: jameysharp: no problem! its not a real issue for me atm, but it'd be nice to fix
+(09:36:27 AM) robtaylor: jameysharp: well, it may be possible with xslt, but we need to be able to size up our wire structs better than we do at the moment
+(09:36:57 AM) Jamey Sharp: thun: welcome! glad you could make it.
+(09:37:09 AM) robtaylor: JoshTriplett: hey, how's it going? :)
+(09:38:04 AM) JoshTriplett: jameysharp: Actually, I think the two issues seem reasonable with the current generator.  One just needs a patch to the XML (the initialize issue), and the other needs __attribute__((packed)) or similar.
+(09:38:29 AM) Jamey Sharp: as long as everyone builds with gcc, I guess.
+(09:38:40 AM) JoshTriplett: jameysharp: Equivalents exist for other compilers, I think.
+(09:38:58 AM) robtaylor: JoshTriplett: i think packed is the wrong thing
+(09:39:04 AM) Jamey Sharp: I'm not at all happy about the idea of introducing Xlib-style SIZEOF macros anyway, and the packed attribute would get us a fix for most users quickly.
+(09:39:21 AM) thun: jameysharp: sy, I just came home from a long holiday
+(09:39:29 AM) thun: I read the mails 5 minutes ago
+(09:39:33 AM) JoshTriplett: robtaylor: How so?
+(09:39:43 AM) Jamey Sharp: robtaylor: if more padding is needed in the middle of the structure then it should be specified in the XML anyway...
+(09:39:54 AM) Jamey Sharp: thun: no problem. :-)
+(09:40:07 AM) Jamey Sharp: thun: you've got 20 minutes to spare anyway. :-)
+(09:40:17 AM) robtaylor: JoshTriplett: If you look at current x11, all the data on the wire is actually unpacked, its justpadding at the end that's unused
+(09:40:30 AM) robtaylor: *libx11
+(09:40:43 AM) JoshTriplett: robtaylor: Yes, but the XML descriptions *already* include the right padding.
+(09:40:52 AM) JoshTriplett: robtaylor: The compiler should not add any; if it does, it will break things.
+(09:41:11 AM) Jamey Sharp: we've been relying on the compiler not adding padding already.
+(09:41:25 AM) Jamey Sharp: (huh, "adding padding" is fun to say.)
+(09:41:39 AM) JoshTriplett: {,p}adding. :)
+(09:41:53 AM) robtaylor: that's probably sensible. I guess the only issue could be if different systems have had different padding
+(09:41:54 AM) christoph4: yes, the size of the structure has to be correct
+(09:42:14 AM) robtaylor: Bur I'dhope not, as things would aready be broken :)
+(09:42:29 AM) Jamey Sharp: robtaylor: I'm not sure what you mean. the protocol fixes the amount of padding...
+(09:42:32 AM) JoshTriplett: robtaylor: Right; this unfortunately means that we'll need the "do what I say" incantation for non-GCC compilers as well.
+(09:42:58 AM) robtaylor: JoshTriplett: aye
+(09:43:23 AM) robtaylor: TBH its generally a bad idea to use structs to put things on a wire ;)
+(09:43:33 AM) iano [n=iosgood@63.105.26.46] entered the room.
+(09:43:47 AM) iano left the room (quit: Client Quit).
+(09:44:01 AM) iano [n=iosgood@63.105.26.46] entered the room.
+(09:44:04 AM) Jamey Sharp: ladies and gentlemen, that was iano!
+(09:44:10 AM) Jamey Sharp: oh. hi Ian!
+(09:44:39 AM) JoshTriplett: Actually, I really don't know why GCC would pad the *end* of a structure, unless perhaps it wants to make alignment work for an array of such structures?
+(09:44:42 AM) iano: hello
+(09:44:50 AM) Jamey Sharp: JoshTriplett: yeah, that's why.
+(09:45:18 AM) robtaylor: JoshTriplett: well, its arrays of structs where thisproblem occurs
+(09:45:34 AM) robtaylor: JoshTriplett: so in reality,ispadding the start, but thats just the same as padding the end ;)
+(09:45:38 AM) christoph4: JoshTriplett: a structure has always size 1, 2, 4 or 4 * x
+(09:45:41 AM) christoph4: (with gcc)
+(09:46:00 AM) Jamey Sharp: christoph4: it can be 8-byte aligned as well, right?
+(09:46:03 AM) JoshTriplett: christoph4: Which suggests that we may have many more broken structures.
+(09:46:19 AM) christoph4: i don't think gcc aligns it to 8 bytes
+(09:46:20 AM) christoph4: but
+(09:46:26 AM) robtaylor: yep, on somearches a pointer would be 8btye aligned, i think
+(09:46:28 AM) christoph4: mingw does it for example
+(09:46:45 AM) robtaylor: all depends on the abi
+(09:46:53 AM) christoph4: well, problem identified, put it on the agenda ;)
+(09:47:37 AM) robtaylor: you know, I'd feel happier with calling some varags function to put data on the wire, rather than using a struct
+(09:47:38 AM) JoshTriplett: Done.
+(09:48:23 AM) Jamey Sharp: robtaylor: I implemented that once.
+(09:48:26 AM) JoshTriplett: jameysharp: We also need to verify that when we give __attribute__((packed)), GCC doesn't start pessimizing code.
+(09:48:27 AM) Jamey Sharp: it was painful.
+(09:48:42 AM) robtaylor: jameysharp: aye,i wouldn't be suprised
+(09:49:09 AM) JoshTriplett: At some point we do need to move to a vaguely function-based model anyway, to do things that structs can't handle.
+(09:49:16 AM) JoshTriplett: XKB, for instance. :)
+(09:49:22 AM) Jamey Sharp: huh, really?
+(09:49:30 AM) thun: robtaylor: with a syntax like printf? C for card32 etc?
+(09:49:38 AM) robtaylor: nod,though hopefully XKB can just die in a blazing inferno
+(09:49:41 AM) Jamey Sharp: thun: that was the kind of thing I implemented.
+(09:49:43 AM) christoph4: xkb is a big nut to crack ...
+(09:50:01 AM) JoshTriplett: thun: Let's not propagate CARD* any further.  uint{8,16,32}_t for the win.
+(09:50:04 AM) christoph4: JoshTriplett: you mean more in the direction of iterators and such?
+(09:50:11 AM) robtaylor: thun: mayne, or maybe we could encode the data types somehow
+(09:50:22 AM) robtaylor: JoshTriplett: +1
+(09:50:22 AM) JoshTriplett: christoph4: Right.  An iterator-like output mechanism.
+(09:50:26 AM) jkolb: yes lets definitely kill CARD
+(09:50:28 AM) Jamey Sharp: keithp once told me that he'd tried doing the printf-like thing for byte-swapping in the X server, and it made for much smaller code.
+(09:50:49 AM) robtaylor: brb, just taking my gf to work
+(09:51:06 AM) Jamey Sharp: which was why I tried it in XCB, and sure enough, it made the generated code much smaller.
+(09:51:24 AM) JoshTriplett: jameysharp: Speaking of which, doesn't someone have some code in progress to replace the byte-swapping code in the server with code auto-generated from the XML-XCB descriptions?
+(09:51:43 AM) Jamey Sharp: Andy Howe was doing something for SoC, with iano as mentor.
+(09:51:49 AM) Jamey Sharp: iano, how'd that turn out?
+(09:52:17 AM) iano: It didn't. Andy dropped out after the halfway mark, leaving nothing usable.
+(09:52:24 AM) Jamey Sharp: bummer.
+(09:52:47 AM) iano: re: prinf. Would this be interpreted at compile time or run time?
+(09:52:56 AM) Jamey Sharp: he'd given you some code to review by oscon--what did he do?
+(09:53:03 AM) Jamey Sharp: it was interpreted at runtime.
+(09:53:14 AM) thun: iano: runtime it must be
+(09:53:17 AM) iano: because I thought printf was a performance bottleneck
+(09:53:34 AM) Jamey Sharp: obviously we wouldn't actually use printf, but yes, it would be a performance loss.
+(09:53:35 AM) iano: not recommended for inner loops or lower levels of a library
+(09:53:52 AM) JoshTriplett: I think we can do better with dedicated output functions.
+(09:54:18 AM) christoph4: JoshTriplett: yes, that's what I'd think of too
+(09:54:22 AM) Jamey Sharp: we really need the byte-placement inlined, which using structures buys us.
+(09:54:45 AM) Jamey Sharp: I mean, if performance is the concern.
+(09:55:17 AM) thun: XDR has a stream-like api which does exact packing
+(09:55:25 AM) thun: but it is really slow
+(09:55:32 AM) Jamey Sharp: heh, I believe that.
+(09:55:45 AM) thun: do you know how dbus does this?
+(09:55:54 AM) Jamey Sharp: I know, let's use perl's pack/unpack, or python's cstruct. ;-)
+(09:56:01 AM) iano: re: andy. latest work is here: http://web.engr.oregonstate.edu/~howea/xcb-xserver-7-17-2007.tar.gz
+(09:56:15 AM) thun: they say they only have a three-fold slowdown over raw data
+(09:56:28 AM) Jamey Sharp: "only"...
+(09:56:31 AM) JoshTriplett: For instance, all the requests with straightforward structures can simply use one function to make the request.  Crazy things like XKB that pack multiple different-sized structures into a structure should involve multiple function calls: xkb_crazy_request_start(), xkb_crazy_request_thing5(), xkb_crazy_request_thing3()...
+(09:56:49 AM) JoshTriplett: And then an xkb_crazy_request_send().
+(09:56:58 AM) thun: JoshTriplett: you mean mix them?
+(09:57:08 AM) Jamey Sharp: JoshTriplett: that sounds like it belongs in a layer above XCB.
+(09:57:09 AM) thun: JoshTriplett: would that need a special marker in the xml files?
+(09:57:14 AM) Bart_Massey [n=po8@bartm.dsl.pdx.spiretech.com] entered the room.
+(09:57:18 AM) Jamey Sharp: Bart_Massey: hello!
+(09:57:27 AM) Jamey Sharp: you're right on time. :-)
+(09:57:29 AM) JoshTriplett: jameysharp: Well, I'd call it "the protocol layer". :)
+(09:57:39 AM) Bart_Massey: Uh, yeah.  Forgot about DST change, did we? :-)
+(09:57:55 AM) Jamey Sharp: yup, that's why I posted a follow-up this morning.
+(09:58:07 AM) Bart_Massey: Ah.  Hadn't seen it yet---was just guessing. :-)
+(09:58:18 AM) Jamey Sharp: good guess. :-)
+(09:58:22 AM) Bart_Massey: Let me get a gobby going...
+(09:58:37 AM) christoph4: yeah, get ready :)
+(09:58:54 AM) Jamey Sharp: JoshTriplett: but you're saying you want it in, say, libxcb-xkb?
+(09:59:24 AM) Jamey Sharp: it's hard to argue with that, if we get to an API that seems solid.
+(09:59:31 AM) JoshTriplett: jameysharp: Big if, but yes.
+(09:59:41 AM) Jamey Sharp: yeah.
+(09:59:56 AM) Jamey Sharp: is there anyone else we're missing now?
+(10:00:43 AM) Bart_Massey: I think keithp is at church, so I won't bug him...
+(10:00:56 AM) Jamey Sharp: I guess I didn't really expect him anyway...
+(10:00:56 AM) peterharris [n=peterhar@76-10-150-31.dsl.teksavvy.com] entered the room.
+(10:01:11 AM) robtaylor: back :)
+(10:01:24 AM) christoph4: so ...
+(10:01:28 AM) christoph4: who keeps irc log?
+(10:01:42 AM) Jamey Sharp: I'll get the IRC log.
+(10:02:01 AM) Jamey Sharp: I'm hoping this time that we can keep the important stuff in the gobby session though.
+(10:02:22 AM) christoph4: yes, gobby should be a summary of the results
+(10:03:20 AM) robtaylor: thun: dbus does it all dynamically, you can do things varargy, for just by writing elements into a message structure
+(10:03:27 AM) robtaylor: s/for/or
+(10:03:37 AM) robtaylor: thun: its not very efficient
+(10:04:29 AM) Bart_Massey: So who's running this show?  Jamey---what's the first agenda item?
+(10:04:54 AM) robtaylor: thun: the best thing to do is generate your message writing  (very nicein the JIT'd languages, of course ;))
+(10:05:00 AM) christoph4: he's writing in gobby
+(10:05:24 AM) Bart_Massey: christoph4: I fear this two-channel thing...
+(10:05:30 AM) Jamey Sharp: First in order seems to be reviewing the TODO list.
+(10:05:36 AM) thun: robtaylor: ok, but we only have c :)
+(10:05:47 AM) Bart_Massey: jameysharp: OK!
+(10:05:49 AM) Jamey Sharp: I dunno if we picked the right order, but I guess it's fine. :-)
+(10:05:57 AM) christoph4: Bart_Massey: well, discussion should happen _here_
+(10:05:58 AM) robtaylor: thun: yeah, butwe can statically generate everything
+(10:06:02 AM) jkolb: you could probably use llvm to jit but let's not go there
+(10:06:05 AM) thun: robtaylor: for rare calls it might be okay to use the printf-like syntax
+(10:06:09 AM) Bart_Massey: jameysharp: Take them in whatever order we think is best...
+(10:06:17 AM) iano: could you flush gobby to the wiki periodically?
+(10:06:17 AM) Bart_Massey: s/we/you/
+(10:06:23 AM) JoshTriplett: thun: I think we can still auto-generate message writing code.  I don't think we need printf-like syntax; we can do whole structures at a time.
+(10:06:28 AM) Jamey Sharp: iano: OK.
+(10:06:39 AM) thun: JoshTriplett: ok
+(10:06:46 AM) robtaylor: JoshTriplett: aye
+(10:07:07 AM) JoshTriplett: I think the same thing would also solve GLX.
+(10:07:20 AM) JoshTriplett: It has multiple structs within a struct.
+(10:08:06 AM) Jamey Sharp: Looks like first on the agenda is actually the ongoing discussion... would someone summarize that for us here?
+(10:08:18 AM) JoshTriplett: jameysharp: Will do.
+(10:09:19 AM) Jamey Sharp: heh, I meant a summary in IRC. :-)
+(10:09:35 AM) christoph4: there's something like c&p ;)
+(10:09:51 AM) Jamey Sharp: Josh is writing that we're discussing the struct padding issue that robtaylor brought up about the SYNC extension.
+(10:09:59 AM) Jamey Sharp: "Short-term fix: __attribute__((packed))?"
+(10:10:11 AM) JoshTriplett: Long-term fix: rewrite output layer.  Use a mechanism like output
+(10:10:11 AM) JoshTriplett:       iterators, writing a struct at a time.  xcb_foo_request_start(),
+(10:10:11 AM) JoshTriplett:       xcb_foo_request_some_component()*, xcb_foo_request_end()
+(10:10:53 AM) Jamey Sharp: Now, I'm not entirely convinced that's a good solution.
+(10:11:08 AM) Jamey Sharp: For one thing, the output layer is not the problem for the SYNC extension.
+(10:11:27 AM) Jamey Sharp: (If I understand robtaylor's bug report correctly, anyway.)
+(10:11:33 AM) JoshTriplett: jameysharp: True; probably not a sub-issue of that, so much as brought up by.
+(10:11:55 AM) JoshTriplett: jameysharp: Though we'd still need to re-write the output layer to do anything other than writing out a C struct.
+(10:12:19 AM) JoshTriplett: jameysharp: So related insofar as they both need an output layer rewrite. :)
+(10:12:35 AM) iano: Is this why traditional protos include both the structure and a #define for the structure size?
+(10:12:37 AM) Jamey Sharp: In fact, I believe robtaylor's point was that the structs are working fine, except that the sizeof operator and pointer arithmetic don't work on them.
+(10:12:51 AM) Jamey Sharp: iano: the Xlib-style ones? yes, that's what this is about.
+(10:13:19 AM) Bart_Massey: For those of us not up on this bug, a quick synopsis?  Failing that, defer the issue?
+(10:13:38 AM) Jamey Sharp: I'm propose to table further discussion on the output layer rewrite, anyway. It's an interesting idea to explore later.
+(10:13:45 AM) JoshTriplett: Bart_Massey: GCC screws us over by padding the end of structs.
+(10:13:54 AM) Jamey Sharp: JoshTriplett: Nice summary. :-)
+(10:13:55 AM) christoph4: Bart_Massey: the problem is that we depend on the exact size of the struct
+(10:14:02 AM) Bart_Massey: Got it
+(10:14:05 AM) caro[vtorri]: back
+(10:14:09 AM) caro[vtorri]: Bart_Massey: hey :)
+(10:14:13 AM) Bart_Massey: Hey!
+(10:14:16 AM) Bart_Massey: I think there are two basic areas we need to cover today: figuring out how to get the maintenance tasks we know we need done, and figuring out what the next steps are?
+(10:14:38 AM) caro[vtorri]: 1) releasing utils and demo
+(10:14:40 AM) JoshTriplett: Bart_Massey: That does sound like a high-level summary of the agenda, yes.
+(10:14:47 AM) caro[vtorri]: which means complete review of the code
+(10:14:51 AM) JoshTriplett: caro[vtorri]: Definitely on the agenda.
+(10:15:07 AM) caro[vtorri]: i'm going to read the 3000 lines of log
+(10:15:11 AM) jkolb: last time we also talked about getting more interest in xcb since so few people use it
+(10:15:19 AM) christoph4: so, let's go quickly through the todo list
+(10:15:24 AM) Jamey Sharp: jkolb: that's an interesting point.
+(10:15:28 AM) christoph4: since most points were raised last time too ;)
+(10:15:44 AM) Jamey Sharp: christoph4: aiee, yeah. it'd be nice to not rehash the same things.
+(10:15:45 AM) thun: jkolb: I've tried using it for bigger tasks and it is really painful w/o a better xcb-util layer
+(10:15:58 AM) Jamey Sharp: oh, hey, at least we have the kitty logo now! nice work on that, btw, bart. :-)
+(10:16:04 AM) Bart_Massey: thun: Agreed.  I'm working on bits of it.
+(10:16:18 AM) Bart_Massey: jameysharp: Thanks!
+(10:16:19 AM) jkolb: thun: yes, i'm sure most extensions need a util layer for ease of use as well
+(10:16:25 AM) iano: so ikiwiki conversion is complete, right?
+(10:16:29 AM) JoshTriplett: iano: Yes.
+(10:16:29 AM) Jamey Sharp: iano: yes.
+(10:16:32 AM) Jamey Sharp: god yes.
+(10:16:37 AM) christoph4: next point:
+(10:16:41 AM) Bart_Massey: Not so much
+(10:16:42 AM) christoph4: Want adoption of libxcb and xcb-proto
+(10:16:45 AM) iano: OK, TODO #1 down, 30 to go :)
+(10:16:51 AM) christoph4: yes, kinda that
+(10:16:54 AM) Bart_Massey: Unless someone has fixed the docs in the last few days...
+(10:17:12 AM) Bart_Massey: I'm getting really frustrated with constantly reformatting the API docs.
+(10:17:12 AM) JoshTriplett: "fixed the docs"?
+(10:17:25 AM) Bart_Massey: The formatting was all busted again a few days ago when I checked
+(10:17:58 AM) Jamey Sharp: "again"? nothing changed since July...
+(10:18:28 AM) JoshTriplett: Bart_Massey: Link?
+(10:18:32 AM) Jamey Sharp: caro[vtorri]: how's ecore-xcb and related projects?
+(10:18:45 AM) JoshTriplett: Bart_Massey: Ah, nevermind.
+(10:18:52 AM) JoshTriplett: http://xcb.freedesktop.org/ProtocolStubApi/
+(10:18:53 AM) Bart_Massey: Uh, whenever.  Take a look at http://xcb.freedesktop.org/ProtocolStubApi/
+(10:19:22 AM) JoshTriplett: back in a moment.
+(10:19:29 AM) Bart_Massey: I'd like to see the API docs converted to some form that we can generate wiki markup and other things from.
+(10:19:38 AM) Bart_Massey: I'm willing to do the work.  Any format suggestions?
+(10:19:55 AM) Jamey Sharp: we should move the API docs into the Doxygen comments, I think, and just let Doxygen generate the web page.
+(10:20:07 AM) jkolb: agreed
+(10:20:22 AM) Bart_Massey: OK.  I'll try to find time to start on this unless someone else is willing to volunteer...
+(10:20:42 AM) ***Bart_Massey listens to the crickets
+(10:20:55 AM) Jamey Sharp: Bart_Massey: what did you expect? ;-)
+(10:21:04 AM) christoph4: you mean the core api or general api?
+(10:21:14 AM) Bart_Massey: christoph4: all of it
+(10:21:25 AM) Jamey Sharp: christoph4: everything under XcbApi, I think.
+(10:21:25 AM) caro[vtorri]: jameysharp: about ecore-xcb, it's running. The only missing points I have are :
+(10:21:47 AM) caro[vtorri]: 1) the conversion tools Xmb Xmc and other horror
+(10:21:49 AM) Bart_Massey: It would be nice to get doxygen into all the extensions also...
+(10:21:59 AM) jkolb: the xml will have it's own documentation. i think the python parser is the blocker for it
+(10:22:09 AM) Jamey Sharp: Bart_Massey: yeah, we'll get there.
+(10:22:09 AM) caro[vtorri]: 2) the drawing of lines and al with xrender
+(10:22:10 AM) thun: jameysharp: do we want to create the doxygen comments from the <doc> tags which will hopefully find it's way into proto?
+(10:22:15 AM) christoph4: Bart_Massey: well, for the extensions the stuff should be in the xml files, no?
+(10:22:30 AM) Jamey Sharp: thun: yes, for requests and such.
+(10:22:38 AM) jkolb: yes, caro has a design for that i believe
+(10:22:51 AM) caro[vtorri]: thun: i have to write the doc for the sync extension
+(10:23:03 AM) caro[vtorri]: thun: i promised you i would write it, but no time :/
+(10:23:05 AM) Jamey Sharp: thun: but things like the 21 core XCB functions don't have any XML.
+(10:23:43 AM) caro[vtorri]: jameysharp: but they have thei doc
+(10:23:50 AM) caro[vtorri]: their*
+(10:24:00 AM) Bart_Massey: OK, so I'd like to see the documentation moved to the top of the priority list; as things stand lack of decent docs was the first big blocker in my x11perf conversion.  If I didn't already know the API, I don't think I could have got started.
+(10:24:20 AM) Jamey Sharp: caro[vtorri]: which we need to copy-paste from the wiki into the header files, yes.
+(10:24:23 AM) thun: jameysharp: ok, but last time i checked they were sort of documented ?
+(10:24:32 AM) Bart_Massey: Obviously, I can't do all the doc work by myself.  Help, anyone?
+(10:24:39 AM) caro[vtorri]: jameysharp: well, that's what I did to write them, actually :)
+(10:24:54 AM) Jamey Sharp: Bart_Massey: why not? you just have to copy a handful of text into some headers.
+(10:24:54 AM) christoph4: "- Vincent and Jeremy: protocol documentation in XML + generating Doxygen comments"
+(10:24:58 AM) Bart_Massey: (Besides caro, who we all owe a debt of gratitude to, thanks much!)
+(10:25:17 AM) caro[vtorri]: Bart_Massey: i want to write an example for thun  so that he can tweak his parser
+(10:25:21 AM) Bart_Massey: jameysharp: I can do that, but I think it's not the point.  Sounds like folks want it in the XML...
+(10:25:33 AM) Jamey Sharp: no, there are two different discussions going on here.
+(10:25:34 AM) caro[vtorri]: :)
+(10:25:40 AM) Bart_Massey: jameysharp: Help me!
+(10:25:46 AM) Jamey Sharp: the XcbApi content on the wiki needs to go into the hand-written headers.
+(10:26:01 AM) christoph4: (that's what i meant with core api)
+(10:26:17 AM) Jamey Sharp: the protocol documentation content needs to come from the old protocol specifications, go into the XML, and be automatically copied from there into the machine-generated headers.
+(10:26:45 AM) iano: I always went to the Xlib source when I couldn't find documentation
+(10:26:48 AM) Jamey Sharp: caro[vtorri] and thun have a plan for the latter step.
+(10:26:56 AM) Jamey Sharp: Bart_Massey, you can do the former step.
+(10:26:59 AM) iano: Documentation that is not executable is guaranteed to be wrong.
+(10:27:04 AM) jkolb: jameysharp: are we allowed to do that? i remember when writing a number of the xml descriptions we couldn't use the same field names etc because of copywrites or something like that
+(10:27:16 AM) Jamey Sharp: jkolb: huh? seriously?
+(10:27:23 AM) Bart_Massey: iano: There are whole books on Xlib to help people not like us. :-)
+(10:27:43 AM) caro[vtorri]: like the O'Reilly ones
+(10:27:43 AM) jkolb: yeah, i was warned about it on #xorg-devel but that was over two years ago
+(10:27:53 AM) Bart_Massey: jkolb: Example?
+(10:27:58 AM) robtaylor: iano: you really have to! the xsync proto didn;t match up with the docs..
+(10:28:02 AM) caro[vtorri]: jkolb: who warned you ? (if you remember)
+(10:28:02 AM) Jamey Sharp: anyone know what license the protocol specifications are under?
+(10:28:16 AM) jkolb: Bart_Massey: not sure. i'll look into it. it was a while ago, maybe i'm just mistaken
+(10:28:27 AM) thun: jameysharp: MIT
+(10:28:35 AM) iano: but I presume the Xlib XSync proto was correct?
+(10:28:39 AM) Jamey Sharp: I suspect it would be reasonable for the XML to be under the same license as the original specifications anyway.
+(10:28:47 AM) Jamey Sharp: thun: thanks.
+(10:28:49 AM) Bart_Massey: jkolb: Let's just assume we're good until someone calls us on it.  I don't know of any relevant IP law that would protect names in a public standard
+(10:28:56 AM) Jamey Sharp: MIT license is no problem for us.
+(10:29:12 AM) jkolb: are we talking source code or the docs that go along with it? because those could be under two separate licenses
+(10:29:25 AM) Jamey Sharp: jkolb: they certainly could be. I was asking about the docs.
+(10:30:05 AM) christoph4: so what is needed and who does it?
+(10:30:13 AM) Bart_Massey: As far as I know, the docs were intended to be MIT licensed.  I'll check with keithp and let y'all know if there's an issue.
+(10:30:32 AM) Bart_Massey: christoph4: See the gobby.
+(10:30:41 AM) Jamey Sharp: folks on gobby, note that I've opened up the TODO page there too.
+(10:30:51 AM) robtaylor: iano: I had to go to the the libx11-ext implementation, the ext docs were wrong
+(10:31:30 AM) christoph4: Bart_Massey: i think the parser needs some more magic to handle that?
+(10:31:37 AM) Bart_Massey: jameysharp: nice
+(10:31:43 AM) christoph4: that = "XML <doc> comments"
+(10:31:51 AM) Bart_Massey: christoph4: I think the Python parser has hooks to put this in...
+(10:32:01 AM) Jamey Sharp: christoph4: yes, but caro[vtorri] and thun have a plan for that.
+(10:32:11 AM) Jamey Sharp: or at least have agreed to do it. :-)
+(10:32:17 AM) caro[vtorri]: :)
+(10:32:21 AM) christoph4: so they get assigned for it :)
+(10:32:46 AM) Jamey Sharp: let's move on--I think we've beat documentation to death.
+(10:32:55 AM) Bart_Massey: jameysharp: I wish we could :-)
+(10:33:03 AM) Jamey Sharp: :-)
+(10:33:12 AM) Bart_Massey: Showstopper bugs right now?
+(10:33:22 AM) caro[vtorri]: i would like to know where I can find the latests spec, btw
+(10:33:49 AM) Jamey Sharp: no showstoppers in XCB that I'm aware of. if anyone wants to bring up bug reports or e-mail that I've missed, this would be a good time.
+(10:33:50 AM) caro[vtorri]: i've found some spec in the xorg git
+(10:33:55 AM) thun: caro[vtorri]: http://cgit.freedesktop.org/xorg/doc/xorg-docs/
+(10:33:57 AM) christoph4: Bart_Massey: i think there's still the deadlock discovered with ico (--> jamey)
+(10:34:09 AM) iano: BTW, I hear Daniel Stone wants to write an XKB replacement
+(10:34:10 AM) thun: caro[vtorri]: some have a funny format which I cannot read though
+(10:34:17 AM) Jamey Sharp: christoph4: there are remaining issues in Xlib, yes.
+(10:34:18 AM) caro[vtorri]: yes
+(10:34:21 AM) iano: We should make sure he uses XCB to prototype it
+(10:34:24 AM) caro[vtorri]: an old format
+(10:34:26 AM) christoph4: jameysharp: xlib/xcb ;)
+(10:34:28 AM) caro[vtorri]: or info maybe
+(10:34:36 AM) Jamey Sharp: christoph4: yeah.
+(10:34:41 AM) thun: peter hutterer also wrote an xinput spec in xml
+(10:34:46 AM) thun: it is not part of proto yet
+(10:34:50 AM) thun: we should include that
+(10:34:51 AM) christoph4: jameysharp: you deal with that?
+(10:34:55 AM) jkolb: we should get on him to submit it
+(10:35:02 AM) Bart_Massey: iano: Yes, and I have some ideas and plans to help, if I'm not too oversubscribed, but let's take one thing at a time.  Xlib showstopper?
+(10:35:08 AM) thun: jkolb: I have the xml file here
+(10:35:09 AM) christoph4: although importance isn't that high, and doesn't affect xcb release plans
+(10:35:17 AM) JoshTriplett: back and caught up.
+(10:35:20 AM) Jamey Sharp: christoph4: hangs with `ico -threads 3` and higher? yes, I've been looking at it.
+(10:35:39 AM) iano: There is bug #9732
+(10:35:48 AM) christoph4: are there any other objections against a new release?
+(10:35:57 AM) christoph4: something which should be ultimately in ?-)
+(10:36:01 AM) iano: 7.2RC3 fails due to missing xcb-xlib
+(10:36:23 AM) iano: I suspect it is already dealt with, we should confirm and close it
+(10:36:45 AM) JoshTriplett: iano: Yes.
+(10:36:49 AM) Jamey Sharp: iano: that looks like a build-from-tarballs bug.
+(10:37:00 AM) Jamey Sharp: not even remotely our problem, IMO. :-)
+(10:37:01 AM) robtaylor: iano: i think daniels alreasdy wrote it once, but his laptop got stolen
+(10:37:15 AM) iano: :(
+(10:37:33 AM) iano: not even git will help with that problem...
+(10:37:38 AM) christoph4: so, who is in charge for a next release ...
+(10:37:44 AM) Jamey Sharp: iano: will you follow up on 9732?
+(10:37:51 AM) JoshTriplett: iano: Not if you don't push your trees anywhere, right. :)
+(10:37:53 AM) JoshTriplett: Er, :/
+(10:37:59 AM) Bart_Massey: iano: I keep a keychain drive with backups of that stuff in my pocket, so unless someone steals my pants...
+(10:38:22 AM) Jamey Sharp: christoph4: I'd be happy to have somebody else spearhead a libxcb release, but I assumed Josh and I are it by default.
+(10:38:31 AM) JoshTriplett: jcristau: Speaking of releases, did you see the news about OpenJDK?
+(10:38:34 AM) jkolb: Bart_Massey: that would make a great entry on planet.fdo ;)
+(10:38:47 AM) iano: jameysharp: well, I've never built the server, so I don't know...
+(10:38:48 AM) ***JoshTriplett quotefiles
+(10:39:05 AM) jcristau: JoshTriplett: no
+(10:39:12 AM) Bart_Massey: jkob: I'm banned from planet for being offtopic... :-)
+(10:39:21 AM) jkolb: Bart_Massey: same here
+(10:39:48 AM) JoshTriplett: jcristau: OpenJDK beta 22 fixes the locking bug.  They no longer statically compile in the Xinerama source; they dlopen libXinerama.
+(10:40:01 AM) iano: finally!
+(10:40:14 AM) jcristau: JoshTriplett: i've seen ajax say he fixed it in icedtea
+(10:40:36 AM) JoshTriplett: jcristau: When?
+(10:40:49 AM) Jamey Sharp: regarding a new release of libxcb, I'm not sure about commit 158c9b6b: "Generate error constants as XCB_BAD_*, similar to Xlib." can we discuss the rationale for that? won't take too much to convince me, but I'd like to be convinced.
+(10:40:52 AM) JoshTriplett: jcristau: icedtea now has the upstream fix.
+(10:40:54 AM) thun: Bart_Massey: do you have an online repository for your x11perf-xcb?
+(10:41:35 AM) Bart_Massey: thun: No, but I'll make one today and post a note to the list.  I want to chat about it a bit later this session if we have time.
+(10:41:37 AM) iano: we should update bug #9336 with this OpenJDK news
+(10:41:45 AM) Jamey Sharp: iano: please do.
+(10:41:47 AM) christoph4: jameysharp: the problem with the existing constants is that you can't easily recognise that they represent error values
+(10:41:47 AM) Bart_Massey: iano: You're it! :-)
+(10:41:55 AM) ***JoshTriplett can do that.
+(10:42:21 AM) Jamey Sharp: christoph4: true, that.
+(10:42:39 AM) iano: OK, josh can update it
+(10:42:51 AM) Bart_Massey: I don't like the change.  I want to stick to the protocol docs as much as possible.
+(10:43:01 AM) caro[vtorri]: jameysharp: and it took me time to realize that they were the error code, btw
+(10:43:05 AM) Bart_Massey: They may be flawed, but at least they are *canonically* flawed. :-)
+(10:43:16 AM) Jamey Sharp: Bart_Massey: that would be my counter-argument too, yes.
+(10:43:31 AM) JoshTriplett: Done.
+(10:43:35 AM) iano: christoph4: I fixed that
+(10:43:38 AM) Bart_Massey: Maybe make *aliases* for them?
+(10:43:51 AM) Bart_Massey: Those would go in util/convenient....
+(10:43:52 AM) christoph4: Bart_Massey: guess why we deal with an url for x error codes in this channel ...
+(10:44:03 AM) caro[vtorri]: :)
+(10:44:05 AM) iano: every error code also now has an XCB_BAD_* form
+(10:44:08 AM) thun: Bart_Massey: that's what is currently happening. 
+(10:44:11 AM) christoph4: simply because you can't find them quickly in the header ...
+(10:44:14 AM) thun: Bart_Massey: they have both forms
+(10:44:18 AM) christoph4: iano: jamey asked for its reasons
+(10:44:22 AM) Bart_Massey: Are the aliases in util or in core?
+(10:44:31 AM) Jamey Sharp: I assume we need to bump the xcb-proto version dependency in libxcb's configure.ac due to Eamon Walsh's commits eaa380ef and 91be36f8.
+(10:44:40 AM) Bart_Massey: If they're in util I'm good
+(10:44:49 AM) Jamey Sharp: Bart_Massey: they're being generated in the same headers as the basic ones.
+(10:44:52 AM) Jamey Sharp: not in util.
+(10:44:53 AM) iano: same as christoph4: can't tell otherwise that they are error codes
+(10:44:53 AM) thun: Bart_Massey: it looks like this in core (xproto.h)
+(10:44:59 AM) thun: #define XCB_REQUEST 1
+(10:44:59 AM) thun: #define XCB_BAD_REQUEST 1
+(10:45:07 AM) iano: of course, better would be to have them be in an enum somehow
+(10:45:08 AM) Bart_Massey: The aliases should be moved to util
+(10:45:18 AM) thun: Bart_Massey: no autogeneration then
+(10:45:25 AM) Jamey Sharp: there's an argument to be made that we should have namespaced them from the beginning.
+(10:45:27 AM) iano: also it leads to name conflicts
+(10:45:31 AM) Jamey Sharp: yeah, that.
+(10:45:41 AM) iano: jameysharp: yes, I frequently argued that
+(10:45:43 AM) Bart_Massey: thun: I can live with that, although eventually we should autogen in util also.
+(10:45:43 AM) Jamey Sharp: thun: we can autogenerate stuff in util too--that's OK.
+(10:45:54 AM) thun: ok
+(10:46:03 AM) Bart_Massey: Are there name conflicts within the protocol names itself?
+(10:46:23 AM) iano: yes
+(10:46:30 AM) Jamey Sharp: iano: there are?
+(10:46:35 AM) iano: [digs up the sources]
+(10:46:47 AM) robtaylor: this kinda goes back to documentation.. If the way you *should* do something is in util, it currently not obvious
+(10:46:58 AM) Bart_Massey: If so then the protocol doc is broken, so I'm good...
+(10:47:01 AM) iano: between error names and request names, i recall
+(10:47:17 AM) Bart_Massey: robtaylor: IMHO it's simple: anything not in the protocol docs should go in util.
+(10:47:36 AM) robtaylor: Bart_Massey: agreed, but the documentation needs to be interlinked
+(10:47:39 AM) ***raster goes into lurk + stink mode.
+(10:47:40 AM) caro[vtorri]: see who's here :)
+(10:48:07 AM) Jamey Sharp: raster: huh, how long have you been hiding there? hi! :-)
+(10:48:13 AM) Bart_Massey: robtaylor: probably so.  we need to get util into the canonical release and make it official.  That's priority one in new work for me right now.
+(10:48:23 AM) ***jkolb pokes raster with a stick
+(10:48:24 AM) robtaylor: Bart_Massey: sounds good  :)
+(10:48:35 AM) raster: jameysharp: oi oi :)
+(10:48:41 AM) JoshTriplett: Bart_Massey: s/util/pieces of util/, yes.
+(10:48:50 AM) robtaylor: that reminds me, did I send my int64_to_xcb_sync_int64 and xcb_sync_int64_to_int64 util stuff to the list?
+(10:48:55 AM) raster: jkolb: ouch! now i'm all sticky
+(10:49:03 AM) JoshTriplett: robtaylor: I don't think so; that sounds painful.
+(10:49:11 AM) Bart_Massey: JoshTriplett: Yeah, one of the interesting questions is what needs to be in and what morphing needs to be done re util
+(10:49:32 AM) Jamey Sharp: robtaylor: I think maybe you did...
+(10:49:44 AM) JoshTriplett: Bart_Massey: I think we had already agreed on the idea of splitting out and releasing the component libraries separately, considering the issues with each.
+(10:49:44 AM) robtaylor: ah, yes I did
+(10:49:50 AM) Bart_Massey: Who wants to be part of a util-specific session sometime in the next week or two?
+(10:49:52 AM) JoshTriplett: Hmmm, must have missed it.
+(10:49:52 AM) thun: robtaylor: yea, you did, as an attachement to "[Xcb] XSync extension broken in many ways.."
+(10:49:54 AM) christoph4: Bart_Massey: ok. just that -util contains different kind of stuff so it takes its time till it's ready
+(10:50:03 AM) iano: Bart_Massey: me
+(10:50:08 AM) caro[vtorri]: about doc, I have to include the error management in the tutorial too
+(10:50:19 AM) caro[vtorri]: with ecamples and code
+(10:50:22 AM) christoph4: i can think of image handling, convenience functions, ...
+(10:50:24 AM) robtaylor: int64's are so broken it hurts on the wire proto
+(10:50:27 AM) Bart_Massey: caro[vtorri]: please
+(10:50:35 AM) iano: renderutil is currently required for cairo's XCB backend
+(10:50:37 AM) JoshTriplett: robtaylor: How so?
+(10:50:53 AM) iano: or anything using render glyphs
+(10:50:55 AM) Bart_Massey: image handling needs a ton of love.  I'm needing it right now, and i'm not sure it's usable yet.
+(10:50:56 AM) JoshTriplett: iano: Yeah, I think renderutil needs top priority for splitting out.
+(10:51:08 AM) robtaylor: JoshTriplett: int64s are {int32 u; uint32 l;}
+(10:51:31 AM) iano: also the base util library, since it now contains ubiquitous setup and sync functions
+(10:51:40 AM) JoshTriplett: robtaylor: Ow.  Making them stupid-endian on little-endian connections.  Sigh.
+(10:51:45 AM) iano: s/util/aux/
+(10:51:46 AM) robtaylor: JoshTriplett: indeed
+(10:51:47 AM) jkolb: do we need to define an interface to go between extension proto and util?
+(10:51:54 AM) robtaylor: JoshTriplett: hence those horribly named functions..
+(10:52:05 AM) JoshTriplett: robtaylor: Which do byteswapping, I assume?
+(10:52:09 AM) Bart_Massey: iano: I'm working on aux now.  I have a plan...
+(10:52:15 AM) JoshTriplett: robtaylor: Or int32-swapping, rather.
+(10:52:22 AM) Bart_Massey: jkolb: ?
+(10:52:24 AM) robtaylor: JoshTriplett: aye
+(10:52:37 AM) thun: iano: the cairo xlib backend has code to do chunking of glyphs into 240 (or whatever) glyphs at a time. do you want this in renderutil or in cairo-xcb-surface?
+(10:53:07 AM) robtaylor: JoshTriplett: http://pastebin.ca/761241
+(10:53:07 AM) jkolb: Bart_Massey: nm i'm off in space
+(10:53:08 AM) Bart_Massey: iano: I think aux should be the first thing released, and ASAP
+(10:53:25 AM) iano: thun: it does??? that's strange, Xlib's render library should already do that for you...
+(10:53:31 AM) caro[vtorri]: about performance, with evas, xlib is better than xcb because of its cache
+(10:53:39 AM) Bart_Massey: thun: renderutil IMHO
+(10:53:41 AM) Jamey Sharp: ok, I've reviewed the commits since xcb 1.0. I'm happy with all of them except that I'm not sure we have consensus on XCB_BAD_* yet and I think we need to update the version dependency on xcb-proto.
+(10:53:42 AM) JoshTriplett: Bart_Massey: What all lives in aux that we need?  I know it has a sync wrapper around the get input focus request/reply.
+(10:53:43 AM) caro[vtorri]: when I decrease the cache of xlib, the perf are the same
+(10:53:51 AM) caro[vtorri]: will we increase the xcb cache
+(10:54:02 AM) caro[vtorri]: possibly by an env var
+(10:54:03 AM) caro[vtorri]: ?
+(10:54:05 AM) Bart_Massey: JoshTriplett: Stuff for locating default screens and visuals
+(10:54:14 AM) JoshTriplett: Bart_Massey: A.
+(10:54:17 AM) JoshTriplett: *Ah
+(10:54:18 AM) Jamey Sharp: caro[vtorri]: by cache, you mean the output buffer?
+(10:54:26 AM) caro[vtorri]: jameysharp: maybe :)
+(10:54:33 AM) robtaylor: JoshTriplett: actually, if we go to functions to write to the wire, we can hide all that brain damage. I guess the main question is whether we'd want to
+(10:54:35 AM) caro[vtorri]: not sure how that works
+(10:54:35 AM) thun: iano: hm. maybe it was to get around the request size limitation. I'll have a look
+(10:54:38 AM) Bart_Massey: caro[vtorri]: Jamey and I have been talking and I'd like to increase it a lot, for reasons he knows
+(10:54:44 AM) Jamey Sharp: yeah, I know.
+(10:54:52 AM) JoshTriplett: Bart_Massey: Details?
+(10:54:54 AM) caro[vtorri]: ok
+(10:55:06 AM) JoshTriplett: robtaylor: I wonder if we should actually define sync's int64 as the struct, so you can't accidentally not swap.
+(10:55:14 AM) robtaylor: JoshTriplett: there's an argument that core should expose int64 as just a struct, and then have functions in utils that are sane
+(10:55:20 AM) Bart_Massey: JoshTriplett: referent?
+(10:55:25 AM) JoshTriplett: robtaylor: I like that argument.
+(10:55:37 AM) robtaylor: JoshTriplett: it currently is that way, in fact :)
+(10:55:42 AM) JoshTriplett: Bart_Massey: "have been talking".
+(10:56:17 AM) JoshTriplett: jameysharp, robtaylor: Any fundamental reason I shouldn't push the sync initialize fix?
+(10:56:23 AM) iano: jameysharp: XCB_BAD_* will be familiar to Xlib programmers, but maybe XCB_*_ERROR would be a better choice for extensions
+(10:56:28 AM) robtaylor: but that hooks in with my points about linking up the docs appropriately, if someone misses the utils stuff, much avoidable pain can ensue
+(10:56:30 AM) Jamey Sharp: JoshTriplett: I don't think there's a reason not to, no.
+(10:56:30 AM) Bart_Massey: JoshTriplett: On machines with VM, increasing the output buffer doesn't seem to hurt much.  On machines without, you'll want to tune anyhow...
+(10:57:04 AM) Bart_Massey: robtaylor: Agreed
+(10:57:13 AM) JoshTriplett: robtaylor: Do things really go wrong if you don't pad out the reply?
+(10:57:21 AM) JoshTriplett: robtaylor: I thought that much happened automatically.
+(10:57:28 AM) iano: how did an int64 sneak into the protocol anyway? was it a mistake?
+(10:57:35 AM) ***robtaylor refreshes his memory
+(10:57:39 AM) Jamey Sharp: JoshTriplett: well, they'd go wrong if there were lists following.
+(10:57:50 AM) jkolb: we use 64 bit types in glx
+(10:57:52 AM) Jamey Sharp: but adding the fields to the request is clearly important. :-)
+(10:58:01 AM) robtaylor: JoshTriplett: definitly push the initialise fix, thats a no-brainer
+(10:58:04 AM) jkolb: not int though, think it's a double
+(10:58:15 AM) JoshTriplett: jameysharp: Of course; I just thought reply padding happened automatically for some reason.
+(10:58:25 AM) JoshTriplett: jameysharp: It ought to. :)
+(10:58:26 AM) iano: jkolb: yeah, but that is required by GL I presume.
+(10:58:31 AM) Jamey Sharp: JoshTriplett: sort of?
+(10:58:34 AM) jkolb: iano: correct, it's in the proto
+(10:58:48 AM) JoshTriplett: jameysharp: I assume the sync fix falls under "ABI break but you couldn't possibly use the old ABI successfully"?
+(10:58:54 AM) Jamey Sharp: JoshTriplett: the +22 bytes of padding here should be unnecessary.
+(10:59:00 AM) iano: jkolb: I doubt Sync really required 64-bits of precision
+(10:59:07 AM) Jamey Sharp: JoshTriplett: yes, if the description is just wrong, we should just fix it.
+(10:59:10 AM) robtaylor: JoshTriplett: oh, as for teh padding, nto sure on that. I just added that for safety
+(10:59:17 AM) JoshTriplett: jameysharp: Because otherwise we need to bump sync's SONAME.
+(10:59:35 AM) Jamey Sharp: right, but yeah, couldn't have used it anyway.
+(10:59:36 AM) robtaylor: JoshTriplett: it wasn't clear from the codebase whether padding should be there or not
+(10:59:42 AM) JoshTriplett: jameysharp: Yeah.
+(11:00:05 AM) Bart_Massey: New topic: Python code generator
+(11:00:24 AM) Bart_Massey: I want to get it out as soon as possible.  thun: Any reason why we can't release it?
+(11:00:26 AM) iano: I thought we padded to the 32-byte boundary automatically.
+(11:00:42 AM) caro[vtorri]: http://www.maths.univ-evry.fr/pages_perso/vtorri/files/sync.ps   <-- xsync protocol
+(11:00:45 AM) JoshTriplett: jameysharp, robtaylor: Same question about the 2 bytes of padding in the request?
+(11:00:46 AM) thun: Bart_Massey: I just came back from holiday, I'd like to give it another review
+(11:00:52 AM) iano: and we only needed explicit padding between struct members
+(11:00:52 AM) caro[vtorri]: if you're interested
+(11:00:58 AM) thun: Bart_Massey: and no doxygen comments yet
+(11:01:10 AM) thun: Bart_Massey: otherwise I worked with my generater for month now
+(11:01:21 AM) christoph4: well, if it's equivalent to the current situation it should be merged
+(11:01:22 AM) Jamey Sharp: thun: we don't need the doxygen for a first release.
+(11:01:30 AM) Bart_Massey: thun: I can live without the comments.  Review would be good.  I'd rather ship a slightly buggy generator *of the future* than some dead thing, though
+(11:01:42 AM) JoshTriplett: thun: Out of curiosity, does the current state of the Python generator represent parity with the XSLT, or additional features as well?
+(11:02:02 AM) Bart_Massey: JoshTriplett: Of course, there's a third option... :-P
+(11:02:09 AM) JoshTriplett: Bart_Massey: Naturally. :)
+(11:02:13 AM) Jamey Sharp: Bart_Massey: I want one more release with the xslt, and a followup release introducing the python.
+(11:02:23 AM) JoshTriplett: Bart_Massey: I'd suggest that we do a libxcb release with current bugfixes and then drop in the Python generator right after the release...what jamey said.
+(11:02:24 AM) thun: jameysharp: what kind of features do you have in mind?
+(11:02:28 AM) christoph4: Bart_Massey: inclusion of python generator would delay release, but it's surely nothing impossible
+(11:02:29 AM) Jamey Sharp: we have a pile of stuff we need to get out right now.
+(11:02:44 AM) Bart_Massey: jameysharp: Works for me, as long as we don't delay the python release to roll other stuff in
+(11:02:51 AM) Jamey Sharp: Bart_Massey: I agree.
+(11:03:14 AM) Jamey Sharp: thun: does the python generate byte-for-byte identical output now?
+(11:03:22 AM) iano: caro[vtorri]: thanks for the spec link. int64 is required
+(11:03:44 AM) iano: to avoid timer overflow
+(11:03:51 AM) thun: jameysharp: no, all symbols and function signatures are the same (if my checks work correctly)
+(11:03:53 AM) JoshTriplett: thun: Short version (so we don't get sidetracked): features like handling cases the XSLT doesn't, particularly in the area of variable-length structures.
+(11:04:01 AM) thun: jameysharp: but they are in a different order
+(11:04:09 AM) Jamey Sharp: JoshTriplett: the two bytes of padding shouldn't be necessary either.
+(11:04:11 AM) thun: jameysharp: whitespace has changed a little I think
+(11:04:39 AM) JoshTriplett: thun: Speaking from my experience with the XSLT, when replacing the m4, debugging by diff helps a lot.
+(11:04:46 AM) Jamey Sharp: thun: ok, all I really care about is that the ABI doesn't change.
+(11:05:02 AM) JoshTriplett: thun: Easier to fix whitespace issues than to manually verify all the cases manually.
+(11:05:03 AM) thun: JoshTriplett: no, that is really difficult in the current model. The stream-like api discussed above might help
+(11:05:18 AM) Jamey Sharp: thun: but it's much easier to be convinced that the ABI is the same if the source code is identical.
+(11:05:18 AM) JoshTriplett: thun: Fair enough.
+(11:05:37 AM) thun: jameysharp: Ok, I would need to work on this
+(11:06:01 AM) Bart_Massey: thun: I'm with you on this one---don't make a ton of work for yourself
+(11:06:14 AM) Jamey Sharp: thun: I'm not going to insist on identical source text, I just want a really convincing argument that nothing important has changed.
+(11:06:16 AM) CIA-29: xcb/proto: rob.taylor * r6d21e886f2ef /src/sync.xml: fix XSync Initialize call
+(11:06:16 AM) christoph4: so python parser + doc stuff isn't for next release yet?
+(11:06:34 AM) Bart_Massey: jameysharp: sounds like thun has good tests for this
+(11:06:41 AM) thun: christoph4: I think thats best
+(11:06:43 AM) Jamey Sharp: christoph4: no, I want to do another release fairly soon after.
+(11:07:14 AM) JoshTriplett: Heh; I planned to post a "pushed the sync init fix" note, but CIA did it for me. :)
+(11:07:16 AM) Bart_Massey: jameysharp: asap, best days not weeks if thun is ready
+(11:07:49 AM) jkolb: gotta love cia
+(11:07:55 AM) caro[vtorri]: bye
+(11:08:05 AM) thun: Bart_Massey: Then I'll invest some serious time in the next days
+(11:08:21 AM) Bart_Massey: caro[vtorri]: Let's talk about util rsn...  bye!
+(11:08:24 AM) thun: caro[vtorri]: bye
+(11:08:25 AM) Bart_Massey: thun: that would be great!
+(11:08:34 AM) JoshTriplett: jameysharp: Suggestion: the next release should use another bugfix number (1.0.4), but the release with the Python generator should use 1.1.
+(11:08:53 AM) caro[vtorri]: actually, i said 'bye' to jkolb :)
+(11:09:09 AM) Bart_Massey: caro[vtorri]: cia, not cya :-)
+(11:09:16 AM) caro[vtorri]: rhooooo
+(11:09:24 AM) JoshTriplett: jameysharp: (or potentially 1.1 beta or RC. :) )
+(11:09:27 AM) caro[vtorri]: hehe
+(11:09:35 AM) Bart_Massey: I'm good with whatever version numbering
+(11:09:45 AM) robtaylor: JoshTriplett: thanks!
+(11:09:52 AM) Jamey Sharp: JoshTriplett: I'm more inclined to treat minors as integers.
+(11:09:56 AM) Bart_Massey: New topic: Who's going to help recode tests for x11perf?
+(11:10:01 AM) caro[vtorri]: jameysharp: do you use libtool versionning ?
+(11:10:08 AM) Bart_Massey: I've got almost all of the support infrastructure recoded
+(11:10:25 AM) jkolb: caro[vtorri]: tkae care
+(11:10:39 AM) Bart_Massey: jkolb: He's not leaving.  But taking care is good. :-)
+(11:10:52 AM) thun: Bart_Massey: I can help with x11perf
+(11:10:53 AM) Jamey Sharp: caro[vtorri]: yes, I guess? but that's in addition to the package version.
+(11:10:54 AM) JoshTriplett: jameysharp: What do you mean exactly?
+(11:10:56 AM) jkolb: oh haha
+(11:11:02 AM) Bart_Massey: thun: Thanks!  I'll get a repo up today.
+(11:11:11 AM) caro[vtorri]: :)
+(11:11:12 AM) Jamey Sharp: JoshTriplett: I'm inclined to make this a 1.1 release, and the python bits 1.2.
+(11:11:42 AM) JoshTriplett: jameysharp: Anything non-bugfixy about this release?
+(11:11:54 AM) JoshTriplett: jameysharp: (Or in other words, how does this differ from 1.0.{1,2,3}?)
+(11:12:00 AM) Jamey Sharp: cairo-style or kernel-style versioning is way overkill for a project with about two commits per month.
+(11:12:31 AM) Bart_Massey: Small integers!  I love small integers!
+(11:12:34 AM) Bart_Massey: :-)
+(11:12:43 AM) caro[vtorri]: 0 and 1 ?
+(11:12:44 AM) Bart_Massey: OK, have we missed something critical?
+(11:12:49 AM) Jamey Sharp: There's basically nothing but bug fixes here, and I expect that to be true more or less forever. :-)
+(11:12:50 AM) JoshTriplett: jameysharp: In other words, you want to drop the micro number entirely from all future releases?
+(11:13:01 AM) JoshTriplett: jameysharp: I buy that argument. :)
+(11:13:02 AM) iano: who was converting x11perf?
+(11:13:06 AM) JoshTriplett: iano: Bart.
+(11:13:06 AM) Bart_Massey: iano: me!
+(11:13:11 AM) Jamey Sharp: We didn't have one on 1.0 either, so it's consistent since then. :-)
+(11:13:17 AM) Bart_Massey: iano: you going to help?
+(11:13:20 AM) iano: what util issues did you run into?
+(11:13:30 AM) Bart_Massey: iano: I wrote two new functions for finding visuals
+(11:13:32 AM) iano: bart: sure...?
+(11:13:42 AM) iano: good!
+(11:14:06 AM) iano: what is the strategy in general for replacing X11 apps?
+(11:14:13 AM) caro[vtorri]: btw, we have to be sure that the functions in utils/ are asynchronous
+(11:14:18 AM) Bart_Massey: iano: I added a new mechanism for value_masks---thanks for the reminder, as we should discuss that...
+(11:14:20 AM) caro[vtorri]: iirc, dome are not
+(11:14:22 AM) caro[vtorri]: some*
+(11:14:28 AM) iano: will we make them build under both Xlib and XCB? since xcb is still optional?
+(11:14:55 AM) Bart_Massey: caro[vtorri]: we also need to look at the error handling.  plan 7 makes util apis more complicated unless we're careful
+(11:15:02 AM) JoshTriplett: iano: It might take a bit of arguing, but I think we should convert them over and commit to their upstream trunks.
+(11:15:19 AM) Jamey Sharp: JoshTriplett: I agree.
+(11:15:21 AM) JoshTriplett: iano: Version control exists for a reason; I see no fundamental reason to continue to support Xlib.
+(11:15:22 AM) iano: caro[vtorri]: I will never write code that requires Sync unless proven necessary. :)
+(11:15:36 AM) Bart_Massey: iano: For x11perf, we need to keep both Xlib and XCB versions around for a while; suggestions about how to do that gracefully are welcome
+(11:15:43 AM) Jamey Sharp: iano: he's talking about latency hiding, not syncs.
+(11:15:46 AM) caro[vtorri]: iano: the Sync extension ?
+(11:15:59 AM) JoshTriplett: Bart_Massey: Agreed for the special case of x11perf, since it needs to benchmark various implementations.
+(11:16:03 AM) caro[vtorri]: ha ok
+(11:16:04 AM) iano: no AuxSync
+(11:16:11 AM) JoshTriplett: iano: If some distributor of a proprietary UNIX says they still need an Xlib version, they can maintain it. :)
+(11:16:17 AM) caro[vtorri]: i talked about round trips, actually
+(11:16:38 AM) JoshTriplett: iano: But in particular, all the base X utilities should just use XCB natively.
+(11:16:50 AM) Bart_Massey: So let's take the util issues offline to a separate util meeting to be named later
+(11:16:54 AM) JoshTriplett: iano: I don't know that we could easily make them use both without maintaining two branches, and that way lies madness.
+(11:17:04 AM) iano: how do we structure automake to say an app requires XCB
+(11:17:05 AM) Bart_Massey: JoshTriplett: agreed
+(11:17:06 AM) JoshTriplett: iano: Or continuing to use Xlib/XCB, and that doesn't represent a port at all.
+(11:17:20 AM) JoshTriplett: iano: Just use the appropriate pkg-config macros.
+(11:17:42 AM) caro[vtorri]: iano: i've wrote configure.ac and Makefile.am in ecore to detect xlib or xcb
+(11:17:52 AM) JoshTriplett: iano: PKG_CHECK_MODULES(LIBXCB, libxcb >= 1.0)
+(11:18:03 AM) Jamey Sharp: caro[vtorri]: has raster taken your work upstream yet?
+(11:18:10 AM) iano: JoshTriplett: thanks
+(11:18:21 AM) caro[vtorri]: jameysharp: not entirely, but we have discussed a lot
+(11:18:27 AM) Bart_Massey: raster: have you taken caro[vtori]'s work upstream yet?
+(11:18:30 AM) Bart_Massey: :-)
+(11:18:44 AM) caro[vtorri]: jameysharp: he wants especially have ecore-xcb begin event driven
+(11:18:46 AM) Jamey Sharp: Bart_Massey: I figured he'd notice if I said his name anyway. :-)
+(11:18:56 AM) caro[vtorri]: Bart_Massey: he left
+(11:19:12 AM) Bart_Massey: I guess it's easy to get Voldemort in here...
+(11:19:13 AM) JoshTriplett: iano: So, for instance, if you want to port over a base utility, please feel free to prep a git tree and we can poke the appropriate people to get it pushed upstream.
+(11:19:16 AM) iano: so if we convert xorg/app/<n> for any <n> to XCB, no one will complain?
+(11:19:29 AM) Jamey Sharp: iano: hah!
+(11:19:37 AM) Bart_Massey: iano: They may complain, but I think we can bully them into it.
+(11:19:44 AM) JoshTriplett: iano: Heh, heh, heh.  I doubt that seriously, but...what Bart said. :)
+(11:19:56 AM) Jamey Sharp: the question is not whether people will complain, but whether the maintainers of those repos will accept the change.
+(11:19:57 AM) JoshTriplett: I think we need to pull a keithp, like the change to Git. :)
+(11:19:59 AM) jkolb: that's a good way to get people to write protocol revisions with xcb
+(11:20:15 AM) caro[vtorri]: iano: jameysharp said that some app will be dropped in xorg 7.3
+(11:20:17 AM) Bart_Massey: So who's converting xterm? :-) :-) :-)\
+(11:20:22 AM) caro[vtorri]: iano: is it the case ?
+(11:20:31 AM) JoshTriplett: Bart_Massey: I think we have some missing pieces before that'll work.
+(11:20:36 AM) caro[vtorri]: that is, are all the apps in git in xorg 7.3 ?
+(11:20:38 AM) Bart_Massey: Yes, many apps will be dropped in 7.3
+(11:20:41 AM) Jamey Sharp: I think there's a list somewhere of apps that are being dropped.
+(11:20:46 AM) iano: caro[vtorri]: good point. We shouldn't bother converting obsolete apps.
+(11:20:47 AM) JoshTriplett: Bart_Massey: Actually, the big blocker for converting the apps: we need to "port" Xt.
+(11:20:49 AM) Jamey Sharp: on the x.org wiki somewhere.
+(11:20:55 AM) caro[vtorri]: jameysharp: i've tried to find it
+(11:21:02 AM) caro[vtorri]: jameysharp: i've never found
+(11:21:18 AM) caro[vtorri]: xorg web site is not very good to find stuff, imho
+(11:21:20 AM) Bart_Massey: JoshTriplett: If I had more time I'd do it myself; I don't think it's hard.  But it might be better to port the apps to some better toolkit at the same time
+(11:21:37 AM) JoshTriplett: Bart_Massey: Not a terrible idea, but I think that would get far more objection.
+(11:21:39 AM) Bart_Massey: Do we have *any* toolkit that's XCB-based and usable?
+(11:21:42 AM) thun: Bart_Massey: every app using the keyboard is hard in xcb right now
+(11:21:50 AM) Bart_Massey: thun: Good point
+(11:21:58 AM) iano: I figure we'd start with the command-line utilities that didn't require Xt
+(11:22:05 AM) Bart_Massey: iano: Definitely
+(11:22:08 AM) JoshTriplett: Bart_Massey: I think people would scream bloody murder if we converted the base stuff to use GTK. :)
+(11:22:11 AM) JoshTriplett: iano: Agreed.
+(11:22:13 AM) Bart_Massey: Has anyone looked at porting xfce?
+(11:22:23 AM) thun: xfce uses gtk
+(11:22:23 AM) jkolb: you'd need gtk for that
+(11:22:25 AM) JoshTriplett: Bart_Massey: Need to start with GTK.
+(11:22:27 AM) JoshTriplett: Heh.
+(11:22:28 AM) Bart_Massey: Oh
+(11:22:32 AM) iano: most of the Xt apps are illustrative only. Folks use the KDE or GTK equivalents in real life
+(11:22:33 AM) Bart_Massey: Sorry, meant fltk
+(11:22:37 AM) jkolb: but hey we have ecore, evas...
+(11:22:57 AM) robtaylor: Bart_Massey, JoshTriplett: someone's already ported gtk to xcb
+(11:23:06 AM) Bart_Massey: jkolb: I was looking for some lightweight toolkit that would be a suitable Xt replacement
+(11:23:09 AM) JoshTriplett: robtaylor: Yes; we need to get their work merged.
+(11:23:12 AM) robtaylor: just needs some push, i think
+(11:23:13 AM) Jamey Sharp: robtaylor: successfully?
+(11:23:15 AM) caro[vtorri]: Bart_Massey: i think that the toolkits based on the efl can easily support XCB
+(11:23:26 AM) Bart_Massey: caro[vtorri]: efl?
+(11:23:30 AM) robtaylor: jameysharp: that I don't know. Seems pretty extensive though
+(11:23:32 AM) caro[vtorri]: (that is the ones based on evas and ecore)
+(11:23:34 AM) JoshTriplett: jameysharp: Barring the little details like NextRequest, yes.
+(11:23:39 AM) caro[vtorri]: enlightenment fundation libraries
+(11:24:01 AM) thun: jameysharp: there was someone named yang jianjun who did about 1/4th of the work, and only the easy parts
+(11:24:11 AM) thun: jameysharp: he ported some gdk-functions
+(11:24:16 AM) JoshTriplett: thun: Huh; I thought he did more than that.
+(11:24:20 AM) Jamey Sharp: I remember that, yes.
+(11:24:27 AM) JoshTriplett: Bart_Massey: Honestly, I don't think Xt seems like that hard a port, if you ignore the ABI break (which you'd have to do, as Xt uses Display).
+(11:24:42 AM) JoshTriplett: Bart_Massey: And I think it seems like the path of least resistance.  We'd have to port any other toolkit as well.
+(11:24:47 AM) Jamey Sharp: I hoped you were all talking about somebody taking the work further.
+(11:25:04 AM) Bart_Massey: JoshTriplett: I agree.  It's just that everyone hates Xt anyhow, so it might actually be a selling point
+(11:25:05 AM) caro[vtorri]: iirc, gtk is quite hard to port
+(11:25:06 AM) thun: JoshTriplett: sorry, youre right. I have old code here
+(11:25:13 AM) JoshTriplett: Bart_Massey: We ideally want to eliminate all traces of Xlib in X.org other than the lib itself.
+(11:25:27 AM) JoshTriplett: caro[vtorri]: Yeah.  Too transparent, allows use of Xlib too.
+(11:25:34 AM) JoshTriplett: caro[vtorri]: Probably easier to port Qt, actually.
+(11:25:35 AM) Jamey Sharp: JoshTriplett: The usual wrapper layer providing the existing Xt ABI with Xlib/XCB on top of the new ABI would be a feature, I think.
+(11:25:50 AM) JoshTriplett: jameysharp: Yes.
+(11:25:53 AM) caro[vtorri]: JoshTriplett: i'll work on porting etk and ewl
+(11:25:54 AM) robtaylor: http://gtk-xcb.svn.sourceforge.net/viewvc/gtk-xcb/gtk%2B/gdk/xcb/
+(11:25:58 AM) JoshTriplett: jameysharp: Whatever happened to the offer from some trolls to port Qt?
+(11:26:05 AM) robtaylor: seems he did quite a lot
+(11:26:12 AM) caro[vtorri]: JoshTriplett: it will be straightforward, btw, as all the work is done in evas and xcb
+(11:26:17 AM) Jamey Sharp: JoshTriplett: That was zrusin, and I guess he completely forgot about it.
+(11:26:27 AM) JoshTriplett: jameysharp: Let's poke him about it then.
+(11:26:37 AM) Jamey Sharp: I'm still a little miffed. We rejected an SoC student because zrusin said he was going to do it anyway.
+(11:26:44 AM) JoshTriplett: jameysharp: At least get him to tell us if he still lacks anything to do the port.
+(11:26:48 AM) iano: curious, is this completely out of date? http://www.freedesktop.org/wiki/Software/ProposedAppsPackages
+(11:26:50 AM) JoshTriplett: jameysharp: Oh yeah...sigh.
+(11:27:10 AM) Bart_Massey: jameysharp: Yes, but water under the bridge
+(11:27:53 AM) jkolb: he works for tungsten graphics now so that might have changed his plans
+(11:28:22 AM) JoshTriplett: jkolb: Maybe, maybe not.  Perhaps we can get him to use XCB in Gallium. :)
+(11:28:37 AM) Jamey Sharp: christoph4: your xine/xcb work is pretty well accepted at this point, right?
+(11:29:00 AM) christoph4: jameysharp: it's in since quite some time and seems to be working
+(11:29:08 AM) JoshTriplett: christoph4: That does rock mightily.
+(11:29:16 AM) Jamey Sharp: aside from the deadlock that we just fixed, huh? :-)
+(11:29:17 AM) Bart_Massey: christoph4: Nice!
+(11:29:19 AM) Jamey Sharp: very nice!
+(11:29:24 AM) jkolb: JoshTriplett: actually we could probably build a win_sys backend using xcb
+(11:29:28 AM) christoph4: only negative point is that gl isn't available ...
+(11:29:32 AM) caro[vtorri]: jkolb: any news about the opengl front and mesa ?
+(11:29:39 AM) caro[vtorri]: jkolb: is it working with xcb ?
+(11:30:11 AM) christoph4: jameysharp: yeah, the deadlocks were discovered because of it ;)
+(11:30:36 AM) jkolb: caro[vtorri]: haven't touched it in ages. the indirect requests use glx. nothing else does
+(11:30:37 AM) Bart_Massey: OK, one of the things it's becoming clear is needed on the wiki or in the repository or something is a list of apps ported and to port, with priorities for the latter...
+(11:31:04 AM) jkolb: caro[vtorri]: ajax didn't think it would be useful to write a copy of the xlib renderer with xcb so i didn't do it
+(11:31:12 AM) caro[vtorri]: jkolb: i would like to write an open gl engine for evas, based on xcb
+(11:31:19 AM) JoshTriplett: jkolb: With AIGLX, that would work rather nicely.
+(11:31:26 AM) caro[vtorri]: ok
+(11:31:32 AM) JoshTriplett: jkolb: "that" meaning indirect requests.
+(11:31:59 AM) christoph4: caro[vtorri]: you know the problem open gl (mesa) <-> xcb?
+(11:32:13 AM) caro[vtorri]: christoph4: no
+(11:32:32 AM) christoph4: mesa api only offers x11 functions, no xcb functions
+(11:32:37 AM) christoph4: (e.g. it requires a display *)
+(11:32:48 AM) JoshTriplett: iano: You should get your xneko port merged. :)  More to the point, we should update and merge everything currently in xcb-util.
+(11:32:52 AM) christoph4: (at least last time i looked at it)
+(11:32:52 AM) iano: Bart_Massey: hear hear
+(11:33:02 AM) iano: merged where?
+(11:33:05 AM) caro[vtorri]: christoph4: and no work is done in direction to xcb ?
+(11:33:15 AM) Jamey Sharp: JoshTriplett: you mean xcb-demo, presumably.
+(11:33:20 AM) christoph4: internally they support xcb, but just the api doesn't reflect it
+(11:33:24 AM) JoshTriplett: jameysharp: Yes, sorry.
+(11:33:31 AM) caro[vtorri]: ok
+(11:33:32 AM) jkolb: right, and proprietary opengl driver (nvidia) won't work with xcb's glx anyway
+(11:33:36 AM) christoph4: well, there was a little thread on our ml about it
+(11:33:45 AM) JoshTriplett: iano: xdpyinfo, xrandr, etc, should all merge into their original sources.
+(11:33:57 AM) christoph4: i didn't intend to spend resources on it, because the way they define the api is awful+
+(11:34:01 AM) jkolb: yes that's why we require the xlib on xcb so that we can use the displace
+(11:34:04 AM) iano: JoshTriplett: yes
+(11:34:07 AM) caro[vtorri]: i think that we should list the apps to port in the todo
+(11:34:08 AM) Bart_Massey: jkolb: why?
+(11:34:19 AM) caro[vtorri]: that is, find that hidden page in x.org
+(11:34:20 AM) Bart_Massey: jkolb: re nvidia
+(11:34:26 AM) JoshTriplett: christoph4: Seems straightforward enough to define an XCB-based GLX API and make the Xlib functions wrappers.
+(11:34:34 AM) iano: JoshTriplett: but in the fdo repositories? or in our own xc/apps repository?
+(11:34:39 AM) JoshTriplett: christoph4: (Notice I said "straightforward", not "easy". :) )
+(11:34:53 AM) christoph4: JoshTriplett: well, glx is just kinda the transport layer
+(11:35:12 AM) JoshTriplett: iano: I mean that the canonical copies of those apps as released in X.org releases should use xcb.
+(11:35:34 AM) caro[vtorri]: jkolb: about proprietary drivers, I hope that nouveau will solve the problem :)
+(11:35:34 AM) JoshTriplett: iano: fdo repos.
+(11:35:58 AM) iano: JoshTriplett: ok, let the maintainer screaming commence! :)
+(11:36:09 AM) Bart_Massey: I'm getting ready to wander off.  Any other things we definitely need to chat on in here?
+(11:36:20 AM) jkolb: Bart_Massey: i don't recall the exact issue but i can tell you that it doesn't work ;)
+(11:36:20 AM) JoshTriplett: iano: I don't mean to suggest that we should do so without prodding the maintainers, to the extent such exist.
+(11:36:32 AM) caro[vtorri]: Bart_Massey: well, i've heard about x12
+(11:36:34 AM) Bart_Massey: jkolb: If you think of it, please post it to the list
+(11:36:38 AM) JoshTriplett: iano: Or we should just raise the issue on xorg@lists.fd.o
+(11:36:48 AM) jkolb: we'd probably have to encode the gl requests in a way that the nvidia driver would understand and then send it down using our transport
+(11:36:49 AM) caro[vtorri]: Bart_Massey: do you know if xcb will replace xlib in x12 ?
+(11:37:06 AM) Jamey Sharp: caro[vtorri]: that assumes we'll have an x12 any time soon. :-)
+(11:37:18 AM) Bart_Massey: Yeah, don't worry about x12
+(11:37:20 AM) JoshTriplett: caro[vtorri]: Orthogonal issues, though interesting.  If an X12 comes up, XCB will support it.  However, someone else will get to port Xlib. :)
+(11:37:24 AM) caro[vtorri]: soon ? hehe no
+(11:37:29 AM) jkolb: there's a page for x12 issues, not sure if it's on there or not
+(11:37:29 AM) Jamey Sharp: yes, there's a wiki page on what folks would change in x12, but it's not likely to happen soon.
+(11:37:34 AM) thun: caro[vtorri]: http://wiki.x.org/wiki/Development/X12
+(11:37:37 AM) JoshTriplett: I don't know if an X12 would happen without a libX11.so.7.
+(11:37:47 AM) Bart_Massey: I think xcb will "replace" xlib except for legacy stuff (ie almost everything) in 7.4 or so
+(11:37:56 AM) caro[vtorri]: thun: yeah, that's what I bookmarked
+(11:38:03 AM) Bart_Massey: It's pretty much up to what we and others manage to accomplish
+(11:38:03 AM) caro[vtorri]: but there's nothing much
+(11:38:04 AM) Jamey Sharp: JoshTriplett: I dunno, current libX11 mirrors the X10 protocol...
+(11:38:14 AM) jkolb: so a while ago there were complaints about xcb being too hard to use for big apps. are the util fixes supposed to address this? i don't recall what the issues were (unfortunately)
+(11:38:27 AM) jkolb: clee: i believe you were the one who commented on that
+(11:38:30 AM) iano: so.... who's up for writing the O'Rielly XCB books?
+(11:38:41 AM) Jamey Sharp: we don't expect apps to use xcb, particularly. we expect them to use toolkits.
+(11:38:42 AM) JoshTriplett: iano: Jamey ahd I talked about that a while back.
+(11:38:48 AM) Bart_Massey: jkolb: I don't know either.  I will put fixes in utils if people tell me problems
+(11:38:51 AM) Bart_Massey: iano: I'm in
+(11:38:54 AM) iano: note: need to find kitten clip art.
+(11:39:00 AM) caro[vtorri]: jameysharp: yep
+(11:39:04 AM) thun: jkolb: if you want proper keyboard you _need_ xkb which does not work in xcb. major showstopper for us
+(11:39:10 AM) caro[vtorri]: jameysharp: and I would even say windows manaer
+(11:39:12 AM) Jamey Sharp: yeah, there's that.
+(11:39:15 AM) Bart_Massey: iano: we can probably pay Malloy out of Xorg funds to illustrate
+(11:39:17 AM) JoshTriplett: thun: Yes.
+(11:39:24 AM) caro[vtorri]: jameysharp: that's were xcb can gains a lot
+(11:39:29 AM) Jamey Sharp: Bart_Massey: nice. :-)
+(11:39:32 AM) iano: kitten for the cover
+(11:40:13 AM) Bart_Massey: thun: one of the things we really need is a plan for what to do about keyboard.  note that it's not just xcb; xlib is having nightmares here too
+(11:40:36 AM) jkolb: maybe we should pull daniels in for that discussion
+(11:40:41 AM) JoshTriplett: jkolb: Agreed.
+(11:41:00 AM) iano: jkolb: yes, I'd prefer XCB only support the new improved XKB2
+(11:41:12 AM) iano: instead of legacy brain damage
+(11:41:13 AM) Bart_Massey: ok, so we have two additional meetings planned now; util and keyboard
+(11:41:20 AM) Jamey Sharp: perfect.
+(11:41:21 AM) caro[vtorri]: do we support randr 1.2 yet ?
+(11:41:28 AM) iano: yes
+(11:41:29 AM) Bart_Massey: i'll call the util meeting; who's going to call keyboard?
+(11:41:32 AM) iano: but not 1.3
+(11:41:37 AM) Jamey Sharp: let's schedule those meetings on the mailing list, though we can get initial scheduling here.
+(11:41:38 AM) caro[vtorri]: 1.3 is written ?
+(11:41:47 AM) jkolb: that's a good point... are we missing any proto updates?
+(11:41:53 AM) caro[vtorri]: it moves too quickly for me
+(11:41:55 AM) JoshTriplett: iano: Well, if XKB2 bumps the protocol incompatibly, perhaps we could get daniels to drop the funky request encoding to make it easier for XCB. :)
+(11:42:01 AM) Bart_Massey: jameysharp: yes, but we need someone to own the meetings
+(11:42:03 AM) JoshTriplett: caro[vtorri]: WIP, I think.
+(11:42:04 AM) caro[vtorri]: jkolb: certainly
+(11:42:33 AM) caro[vtorri]: jkolb: that's why I asked where to find the spec
+(11:42:34 AM) iano: jkolb: good question
+(11:42:52 AM) Jamey Sharp: thun: I think your top priority is ensuring the python is ready for release, but do you want to lead the keyboard discussions too?
+(11:42:54 AM) Bart_Massey: I'll bug keithp to get him to release 1.3 in xcb.  This should be his job...
+(11:42:54 AM) caro[vtorri]: because I don't want to write doc in the xml that is out dated
+(11:42:58 AM) iano: I know XCB helped find bugs in randr 1.2 :)
+(11:43:05 AM) caro[vtorri]: :)
+(11:43:06 AM) Jamey Sharp: yeah, that was awesome. :-)
+(11:43:18 AM) caro[vtorri]: what about the x server ?
+(11:43:22 AM) thun: jameysharp: I really hate x keyboard stuff
+(11:43:30 AM) Jamey Sharp: thun: no kidding.
+(11:43:31 AM) Bart_Massey: thun: really? :-)
+(11:43:32 AM) jkolb: it helped find bugs in the xserver as well
+(11:43:32 AM) caro[vtorri]: is it using the xml description yet ?
+(11:43:35 AM) ***JoshTriplett 's opinion of thun rises.
+(11:43:38 AM) iano: JoshTriplett: yes, we should work closely with daniels
+(11:43:50 AM) Bart_Massey: jkolb: yep
+(11:44:16 AM) thun: jameysharp: any news from daniel on this?
+(11:44:25 AM) Bart_Massey: OK, i'm going to go take the shower I had scheduled for 1000 local.  Parting thoughts?
+(11:44:25 AM) Jamey Sharp: thun: don't ask me.
+(11:44:28 AM) jkolb: caro[vtorri]: are you taking about the server side xcb? i don't think anyone's done that yet
+(11:44:45 AM) Jamey Sharp: Bart_Massey: thanks Bart! I think we've got the agenda mostly covered.
+(11:44:57 AM) Bart_Massey: Our server-side XCB SOC student didn't complete.  Very sad.
+(11:45:01 AM) thun: Bart_Massey: bye :)
+(11:45:11 AM) jkolb: bummer :(
+(11:45:14 AM) Jamey Sharp: in fact, did any of our xcb projects complete this year?
+(11:45:14 AM) caro[vtorri]: jkolb: I was talking about the x server parts that were created by generating c code from xml description
+(11:45:17 AM) jkolb: bye Bart
+(11:45:21 AM) Bart_Massey: See y'all again in an hour or so if you're still around else later..
+(11:45:23 AM) thun: the server side code is not hard
+(11:45:24 AM) caro[vtorri]: jkolb: there was a SoC for that iirc
+(11:45:28 AM) Jamey Sharp: my student disappeared without doing any xhsb work.
+(11:45:38 AM) caro[vtorri]: Bart_Massey: bye
+(11:45:47 AM) JoshTriplett: jameysharp: Didn't that same student also have experience with xmonad?
+(11:45:49 AM) caro[vtorri]: this is a good bye :)
+(11:45:55 AM) Jamey Sharp: JoshTriplett: yes, I think so.
+(11:46:06 AM) JoshTriplett: jameysharp: Hmmm.  I had expected him to succeed.
+(11:46:09 AM) JoshTriplett: jameysharp: Oh well.
+(11:46:30 AM) Jamey Sharp: were those two our only XCB projects with summer of code or vacation of code?
+(11:46:36 AM) iano: the last server work is here: http://web.engr.oregonstate.edu/~howea/xcb-xserver-7-17-2007.tar.gz
+(11:46:48 AM) iano: but it didn't compile yet.
+(11:46:56 AM) thun: Do you think it is possible for me to get an fdo account? I have a lot of work lying around, even for server side xcb. It might help if it gets more exposure
+(11:46:59 AM) jkolb: can we toss these half completed projects on the wiki?
+(11:47:05 AM) JoshTriplett: thun: Definitely.
+(11:47:22 AM) iano: thun: please! I thought you had one already.
+(11:47:24 AM) robtaylor: jkolb: not a bad plan!
+(11:47:24 AM) JoshTriplett: thun: Per fd.o procedure, you'll need to file a bug and we'll need to post approval, IIRC.
+(11:47:42 AM) JoshTriplett: iano: Can you 1) snapshot that tarball in case it vanishes and 2) link that from the TODO list item?
+(11:47:42 AM) Jamey Sharp: http://www.freedesktop.org/wiki/AccountRequests
+(11:47:48 AM) JoshTriplett: jameysharp: Thanks.
+(11:47:51 AM) jkolb: eh we don't need to pose the server work. there's nothing in there
+(11:47:56 AM) thun: thanks
+(11:48:19 AM) robtaylor: iano: maybe better, get in it a branch in a git repo
+(11:48:23 AM) JoshTriplett: jkolb: Oh.
+(11:48:41 AM) jkolb: JoshTriplett: well maybe, there's a long style sheet
+(11:48:49 AM) Jamey Sharp: We haven't really reviewed open bug reports, which is pretty much the only thing left on the agenda, I think.
+(11:49:14 AM) caro[vtorri]: jameysharp: and the apps to port (naming them, I mean) ?
+(11:49:26 AM) Jamey Sharp: caro[vtorri]: I think that's something to do off-line.
+(11:49:32 AM) caro[vtorri]: ok
+(11:49:51 AM) ***JoshTriplett can go down the list of open bugs.
+(11:50:04 AM) iano: there is bug #11285: a memory leak in xlib built with xcb
+(11:50:20 AM) JoshTriplett: 5960: Intermittent failure of XCBConnect.  Need to follow up with cworth.
+(11:50:55 AM) christoph4: iano: valgrind output would be helpful there
+(11:50:58 AM) JoshTriplett: 6682 probably won't happen for a while longer.
+(11:51:04 AM) Jamey Sharp: wow, 11285 is interesting.
+(11:51:10 AM) JoshTriplett: ("Implement 'X meets Z' algorithm")
+(11:51:16 AM) Jamey Sharp: I'd actually like to ignore Xlib bugs for the moment, though.
+(11:51:34 AM) caro[vtorri]: JoshTriplett: bart's job :)
+(11:51:41 AM) JoshTriplett: caro[vtorri]: Heh.
+(11:52:19 AM) JoshTriplett: 6812: jameysharp: thoughts?
+(11:52:29 AM) JoshTriplett: Actually, back up a second.
+(11:52:37 AM) JoshTriplett: I should actually get people to do things. :)
+(11:52:49 AM) JoshTriplett: 5960: Who can follow up with cworth about that bug?
+(11:53:07 AM) JoshTriplett: Perhaps by adding him to CC and sending a ping to the bug.
+(11:53:19 AM) Jamey Sharp: I'll do that.
+(11:53:21 AM) caro[vtorri]: it's vicious :)
+(11:53:30 AM) iano: 6812: I agree
+(11:53:52 AM) JoshTriplett: 6812 potentially represents an ABI break, though.
+(11:54:04 AM) iano: 5960: he couldn't reproduce it when I asked him about it 1.5 years ago :)
+(11:54:10 AM) caro[vtorri]: do we mark 9463 as blocker ?
+(11:54:37 AM) JoshTriplett: caro[vtorri]: Topic for the util meeting, I think.
+(11:54:37 AM) Jamey Sharp: iano: oh. huh.
+(11:54:49 AM) JoshTriplett: caro[vtorri]: But given that it already doesn't work, I see no reason to hold up an XCB release until it does.
+(11:54:52 AM) iano: but it is by definition itermittant
+(11:55:16 AM) Jamey Sharp: 6812 can be made to not be an ABI break, which is obviously a requirement for doing it.
+(11:55:23 AM) JoshTriplett: iano: Reproduceable or not, we should decide whether reconnection seems reasonable.  I personally would argue not.
+(11:55:37 AM) caro[vtorri]: 9944 ? 
+(11:55:38 AM) JoshTriplett: iano: I think if you want to reconnect you should call the connect function again.
+(11:55:54 AM) iano: JoshTriplett: sounds good to me
+(11:56:08 AM) caro[vtorri]: do we close it ? we have requested an anwser and no reply come
+(11:56:15 AM) caro[vtorri]: came*
+(11:56:30 AM) caro[vtorri]: bugzilla is a bit like xcb :)
+(11:56:38 AM) iano: 9944: sound like we think it is fixed
+(11:56:39 AM) JoshTriplett: caro[vtorri]: I just marked it as NEEDINFO.
+(11:57:31 AM) JoshTriplett: jameysharp: How, exactly, would we make 6812 not an ABI break?
+(11:57:32 AM) Jamey Sharp: 9944 should be resolved as fixed, I think, and the release we're about to do includes the fix.
+(11:57:55 AM) JoshTriplett: jameysharp: Line up the isvoid flag with the least significant bit and assume people used 1 as true?
+(11:57:57 AM) Jamey Sharp: JoshTriplett: change the interpretation of the field that's already there, which already should only have had a value of 0 or 1, to a bitmask.
+(11:58:14 AM) JoshTriplett: jameysharp: OK, that seems reasonable.
+(11:58:23 AM) JoshTriplett: jameysharp: I don't think we'll hit any endian issues doing that.
+(11:58:43 AM) clee: jkolb: I don't remember ever complaining about that.
+(11:58:44 AM) Jamey Sharp: Especially since I don't mean a C-style structure bitmask.
+(11:58:53 AM) JoshTriplett: jameysharp: I assumed not. :)
+(11:59:13 AM) clee: my most recent questions about XCB have been "How would I go about using the XML proto descriptions to generate Java code instead of C?"
+(11:59:17 AM) JoshTriplett: jameysharp: Actually, I think we can avoid an API break as well with some craziness.
+(11:59:21 AM) jkolb: clee: hm maybe it wasn't you then :)
+(11:59:38 AM) Jamey Sharp: JoshTriplett: oh, right, there's API there.
+(11:59:45 AM) Jamey Sharp: clee: where were you asking that?
+(11:59:53 AM) Jamey Sharp: clee: we have answers for that question. :-)
+(11:59:56 AM) JoshTriplett: jameysharp: Either call the flags field "isvoid" (ow) or #define isvoid flags (ow).
+(12:00:17 PM) clee: jameysharp: I was asking in here, but nobody was awake at the time :)
+(12:00:25 PM) JoshTriplett: clee: That sounds fairly likely.
+(12:00:27 PM) Jamey Sharp: clee: sorry. :-)
+(12:00:33 PM) ***clee shrugs
+(12:00:33 PM) JoshTriplett: clee: Or potentially awake and not on IRC.
+(12:00:34 PM) caro[vtorri]: is wine using xcb ??? :)
+(12:00:38 PM) clee: most people aren't awake at 3AM
+(12:00:41 PM) clee: I'm weird like that. :)
+(12:00:44 PM) JoshTriplett: :)
+(12:01:07 PM) JoshTriplett: caro[vtorri]: Hmmm, interesting port possibility there.
+(12:01:13 PM) JoshTriplett: caro[vtorri]: If someone feels motivated.
+(12:01:23 PM) caro[vtorri]: that's a huge work
+(12:01:33 PM) caro[vtorri]: i'll not do it
+(12:01:50 PM) caro[vtorri]: my todo list is quite big (and it does not inclde xcb tasks only)
+(12:02:16 PM) JoshTriplett: caro[vtorri]: I didn't suggest you should; I just meant it should go on the port todo list.
+(12:02:26 PM) caro[vtorri]: ha :)
+(12:02:26 PM) JoshTriplett: Heh.  "port wine". :)
+(12:02:33 PM) clee: jameysharp: so the reason I was asking about that was - a friend of mine and I were talking about why Java sucks so much with X11, and he theorized that using JNI to link against Xlib meant that Java has to go through JNI for every X-related call, and that could be a performance issue
+(12:02:55 PM) caro[vtorri]: JoshTriplett: another port : xcb sink for gstreamer
+(12:02:58 PM) JoshTriplett: clee: I didn't think JNI had that much of a performance hit.
+(12:03:02 PM) iano: besides simple xapps, toolkits should be the next big porting targets
+(12:03:04 PM) JoshTriplett: caro[vtorri]: Yes.  And XCB for mplayer.
+(12:03:05 PM) caro[vtorri]: JoshTriplett: it will solve most of the lock problems
+(12:03:25 PM) clee: JoshTriplett: the problem isn't that JNI itself is necessarily slow, but that the JVM can't optimize anything on the other side of the JNI bridge
+(12:03:42 PM) clee: (also, going through JNI is definitely slower than staying in pure java - more context switches, etc)
+(12:03:43 PM) alp: clee: i don't know anything about java, but xnb was mostly successful (but i didn't get round to completing it)
+(12:03:54 PM) clee: alp: xnb?
+(12:04:10 PM) alp: X11 .NET binding, http://www.ndesk.org/Xnb
+(12:04:17 PM) clee: oh! hmm
+(12:04:30 PM) JoshTriplett: clee: You could definitely write a "native" Java XCB, which didn't use libxcb.  However, note that you then could not use other XCB bindings on the same connection.
+(12:04:41 PM) thun: bug #9944 is fixed, I just added the info
+(12:04:50 PM) iano: I would think Java would *love* XCB, if only for the saner threading model
+(12:04:51 PM) JoshTriplett: clee: for instance, it means that you could not do Java GTK over the same connection.
+(12:04:56 PM) JoshTriplett: iano: Agreed.
+(12:04:57 PM) clee: JoshTriplett: oh. that kinda sucks.
+(12:05:09 PM) JoshTriplett: clee: You need to cooperate over sequence numbers.
+(12:05:14 PM) JoshTriplett: clee: And other things.
+(12:05:32 PM) caro[vtorri]: is there an interest to have an c++ binding ?
+(12:05:38 PM) JoshTriplett: caro[vtorri]: We have one. :)
+(12:05:40 PM) alp: xnb had main loop integration with xcb, but it's disabled in the latest revisions in favour of an entirely c# approach
+(12:05:46 PM) caro[vtorri]: JoshTriplett: really ?
+(12:05:51 PM) caro[vtorri]: JoshTriplett: i've never heard of it
+(12:05:56 PM) caro[vtorri]: where ?
+(12:06:01 PM) JoshTriplett: extern "C" {
+(12:06:01 PM) JoshTriplett: #include <xcb.h>
+(12:06:01 PM) JoshTriplett: }
+(12:06:09 PM) caro[vtorri]: hahaha
+(12:06:16 PM) caro[vtorri]: i mean
+(12:06:24 PM) Jamey Sharp: caro[vtorri]: we know what you mean. :-)
+(12:06:29 PM) caro[vtorri]: is the oo feature of c++ can be interesting ?
+(12:06:41 PM) christoph4: the oo feature is surely interesting
+(12:06:41 PM) christoph4: but
+(12:06:51 PM) christoph4: it's still nicer to use a toolkit
+(12:07:02 PM) alp: clee: i also started a gdk-sharp implementation on top of it, can dig it up if you're interested
+(12:07:04 PM) JoshTriplett: caro[vtorri]: Using C++ namespaces has some interesting potential.
+(12:07:05 PM) Jamey Sharp: several of us here strongly dislike C++, but if somebody built a C++ binding to XCB we would happily let them maintain it.
+(12:07:17 PM) clee: alp: I don't really care that much, but I was mildly interested in it :)
+(12:07:29 PM) thun: I don't want to demotivate anyone, but with the current xcb speed I don't believe in a big market for xcb bindings
+(12:07:30 PM) caro[vtorri]: i've used a lot c++ (with stlport and boost) in a project
+(12:07:34 PM) christoph4: jameysharp: who needs to be "convinced" :-P
+(12:07:36 PM) clee: jameysharp: what about Obj-XCB? ;)
+(12:07:38 PM) alp: clee: ok. was hoping we were on to a new maintainer here for a moment ;-)
+(12:07:41 PM) clee: or Xobjcb? :)
+(12:07:44 PM) caro[vtorri]: thun: right :/
+(12:07:54 PM) jkolb: boost is really nice
+(12:07:55 PM) Jamey Sharp: clee: Objective C is vaguely cool. :-)
+(12:07:59 PM) JoshTriplett: thun: How so, exactly?
+(12:08:02 PM) clee: jameysharp: I like ObjC.
+(12:08:17 PM) JoshTriplett: thun: What do you mean by "current xcb speed"?
+(12:08:30 PM) thun: JoshTriplett: it sounded harsher than I meant, sorry
+(12:08:37 PM) Jamey Sharp: I'm not entirely convinced about ObjC's syntax, but then I'd rather be coding in Haskell anyway. ;-)
+(12:08:41 PM) thun: JoshTriplett: it just means not many people use it
+(12:08:48 PM) JoshTriplett: thun: Oh, wait; do you mean development speed or performance?
+(12:08:56 PM) thun: JoshTriplett: development speed
+(12:08:59 PM) JoshTriplett: thun: Ah.  In that case, fair enough. :)
+(12:08:59 PM) caro[vtorri]: dev, I think
+(12:09:27 PM) Jamey Sharp: heh, right. we're few and slow humans. meh.
+(12:09:42 PM) thun: JoshTriplett: I tried my hands on a python binding, but some concepts in xcb are too low level to have simple analogons in python
+(12:09:50 PM) iano: so port OpenStep to XCB
+(12:09:54 PM) JoshTriplett: jameysharp: Not so much slow as lacking timeslices. :)
+(12:10:08 PM) JoshTriplett left the room.
+(12:10:09 PM) caro[vtorri]: which window managers use xcb ?
+(12:10:14 PM) JoshTriplett [n=josh@unaffiliated/joshtriplett] entered the room.
+(12:10:17 PM) Jamey Sharp: JoshTriplett: that's a very polite way of putting it. :-)
+(12:10:38 PM) caro[vtorri]: for JoshTriplett : which window managers use xcb ?
+(12:10:38 PM) Jamey Sharp: caro[vtorri]: I don't know of any window manager using XCB, except the one I wrote, which hardly counts.
+(12:10:42 PM) JoshTriplett: thun: Last time I thought about it, Python seemed like it would fit fairly well.  What issue did you run into?  Just the issue of packing binary structures?
+(12:10:45 PM) alp: thun: i definitely found that re-implementation rather than binding was a more straightforward approach with XCB. we've had a similar experience with managed D-Bus, which is used by a lot of applications now
+(12:10:47 PM) caro[vtorri]: jameysharp: ok
+(12:10:56 PM) Jamey Sharp: oh, wait, that isn't true.
+(12:11:13 PM) Jamey Sharp: some students built an XCB-based window manager, I think, but I forget the details.
+(12:11:20 PM) caro[vtorri]: haa
+(12:11:25 PM) caro[vtorri]: i remember, indeed
+(12:11:25 PM) JoshTriplett: alp: Managed D-BUS has different requirements; generally you don't need to have multiple things talking over the same D-BUS connection.
+(12:11:28 PM) alp: thun: however, unless you want to rewrite everything, you will want main loop integration and sharing of a few resources
+(12:11:51 PM) jkolb: someone posted a window manager they were writing a while back but i don't remember where it can be found
+(12:11:53 PM) thun: JoshTriplett: sendevent was a problem for example
+(12:11:56 PM) iano: anyone look at bug #11751?
+(12:12:18 PM) alp: JoshTriplett: these are the reasons why managed X11 isn't shipping with distributions yet. always on the lookout for a solution
+(12:12:21 PM) caro[vtorri]: jkolb: i'll try to covince raster to use xcb for e18
+(12:12:25 PM) caro[vtorri]: in 20 eyears
+(12:12:28 PM) caro[vtorri]: -e
+(12:13:04 PM) jkolb: ha
+(12:13:07 PM) Jamey Sharp: iano: oh, right, 11751.
+(12:13:09 PM) JoshTriplett: thun: Right.  SendEvent seems like a problem for C too.  That seems like a simple example of where we could use the output iterator approach.
+(12:13:12 PM) iano: huh, I thought raster would jump at a smaller, faster interface
+(12:13:33 PM) caro[vtorri]: iano: the problem is that modifying e17 now would be a big work
+(12:13:42 PM) Jamey Sharp: iano: I don't know. "raster" and "small code" don't actually go together, as far as I can tell. ;-)
+(12:13:48 PM) caro[vtorri]: iano: and we are not even close to do an alpha release of e17
+(12:13:54 PM) caro[vtorri]: haha
+(12:13:56 PM) JoshTriplett: thun: xcb_send_event_start(), xcb_foo_event(), xcb_send_event_end()
+(12:14:06 PM) jkolb: does the wm not use ecore/evas?
+(12:14:22 PM) thun: alp: using the c functions was not so much a propblem, rather that we needed to do too much by hand
+(12:14:27 PM) thun: JoshTriplett: sounds doog
+(12:14:32 PM) thun: JoshTriplett: sounds good*
+(12:14:35 PM) caro[vtorri]: jkolb: yes
+(12:14:37 PM) JoshTriplett: Hmmm, thought about the output iterator approach: for efficiency, we *might* not need _end functions when we have counted lengths.  SendEvent can only have one event, so we might not need an _end.
+(12:14:50 PM) caro[vtorri]: jkolb: but using xcb correctly is not that simple
+(12:14:54 PM) JoshTriplett: But consistency seems like a feature.
+(12:15:32 PM) iano: caro[vtorri]: the X protocol is not simple, and XCB mirrors it closely
+(12:15:38 PM) alp: thun: why by hand? i've found that both bindings and proto code can be auto-generated
+(12:15:45 PM) JoshTriplett: iano: An apt description.
+(12:15:46 PM) Jamey Sharp: 11751 may be related to `ico -threads 3` hanging, that is, process_responses implements an incorrect algorithm. this isn't fixed with the `ico -threads 2` fix we committed.
+(12:16:23 PM) JoshTriplett: jameysharp: Can you post a followup to that effect?
+(12:16:27 PM) caro[vtorri]: jkolb: i'm already happy that all ecore apps using ecore-xcb are initialized faster than xlib, especially over ssh
+(12:16:27 PM) robtaylor: alp: a good solution for connection shaing would be good for dbus too ;)
+(12:16:36 PM) JoshTriplett: jameysharp: Mentioning process_responses known brokenness?
+(12:16:37 PM) thun: alp: change propery e.g. takes binary data. how to you create binary data in python?
+(12:16:49 PM) Jamey Sharp: JoshTriplett: yes, one moment.
+(12:16:50 PM) JoshTriplett: jameysharp: Better yet, file a "process_responses broken" bug.
+(12:16:53 PM) alp: thun: you don't have a byte[]?
+(12:17:19 PM) alp: ok, maybe it's not such a hot idea
+(12:17:26 PM) thun: alp: yes, but if I need to do byte packing in python, why use python?
+(12:17:32 PM) robtaylor: thun: in python, i'd be tempted to use ctypes
+(12:17:35 PM) JoshTriplett: alp: byte arrays exist, but packing things into them takes work.
+(12:18:01 PM) JoshTriplett: alp: The same work that the python bindings will have to do internally.
+(12:18:10 PM) JoshTriplett: OK, going back to the bug list:
+(12:18:12 PM) thun: alp: I don't want to paint the situation in black colors: it works pretty well for the most cases
+(12:18:27 PM) alp: the neat thing about XNB is that the jit does a very good job of optimising structure accesses in machine code
+(12:18:39 PM) JoshTriplett: 8204
+(12:18:44 PM) JoshTriplett: "Latency hiding for XC-MISC"
+(12:19:07 PM) JoshTriplett: I think we can do that without any kind of API or ABI break; we'd just need to add one or more functions for applications to prefetch XIDs.
+(12:19:14 PM) JoshTriplett: If that seems like a sensible approach.
+(12:19:40 PM) JoshTriplett: That would then require the application to think about XIDs, though.
+(12:20:05 PM) JoshTriplett: Alternatively, we could add some kind of prefetch threshold, but that smacks of mixing policy and mechanism.
+(12:20:15 PM) JoshTriplett: Thoughts?
+(12:20:24 PM) iano: 8204: is this hiding latency only for the case of reserving more ids?
+(12:20:33 PM) thun: JoshTriplett: I think the prefetch threshold would work?
+(12:20:38 PM) iano: how often does that occur? once a day?
+(12:20:59 PM) JoshTriplett: thun: It would definitely *work*.
+(12:21:19 PM) Jamey Sharp: iano: it's very rare, yes.
+(12:21:22 PM) Jamey Sharp: in practice.
+(12:21:46 PM) iano: not sure that is worth optimizing then
+(12:21:48 PM) JoshTriplett: So, we already know that asking for an XID can result in a request.  That means if you ask for one, you don't mind having a request happen.
+(12:21:51 PM) Jamey Sharp: though I have a test case that allocates IDs in a tight loop, and it takes a few seconds to run out.
+(12:22:13 PM) JoshTriplett: jameysharp: Can you post that test case to bug 8204, please?
+(12:22:23 PM) Jamey Sharp: um... ok.
+(12:22:24 PM) iano: I heard FireFox is also hungry for ids.
+(12:22:32 PM) Jamey Sharp: well, hungry-ish.
+(12:22:39 PM) JoshTriplett: jameysharp: (did you already follow up on 11751?)
+(12:22:44 PM) Jamey Sharp: it takes many hours for firefox to run out, iirc.
+(12:22:48 PM) Jamey Sharp: JoshTriplett: yes.
+(12:22:53 PM) Jamey Sharp: and moved it to Xlib.
+(12:23:07 PM) caro[vtorri]: iano: with evas, a browser would use one X id :)
+(12:23:21 PM) Jamey Sharp: caro[vtorri]: I don't believe you!
+(12:23:41 PM) caro[vtorri]: jameysharp: every app using evas uses only one id
+(12:23:47 PM) caro[vtorri]: jameysharp: like the toolkits
+(12:24:03 PM) thun: caro[vtorri]: i thought evas uses a backpixmap?
+(12:24:04 PM) caro[vtorri]: gtk uses ne window for each widget
+(12:24:09 PM) caro[vtorri]: one*
+(12:24:11 PM) alp: caro[vtorri]: right now in webkit/gtk+, we do client side rendering so the situation is pretty much that way. but the lack of server-side Images is a TODO
+(12:24:31 PM) caro[vtorri]: with evas, only one id for the window, that's all
+(12:24:43 PM) Jamey Sharp: caro[vtorri]: you still can't be using only one XID. you need them for GCs, pixmaps, Render Pictures, all sorts of things.
+(12:24:47 PM) caro[vtorri]: alp: we plan to add evas backend in webkit :)
+(12:25:01 PM) caro[vtorri]: jameysharp: haa, right
+(12:25:08 PM) alp: caro[vtorri]: cool. i hope you can help on the graphics side of things, because i'm the only one working on it right now
+(12:25:11 PM) caro[vtorri]: jameysharp: i only thought about window id
+(12:25:29 PM) caro[vtorri]: alp: actually, guys will be paid for porting it to evas
+(12:25:44 PM) caro[vtorri]: alp: if you want, you can talk with them on #edevelop
+(12:25:45 PM) JoshTriplett: I think I might agree with the argument that we might not care about optimizing XID requests.
+(12:25:55 PM) alp: caro[vtorri]: there are 2/3 people being paid to "work" on the port and i think the total contribution is maybe 6 lines in the last few months
+(12:25:58 PM) thun: JoshTriplett: is it dangerous to fetch too many x ids?
+(12:26:09 PM) Jamey Sharp: JoshTriplett: Yeah, I don't think we do. I only proposed it because we *can*.
+(12:26:11 PM) caro[vtorri]: alp: they contributed to the efel yet
+(12:26:23 PM) caro[vtorri]: alp: and tey produced thousands of lines of code
+(12:26:26 PM) caro[vtorri]: they*
+(12:26:35 PM) caro[vtorri]: efl*
+(12:26:42 PM) JoshTriplett: jameysharp: I just mean "should we bother".
+(12:27:00 PM) Jamey Sharp: JoshTriplett: probably not.
+(12:27:07 PM) JoshTriplett: jameysharp: In particular, should we perhaps mark that one as a lowest-priority enhancement bug and ignore it henceforth.
+(12:27:35 PM) Jamey Sharp: JoshTriplett: Yes.
+(12:27:47 PM) Jamey Sharp: Or close it "wontfix".
+(12:27:56 PM) caro[vtorri]: jameysharp: anyway, in the ewl (toolkit based on evas) vs gtk fight, ewl uses a lot less x id :)
+(12:28:07 PM) Jamey Sharp: caro[vtorri]: I'm willing to believe that. :-)
+(12:28:29 PM) caro[vtorri]: jameysharp: is there a way to count xid ?
+(12:28:29 PM) Jamey Sharp: thun: There should be no danger in fetching many XIDs.
+(12:28:44 PM) Jamey Sharp: caro[vtorri]: I think xrestop will tell you?
+(12:29:04 PM) alp: caro[vtorri]: am not sure why fewer xid's is a good thing. when ndesk had a directfb toolkit, it used precisely 0 xids and that got it nowhere
+(12:29:33 PM) JoshTriplett: OK, next bug: 9528, "client hangs when using xcb-enabled libX11 locally".
+(12:29:37 PM) jkolb: wow i forgot about directfb
+(12:29:52 PM) Jamey Sharp: JoshTriplett: Yeah, I was just looking at that.
+(12:30:11 PM) caro[vtorri]: alp: it ask more things to the x server
+(12:30:12 PM) JoshTriplett: The backtrace seems to have vanished.
+(12:30:24 PM) caro[vtorri]: alp: evas try to do the more stuff in the client side
+(12:30:27 PM) Jamey Sharp: JoshTriplett: It's attached later.
+(12:30:32 PM) alp: caro[vtorri]: yeah, but that is kind of the point of having a windowing system rather than a framebuffer
+(12:30:35 PM) JoshTriplett: Ah, good.
+(12:30:45 PM) Jamey Sharp: There's something very wrong with the backtrace. There are way too many threads sitting in select.
+(12:31:18 PM) caro[vtorri]: alp: having a toolkit that uses a window id for *each* toolkit is not reasonnable, imho
+(12:31:24 PM) JoshTriplett: Sigh, "XCB is still work in progress. Let them fix their issues first."
+(12:31:39 PM) ***JoshTriplett gets annoyed at Johannes Sixt.
+(12:31:46 PM) caro[vtorri]: *eachù widget
+(12:31:54 PM) Jamey Sharp: caro[vtorri]: I disagree--X was designed to handle many, nested, windows.
+(12:31:56 PM) thun: jameysharp: how can you see that they wait in the select?
+(12:32:14 PM) Jamey Sharp: thun: they're all in __newselect_nocancel from glibc.
+(12:32:21 PM) caro[vtorri]: ha
+(12:32:23 PM) caro[vtorri]: ok
+(12:32:32 PM) thun: jameysharp: ah ok. thanks
+(12:32:38 PM) JoshTriplett: jameysharp: Looks like it has several threads all receiving events.  I didn't know you could even do that.
+(12:32:43 PM) alp: caro[vtorri]: i've written toolkits using both directfb and my own X11 implementation. what i say is from some experience ;-)
+(12:32:57 PM) JoshTriplett: Or rather, do that sensibly.
+(12:32:58 PM) Jamey Sharp: JoshTriplett: yeah, that may be a bad idea, but it's allowed and supported.
+(12:33:14 PM) JoshTriplett: Let me rephrase.  "I can't think of a sane reason why someone would do that.". :)
+(12:33:26 PM) Jamey Sharp: JoshTriplett: eh, it's not that hard to use it that way.
+(12:33:34 PM) JoshTriplett: But in any case that looks very much like a process_responses problem.
+(12:33:44 PM) Jamey Sharp: JoshTriplett: no it doesn't...
+(12:33:44 PM) JoshTriplett: jameysharp: You end up processing events in paralle.
+(12:33:47 PM) JoshTriplett: *parallel.
+(12:34:05 PM) Jamey Sharp: xcb shouldn't ever have more than two threads in select at a time.
+(12:34:17 PM) Jamey Sharp: unless there are different X connections for each one of these threads.
+(12:34:17 PM) JoshTriplett: "shouldn't"
+(12:34:27 PM) Jamey Sharp: JoshTriplett: That's an invariant that XCB maintains.
+(12:34:35 PM) Jamey Sharp: Xlib can't interfere with that one.
+(12:34:46 PM) caro[vtorri]: alp: i'm just try to think in term of asking resources. asking an id from the xserver takes some times. not asking it takes less time. so i thought that not asking resources from the x server and doing all the stuff on the client side was better
+(12:34:53 PM) caro[vtorri]: trying*
+(12:35:03 PM) JoshTriplett: jameysharp: OK, so you suggest that the bug can't lie in process_responses then?
+(12:35:12 PM) caro[vtorri]: but it seems that i'm wrong !)
+(12:35:16 PM) caro[vtorri]: :)
+(12:35:28 PM) Jamey Sharp: JoshTriplett: There may be a process_responses bug as well, but something else has definitely gone wrong.
+(12:37:30 PM) alp: caro[vtorri]: in some cases local rendering is faster because the server is not well accelerated. we find this is the case with the nokia internet tablets, so webkit/gtk+ releases for those devices tend to do client-side rendering
+(12:37:55 PM) JoshTriplett: jameysharp: I don't actually see what maintains that invariant yet.
+(12:38:00 PM) caro[vtorri]: alp: and through a network ?
+(12:38:11 PM) JoshTriplett: jameysharp: But in any case it sounds like that one needs detailed debugging.
+(12:38:15 PM) JoshTriplett: jameysharp: So let's move on.
+(12:38:23 PM) JoshTriplett: jameysharp: Should that one block the release?
+(12:38:25 PM) Jamey Sharp: JoshTriplett: xcb_conn_wait. but yes.
+(12:38:30 PM) Jamey Sharp: er, no.
+(12:38:35 PM) Jamey Sharp: I don't think it should block the release.
+(12:38:51 PM) JoshTriplett: OK.
+(12:39:01 PM) Jamey Sharp: I'm more inclined to suspect a wildly broken implementation of pthread_mutex_lock, or that sort of thing. :-)
+(12:39:26 PM) ***JoshTriplett bumps priority, at least.
+(12:40:03 PM) JoshTriplett: OK, moving on.
+(12:40:14 PM) JoshTriplett: 10637
+(12:40:19 PM) JoshTriplett: "only one type of iterator available for xcb_xv_list_image_formats"
+(12:40:31 PM) christoph4: huhu
+(12:41:08 PM) christoph4: i see, you know more than i, i wouldn't have remembered it ;)
+(12:41:32 PM) JoshTriplett: Code generation bug.
+(12:41:43 PM) JoshTriplett: Either someone needs to debug the XSLT or that one needs to wait for the Python.
+(12:41:45 PM) Jamey Sharp: not a blocker; we should fix it for 1.2.
+(12:41:59 PM) christoph4: we decided for the later option
+(12:42:02 PM) Jamey Sharp: it doesn't prevent XCB from being using in the meantime.
+(12:42:06 PM) iano: christoph4: We are looking here: https://bugs.freedesktop.org/buglist.cgi?query_format=specific&order=relevance+desc&bug_status=__open__&product=XCB
+(12:42:34 PM) Jamey Sharp: it's just inconvenient to not have array access when it's actually possible.
+(12:42:37 PM) JoshTriplett: iano: (Actually, I have a list that excludes demo and util bugs, for now.)
+(12:42:42 PM) JoshTriplett: jameysharp: Yeah.
+(12:42:45 PM) Jamey Sharp: JoshTriplett: Me too.
+(12:42:46 PM) christoph4: iano: well, that bug i know because i filed it
+(12:42:53 PM) christoph4: (or at least reported)
+(12:43:12 PM) JoshTriplett: jameysharp: I suspect that that bug could probably get fixed in the XSLT without major effort, but that doesn't mean I have the time to track it down.
+(12:43:17 PM) christoph4: beside that - i'm also doing other stuff atm (tm)
+(12:43:17 PM) iano: christoph4: right!
+(12:43:21 PM) JoshTriplett: jameysharp: At least, not right now.
+(12:43:39 PM) caro[vtorri]: i have to go
+(12:43:45 PM) caro[vtorri]: good night (or day)
+(12:43:53 PM) christoph4: 'night
+(12:43:55 PM) Jamey Sharp: caro[vtorri]: bye! thanks for joining us!
+(12:45:21 PM) JoshTriplett: caro[vtorri]: See you later.
+(12:45:29 PM) JoshTriplett: I followed up to 10637.  Next bug: 11528
+(12:45:35 PM) JoshTriplett: "Protocol tests in the vsw4 test suite collide with xcb on openSuSE"
+(12:45:46 PM) Jamey Sharp: actually, everywhere.
+(12:45:57 PM) Bart_Massey: OK, I'm back and caught up.  I'll mostly just lurk a bit and then take off, though.
+(12:46:10 PM) JoshTriplett: jameysharp: meaning not just on OpenSuSE?
+(12:46:16 PM) Jamey Sharp: yeah.
+(12:46:34 PM) JoshTriplett: jameysharp: Any more information than that in the bug report?
+(12:46:37 PM) iano: bart: do you have a repo for the x11perf work?
+(12:46:56 PM) Jamey Sharp: The XPROTO part of xts5 (and earlier) doesn't use LockDisplay and UnlockDisplay.
+(12:47:06 PM) Jamey Sharp: It would work if it properly locked the display.
+(12:47:17 PM) iano: jameysharp: Doh!
+(12:47:38 PM) Bart_Massey: You can see the X.Org Summer of Code results at http://code.google.com/soc/2007/xorg/about.html, btw.  Thomas' cool work, plus mouse support stuff.
+(12:47:39 PM) JoshTriplett: jameysharp: Hmmm.  Does the Xlib "API" require that?
+(12:47:58 PM) Jamey Sharp: I've known about that bug for probably three years now and never got around to doing more than whining at the xts5 people in person once.
+(12:48:03 PM) Jamey Sharp: JoshTriplett: Yes.
+(12:48:07 PM) JoshTriplett: What response did you get?
+(12:48:15 PM) Jamey Sharp: IIRC, "file bugs".
+(12:48:31 PM) Bart_Massey: iano: working on it.  give me a few more minutes
+(12:48:43 PM) JoshTriplett: Does it need to LockDisplay and UnlockDisplay around each request, then?
+(12:49:22 PM) JoshTriplett: And hang on a sec.  If it talks X protocol directly, does it just use Xlib to conveniently open a connection?
+(12:49:43 PM) Jamey Sharp: Access to the Display needs to be surrounded by LockDisplay and UnlockDisplay, with few exceptions (that arguably shouldn't be exceptions).
+(12:49:55 PM) Jamey Sharp: Oh. I forget. There *might* be more issues there, yes.
+(12:50:12 PM) Jamey Sharp: But I think they're still using GetReq, Data, _XReply, etc.
+(12:50:13 PM) JoshTriplett: Can it just do one big lock or does it need to lock and unlock repeatedly?
+(12:50:24 PM) JoshTriplett: Ah, then yes, I assume.
+(12:50:27 PM) Jamey Sharp: It can do one big lock if it wants, I think.
+(12:50:31 PM) JoshTriplett: Or...yeah.
+(12:50:38 PM) Jamey Sharp: It depends on what they're testing though.
+(12:51:04 PM) Jamey Sharp: Note that you can't call public Xlib functions like XFlush with the Display lock held.
+(12:51:42 PM) JoshTriplett: In any case, can you please follow up to 11528 and state your findings?  Namely, that this doesn't represent an XCB or Xlib/XCB bug, and that the test suite needs to call LockDisplay and UnlockDisplay?
+(12:51:50 PM) Jamey Sharp: JoshTriplett: Yes.
+(12:51:52 PM) JoshTriplett: And close the bug as NOTOURBUG?
+(12:52:12 PM) Bart_Massey: After having filed a bug report by whatever official mechanism with the XTS folks...
+(12:52:12 PM) Jamey Sharp: No, I'll move it to the xts5 product, if I can find it.
+(12:52:14 PM) JoshTriplett: Or better yet reassign it to the test suite.
+(12:52:21 PM) JoshTriplett: jameysharp: Right.
+(12:52:24 PM) Bart_Massey: Ah, right; got it
+(12:52:25 PM) Jamey Sharp: Since xts5 is at fd.o now.
+(12:52:34 PM) JoshTriplett: Xtests?
+(12:52:58 PM) Jamey Sharp: I think so...
+(12:54:29 PM) JoshTriplett: That exhausts all the non-enhancement bugs.
+(12:54:37 PM) Jamey Sharp: Yay!
+(12:55:02 PM) Jamey Sharp: So, no XCB bugs to worry about then, I think is the summary.
+(12:55:19 PM) JoshTriplett: As for the enhancement bugs, I don't think I want to go through them all individually at the moment, but one item: many of them apply to the code generation, so they should wait until the Python code generator.
+(12:55:28 PM) Bart_Massey: Jamey, I think you and I need to schedule a time in the future to do the xmeetsz thing?
+(12:56:02 PM) thun: JoshTriplett: Ok, I am looking at them right now
+(12:56:09 PM) Bart_Massey: sorry, forgot where I was.  "jameysharp" :-)
+(12:56:16 PM) Jamey Sharp: Bart_Massey: Yeah, we need to sit down and dig deeply into it.
+(12:56:44 PM) Bart_Massey: jameysharp: let me know what works for you; I should be around for the next few weeks
+(12:57:36 PM) Jamey Sharp: JoshTriplett: Um, on second thought, 11528 is actually an Xlib bug that I fixed like a week ago.
+(12:57:41 PM) JoshTriplett: thun: 5962, 6105, 6684, 6686, 5958
+(12:57:56 PM) JoshTriplett: jameysharp: Oh?
+(12:58:12 PM) JoshTriplett: thun: (At least)
+(12:58:23 PM) Jamey Sharp: It was maybe compounded by the lack of LockDisplay calls, but then I'm not sure why the usual XCB locking assertion didn't fire.
+(12:58:33 PM) Jamey Sharp: Oh, right, it's on OpenSUSE, so they had the Novell patch I guess.
+(12:58:42 PM) JoshTriplett: Heh.
+(12:58:59 PM) JoshTriplett: Well, that and if they neither lock *nor* unlock the assertions won't fire.
+(12:59:07 PM) JoshTriplett: No mismatch.
+(12:59:23 PM) Jamey Sharp: Nah, there are still unlocks and locks in places like _XReply.
+(12:59:43 PM) Jamey Sharp: Use the protocol long enough and they're guaranteed to hit the XCB assertions.
+(12:59:50 PM) JoshTriplett: Ah.
+(12:59:56 PM) Jamey Sharp: But maybe he hit this error first.
+(01:00:04 PM) JoshTriplett: jameysharp: So, what bug did you fix?
+(01:00:23 PM) Jamey Sharp: It was actually only a multi-thread bug, I thought...
+(01:00:47 PM) Jamey Sharp: e0e52555
+(01:01:25 PM) christoph4: leaving ...
+(01:01:31 PM) christoph4: cu :)
+(01:01:39 PM) Jamey Sharp: christoph4: bye!
+(01:02:00 PM) Jamey Sharp: JoshTriplett: ... maybe I didn't push it either.
+(01:02:17 PM) christoph4 left the room (quit: "Konversation terminated!").
+(01:02:18 PM) JoshTriplett: Doesn't look that way.
+(01:02:22 PM) JoshTriplett: jameysharp: So do that. :)
+(01:02:31 PM) JoshTriplett: jameysharp: But follow up to the bug first.
+(01:02:54 PM) thun: JoshTriplett: you tricked me into reading an XKB bug!
+(01:03:04 PM) thun: JoshTriplett: damn :)
+(01:03:17 PM) Bart_Massey: christoph4: bye!
+(01:03:18 PM) JoshTriplett: thun: Heh, sorry.  I just meant that one as "we don't plan to fix this until the Python generator goes in".
+(01:03:22 PM) Bart_Massey: thun: heh
+(01:03:23 PM) Jamey Sharp: JoshTriplett: http://cgit.freedesktop.org/xorg/lib/libX11/commit/?id=2af660c2fcd15c86c66459bfc074c190ea1462e6
+(01:03:57 PM) Bart_Massey: so someone remind me how to subscribe to the commit list(s) again?
+(01:04:13 PM) ***Bart_Massey scuffs his foot shamefacedly
+(01:04:21 PM) Jamey Sharp: http://lists.freedesktop.org/mailman/listinfo/xcb-commit
+(01:04:23 PM) JoshTriplett: Bart_Massey: http://lists.freedesktop.org/mailman/listinfo/xcb-commit
+(01:04:37 PM) JoshTriplett: For some reason it doesn't show up in the main list of lists.
+(01:04:38 PM) Jamey Sharp: jkolb: would you make the xcb-commit list public-visible?
+(01:04:48 PM) Bart_Massey: That gets me all the packages, not just libxcb?
+(01:04:51 PM) iano: oooh, cgit is a shiny new browser
+(01:04:53 PM) JoshTriplett: Double-jinx. :)
+(01:05:01 PM) JoshTriplett: Bart_Massey: Mail filtering for the win. :)
+(01:05:34 PM) Bart_Massey: JoshTriplett: No, I *want* them all...
+(01:06:01 PM) JoshTriplett: Bart_Massey: Ah.  I think so, but if not then the mail hooks just need copying.
+(01:06:35 PM) Jamey Sharp: JoshTriplett: Would you get the wiki hooked up to the commit list and to cia?
+(01:06:37 PM) JoshTriplett: jameysharp: Didn't find it because it didn't have the commit ID you said.
+(01:06:53 PM) iano: gotta go to lunch or wife will eat me.  :)
+(01:06:58 PM) Jamey Sharp: JoshTriplett: It also wasn't pushed. Those two facts are related. :-)
+(01:07:02 PM) Jamey Sharp: iano: see you later!
+(01:07:05 PM) iano: bye
+(01:07:05 PM) JoshTriplett: jameysharp: Ah. :)
+(01:07:13 PM) Bart_Massey: iano: Peace.  WIll post mail when I have the repos finally up
+(01:07:23 PM) iano: bart: thanks
+(01:07:32 PM) JoshTriplett: jameysharp: Will look.
+(01:07:57 PM) JoshTriplett: jameysharp: I think when last I looked we couldn't because we needed an admin to install a script.
+(01:08:08 PM) Jamey Sharp: oh.
+(01:08:11 PM) JoshTriplett: Hmmm, wait.
+(01:08:45 PM) JoshTriplett: Ah, no, different problem.
+(01:09:05 PM) JoshTriplett: We just didn't because we'd have had to have a multi-hook setup.
+(01:09:12 PM) JoshTriplett: We already need a hook for ikiwiki.
+(01:09:20 PM) Jamey Sharp: Oh. That's easy though.
+(01:09:33 PM) iano: hrm.. the top-level listings at http://cgit.freedesktop.org/ don't work
+(01:09:39 PM) JoshTriplett: jameysharp: Yeah.
+(01:09:47 PM) Jamey Sharp: Tell ikiwiki to put the hook somewhere else and write a shell script to call it.
+(01:09:49 PM) jkolb: jameysharp: eh?
+(01:09:51 PM) Jamey Sharp: iano: Works for me...
+(01:09:59 PM) iano: always takes me to the main libxcb repo
+(01:10:05 PM) Jamey Sharp: jkolb: You're the admin for the xcb-commit list...
+(01:10:16 PM) Jamey Sharp: iano: xcb is listed at the bottom. :-(
+(01:10:34 PM) jkolb: jameysharp: um was the password changes?
+(01:10:37 PM) jkolb: changed*
+(01:10:42 PM) Jamey Sharp: jkolb: I don't think so?
+(01:10:59 PM) Jamey Sharp: I'm pretty sure I don't know the password to admin the xcb-commit list anyway.
+(01:11:07 PM) iano: so if you click on xcb/proto, you see the commit of an hour ago?
+(01:11:14 PM) JoshTriplett: jameysharp: OK, help me out here.  We have a wiki.git on both git.fd.o and xcb.fd.o.
+(01:11:29 PM) jkolb: jameysharp: i sent you the password ages ago. it should be in your mail somewhere
+(01:11:43 PM) Jamey Sharp: iano: Oh. No.
+(01:11:49 PM) Jamey Sharp: JoshTriplett: We do?
+(01:11:56 PM) JoshTriplett: jameysharp: I think the one on git.fd.o shouldn't exist.
+(01:12:02 PM) jkolb: jameysharp: of it put me at the wrong list
+(01:12:05 PM) Jamey Sharp: I think we're only using the one on people/xcb, yeah.
+(01:12:20 PM) JoshTriplett: jameysharp: Also why we don't have history links.
+(01:12:24 PM) jkolb: jameysharp: btw i made you an admin on that list
+(01:12:38 PM) JoshTriplett: jameysharp: Though we could fix that by putting up our own gitweb. :)
+(01:13:09 PM) iano: ah, I bet there is an xcb.git in the way
+(01:13:13 PM) jkolb: the archives are listed as public
+(01:13:23 PM) iano: which hides all the subdirectories
+(01:13:28 PM) JoshTriplett: jkolb: Not the archives.  The list itself.
+(01:13:31 PM) Jamey Sharp: iano: that would be a bug in cgit.
+(01:14:13 PM) iano: anyway, bye. wife gnawing at leg.
+(01:14:48 PM) JoshTriplett: jkolb: privacy options, "Advertise this list when people ask what lists are on this machine? ".
+(01:15:03 PM) iano left the room (quit: Remote closed the connection).
+(01:15:31 PM) jkolb: JoshTriplett: just did it
+(01:15:57 PM) JoshTriplett: worked.
+(01:16:27 PM) jkolb: JoshTriplett: btw added you as admin as wel
+(01:16:34 PM) Jamey Sharp: ah, I do have the admin password. Thanks. :-)
+(01:16:47 PM) JoshTriplett: do not want :)
+(01:17:02 PM) jkolb: JoshTriplett: too late :P
+(01:18:47 PM) Bart_Massey: Well, I'm going to go get lunch.  See y'all later!
+(01:19:04 PM) Jamey Sharp: Bart_Massey: Bye! Again! ;-)
+(01:19:34 PM) Bart_Massey left the room (quit: "Leaving").
+(01:23:25 PM) Jamey Sharp: So we also have to do a release of xcb-proto if we're going to release libxcb, and though there are very few commits there, they need review too.
+(01:23:46 PM) JoshTriplett: Ah.
+(01:23:47 PM) Jamey Sharp: Does e7f9e650 result in ABI change?
+(01:25:22 PM) thun: jameysharp: no, only API
+(01:25:48 PM) Jamey Sharp: thun: OK. What API changes does it make?
+(01:27:14 PM) thun: jameysharp: e.g. if you used .maxHeight from the reply struct it is now named .max_height
+(01:27:40 PM) Jamey Sharp: Didn't the XSLT normalize those names somewhat?
+(01:27:42 PM) thun: jameysharp: but I believe linking against the shared lib should work
+(01:28:09 PM) Jamey Sharp: Anyway, I guess I should ask whether that commit changed anything that was in the 1.0 release.
+(01:28:21 PM) Jamey Sharp: As long as the stuff it changes wasn't released, it doesn't matter.
+(01:28:58 PM) thun: jameysharp: I think it missed a few places to normalize
+(01:30:23 PM) Jamey Sharp: Looks to me like the name changes were only in stuff introduced when iano added 1.2 support, which we didn't have in the xcb-proto 1.0 release.
+(01:32:14 PM) Jamey Sharp: The ScreenChangeNotify type changes are technically ABI changes (signedness), but looks like the kind of thing that was just wrong before and doesn't need an ABI bump.
+(01:34:04 PM) thun: jameysharp: looks like you are right: seems to be only 1.2 stuff
+(01:36:28 PM) Jamey Sharp: OK, I'm happy with the xcb-proto commits too.
+(01:44:52 PM) Jamey Sharp: Hey, accepting the obvious here: this meeting is over, adjourned, etc. Thank you all for coming! :-)
+(01:45:11 PM) thun: thanks for your time :)
+(01:45:36 PM) thun: will you place the gobby documents on the wiki?
+(01:45:49 PM) Jamey Sharp: thun: yes, and this IRC log.
+(01:45:49 PM) maxtoo [n=maxtoo@ALille-154-1-102-31.w90-34.abo.wanadoo.fr] entered the room.
+(01:46:06 PM) thun: ok, cool
+(01:47:07 PM) Jamey Sharp: I'm waiting for Josh to make some configuration changes to the wiki, so that when I push the stuff from gobby we'll be able to see if his changes worked.
+(01:50:37 PM) peterharris left the room (quit: ).
+(01:52:45 PM) rubystallion [n=user@i3ED6D08B.versanet.de] entered the room.
+(01:53:08 PM) rubystallion: How can I change the DPI for fonts in X11?
+(01:53:23 PM) Jamey Sharp: rubystallion: that's not an XCB question.
+(01:53:31 PM) Jamey Sharp: rubystallion: did you try #xorg?
+(01:53:35 PM) rubystallion: Oh sorry, wrong channel
+(01:54:27 PM) rubystallion left the room ("ERC Version 5.2 (IRC client for Emacs)").
+(01:56:30 PM) Jamey Sharp: thun: don't worry about word-wrapping the NEWS--I'll do that before committing.
+(01:56:43 PM) thun: jameysharp: sorry
+(01:56:56 PM) Jamey Sharp: thun: but I'm happy to have your help with it. :-)
+(02:06:16 PM) CIA-29: xcb/wiki: jamey * rd24798c37708 /Meetings/2007-11-04.mdwn: Fix formatting for function names and such.
+(02:06:54 PM) CIA-29: xcb/wiki: josh * r8aa8de6bdb08 /index.mdwn: Fix todo link on the front page.
+(02:07:05 PM) JoshTriplett: Yay, CIA works now.
+(02:07:17 PM) JoshTriplett: xcb-commit?
+(02:07:22 PM) Jamey Sharp: Looks like it.
+(02:07:35 PM) JoshTriplett: Yeah.
+(02:07:37 PM) thun: ay, works
+(02:07:37 PM) JoshTriplett: Awesome.

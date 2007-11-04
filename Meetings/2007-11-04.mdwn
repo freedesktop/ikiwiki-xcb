@@ -1,5 +1,6 @@
 Minutes for [[IRC]] meeting at 18:00 UTC (10am PST). Feel free
-to expand on this with as much detail as you want.
+to expand on this with as much detail as you want. Also available:
+the [[raw_log|log.txt]].
 
 Attendees: Jamey Sharp, Christoph Pfister, Vincent Torri,
 Josh Triplett, Julien Cristau, Rob Taylor, Thomas Hunger,
