@@ -11,6 +11,7 @@ _To Do_ list:
     - Existing bits seem to use old version?
     - Organizational interface help from bart, cworth, keithp?
   - Qt: Need help (from zrusin?)
+  - Wine, gstreamer (may fix locking issues), mplayer
 - Vincent, Ian, Thomas: utils stuff
   - split out libs we care about and release them (notably renderutil, aux)
   - renderutil may have more extensions to the glyph abstractions coming
