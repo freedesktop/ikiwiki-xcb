@@ -10,11 +10,11 @@ Ian Osgood, Bart Massey
   - Missing extensions / features.
   - Fix Sync extension init request.
   - Fix struct padding issue.
-    - Short-term fix: __attribute__((packed))?
+    - Short-term fix: `__attribute__((packed))`?
     - Long-term fix: rewrite output layer?
   - Output layer could use a mechanism like output iterators, writing a
-    struct at a time.  xcb_foo_request_start(),
-    xcb_foo_request_some_component()*, xcb_foo_request_end()
+    struct at a time.  `xcb_foo_request_start()`,
+    `xcb_foo_request_some_component()`*, `xcb_foo_request_end()`
 - We're almost ready for a new libxcb release, after:
   - Update the version dependency on xcb-proto.
   - [[ReleasingXcb]]
