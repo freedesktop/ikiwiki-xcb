@@ -28,7 +28,7 @@
 
 9\. Push the tag and copy the .gz and .bz2 tarballs to xcb.freedesktop.org/dist
 
-- git-push origin 0.2 &amp;&amp; git-push origin
+- git-push origin &lt;version&gt; &amp;&amp; git-push origin
 - xcb.freedesktop.org:/srv/xcb.freedesktop.org/www/dist/
 
 10\. Send the release mail to xorg and xcb lists
