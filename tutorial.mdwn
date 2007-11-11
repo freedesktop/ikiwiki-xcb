@@ -76,8 +76,8 @@ The total time is N * T_write + max (0, T_round_trip - (N-1) * T_write) + N * T_
 
 Here is a program that computes the time to create 500 atoms with Xlib and XCB. It shows the Xlib way, the bad XCB way (which is similar to Xlib) and the good XCB way. On my computer, XCB is 25 times faster than Xlib.
 
-                /* It's a good idea to paste this and other long code examples 
-                   into a text editor for easier reading */
+            /* It's a good idea to paste this and other long code examples 
+               into a text editor for easier reading */
 
 		#include <stdlib.h>
 		#include <stdio.h>
@@ -125,20 +125,19 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 		{
 			xcb_connection_t          *connection = xcb_connect (NULL, NULL);
 			xcb_atom_t                atoms[NUM_NAMES];
-			xcb_intern_atom_cookie_t  cookies[NUM_NAMES];
 	
 			// in this bad use of xcb, we use the cookie immediately after posting the request with xcb_intern_atom 
 	
 			for (int i = 0; i < NUM_NAMES; ++i) {
 				/* make request */
-				cookies[i] = xcb_intern_atom (connection, 
-											  0, 
-											  strlen(names[i]),
-											  names[i] );
+				xcb_intern_atom_cookie_t cookie = xcb_intern_atom (connection, 
+																   0, 
+																   strlen(names[i]),
+																   names[i] );
 		
 				/* get response */
 				xcb_intern_atom_reply_t *reply = xcb_intern_atom_reply (connection, 
-																		cookies[i], 
+																		cookie, 
 																		NULL ); // normally a pointer to receive error, but we'll just ignore error handling 
 		
 				if (reply) {
@@ -146,6 +145,8 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 				}
 				free(reply);
 			}
+			
+			// now we have our atoms (replies), but this is just a demo, so we do nothing with them
 	
 			xcb_disconnect (connection);
 		}
@@ -180,6 +181,8 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 				}
 				free (reply);
 			}
+			
+			// now we have our atoms (replies), but this is just a demo, so we do nothing with them
 	
 			xcb_disconnect (connection);
 		}
