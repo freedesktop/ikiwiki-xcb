@@ -76,123 +76,166 @@ The total time is N * T_write + max (0, T_round_trip - (N-1) * T_write) + N * T_
 
 Here is a program that computes the time to create 500 atoms with Xlib and XCB. It shows the Xlib way, the bad XCB way (which is similar to Xlib) and the good XCB way. On my computer, XCB is 25 times faster than Xlib.
 
-            #include <stdlib.h>
-            #include <stdio.h>
-            #include <string.h>
-            #include <sys/time.h>
+                /* It's a good idea to paste this and other long code examples 
+                   into a text editor for easier reading */
 
-            #include <xcb/xcb.h>
+		#include <stdlib.h>
+		#include <stdio.h>
+		#include <string.h>
+		#include <sys/time.h>
 
-            #include <X11/Xlib.h>
+		#include <xcb/xcb.h>
 
-            double
-            get_time(void)
-            {
-              struct timeval timev;
+		#include <X11/Xlib.h>
 
-              gettimeofday(&timev, NULL);
+		#define NUM_NAMES 500
 
-              return (double)timev.tv_sec + (((double)timev.tv_usec) / 1000000);
-            }
+		/*
+		NOTE: For concision, we're going to be cheesy and use 
+		arrays where real code would use points and memory allocation.
+		*/
 
-            int
-            main ()
-            {
-              xcb_connection_t         *c;
-              xcb_atom_t               *atoms;
-              xcb_intern_atom_cookie_t *cs;
-              char                    **names;
-              int                       count;
-              int                       i;
-              double                    start;
-              double                    end;
-              double                    diff;
+		/* return interval of time (uses time.h) */
+		double
+		get_time (void)
+		{
+		    struct timeval timev;            
+		    gettimeofday(&timev, NULL);
+		    return (double)timev.tv_sec + (((double)timev.tv_usec) / 1000000);
+		}
 
-              /* Xlib */
-              Display *disp;
-              Atom    *atoms_x;
-              double   diff_x;
 
-              c = xcb_connect (NULL, NULL);
+		void
+		useXlib (char **names)
+		{
+			Display *display = XOpenDisplay (getenv("DISPLAY"));
 
-              count = 500;
-              atoms = (xcb_atom_t *)malloc (count * sizeof (atoms));
-              names = (char **)malloc (count * sizeof (char *));
+			Atom atoms[NUM_NAMES];
 
-              /* init names */
-              for (i = 0; i < count; ++i) {
-                char buf[100];
+			for (int i = 0; i < NUM_NAMES; ++i) {
+				atoms[i] = XInternAtom(display, names[i], 0);
+			}
 
-                sprintf (buf, "NAME%d", i);
-                names[i] = strdup (buf);
-              }
+			XCloseDisplay (display);
+		}
 
-              /* bad use */
-              start = get_time ();
 
-              for (i = 0; i < count; ++i)
-                atoms[i] = xcb_intern_atom_reply (c,
-                                                  xcb_intern_atom (c,
-                                                                   0,
-                                                                   strlen(names[i]),
-                                                                   names[i]),
-                                                  NULL)->atom;
+		void
+		useXCBPoorly (char **names)
+		{
+			xcb_connection_t          *connection = xcb_connect (NULL, NULL);
+			xcb_atom_t                atoms[NUM_NAMES];
+			xcb_intern_atom_cookie_t  cookies[NUM_NAMES];
+	
+			// in this bad use of xcb, we use the cookie immediately after posting the request with xcb_intern_atom 
+	
+			for (int i = 0; i < NUM_NAMES; ++i) {
+				/* make request */
+				cookies[i] = xcb_intern_atom (connection, 
+											  0, 
+											  strlen(names[i]),
+											  names[i] );
+		
+				/* get response */
+				xcb_intern_atom_reply_t *reply = xcb_intern_atom_reply (connection, 
+																		cookies[i], 
+																		NULL ); // normally a pointer to receive error, but we'll just ignore error handling 
+		
+				if (reply) {
+					atoms[i] = reply->atom;
+				}
+				free(reply);
+			}
+	
+			xcb_disconnect (connection);
+		}
 
-              end = get_time ();
-              diff = end - start;
-              printf ("bad use time  : %f\n", diff);
 
-              /* good use */
-              start = get_time ();
+		void
+		useXCBProperly (char **names)
+		{
+			xcb_connection_t           *connection = xcb_connect (NULL, NULL);
+			xcb_atom_t                 atoms[NUM_NAMES];
+			xcb_intern_atom_cookie_t   cookies[NUM_NAMES];
 
-              cs = (xcb_intern_atom_cookie_t *) malloc (count * sizeof(xcb_intern_atom_cookie_t));
-              for(i = 0; i < count; ++i)
-                cs[i] = xcb_intern_atom (c, 0, strlen(names[i]), names[i]);
+			// in this good example, we make all our requests before checking for
+			// replies because it's best to queue requests when we have many at once	
+	
+			/* make requests */
+			for (int i = 0; i < NUM_NAMES; ++i) {
+				cookies[i] = xcb_intern_atom (connection, 
+											  0, 
+											  strlen (names[i]), 
+											  names[i] );
+			}
 
-              for(i = 0; i < count; ++i) {
-                xcb_intern_atom_reply_t *r;
+			/* get responses */
+			for (int i = 0; i < NUM_NAMES; ++i) {
+				xcb_intern_atom_reply_t *reply = xcb_intern_atom_reply (connection, 
+																		cookies[i], 
+																		NULL ); // normally a pointer to receive errors, but we'll just ignore error handling
+		
+				if (reply) {
+					atoms[i] = reply->atom;
+				}
+				free (reply);
+			}
+	
+			xcb_disconnect (connection);
+		}
 
-                r = xcb_intern_atom_reply(c, cs[i], 0);
-                if(r)
-                  atoms[i] = r->atom;
-                free(r);
-              }
 
-              end = get_time ();
-              printf ("good use time : %f\n", end - start);
-              printf ("ratio         : %f\n", diff / (end - start));
-              diff = end - start;
+		int
+		main ()
+		{
+			/* setup names for tests */
 
-              /* free var */
-              for (i = 0; i < count; ++i)
-                free (names[i]);
-              free (atoms);
-              free (cs);
+			char (*names)[NUM_NAMES];
 
-              xcb_disconnect (c);
+			// init names to "NAME0", "NAME1", "NAME2" ... and so on
+			for (int i = 0; i < NUM_NAMES; ++i) {
+				char buf[100];
+				sprintf (buf, "NAME%d", i);
+				names[i] = strdup (buf);
+			}
 
-              /* Xlib */
-              disp = XOpenDisplay (getenv("DISPLAY"));
 
-              atoms_x = (Atom *)malloc (count * sizeof (atoms_x));
+			/* do tests */
+	
+			double start, XlibTime, XCBBadTime, XCBGootTime;
 
-              start = get_time ();
+			start = get_time ();
+			useXlib (names);
+			XlibTime = get_time () - start;
+	
+			start = get_time ();
+			useXCBPoorly (names);
+			XCBBadTime = get_time () - start;	
 
-              for (i = 0; i < count; ++i)
-                atoms_x[i] = XInternAtom(disp, names[i], 0);
+			start = get_time ();
+			useXCBProperly (names);
+			XCBGoodTime = get_time () - start;
+	
+	
+			/* report times */
+	
+			printf ("Xlib time : %f\n", XlibTime);
+			printf ("Bad xcb time  : %f\n", XCBBadTime);
+			printf ("Good xcb time : %f\n", XCBGoodTime);
+	
+			printf ("ratio of good xcb time to bad xcb time: %f\n", XCBGoodTime / XCBBadTime);
+			printf ("ratio of Xlib time to good xcb time: %f\n", XlibTime / XCBGoodTime);
 
-              end = get_time ();
-              diff_x = end - start;
-              printf ("Xlib use time : %f\n", diff_x);
-              printf ("ratio         : %f\n", diff_x / diff);
 
-              free (atoms_x);
-              free (names);
+			/* free names */
+	
+			for (int i = 0; i < NUM_NAMES; ++i) {
+				free (names[i]);
+			}
 
-              XCloseDisplay (disp);
+			return 0;
+		}
 
-              return 0;
-            }
 
 ### 4.3 The Graphic Context
 
