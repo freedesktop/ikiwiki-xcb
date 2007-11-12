@@ -281,36 +281,28 @@ Compiling XCB-based programs requires linking them with the XCB library. This is
 
 # 6. Opening and closing the connection to an X server
 
-An X program first needs to open the connection to the X server. There is a function that opens a connection. It requires the display name, or NULL. In the latter case, the display name will be the one in the environment variable DISPLAY.
+An X program first needs to open the connection to the X server, using xcb_connect():
 
-      xcb_connection_t *xcb_connect (const char *displayname,
-                                     int        *screenp);
+		xcb_connection_t *xcb_connect (const char *displayname,  // if NULL, uses the DISPLAY environment variable
+									   int        *screenp );    // returns the screen number of the connection; can provide NULL if you don't care
 
-The second parameter returns the screen number used for the connection. The returned structure describes an XCB connection and is opaque. Here is how the connection can be opened:
+To close a connection, it suffices to use:
+		
+		void xcb_disconnect (xcb_connection_t *c);
+		
+So for example:
 
-      #include <xcb/xcb.h>
+		#include <xcb/xcb.h>
 
-      int
-      main ()
-      {
-        xcb_connection_t *c;
+		...
 
-        /* Open the connection to the X server. Use the DISPLAY environment variable as the default display name */
-        c = xcb_connect (NULL, NULL);
+		xcb_connection_t *c = xcb_connect (NULL, NULL);
+		xcb_disconnect (c);
 
-        return 0;
-      }
+Comparison Xlib/XCB:
 
-      To close a connection, it suffices to use:
-
-      void xcb_disconnect (xcb_connection_t *c);
-
-Comparison Xlib/XCB
-
-* XOpenDisplay () 
-* xcb_connect () 
-* XCloseDisplay () 
-* xcb_disconnect () 
+* XOpenDisplay ()   =>   xcb_connect () 
+* XCloseDisplay ()  =>   xcb_disconnect () 
 
 # 7. Checking basic information about a connection
 
