@@ -306,67 +306,70 @@ Comparison Xlib/XCB:
 
 # 7. Checking basic information about a connection
 
-Once we have opened a connection to an X server, we should check some basic information about it: what screens it has, what is the size (width and height) of the screen, how many colors it supports (black and white ? grey scale ?, 256 colors ? more ?), and so on. We get such information from the xcb_screen_t structure:
+Once we have opened a connection to an X server, we should check some basic information about it: what screens it has, what is the size (width and height) of the screen, how many colors it supports (black and white ? grey scale ?, 256 colors ? more ?), and so on. We get such information from the xcbscreent structure:
 
-      typedef struct {
-          xcb_window_t   root;
-          xcb_colormap_t default_colormap;
-          uint32_t       white_pixel;
-          uint32_t       black_pixel;
-          uint32_t       current_input_masks;
-          uint16_t       width_in_pixels;
-          uint16_t       height_in_pixels;
-          uint16_t       width_in_millimeters;
-          uint16_t       height_in_millimeters;
-          uint16_t       min_installed_maps;
-          uint16_t       max_installed_maps;
-          xcb_visualid_t root_visual;
-          uint8_t        backing_stores;
-          uint8_t        save_unders;
-          uint8_t        root_depth;
-          uint8_t        allowed_depths_len;
-      } xcb_screen_t;
+		typedef struct {
+			xcb_window_t   root;
+			xcb_colormap_t default_colormap;
+			uint32_t       white_pixel;
+			uint32_t       black_pixel;
+			uint32_t       current_input_masks;
+			uint16_t       width_in_pixels;
+			uint16_t       height_in_pixels;
+			uint16_t       width_in_millimeters;
+			uint16_t       height_in_millimeters;
+			uint16_t       min_installed_maps;
+			uint16_t       max_installed_maps;
+			xcb_visualid_t root_visual;
+			uint8_t        backing_stores;
+			uint8_t        save_unders;
+			uint8_t        root_depth;
+			uint8_t        allowed_depths_len;
+		} xcb_screen_t;
 
 We could retrieve the first screen of the connection by using the following function:
 
-      xcb_screen_iterator_t xcb_setup_roots_iterator (xcb_setup_t *R);
+		xcb_screen_iterator_t xcb_setup_roots_iterator (xcb_setup_t *R);
 
 Here is a small program that shows how to use this function:
 
-      #include <stdio.h>
+		#include <stdio.h>
+		#include <xcb/xcb.h>
 
-      #include <xcb/xcb.h>
+		int
+		main ()
+		{
+			/* Open the connection to the X server. Use the DISPLAY environment variable */
+			
+			int screenNum;
+			xcb_connection_t *connection = xcb_connect (NULL, &screenNum);
 
-      int
-      main ()
-      {
-        xcb_connection_t     *c;
-        xcb_screen_t         *screen;
-        int                   screen_nbr;
-        xcb_screen_iterator_t iter;
+			
+			/* Get the screen whose number is screenNum */
 
-        /* Open the connection to the X server. Use the DISPLAY environment variable */
-        c = xcb_connect (NULL, &screen_nbr);
+			const xcb_setup_t *setup = xcb_get_setup (connection);
+			xcb_screen_iterator_t iter = xcb_setup_roots_iterator (setup);  
+			
+			// we want the screen at index screenNum of the iterator
+			for (int i = 0; i < screenNum; ++i) {
+				xcb_screen_next (&iter);
+			}
+			
+			xcb_screen_t *screen = iter.data;
 
-        /* Get the screen #screen_nbr */
-        iter = xcb_setup_roots_iterator (xcb_get_setup (c));
-        for (; iter.rem; --screen_nbr, xcb_screen_next (&iter))
-          if (screen_nbr == 0) {
-            screen = iter.data;
-            break;
-          }
+			
+			/* report */
 
-        printf ("\n");
-        printf ("Informations of screen %ld:\n", screen->root);
-        printf ("  width.........: %d\n", screen->width_in_pixels);
-        printf ("  height........: %d\n", screen->height_in_pixels);
-        printf ("  white pixel...: %ld\n", screen->white_pixel);
-        printf ("  black pixel...: %ld\n", screen->black_pixel);
-        printf ("\n");
+			printf ("\n");
+			printf ("Informations of screen %ld:\n", screen->root);
+			printf ("  width.........: %d\n", screen->width_in_pixels);
+			printf ("  height........: %d\n", screen->height_in_pixels);
+			printf ("  white pixel...: %ld\n", screen->white_pixel);
+			printf ("  black pixel...: %ld\n", screen->black_pixel);
+			printf ("\n");
 
-        return 0;
-      }
-
+			return 0;
+		}
 # 8. Creating a basic window - the "hello world" program
 
 After we got some basic information about our screen, we can create our first window. In the X Window System, a window is characterized by an Id. So, in XCB, a window is of type:
