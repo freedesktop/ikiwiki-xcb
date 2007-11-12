@@ -880,66 +880,69 @@ Note: A common programmer oversight is adding code to handle new event types whi
 
 After we have registered for the event types we are interested in, we need to enter a loop of receiving events and handling them. There are two ways to receive events: a blocking way and a non-blocking way:
 
-* xcb_wait_for_event (xcb_connection_t *c) is the blocking way. It waits (so blocks...) until an event is queued in the X server. Then it retrieves it into a newly allocated structure (it dequeues it from the queue) and returns it. This structure has to be freed. The function returns NULL if an error occurs.
-* xcb_poll_for_event (xcb_connection_t *c, int *error) is the non-blocking way. It looks at the event queue and returns (and dequeues too) an existing event into a newly allocated structure. This structure has to be freed. It returns NULL if there is no event. If an error occurs, the parameter error will be filled with the error status. 
+The blocking way:
 
-There are various ways to write such a loop. We present two ways to write such a loop, with the two functions above. The first one uses xcb_wait_for_event_t, which is similar to an event Xlib loop using only XNextEvent:
+		xcb_generic_event_t *xcb_wait_for_event (xcb_connection_t *c);
 
-              xcb_generic_event_t *e;
+...blocks until an event is queued in the X server, then deques it from the queue, then returns it as a newly allocated structure (which is your responsibility to free). May return NULL in event of an error.
 
-              while ((e = xcb_wait_for_event (c))) {
-                switch (e->response_type & ~0x80) {
-                case XCB_EXPOSE: {
-                  /* Handle the Expose event type */
-                  xcb_expose_event_t *ev = (xcb_expose_event_t *)e;
+The non-blocking way:
 
-                  /* ... */
+		xcb_generic_event_t *xcb_poll_for_event (xcb_connection_t *c, int *error);
+		
+...immediately dequeus and returns an event, but returns NULL if no event is available at the time of the call. If an error occurs, the parameter error will be filled with the error status.
 
-                  break;
-                }
-                case XCB_BUTTON_PRESS: {
-                  /* Handle the ButtonPress event type */
-                  xcb_button_press_event_t *ev = (xcb_button_press_event_t *)e;
+Here's how you might use xcb_wait_for_event:
 
-                  /* ... */
+		xcb_generic_event_t *event;
 
-                  break;
-                }
-                default: {
-                  /* Unknown event type, ignore it */
-                  break;
-                }
-                }
-                /* Free the Generic Event */
-                free (e);
-              }
+		while (event = xcb_wait_for_event (connection)) {
+			switch (event->response_type & ~0x80) {
+			case XCB_EXPOSE:
+				xcb_expose_event_t *expose = (xcb_expose_event_t *)event;
+				/* ...do stuff */
+				break;
+			case XCB_BUTTON_PRESS:
+				xcb_button_press_event_t *press = (xcb_button_press_event_t *)event;
+				/* ...do stuff */
+				break;
+			default:
+				/* Unknown event type, ignore it */
+				break;
+			}
 
-You will certainly want to use xcb_poll_for_event(xcb_connection_t *c, int *error) if, in Xlib, you use XPending or XCheckMaskEvent:
+			free (event);
+		}
 
-              while (XPending (display)) {
-                XEvent ev;
+Non-blocking handling in Xlib looks like this:
 
-                XNextEvent(d, &ev);
+		while (XPending (display)) {
+			XEvent event;
+			XNextEvent(display, &event);
+			/* ...handle the event */
+		}
 
-                /* Manage your event */
-              }
+The equivalent in XCB looks like:
 
-Such a loop in XCB looks like:
+		xcb_generic_event_t *event;
 
-              xcb_generic_event_t *ev;
+		while (event = xcb_poll_for_event (connection, 0)) {
+			/* ...handle the event */
+		}
 
-              while ((ev = xcb_poll_for_event (conn, 0))) {
-                /* Manage your event */
-              }
+Basically, the events are managed in the same way as with xcb\_wait\_for\_event. Obviously, your endless event handling loop will need to give the user some way of terminating the program. This is usually done by handling a special "quit" event, as we will soon see.
 
-The events are managed in the same way as with xcb_wait_for_event_t. Obviously, we will need to give the user some way of terminating the program. This is usually done by handling a special "quit" event, as we will soon see.
+Comparison Xlib/XCB:
 
-Comparison Xlib/XCB
- * XNextEvent () 
- * xcb_wait_for_event () 
- * XPending ()
- * XCheckMaskEvent () 
- * xcb_poll_for_event () 
+* XNextEvent () => 
+
+		xcb_wait_for_event ()
+		
+* XPending () , XCheckMaskEvent ()  =>
+	
+		xcb_poll_for_event ()
+
+
 
 ### 10.3 Expose events
 
