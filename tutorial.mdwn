@@ -374,97 +374,100 @@ Here is a small program that shows how to use this function:
 
 After we got some basic information about our screen, we can create our first window. In the X Window System, a window is characterized by an Id. So, in XCB, a window is of type:
 
-      typedef uint32_t xcb_window_t;
+		typedef uint32_t xcb_window_t;
 
 We first ask for a new Id for our window, with this function:
 
-      xcb_window_t xcb_generate_id(xcb_connection_t *c);
+		xcb_window_t xcb_generate_id (xcb_connection_t *c);  // xcb_window_t is just a typedef for uint32_t
 
 Then, XCB supplies the following function to create new windows:
 
-      xcb_void_cookie_t xcb_create_window (xcb_connection_t *c,             /* Pointer to the xcb_connection_t structure */
-                                           uint8_t           depth,         /* Depth of the screen */
-                                           xcb_window_t      wid,           /* Id of the window */
-                                           xcb_window_t      parent,        /* Id of an existing window that should be the parent of the new window */
-                                           int16_t           x,             /* X position of the top-left corner of the window (in pixels) */
-                                           int16_t           y,             /* Y position of the top-left corner of the window (in pixels) */
-                                           uint16_t          width,         /* Width of the window (in pixels) */
-                                           uint16_t          height,        /* Height of the window (in pixels) */
-                                           uint16_t          border_width,  /* Width of the window's border (in pixels) */
-                                           uint16_t          _class,
-                                           xcb_visualid_t    visual,
-                                           uint32_t          value_mask,
-                                           const uint32_t   *value_list);
+		xcb_void_cookie_t xcb_create_window (xcb_connection_t *c,             /* Pointer to the xcb_connection_t structure */
+											 uint8_t           depth,         /* Depth of the screen */
+											 xcb_window_t      wid,           /* Id of the window */
+											 xcb_window_t      parent,        /* Id of an existing window that should be the parent of the new window */
+											 int16_t           x,             /* X position of the top-left corner of the window (in pixels) */
+											 int16_t           y,             /* Y position of the top-left corner of the window (in pixels) */
+											 uint16_t          width,         /* Width of the window (in pixels) */
+											 uint16_t          height,        /* Height of the window (in pixels) */
+											 uint16_t          border_width,  /* Width of the window's border (in pixels) */
+											 uint16_t          _class,
+											 xcb_visualid_t    visual,
+											 uint32_t          value_mask,
+											 const uint32_t   *value_list );
 
-The fact that we created the window does not mean that it will be drawn on screen. By default, newly created windows are not mapped on the screen (they are invisible). In order to make our window visible, we use the function xcb_map_window(), whose prototype is
+The fact that we created the window does not mean that it will be drawn on screen. By default, newly created windows are not mapped on the screen (they are invisible). In order to make our window visible, we use the function xcbmapwindow(), whose prototype is
 
-      xcb_void_cookie_t xcb_map_window (xcb_connection_t *c,
-                                        xcb_window_t      window);
+		xcb_void_cookie_t xcb_map_window (xcb_connection_t  *c,
+										  xcb_window_t       window );
 
 Finally, here is a small program to create a window of size 150x150 pixels, positioned at the top-left corner of the screen:
 
-      #include <unistd.h>      /* pause() */
+		#include <unistd.h>      /* pause() */
 
-      #include <xcb/xcb.h>
+		#include <xcb/xcb.h>
 
-      int
-      main ()
-      {
-        xcb_connection_t *c;
-        xcb_screen_t     *screen;
-        xcb_window_t      win;
+		int
+		main ()
+		{
+			/* Open the connection to the X server */
+			xcb_connection_t *connection = xcb_connect (NULL, NULL);
 
-        /* Open the connection to the X server */
-        c = xcb_connect (NULL, NULL);
 
-        /* Get the first screen */
-        screen = xcb_setup_roots_iterator (xcb_get_setup (c)).data;
+			/* Get the first screen */
+			const xcb_setup_t      *setup  = xcb_get_setup (connection);
+			xcb_screen_iterator_t   iter   = xcb_setup_roots_iterator (setup);
+			xcb_screen_t           *screen = iter.data;
 
-        /* Ask for our window's Id */
-        win = xcb_generate_id(c);
 
-        /* Create the window */
-        xcb_create_window (c,                             /* Connection          */
-                           XCB_COPY_FROM_PARENT,          /* depth (same as root)*/
-                           win,                           /* window Id           */
-                           screen->root,                  /* parent window       */
-                           0, 0,                          /* x, y                */
-                           150, 150,                      /* width, height       */
-                           10,                            /* border_width        */
-                           XCB_WINDOW_CLASS_INPUT_OUTPUT, /* class               */
-                           screen->root_visual,           /* visual              */
-                           0, NULL);                      /* masks, not used yet */
+			/* Create the window */
+			xcb_window_t window = xcb_generate_id (connection); // get id
+			xcb_create_window (c,                             /* Connection          */
+							   XCB_COPY_FROM_PARENT,          /* depth (same as root)*/
+							   window,                        /* window Id           */
+							   screen->root,                  /* parent window       */
+							   0, 0,                          /* x, y                */
+							   150, 150,                      /* width, height       */
+							   10,                            /* border_width        */
+							   XCB_WINDOW_CLASS_INPUT_OUTPUT, /* class               */
+							   screen->root_visual,           /* visual              */
+							   0, NULL );                     /* masks, not used yet */
 
-        /* Map the window on the screen */
-        xcb_map_window (c, win);
 
-        /* Make sure commands are sent before we pause, so window is shown */
-        xcb_flush (c);
+			/* Map the window on the screen */
+			xcb_map_window (connection, window);
 
-        pause ();    /* hold client until Ctrl-C */
 
-        return 0;
-      }
+			/* Make sure commands are sent before we pause so that the window gets shown */
+			xcb_flush (connection);
 
-In this code, you see one more function - xcb_flush(), not explained yet. It is used to flush all the pending requests. More precisely, there are 2 functions that do such things. The first one is xcb_flush():
 
-      int xcb_flush (xcb_connection_t *c);
+			pause ();    /* hold client until Ctrl-C */
 
-This function flushes all pending requests to the X server (much like the fflush() function is used to flush standard output). The second function is xcb_aux_sync():
+			xcb_disconnection (connection);
+			
+			return 0;
+		}
 
-      int xcb_aux_sync (xcb_connection_t *c);
+In this code, you see one more function - xcbflush(), not explained yet. It is used to flush all the pending requests. More precisely, there are 2 functions that do such things. The first one is xcbflush():
+
+		int xcb_flush (xcb_connection_t *c);
+
+This function flushes all pending requests to the X server (much like the fflush() function is used to flush standard output). The second function is xcbauxsync():
+
+		int xcb_aux_sync (xcb_connection_t *c);
 
 This functions also flushes all pending requests to the X server, and then waits until the X server finishing processing these requests. In a normal program, this will not be necessary (we'll see why when we get to write a normal X program), but for now, we put it there.
 
-The window that is created by the above code has a non defined background. This one can be set to a specific color, thanks to the two last parameters of xcb_create_window(), which are not described yet. See the subsections Configuring a window or Registering for event types using event masks for examples on how to use these parameters. In addition, as no events are handled, you have to make a Ctrl-C to interrupt the program.
+The window that is created by the above code has a non defined background. This one can be set to a specific color, thanks to the two last parameters of xcbcreatewindow(), which are not described yet. See the subsections Configuring a window or Registering for event types using event masks for examples on how to use these parameters. In addition, as no events are handled, you have to make a Ctrl-C to interrupt the program.
 
 TODO: one should tell what these functions return and about the generic error
 
-Comparison Xlib/XCB
+Comparison Xlib/XCB:
 
-* XCreateWindow () 
-* xcb_generate_id ()
-* xcb_create_window () 
+* XCreateWindow ()  => 
+        xcb_generate_id ()
+        xcb_create_window ()
 
 # 9. Drawing in a window
 
