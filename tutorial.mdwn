@@ -529,42 +529,43 @@ Comparison Xlib/XCB:
 
 Once we have allocated a Graphic Context, we may need to change its attributes (for example, changing the foreground color we use to draw a line, or changing the attributes of the font we use to display strings. See Subsections Drawing with a color and Assigning a Font to a Graphic Context). This is done by using this function:
 
-            xcb_void_cookie_t xcb_change_gc (xcb_connection_t *c,           /* The XCB Connection */
-                                             xcb_gcontext_t    gc,          /* The Graphic Context */
-                                             uint32_t          value_mask,  /* Components of the Graphic Context that have to be set */
-                                             const uint32_t   *value_list); /* Value as specified by value_mask */
+		xcb_void_cookie_t xcb_change_gc (xcb_connection_t *c,            /* The XCB Connection */
+										 xcb_gcontext_t    gc,           /* The Graphic Context */
+										 uint32_t          value_mask,   /* Components of the Graphic Context that have to be set */
+										 const uint32_t   *value_list ); /* Value as specified by value_mask */
 
-The value_mask parameter could take any combination of these masks from the xcb_gc_t enumeration:
+The valuemask parameter could take any combination of these masks from the xcbgc_t enumeration:
 
-* XCB_GC_FUNCTION
-* XCB_GC_PLANE_MASK
-* XCB_GC_FOREGROUND
-* XCB_GC_BACKGROUND
-* XCB_GC_LINE_WIDTH
-* XCB_GC_LINE_STYLE
-* XCB_GC_CAP_STYLE
-* XCB_GC_JOIN_STYLE
-* XCB_GC_FILL_STYLE
-* XCB_GC_FILL_RULE
-* XCB_GC_TILE
-* XCB_GC_STIPPLE
-* XCB_GC_TILE_STIPPLE_ORIGIN_X
-* XCB_GC_TILE_STIPPLE_ORIGIN_Y
-* XCB_GC_FONT
-* XCB_GC_SUBWINDOW_MODE
-* XCB_GC_GRAPHICS_EXPOSURES
-* XCB_GC_CLIP_ORIGIN_X
-* XCB_GC_CLIP_ORIGIN_Y
-* XCB_GC_CLIP_MASK
-* XCB_GC_DASH_OFFSET
-* XCB_GC_DASH_LIST
-* XCB_GC_ARC_MODE 
+		XCB_GC_FUNCTION
+		XCB_GC_PLANE_MASK
+		XCB_GC_FOREGROUND
+		XCB_GC_BACKGROUND
+		XCB_GC_LINE_WIDTH
+		XCB_GC_LINE_STYLE
+		XCB_GC_CAP_STYLE
+		XCB_GC_JOIN_STYLE
+		XCB_GC_FILL_STYLE
+		XCB_GC_FILL_RULE
+		XCB_GC_TILE
+		XCB_GC_STIPPLE
+		XCB_GC_TILE_STIPPLE_ORIGIN_X
+		XCB_GC_TILE_STIPPLE_ORIGIN_Y
+		XCB_GC_FONT
+		XCB_GC_SUBWINDOW_MODE
+		XCB_GC_GRAPHICS_EXPOSURES
+		XCB_GC_CLIP_ORIGIN_X
+		XCB_GC_CLIP_ORIGIN_Y
+		XCB_GC_CLIP_MASK
+		XCB_GC_DASH_OFFSET
+		XCB_GC_DASH_LIST
+		XCB_GC_ARC_MODE
 
-It is possible to set several attributes at the same time (for example setting the attributes of a font and the color which will be used to display a string), by OR'ing these values in value_mask. Then value_list has to be an array which lists the value for the respective attributes. These values must be in the same order as masks listed above. See Subsection Drawing with a color to have an example.
+It is possible to set several attributes at the same time (for example setting the attributes of a font and the color which will be used to display a string), by OR'ing these values in valuemask. Then valuelist has to be an array which lists the value for the respective attributes. These values must be in the same order as masks listed above. See Subsection Drawing with a color to have an example.
 
 TODO: set the links of the 3 subsections, once they will be written :)
 
 TODO: give an example which sets several attributes.
+
 
 ### 9.3 Drawing primitives: point, line, box, circle,...
 
