@@ -974,81 +974,84 @@ Expose event definition:
 
 User input traditionally comes from two sources: the mouse and the keyboard. Various event types exist to notify us of user input (a key being presses on the keyboard, a key being released on the keyboard, the mouse moving over our window, the mouse entering (or leaving) our window, and so on.
 
-##### 10.4.1 Mouse button press and release events
+###10.4.1 Mouse button press and release events
 
 The first event type we will deal with is a mouse button-press (or button-release) event in our window. In order to register to such an event type, we should add one (or more) of the following masks when we create our window:
 
-* XCB_EVENT_MASK_BUTTON_PRESS: notify us of any button that was pressed in one of our windows.
-* XCB_EVENT_MASK_BUTTON_RELEASE: notify us of any button that was released in one of our windows. 
+		XCB_EVENT_MASK_BUTTON_PRESS     //notify us of any button that was pressed in one of our windows.
+		XCB_EVENT_MASK_BUTTON_RELEASE   //notify us of any button that was released in one of our windows.
 
-The structure to be checked for in our events loop is the same for these two events, and is the following:
+Both kinds of events are represented with the same structure, but for the sake of self-documentation, it goes by two names:
 
-                  typedef struct {
-                      uint8_t         response_type; /* The type of the event, here it is xcb_button_press_event_t or xcb_button_release_event_t */
-                      xcb_button_t    detail;
-                      uint16_t        sequence;
-                      xcb_timestamp_t time;          /* Time, in milliseconds the event took place in */
-                      xcb_window_t    root;
-                      xcb_window_t    event;
-                      xcb_window_t    child;
-                      int16_t         root_x;
-                      int16_t         root_y;
-                      int16_t         event_x;       /* The x coordinate where the mouse has been pressed in the window */
-                      int16_t         event_y;       /* The y coordinate where the mouse has been pressed in the window */
-                      uint16_t        state;         /* A mask of the buttons (or keys) during the event */
-                      uint8_t         same_screen;
-                  } xcb_button_press_event_t;
+		typedef struct {
+			uint8_t         response_type; /* The type of the event, here it is xcb_button_press_event_t or xcb_button_release_event_t */
+			xcb_button_t    detail;
+			uint16_t        sequence;
+			xcb_timestamp_t time;          /* Time, in milliseconds the event took place in */
+			xcb_window_t    root;
+			xcb_window_t    event;
+			xcb_window_t    child;
+			int16_t         root_x;
+			int16_t         root_y;
+			int16_t         event_x;       /* The x coordinate where the mouse has been pressed in the window */
+			int16_t         event_y;       /* The y coordinate where the mouse has been pressed in the window */
+			uint16_t        state;         /* A mask of the buttons (or keys) during the event */
+			uint8_t         same_screen;
+		} xcb_button_press_event_t;
 
-                  typedef xcb_button_press_event_t xcb_button_release_event_t;
+		typedef xcb_button_press_event_t xcb_button_release_event_t;
 
 The time field may be used to calculate "double-click" situations by an application (e.g. if the mouse button was clicked two times in a duration shorter than a given amount of time, assume this was a double click).
 
-The state field is a mask of the buttons held down during the event. It is a bitwise OR of any of the following (from the xcb_button_mask_t and xcb_mod_mask_t enumerations):
+The state field is a mask of the buttons held down during the event. It is a bitwise OR of any of the following (from the xcbbuttonmaskt and xcbmodmaskt enumerations):
 
-* XCB_BUTTON_MASK_1
-* XCB_BUTTON_MASK_2
-* XCB_BUTTON_MASK_3
-* XCB_BUTTON_MASK_4
-* XCB_BUTTON_MASK_5
-* XCB_MOD_MASK_SHIFT
-* XCB_MOD_MASK_LOCK
-* XCB_MOD_MASK_CONTROL
-* XCB_MOD_MASK_1
-* XCB_MOD_MASK_2
-* XCB_MOD_MASK_3
-* XCB_MOD_MASK_4
-* XCB_MOD_MASK_5 
+		XCB_BUTTON_MASK_1
+		XCB_BUTTON_MASK_2
+		XCB_BUTTON_MASK_3
+		XCB_BUTTON_MASK_4
+		XCB_BUTTON_MASK_5
+		XCB_MOD_MASK_SHIFT
+		XCB_MOD_MASK_LOCK
+		XCB_MOD_MASK_CONTROL
+		XCB_MOD_MASK_1
+		XCB_MOD_MASK_2
+		XCB_MOD_MASK_3
+		XCB_MOD_MASK_4
+		XCB_MOD_MASK_5
 
-Their names are self explanatory, where the first 5 refer to the mouse buttons that are being pressed, while the rest refer to various "special keys" that are being pressed (Mod1 is usually the 'Alt' key or the 'Meta' key).
+Their names are self explanatory, where the first 5 refer to the mouse buttons that are being pressed, while the rest refer to various "special keys" that are being pressed (Mod mask 1 is usually the 'Alt' key or the 'Meta' key).
 
 TODO: Problem: it seems that the state does not change when clicking with various buttons.
 
 ##### 10.4.2 Mouse movement events
 
-Similar to mouse button press and release events, we also can be notified of various mouse movement events. These can be split into two families. One is of mouse pointer movement while no buttons are pressed, and the second is a mouse pointer motion while one (or more) of the buttons are pressed (this is sometimes called "a mouse drag operation", or just "dragging"). The following event masks may be added during the creation of our window:
+Similar to mouse button press and release events, we also can be notified of various mouse movement events. These can be split into two families. One is of mouse pointer movement while no buttons are pressed, and the second is a mouse pointer motion while one (or more) of the buttons are pressed (this is sometimes called "a mouse drag operation", or just "dragging"). The following event masks may be added during the creation of our window to register for these events:
 
-* XCB_EVENT_MASK_POINTER_MOTION: events of the pointer moving in one of the windows controlled by our application, while no mouse button is held pressed.
-* XCB_EVENT_MASK_BUTTON_MOTION: Events of the pointer moving while one or more of the mouse buttons is held pressed.
-* XCB_EVENT_MASK_BUTTON_1_MOTION: same as XCB_EVENT_MASK_BUTTON_MOTION, but only when the 1st mouse button is held pressed.
-* XCB_EVENT_MASK_BUTTON_2_MOTION, XCB_EVENT_MASK_BUTTON_3_MOTION, XCB_EVENT_MASK_BUTTON_4_MOTION, XCB_EVENT_MASK_BUTTON_5_MOTION: same as XCB_EVENT_MASK_BUTTON_1_MOTION, but respectively for 2nd, 3rd, 4th and 5th mouse button. 
+	XCB_EVENT_MASK_POINTER_MOTION   // motion with no mouse button held
+	XCB_EVENT_MASK_BUTTON_MOTION    // motion with one or more mouse buttons held
+	XCB_EVENT_MASK_BUTTON_1_MOTION  // motion while only 1st mouse button is held
+	XCB_EVENT_MASK_BUTTON_2_MOTION  // and so on...
+	XCB_EVENT_MASK_BUTTON_3_MOTION
+	XCB_EVENT_MASK_BUTTON_4_MOTION
+	XCB_EVENT_MASK_BUTTON_5_MOTION
 
-The structure to be checked for in our events loop is the same for these events, and is the following:
+These all generate events of this type:
 
-                  typedef struct {
-                      uint8_t         response_type; /* The type of the event */
-                      uint8_t         detail;
-                      uint16_t        sequence;
-                      xcb_timestamp_t time;          /* Time, in milliseconds the event took place in */
-                      xcb_window_t    root;
-                      xcb_window_t    event;
-                      xcb_window_t    child;
-                      int16_t         root_x;
-                      int16_t         root_y;
-                      int16_t         event_x;       /* The x coordinate of the mouse when the  event was generated */
-                      int16_t         event_y;       /* The y coordinate of the mouse when the  event was generated */
-                      uint16_t        state;         /* A mask of the buttons (or keys) during the event */
-                      uint8_t         same_screen;
-                  } xcb_motion_notify_event_t;
+		typedef struct {
+			uint8_t         response_type; /* The type of the event */
+			uint8_t         detail;
+			uint16_t        sequence;
+			xcb_timestamp_t time;          /* Time, in milliseconds the event took place in */
+			xcb_window_t    root;
+			xcb_window_t    event;
+			xcb_window_t    child;
+			int16_t         root_x;
+			int16_t         root_y;
+			int16_t         event_x;       /* The x coordinate of the mouse when the  event was generated */
+			int16_t         event_y;       /* The y coordinate of the mouse when the  event was generated */
+			uint16_t        state;         /* A mask of the buttons (or keys) during the event */
+			uint8_t         same_screen;
+		} xcb_motion_notify_event_t;
 
 ##### 10.4.3 Mouse pointer enter and leave events
 
