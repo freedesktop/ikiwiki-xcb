@@ -474,60 +474,56 @@ Comparison Xlib/XCB:
 
 Drawing in a window can be done using various graphical functions (drawing pixels, lines, rectangles, etc). In order to draw in a window, we first need to define various general drawing parameters (what line width to use, which color to draw with, etc). This is done using a graphical context.
 
-### 9.1 Allocating a Graphics Context
+###9.1 Allocating a Graphics Context
 
 As we said, a graphical context defines several attributes to be used with the various drawing functions. For this, we define a graphical context. We can use more than one graphical context with a single window, in order to draw in multiple styles (different colors, different line widths, etc). In XCB, a Graphics Context is, as a window, characterized by an Id:
 
-            typedef uint32_t xcb_gcontext_t;
+		typedef uint32_t xcb_gcontext_t;
 
 We first ask the X server to attribute an Id to our graphic context with this function:
 
-            xcb_gcontext_t xcb_generate_id (xcb_connection_t *c);
+		xcb_gcontext_t xcb_generate_id (xcb_connection_t *c);
 
 Then, we set the attributes of the graphic context with this function:
 
-            xcb_void_cookie_t xcb_create_gc (xcb_connection_t *c,
-                                             xcb_gcontext_t    cid,
-                                             xcb_drawable_t    drawable,
-                                             uint32_t          value_mask,
-                                             const uint32_t   *value_list);
+		xcb_void_cookie_t xcb_create_gc (xcb_connection_t *c,
+										 xcb_gcontext_t    cid,
+										 xcb_drawable_t    drawable,
+										 uint32_t          value_mask,
+										 const uint32_t   *value_list );
 
 We give now an example on how to allocate a graphic context that specifies that each drawing function that uses it will draw in foreground with a black color.
 
-            #include <xcb/xcb.h>
+		#include <xcb/xcb.h>
 
-            int
-            main ()
-            {
-              xcb_connection_t *c;
-              xcb_screen_t     *screen;
-              xcb_drawable_t    win;
-              xcb_gcontext_t    black;
-              uint32_t          mask;
-              uint32_t          value[1];
+		int
+		main ()
+		{
+			/* Open the connection to the X server and get the first screen */
+			xcb_connection_t *connection = xcb_connect (NULL, NULL);
+			xcb_screen_t     *screen     = xcb_setup_roots_iterator (xcb_get_setup (connection)).data;
 
-              /* Open the connection to the X server and get the first screen */
-              c = xcb_connect (NULL, NULL);
-              screen = xcb_setup_roots_iterator (xcb_get_setup (c)).data;
+			/* Create a black graphic context for drawing in the foreground */
+			xcb_drawable_t  window   = screen->root;
+			xcb_gcontext_t  black    = xcb_generate_id (connection);
+			uint32_t        mask     = XCB_GC_FOREGROUND;
+			uint32_t        value[]  = { screen->black_pixel };
+			
+			xcb_create_gc (connection, black, window, mask, value);
 
-              /* Create a black graphic context for drawing in the foreground */
-              win = screen->root;
-              black = xcb_generate_id (c);
-              mask = XCB_GC_FOREGROUND;
-              value[0] = screen->black_pixel;
-              xcb_create_gc (c, black, win, mask, value);
+			return 0;
+		}
 
-              return 0;
-            }
-
-Note should be taken regarding the role of "value_mask" and "value_list" in the prototype of xcb_create_gc(). Since a graphic context has many attributes, and since we often just want to define a few of them, we need to be able to tell the xcb_create_gc() which attributes we want to set. This is what the "value_mask" parameter is for. We then use the "value_list" parameter to specify actual values for the attribute we defined in "value_mask". Thus, for each constant used in "value_list", we will use the matching constant in "value_mask". In this case, we define a graphic context with one attribute: when drawing (a point, a line, etc), the foreground color will be black. The rest of the attributes of this graphic context will be set to their default values.
+Note should be taken regarding the role of "valuemask" and "valuelist" in the prototype of xcbcreategc(). Since a graphic context has many attributes, and since we often just want to define a few of them, we need to be able to tell the xcbcreategc() which attributes we want to set. This is what the "valuemask" parameter is for. We then use the "valuelist" parameter to specify actual values for the attribute we defined in "valuemask". Thus, for each constant used in "valuelist", we will use the matching constant in "value_mask". In this case, we define a graphic context with one attribute: when drawing (a point, a line, etc), the foreground color will be black. The rest of the attributes of this graphic context will be set to their default values.
 
 See the next Subsection for more details.
 
-Comparison Xlib/XCB
-* XCreateGC () 
-* xcb_generate_id ()
-* xcb_create_gc () 
+Comparison Xlib/XCB: 
+
+* XCreateGC () =>
+		
+		xcb_generate_id ()
+		xcb_create_gc ()
 
 ### 9.2 Changing the attributes of a Graphics Context
 
