@@ -950,25 +950,25 @@ The Expose event is one of the most basic (and most used) events an application 
 
 * A window that covered part of our window has moved away, exposing part (or all) of our window.
 * Our window was raised above other windows.
-* Our window mapped for the first time.
-* Our window was de-iconified. 
+* Our window was mapped for the first time.
+* Our window was de-iconified  (to 'iconify' a window is to minimize it or send it to the tray such that it is not shown at all)
 
-You should note the implicit assumption hidden here: the contents of our window is lost when it is being obscured (covered) by either windows. One may wonder why the X server does not save this contents. The answer is: to save memory. After all, the number of windows on a display at a given time may be very large, and storing the contents of all of them might require a lot of memory. Actually, there is a way to tell the X server to store the contents of a window in special cases, as we will see later.
+You should note the implicit assumption hidden here: the contents of our window are lost when it is being obscured (covered) by either windows. One may wonder why the X server does not save this content. The answer is: to save memory. After all, the number of windows on a display at a given time may be very large, and storing the contents of all of them might require a lot of memory. (Actually, there is a way to tell the X server to store the contents of a window in special cases, as we will see later.)
 
-When we get an Expose event, we should take the event's data from the members of the following structure:
+Expose event definition:
 
-            typedef struct {
-                uint8_t      response_type; /* The type of the event, here it is XCB_EXPOSE */
-                uint8_t      pad0;
-                uint16_t     sequence;
-                xcb_window_t window;        /* The Id of the window that receives the event (in case */
-                                            /* our application registered for events on several windows */
-                uint16_t     x;             /* The x coordinate of the top-left part of the window that needs to be redrawn */
-                uint16_t     y;             /* The y coordinate of the top-left part of the window that needs to be redrawn */
-                uint16_t     width;         /* The width of the part of the window that needs to be redrawn */
-                uint16_t     height;        /* The height of the part of the window that needs to be redrawn */
-                uint16_t     count;
-            } xcb_expose_event_t;
+		typedef struct {
+			uint8_t      response_type; /* The type of the event, here it is XCB_EXPOSE */
+			uint8_t      pad0;
+			uint16_t     sequence;
+			xcb_window_t window;        /* The Id of the window that receives the event (in case */
+										/* our application registered for events on several windows */
+			uint16_t     x;             /* The x coordinate of the top-left part of the window that needs to be redrawn */
+			uint16_t     y;             /* The y coordinate of the top-left part of the window that needs to be redrawn */
+			uint16_t     width;         /* The width of the part of the window that needs to be redrawn */
+			uint16_t     height;        /* The height of the part of the window that needs to be redrawn */
+			uint16_t     count;
+		} xcb_expose_event_t;
 
 ### 10.4 Getting user input
 
