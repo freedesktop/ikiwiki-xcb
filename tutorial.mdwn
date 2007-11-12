@@ -378,7 +378,7 @@ After we got some basic information about our screen, we can create our first wi
 
 We first ask for a new Id for our window, with this function:
 
-		xcb_window_t xcb_generate_id (xcb_connection_t *c);  // xcb_window_t is just a typedef for uint32_t
+		xcb_window_t xcb_generate_id (xcb_connection_t *c);
 
 Then, XCB supplies the following function to create new windows:
 
@@ -421,7 +421,7 @@ Finally, here is a small program to create a window of size 150x150 pixels, posi
 
 
 			/* Create the window */
-			xcb_window_t window = xcb_generate_id (connection); // get id
+			xcb_window_t window = xcb_generate_id (connection);
 			xcb_create_window (c,                             /* Connection          */
 							   XCB_COPY_FROM_PARENT,          /* depth (same as root)*/
 							   window,                        /* window Id           */
@@ -465,7 +465,8 @@ TODO: one should tell what these functions return and about the generic error
 
 Comparison Xlib/XCB:
 
-* XCreateWindow ()  => 
+* XCreateWindow ()  =>
+ 
         xcb_generate_id ()
         xcb_create_window ()
 
