@@ -1,33 +1,38 @@
-**This page is being formatted. A readable copy is [here](http://gitweb.freedesktop.org/?p=xcb/libxcb.git;a=blob_plain;f=doc/tutorial/index.html)**
+**Tutorial based off original [here](http://gitweb.freedesktop.org/?p=xcb/libxcb.git;a=blob_plain;f=doc/tutorial/index.html), which in turn was based off an Xlib tutorial by Guy Keren.**
+
+After reading this page, read these pages (in this order):
 
 * [[BasicWindowsAndDrawing]]
 * [[Events]]
 * [[TextAndFonts|Fonts]]
+* [[WindowContextAndManipulation]]
+* [[ColorsAndPixMaps]]
+* [[MouseCursors]]
+* [[XlibToXCBTranslationGuide]]
 
+# Introduction
 
-# 1. Introduction
+This tutorial is intended for people who want to program with the XCB library. Keep in mind that XCB, like the Xlib library, isn't what most programmers wanting to write X applications are looking for. Rather, most application developers will want to use a much higher-level GUI toolkit, like Motif, LessTiff, GTK, QT, EWL, or ETK or perhaps use the higher-level drawing library Cairo. However, the basics of XCB are not all that complicated, and knowing about the layers those other libraries are built on top of is not a bad idea.
 
-This tutorial is based on the Xlib Tutorial written by Guy Keren. The author allowed me to take some parts of his text, mainly the text which deals with the X Windows generality.
+After reading this tutorial, one should be able to write very simple graphical programs but not write programs with decent user interfaces (at least easily). For real applications, the previously mentioned libraries are much more appropriate.
 
-This tutorial is intended for people who want to start to program with the XCB library. keep in mind that XCB, like the Xlib library, isn't what post programmers wanting to write X applications are looking for. They should use a much higher level GUI toolkit like Motif, LessTiff, GTK, QT, EWL, ETK, or use Cairo. However, we need to start somewhere. More than this, knowing how things work down below is never a bad idea.
+# What is XCB and why does it exist?
 
-After reading this tutorial, one should be able to write very simple graphical programs, but not programs with decent user interfaces. For such programs, one of the previously mentioned libraries should be used.
+XCB ("X C Binding") is an low-level API for the X window server. XCB is an alternative to Xlib, which has been the standard C binding for the X Window System protocol for many years now. Xlib is an excellent piece of work, but there are applications for which it is not ideal, for example:
 
-But what is XCB? Xlib has been the standard C binding for the X Window System protocol for many years now. It is an excellent piece of work, but there are applications for which it is not ideal, for example:
+* **Small platforms**: Xlib is a large piece of code, and it's difficult to make it smaller
+* **Latency hiding**: Xlib requests requiring a reply are effectively synchronous: they block until the reply appears, whether the result is needed immediately or not.
+* **Direct access to the protocol**: Xlib does quite a bit of caching, layering, and similar optimizations. While this is normally a feature, it makes it difficult to simply emit specified X protocol requests and process specific responses.
+* **Threaded applications**: While Xlib does attempt to support multithreading, the API makes this difficult and error-prone.
+* **New extensions**: The Xlib infrastructure provides limited support for the new creation of X extension client side code. 
 
-* Small platforms: Xlib is a large piece of code, and it's difficult to make it smaller
-* Latency hiding: Xlib requests requiring a reply are effectively synchronous: they block until the reply appears, whether the result is needed immediately or not.
-* Direct access to the protocol: Xlib does quite a bit of caching, layering, and similar optimizations. While this is normally a feature, it makes it difficult to simply emit specified X protocol requests and process specific responses.
-* Threaded applications: While Xlib does attempt to support multithreading, the API makes this difficult and error-prone.
-* New extensions: The Xlib infrastructure provides limited support for the new creation of X extension client side code. 
-
-For these reasons, among others, XCB, an X C binding, has been designed to solve the above problems and thus provide a base for
+XCB has been designed to solve the above problems and thus provide a base for:
 
 * Toolkit implementation.
 * Direct protocol-level programming.
 * Lightweight emulation of commonly used portions of the Xlib API. 
 
-# 2. The client and server model of the X window system
+# The client and server model of the X window system
 
 The X Window System was developed with one major goal: flexibility. The idea was that the way things look is one thing, but the way things work is another matter. Thus, the lower levels provide the tools required to draw windows, handle user input, allow drawing graphics using colors (or black and white screens), etc. To this point, a decision was made to separate the system into two parts. A client that decides what to do, and a server that actually draws on the screen and reads user input in order to send it to the client for processing.
 
@@ -35,7 +40,7 @@ This model is the complete opposite of what is used to when dealing with clients
 
 The whole session is carried out using the X message protocol. This protocol was originally carried over the TCP/IP protocol suite, allowing the client to run on any machine connected to the same network that the server is. Later on, the X servers were extended to allow clients running on the local machine with more optimized access to the server (note that an X protocol message may be several hundreds of KB in size), such as using shared memory, or using Unix domain sockets (a method for creating a logical channel on a Unix system between two processes).
 
-# 3. GUI programming: the asynchronous model
+# GUI programming: the asynchronous model
 
 Unlike conventional computer programs, that carry some serial nature, a GUI program usually uses an asynchronous programming model, also known as "event-driven programming". This means that that program mostly sits idle, waiting for events sent by the X server, and then acts upon these events. An event may say "The user pressed the 1st button mouse in spot (x,y)", or "The window you control needs to be redrawn". In order for the program to be responsive to the user input, as well as to refresh requests, it needs to handle each event in a rather short period of time (e.g. less that 200 milliseconds, as a rule of thumb).
 
@@ -53,15 +58,15 @@ So the way a GUI program looks is something like that:
   5. Close down the connection to the X server.
   6. Perform cleanup operations. 
 
-# 4. Basic XCB notions
+# Basic XCB notions
 
 XCB has been created to eliminate the need for programs to actually implement the X protocol layer. This library gives a program a very low-level access to any X server. Since the protocol is standardized, a client using any implementation of XCB may talk with any X server (the same occurs for Xlib, of course). We now give a brief description of the basic XCB notions. They will be detailed later.
 
-### 4.1 The X Connection
+### 1. The X Connection
 
 The major notion of using XCB is the X Connection. This is a structure representing the connection we have open with a given X server. It hides a queue of messages coming from the server, and a queue of pending requests that our client intends to send to the server. In XCB, this structure is named 'xcb_connection_t'. It is analogous to the Xlib Display. When we open a connection to an X server, the library returns a pointer to such a structure. Later, we supply this pointer to any XCB function that should send messages to the X server or receive messages from this server.
 
-### 4.2 Requests and replies: the Xlib killers
+### 2. Requests and replies: the Xlib killers
 
 To ask for information from the X server, we have to make a request and ask for a reply. With Xlib, these two tasks are automatically done: Xlib locks the system, sends a request, waits for a reply from the X server and unlocks. This is annoying, especially if one makes a lot of requests to the X server. Indeed, Xlib has to wait for the end of a reply before asking for the next request (because of the locks that Xlib sends). For example, here is a time-line of N=4 requests/replies with Xlib, with a round-trip latency T_round_trip that is 5 times long as the time required to write or read a request/reply (T_write/T_read):
 
@@ -100,7 +105,10 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 		arrays where real code would use points and memory allocation.
 		*/
 
-		/* return interval of time (uses time.h) */
+
+		/* 
+		   return interval of time (uses time.h) 
+		*/
 		double
 		get_time (void)
 		{
@@ -109,24 +117,26 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 		    return (double)timev.tv_sec + (((double)timev.tv_usec) / 1000000);
 		}
 
-
+		
+		/*
+		*/
 		void
-		useXlib (char **names)
+		useXlib (char **names,
+				 Display *display )
 		{
-			Display *display = XOpenDisplay (getenv("DISPLAY"));
-
 			Atom atoms[NUM_NAMES];
 
 			for (int i = 0; i < NUM_NAMES; ++i) {
 				atoms[i] = XInternAtom(display, names[i], 0);
 			}
-
-			XCloseDisplay (display);
 		}
 
 
+		/*
+		*/
 		void
-		useXCBPoorly (char **names)
+		useXCBPoorly (char **names,
+					  xcb_connection_t *connection )
 		{
 			xcb_connection_t          *connection = xcb_connect (NULL, NULL);
 			xcb_atom_t                atoms[NUM_NAMES];
@@ -152,15 +162,15 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 			}
 			
 			// now we have our atoms (replies), but this is just a demo, so we do nothing with them
-	
-			xcb_disconnect (connection);
 		}
 
-
+		
+		/*
+		*/
 		void
-		useXCBProperly (char **names)
+		useXCBProperly (char **names,
+						xcb_connection_t *connection )
 		{
-			xcb_connection_t           *connection = xcb_connect (NULL, NULL);
 			xcb_atom_t                 atoms[NUM_NAMES];
 			xcb_intern_atom_cookie_t   cookies[NUM_NAMES];
 
@@ -188,8 +198,6 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 			}
 			
 			// now we have our atoms (replies), but this is just a demo, so we do nothing with them
-	
-			xcb_disconnect (connection);
 		}
 
 
@@ -212,10 +220,22 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 	
 			double start, XlibTime, XCBBadTime, XCBGootTime;
 
+
+			/* test Xlib */
+			
+			Display *display = XOpenDisplay (getenv("DISPLAY"));
+
 			start = get_time ();
 			useXlib (names);
 			XlibTime = get_time () - start;
 	
+			XCloseDisplay (display);
+
+
+			/* test XCB */
+
+			xcb_connection_t *connection = xcb_connect (NULL, NULL);
+			
 			start = get_time ();
 			useXCBPoorly (names);
 			XCBBadTime = get_time () - start;	
@@ -223,6 +243,8 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 			start = get_time ();
 			useXCBProperly (names);
 			XCBGoodTime = get_time () - start;
+	
+			xcb_disconnect (connection);
 	
 	
 			/* report times */
@@ -245,19 +267,19 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 		}
 
 
-### 4.3 The Graphic Context
+### 3. The Graphics Context
 
 When we perform various drawing operations (graphics, text, etc), we may specify various options for controlling how the data will be drawn (what foreground and background colors to use, how line edges will be connected, what font to use when drawing some text, etc). In order to avoid the need to supply hundreds of parameters to each drawing function, a graphical context structure is used. We set the various drawing options in this structure, and then we pass a pointer to this structure to any drawing routines. This is rather handy, as we often need to perform several drawing requests with the same options. Thus, we would initialize a graphical context, set the desired options, and pass this structure to all drawing functions.
 
 Note that graphic contexts have no client-side structure in XCB, they're just XIDs. Xlib has a client-side structure because it caches the GC contents so it can avoid making redundant requests, but of course XCB doesn't do that.
 
-### 4.4 Events
+### 4. Events
 
 A structure is used to pass events received from the X server. XCB supports exactly the events specified in the protocol (33 events). This structure contains the type of event received (including a bit for whether it came from the server or another client), as well as the data associated with the event (e.g. position on the screen where the event was generated, mouse button associated with the event, region of the screen associated with a "redraw" event, etc). The way to read the event's data depends on the event type.
 
-# 5. Using XCB-based programs
+# Using XCB-based programs
 
-### 5.1 Installation of XCB
+### 1. Installing XCB
 
 TODO: These instructions are out of date. Just reference the main XCB page so we don't have to maintain these instructions in more than one place.
 
@@ -278,13 +300,13 @@ You have to checkout in the git repository the following modules:
 
 Note that xcb-proto exists only to install header files, so typing 'make' or 'make all' will produce the message "Nothing to be done for 'all'". That's normal.
 
-### 5.2 Compiling XCB-based programs
+### 2. Compiling XCB-based programs
 
 Compiling XCB-based programs requires linking them with the XCB library. This is easily done thanks to pkgconfig:
 
     gcc -Wall prog.c -o prog `pkg-config --cflags --libs xcb`
 
-# 6. Opening and closing the connection to an X server
+# Opening and closing the connection to an X server
 
 An X program first needs to open the connection to the X server, using xcb_connect():
 
@@ -309,7 +331,7 @@ Comparison Xlib/XCB:
 * XOpenDisplay ()   =>   xcb_connect () 
 * XCloseDisplay ()  =>   xcb_disconnect () 
 
-# 7. Checking basic information about a connection
+# Checking basic information about a connection
 
 Once we have opened a connection to an X server, we should check some basic information about it: what screens it has, what is the size (width and height) of the screen, how many colors it supports (black and white ? grey scale ?, 256 colors ? more ?), and so on. We get such information from the xcbscreent structure:
 
@@ -376,1621 +398,6 @@ Here is a small program that shows how to use this function:
 			return 0;
 		}
 
-# 12. Windows hierarchy
+# The window hierarchy
 
 TODO
-
-# 13. Interacting with the window manager
-
-After we have seen how to create windows and draw on them, we take one step back, and look at how our windows are interacting with their environment (the full screen and the other windows). First of all, our application needs to interact with the window manager. The window manager is responsible to decorating drawn windows (i.e. adding a frame, an iconify button, a system menu, a title bar, etc), as well as handling icons shown when windows are being iconified. It also handles ordering of windows on the screen, and other administrative tasks. We need to give it various hints as to how we want it to treat our application's windows.
-
-### 13.1 Window properties
-
-Many of the parameters communicated to the window manager are passed using data called "properties". These properties are attached by the X server to different windows, and are stored in a format that makes it possible to read them from different machines that may use different architectures (remember that an X client program may run on a remote machine).
-
-The property and its type (a string, an integer, etc) are Id. Their type are xcb_atom_t:
-
-            typedef uint32_t xcb_atom_t;
-
-To change the property of a window, we use the following function:
-
-            xcb_void_cookie_t xcb_change_property (xcb_connection_t *c,       /* Connection to the X server */
-                                                   uint8_t          mode,     /* Property mode */
-                                                   xcb_window_t     window,   /* Window */
-                                                   xcb_atom_t       property, /* Property to change */
-                                                   xcb_atom_t       type,     /* Type of the property */
-                                                   uint8_t          format,   /* Format of the property (8, 16, 32) */
-                                                   uint32_t         data_len, /* Length of the data parameter */
-                                                   const void      *data);    /* Data */
-
-The mode parameter coud be one of the following values (defined in enumeration xcb_prop_mode_t in the xproto.h header file):
-
-* XCB_PROP_MODE_REPLACE
-* XCB_PROP_MODE_PREPEND
-* XCB_PROP_MODE_APPEND 
-
-### 13.2 Setting the window name and icon name
-
-The first thing we want to do would be to set the name for our window. This is done using the xcb_change_property() function. This name may be used by the window manager as the title of the window (in the title bar), in a task list, etc. The property atom to use to set the name of a window is WM_NAME (and WM_ICON_NAME for the iconified window) and its type is STRING. Here is an example of utilization:
-
-            #include <string.h>
-
-            #include <xcb/xcb.h>
-            #include <xcb/xcb_atom.h>
-
-            int
-            main ()
-            {
-              xcb_connection_t *c;
-              xcb_screen_t     *screen;
-              xcb_window_t      win;
-              char             *title = "Hello World !";
-              char             *title_icon = "Hello World ! (iconified)";
-
-
-
-              /* Open the connection to the X server */
-              c = xcb_connect (NULL, NULL);
-
-              /* Get the first screen */
-              screen = xcb_setup_roots_iterator (xcb_get_setup (c)).data;
-
-              /* Ask for our window's Id */
-              win = xcb_generate_id (c);
-
-              /* Create the window */
-              xcb_create_window (c,                             /* Connection          */
-                                 0,                             /* depth               */
-                                 win,                           /* window Id           */
-                                 screen->root,                  /* parent window       */
-                                 0, 0,                          /* x, y                */
-                                 250, 150,                      /* width, height       */
-                                 10,                            /* border_width        */
-                                 XCB_WINDOW_CLASS_INPUT_OUTPUT, /* class               */
-                                 screen->root_visual,           /* visual              */
-                                 0, NULL);                      /* masks, not used     */
-
-              /* Set the title of the window */
-              xcb_change_property (c, XCB_PROP_MODE_REPLACE, win,
-                                   WM_NAME, STRING, 8,
-                                   strlen (title), title);
-
-              /* Set the title of the window icon */
-              xcb_change_property (c, XCB_PROP_MODE_REPLACE, win,
-                                   WM_ICON_NAME, STRING, 8,
-                                   strlen(title_icon), title_icon);
-
-              /* Map the window on the screen */
-              xcb_map_window (c, win);
-
-              xcb_flush (c);
-
-              while (1) {}
-
-              return 0;
-            }
-
-Note: the use of the atoms needs our program to be compiled and linked against xcb_atom, so that we have to use
-
-            gcc prog.c -o prog `pkg-config --cflags --libs xcb_atom`
-
-...for the program to compile fine.
-
-# 14. Simple window operations
-
-One more thing we can do to our window is manipulate them on the screen (resize them, move them, raise or lower them, iconify them, and so on). Some window operations functions are supplied by XCB for this purpose.
-
-### 14.1 Mapping and un-mapping a window
-
-The first pair of operations we can apply on a window is mapping it, or un-mapping it. Mapping a window causes the window to appear on the screen, as we have seen in our simple window program example. Un-mapping it causes it to be removed from the screen (although the window as a logical entity still exists). This gives the effect of making a window hidden (unmapped) and shown again (mapped). For example, if we have a dialog box window in our program, instead of creating it every time the user asks to open it, we can create the window once, in an un-mapped mode, and when the user asks to open it, we simply map the window on the screen. When the user clicked the 'OK' or 'Cancel' button, we simply un-map the window. This is much faster than creating and destroying the window, however, the cost is wasted resources, both on the client side, and on the X server side.
-
-To map a window, you use the following function:
-
-            xcb_void_cookie_t xcb_map_window (xcb_connection_t *c,
-                                              xcb_window_t      window);
-
-To have a simple example, see the example above. The mapping operation will cause an Expose event to be sent to our application, unless the window is completely covered by other windows.
-
-Un-mapping a window is also simple. You use the function
-
-            xcb_void_cookie_t xcb_unmap_window (xcb_connection_t *c,
-                                                xcb_window_t      window);
-
-The utilization of this function is the same as xcb_map_window().
-
-### 14.2 Configuring a window
-
-As we have seen when we have created our first window, in the X Events subsection, we can set some attributes for the window (that is, the position, the size, the events the window will receive, etc). If we want to modify them, but the window is already created, we can change them by using the following function:
-
-            xcb_void_cookie_t xcb_configure_window (xcb_connection_t *c,            /* The connection to the X server*/
-                                                    xcb_window_t      window,       /* The window to configure */
-                                                    uint16_t          value_mask,   /* The mask */
-                                                    const uint32_t   *value_list);  /* The values to set */
-
-We set the value_mask to one or several mask values that are in the xcb_config_window_t enumeration in the xproto.h header:
-
-* XCB_CONFIG_WINDOW_X: new x coordinate of the window's top left corner
-* XCB_CONFIG_WINDOW_Y: new y coordinate of the window's top left corner
-* XCB_CONFIG_WINDOW_WIDTH: new width of the window
-* XCB_CONFIG_WINDOW_HEIGHT: new height of the window
-* XCB_CONFIG_WINDOW_BORDER_WIDTH: new width of the border of the window
-* XCB_CONFIG_WINDOW_SIBLING
-* XCB_CONFIG_WINDOW_STACK_MODE: the new stacking order 
-
-We then give to value_mask the new value. We now describe how to use xcb_configure_window_t in some useful situations.
-
-### 14.3 Moving a window around the screen
-
-An operation we might want to do with windows is to move them to a different location. This can be done like this:
-
-            const static uint32_t values[] = { 10, 20 };
-
-            /* The connection c and the window win are supposed to be defined */
-
-            /* Move the window to coordinates x = 10 and y = 20 */
-            xcb_configure_window (c, win, XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y, values);
-
-Note that when the window is moved, it might get partially exposed or partially hidden by other windows, and thus we might get Expose events due to this operation.
-
-### 14.4 Resizing a window
-
-Yet another operation we can do is to change the size of a window. This is done using the following code:
-
-            const static uint32_t values[] = { 200, 300 };
-
-            /* The connection c and the window win are supposed to be defined */
-
-            /* Resize the window to width = 10 and height = 20 */
-            xcb_configure_window (c, win, XCB_CONFIG_WINDOW_WIDTH | XCB_CONFIG_WINDOW_HEIGHT, values);
-
-We can also combine the move and resize operations using one single call to xcb_configure_window_t:
-
-            const static uint32_t values[] = { 10, 20, 200, 300 };
-
-            /* The connection c and the window win are supposed to be defined */
-
-            /* Move the window to coordinates x = 10 and y = 20 */
-            /* and resize the window to width = 10 and height = 20 */
-            xcb_configure_window (c, win, XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y | XCB_CONFIG_WINDOW_WIDTH | XCB_CONFIG_WINDOW_HEIGHT, values);
-
-### 14.5 Changing windows stacking order: raise and lower
-
-Until now, we changed properties of a single window. We'll see that there are properties that relate to the window and other windows. One of them is the stacking order. That is, the order in which the windows are layered on top of each other. The front-most window is said to be on the top of the stack, while the back-most window is at the bottom of the stack. Here is how to manipulate our windows stack order:
-
-            const static uint32_t values[] = { XCB_STACK_MODE_ABOVE };
-
-            /* The connection c and the window win are supposed to be defined */
-
-            /* Move the window on the top of the stack */
-            xcb_configure_window (c, win, XCB_CONFIG_WINDOW_STACK_MODE, values);
-
-            const static uint32_t values[] = { XCB_STACK_MODE_BELOW };
-
-            /* The connection c and the window win are supposed to be defined */
-
-            /* Move the window on the bottom of the stack */
-            xcb_configure_window (c, win, XCB_CONFIG_WINDOW_STACK_MODE, values);
-
-### 14.6 Getting information about a window
-
-Just like we can set various attributes of our windows, we can also ask the X server supply the current values of these attributes. For example, we can check where a window is located on the screen, what is its current size, whether it is mapped or not, etc. The structure that contains some of this information is
-
-            typedef struct {
-                uint8_t      response_type;
-                uint8_t      depth;         /* depth of the window */
-                uint16_t     sequence;
-                uint32_t     length;
-                xcb_window_t root;          /* Id of the root window *>
-                int16_t      x;             /* X coordinate of the window's location */
-                int16_t      y;             /* Y coordinate of the window's location */
-                uint16_t     width;         /* Width of the window */
-                uint16_t     height;        /* Height of the window */
-                uint16_t     border_width;  /* Width of the window's border */
-            } xcb_get_geometry_reply_t;
-
-            XCB fill this structure with two functions:
-
-            xcb_get_geometry_cookie_t  xcb_get_geometry       (xcb_connection_t         *c,
-                                                               xcb_drawable_t            drawable);
-            xcb_get_geometry_reply_t  *xcb_get_geometry_reply (xcb_connection_t         *c,
-                                                               xcb_get_geometry_cookie_t cookie,
-                                                               xcb_generic_error_t     **e);
-
-You use them as follows:
-
-              xcb_connection_t         *c;
-              xcb_drawable_t            win;
-              xcb_get_geometry_reply_t *geom;
-
-              /* You initialize c and win */
-
-              geom = xcb_get_geometry_reply (c, xcb_get_geometry (c, win), NULL);
-
-              /* Do something with the fields of geom */
-
-              free (geom);
-
-Remark that you have to free the structure, as xcb_get_geometry_reply_t allocates a newly one.
-
-One problem is that the returned location of the window is relative to its parent window. This makes these coordinates rather useless for any window manipulation functions, like moving it on the screen. In order to overcome this problem, we need to take a two-step operation. First, we find out the Id of the parent window of our window. We then translate the above relative coordinates to the screen coordinates.
-
-To get the Id of the parent window, we need this structure:
-
-            typedef struct {
-                uint8_t      response_type;
-                uint8_t      pad0;
-                uint16_t     sequence;
-                uint32_t     length;
-                xcb_window_t root;
-                xcb_window_t parent;       /* Id of the parent window */
-                uint16_t     children_len;
-                uint8_t      pad1[14];
-            } xcb_query_tree_reply_t;
-
-To fill this structure, we use these two functions:
-
-            xcb_query_tree_cookie_t xcb_query_tree       (xcb_connection_t        *c,
-                                                          xcb_window_t             window);
-            xcb_query_tree_reply_t *xcb_query_tree_reply (xcb_connection_t        *c,
-                                                          xcb_query_tree_cookie_t  cookie,
-                                                          xcb_generic_error_t    **e);
-
-The translated coordinates will be found in this structure:
-
-            typedef struct {
-                uint8_t      response_type;
-                uint8_t      same_screen;
-                uint16_t     sequence;
-                uint32_t     length;
-                xcb_window_t child;
-                uint16_t     dst_x;        /* Translated x coordinate */
-                uint16_t     dst_y;        /* Translated y coordinate */
-            } xcb_translate_coordinates_reply_t;
-
-As usual, we need two functions to fill this structure:
-
-            xcb_translate_coordinates_cookie_t xcb_translate_coordinates       (xcb_connection_t                  *c,
-                                                                                xcb_window_t                       src_window,
-                                                                                xcb_window_t                       dst_window,
-                                                                                int16_t                            src_x,
-                                                                                int16_t                            src_y);
-            xcb_translate_coordinates_reply_t *xcb_translate_coordinates_reply (xcb_connection_t                  *c,
-                                                                                xcb_translate_coordinates_cookie_t cookie,
-                                                                                xcb_generic_error_t              **e);
-
-We use them as follows:
-
-              xcb_connection_t                  *c;
-              xcb_drawable_t                     win;
-              xcb_get_geometry_reply_t          *geom;
-              xcb_query_tree_reply_t            *tree;
-              xcb_translate_coordinates_reply_t *trans;
-
-              /* You initialize c and win */
-
-              geom  = xcb_get_geometry_reply (c, xcb_get_geometry (c, win), NULL);
-              if (!geom)
-                return 0;
-
-              tree  = xcb_query_tree_reply (c, xcb_query_tree (c, win), NULL);
-              if (!tree)
-                return 0;
-
-              trans = xcb_translate_coordinates_reply (c,
-                                                       xcb_translate_coordinates (c,
-                                                                                  win,
-                                                                                  tree->parent,
-                                                                                  geom->x, geom->y),
-                                                       NULL);
-              if (!trans)
-                return 0;
-
-              /* the translated coordinates are in trans->dst_x and trans->dst_y */
-
-              free (trans);
-              free (tree);
-              free (geom);
-
-Of course, as for geom, tree and trans have to be freed.
-
-The work is a bit hard, but XCB is a very low-level library.
-
-TODO: the utilization of these functions should be a prog, which displays the coordinates of the window.
-
-There is another structure that gives informations about our window:
-
-            typedef struct {
-                uint8_t        response_type;
-                uint8_t        backing_store;
-                uint16_t       sequence;
-                uint32_t       length;
-                xcb_visualid_t visual;                /* Visual of the window */
-                uint16_t       _class;
-                uint8_t        bit_gravity;
-                uint8_t        win_gravity;
-                uint32_t       backing_planes;
-                uint32_t       backing_pixel;
-                uint8_t        save_under;
-                uint8_t        map_is_installed;
-                uint8_t        map_state;             /* Map state of the window */
-                uint8_t        override_redirect;
-                xcb_colormap_t colormap;              /* Colormap of the window */
-                uint32_t       all_event_masks;
-                uint32_t       your_event_mask;
-                uint16_t       do_not_propagate_mask;
-            } xcb_get_window_attributes_reply_t;
-
-            XCB supplies these two functions to fill it:
-
-            xcb_get_window_attributes_cookie_t xcb_get_window_attributes       (xcb_connection_t                  *c,
-                                                                                xcb_window_t                       window);
-            xcb_get_window_attributes_reply_t *xcb_get_window_attributes_reply (xcb_connection_t                  *c,
-                                                                                xcb_get_window_attributes_cookie_t cookie,
-                                                                                xcb_generic_error_t              **e);
-
-You use them as follows:
-
-              xcb_connection_t                  *c;
-              xcb_drawable_t                     win;
-              xcb_get_window_attributes_reply_t *attr;
-
-              /* You initialize c and win */
-
-              attr = xcb_get_window_attributes_reply (c, xcb_get_window_attributes (c, win), NULL);
-
-              if (!attr)
-                return 0;
-
-              /* Do something with the fields of attr */
-
-              free (attr);
-
-As for geom, attr has to be freed.
-
-# 15. Using colors to paint the rainbow
-
-Up until now, all our painting operation were done using black and white. We will (finally) see now how to draw using colors.
-
-### 15.1 Color maps
-
-In the beginning, there were not enough colors. Screen controllers could only support a limited number of colors simultaneously (initially 2, then 4, 16 and 256). Because of this, an application could not just ask to draw in a "light purple-red" color, and expect that color to be available. Each application allocated the colors it needed, and when all the color entries (4, 16, 256 colors) were in use, the next color allocation would fail.
-
-Thus, the notion of "a color map" was introduced. A color map is a table whose size is the same as the number of simultaneous colors a given screen controller. Each entry contained the RGB (Red, Green and Blue) values of a different color (all colors can be drawn using some combination of red, green and blue). When an application wants to draw on the screen, it does not specify which color to use. Rather, it specifies which color entry of some color map to be used during this drawing. Change the value in this color map entry and the drawing will use a different color.
-
-In order to be able to draw using colors that got something to do with what the programmer intended, color map allocation functions are supplied. You could ask to allocate entry for a color with a set of RGB values. If one already existed, you would get its index in the table. If none existed, and the table was not full, a new cell would be allocated to contain the given RGB values, and its index returned. If the table was full, the procedure would fail. You could then ask to get a color map entry with a color that is closest to the one you were asking for. This would mean that the actual drawing on the screen would be done using colors similar to what you wanted, but not the same.
-
-On today's more modern screens where one runs an X server with support for 16 million colors, this limitation looks a little silly, but remember that there are still older computers with older graphics cards out there. Using color map, support for these screen becomes transparent to you. On a display supporting 16 million colors, any color entry allocation request would succeed. On a display supporting a limited number of colors, some color allocation requests would return similar colors. It won't look as good, but your application would still work.
-
-### 15.2 Allocating and freeing Color Maps
-
-When you draw using XCB, you can choose to use the standard color map of the screen your window is displayed on, or you can allocate a new color map and apply it to a window. In the latter case, each time the mouse moves onto your window, the screen color map will be replaced by your window's color map, and you'll see all the other windows on screen change their colors into something quite bizzare. In fact, this is the effect you get with X applications that use the "-install" command line option.
-
-In XCB, a color map is (as often in X) an Id:
-
-            typedef uint32_t xcb_colormap_t;
-
-In order to access the screen's default color map, you just have to retrieve the default_colormap field of the xcb_screen_t structure (see Section Checking basic information about a connection):
-
-            #include <stdio.h>
-
-            #include <xcb/xcb.h>
-
-            int
-            main ()
-            {
-              xcb_connection_t *c;
-              xcb_screen_t     *screen;
-              xcb_colormap_t    colormap;
-
-              /* Open the connection to the X server and get the first screen */
-              c = xcb_connect (NULL, NULL);
-              screen = xcb_setup_roots_iterator (xcb_get_setup (c)).data;
-
-              colormap = screen->default_colormap;
-
-              return 0;
-            }
-
-This will return the color map used by default on the first screen (again, remember that an X server may support several different screens, each of which might have its own resources).
-
-The other option, that of allocating a new colormap, works as follows. We first ask the X server to give an Id to our color map, with this function:
-
-            xcb_colormap_t xcb_generate_id (xcb_connection_t *c);
-
-Then, we create the color map with
-
-            xcb_void_cookie_t xcb_create_colormap (xcb_connection_t *c,       /* Pointer to the xcb_connection_t structure */
-                                                   uint8_t           alloc,   /* Colormap entries to be allocated (AllocNone or AllocAll) */
-                                                   xcb_colormap_t    mid,     /* Id of the color map */
-                                                   xcb_window_t      window,  /* Window on whose screen the colormap will be created */
-                                                   xcb_visualid_t    visual); /* Id of the visual supported by the screen */
-
-Here is an example of creation of a new color map:
-
-            #include <xcb/xcb.h>
-
-            int
-            main ()
-            {
-              xcb_connection_t *c;
-              xcb_screen_t     *screen;
-              xcb_window_t      win;
-              xcb_colormap_t    cmap
-
-              /* Open the connection to the X server and get the first screen */
-              c = xcb_connect (NULL, NULL);
-              screen = xcb_setup_roots_iterator (xcb_get_setup (c)).data;
-
-              /* We create the window win here*/
-
-              cmap = xcb_generate_id (c);
-              xcb_create_colormap (c, XCB_COLORMAP_ALLOC_NONE, cmap, win, screen->root_visual);
-
-              return 0;
-            }
-
-Note that the window parameter is only used to allow the X server to create the color map for the given screen. We can then use this color map for any window drawn on the same screen.
-
-To free a color map, it suffices to use this function:
-
-            xcb_void_cookie_t xcb_free_colormap (xcb_connection_t *c,   /* The connection */
-                                                 xcb_colormap_t cmap);  /* The color map */
-
-Comparison Xlib/XCB
-
-* XCreateColormap () 
-* xcb_generate_id ()
-* xcb_create_colormap () 
-* XFreeColormap () 
-* xcb_free_colormap () 
-
-### 15.3 Allocating and freeing a color entry
-
-Once we got access to some color map, we can start allocating colors. The informations related to a color are stored in the following structure:
-
-            typedef struct {
-                uint8_t  response_type;
-                uint8_t  pad0;
-                uint16_t sequence;
-                uint32_t length;
-                uint16_t red;          /* The red component   */
-                uint16_t green;        /* The green component */
-                uint16_t blue;         /* The blue component  */
-                uint8_t  pad1[2];
-                uint32_t pixel;        /* The entry in the color map, supplied by the X server */
-            } xcb_alloc_color_reply_t;
-
-XCB supplies these two functions to fill it:
-
-            xcb_alloc_color_cookie_t xcb_alloc_color       (xcb_connection_t        *c,
-                                                            xcb_colormap_t           cmap,
-                                                            uint16_t                 red,
-                                                            uint16_t                 green,
-                                                            uint16_t                 blue);
-            xcb_alloc_color_reply_t *xcb_alloc_color_reply (xcb_connection_t        *c,
-                                                            xcb_alloc_color_cookie_t cookie,
-                                                            xcb_generic_error_t    **e);
-
-The fuction xcb_alloc_color() takes the 3 RGB components as parameters (red, green and blue). Here is an example of using these functions:
-
-            #include <malloc.h>
-
-            #include <xcb/xcb.h>
-
-            int
-            main ()
-            {
-              xcb_connection_t        *c;
-              xcb_screen_t            *screen;
-              xcb_window_t             win;
-              xcb_colormap_t           cmap;
-              xcb_alloc_color_reply_t *rep;
-
-              /* Open the connection to the X server and get the first screen */
-              c = xcb_connect (NULL, NULL);
-              screen = xcb_setup_roots_iterator (xcb_get_setup (c)).data;
-
-              /* We create the window win here*/
-
-              cmap = xcb_generate_id (c);
-              xcb_create_colormap (c, XCB_COLORMAP_ALLOC_NONE, cmap, win, screen->root_visual);
-
-              rep = xcb_alloc_color_reply (c, xcb_alloc_color (c, cmap, 65535, 0, 0), NULL);
-
-              if (!rep)
-                return 0;
-
-              /* Do something with r->pixel or the components */
-
-              free (rep);
-
-              return 0;
-            }
-
-            As xcb_alloc_color_reply() allocates memory, you have to free rep.
-
-TODO: Talk about freeing colors.
-
-# 16. X Bitmaps and Pixmaps
-
-One thing many so-called "Multi-Media" applications need to do, is display images. In the X world, this is done using bitmaps and pixmaps. We have already seen some usage of them when setting an icon for our application. Lets study them further, and see how to draw these images inside a window, along side the simple graphics and text we have seen so far.
-
-One thing to note before delving further, is that XCB (nor Xlib) supplies no means of manipulating popular image formats, such as gif, png, jpeg or tiff. It is up to the programmer (or to higher level graphics libraries) to translate these image formats into formats that the X server is familiar with (x bitmaps and x pixmaps).
-
-### 16.1 What is a X Bitmap? An X Pixmap?
-
-An X bitmap is a two-color image stored in a format specific to the X window system. When stored in a file, the bitmap data looks like a C source file. It contains variables defining the width and the height of the bitmap, an array containing the bit values of the bitmap (the size of the array is (width+7)/8*height and the bit and byte order are LSB), and an optional hot-spot location (that will be explained later, when discussing mouse cursors).
-
-An X pixmap is a format used to stored images in the memory of an X server. This format can store both black and white images (such as x bitmaps) as well as color images. It is the only image format supported by the X protocol, and any image to be drawn on screen, should be first translated into this format.
-
-In actuality, an X pixmap can be thought of as a window that does not appear on the screen. Many graphics operations that work on windows, will also work on pixmaps. Indeed, the type of X pixmap in XCB is an Id like a window:
-
-            typedef uint32_t xcb_pixmap_t;
-
-Like Xlib, there is no difference between a Drawable, a Window or a Pixmap:
-
-            typedef uint32_t xcb_drawable_t;
-
-in order to avoid confusion between a window and a pixmap. The operations that will work the same on a window or a pixmap will require a xcb_drawable_t
-
-Remark: In Xlib, there is no specific difference between a Drawable, a Pixmap or a Window: all are 32 bit long integer. XCB wraps all these different IDs in structures to provide some measure of type-safety.
-         
-### 16.2 Creating a pixmap
-
-Sometimes we want to create an un-initialized pixmap, so we can later draw into it. This is useful for image drawing programs (creating a new empty canvas will cause the creation of a new pixmap on which the drawing can be stored). It is also useful when reading various image formats: we load the image data into memory, create a pixmap on the server, and then draw the decoded image data onto that pixmap.
-
-To create a new pixmap, we first ask the X server to give an Id to our pixmap, with this function:
-
-            xcb_pixmap_t xcb_generate_id (xcb_connection_t *c);
-
-Then, XCB supplies the following function to create new pixmaps:
-
-            xcb_void_cookie_t xcb_create_pixmap (xcb_connection_t *c,         /* Pointer to the xcb_connection_t structure */
-                                                 uint8_t           depth,     /* Depth of the screen */
-                                                 xcb_pixmap_t      pid,       /* Id of the pixmap */
-                                                 xcb_drawable_t    drawable,
-                                                 uint16_t          width,     /* Width of the window (in pixels) */
-                                                 uint16_t          height);   /* Height of the window (in pixels) */
-
-TODO: Explain the drawable parameter, and give an example (like xpoints.c)
-         
-### 16.3 Drawing a pixmap in a window
-
-Once we got a handle to a pixmap, we can draw it on some window, using the following function:
-
-            xcb_void_cookie_t xcb_copy_area (xcb_connection_t *c,             /* Pointer to the xcb_connection_t structure */
-                                             xcb_drawable_t    src_drawable,  /* The Drawable we want to paste */
-                                             xcb_drawable_t    dst_drawable,  /* The Drawable on which we copy the previous Drawable */
-                                             xcb_gcontext_t    gc,            /* A Graphic Context */
-                                             int16_t           src_x,         /* Top left x coordinate of the region we want to copy */
-                                             int16_t           src_y,         /* Top left y coordinate of the region we want to copy */
-                                             int16_t           dst_x,         /* Top left x coordinate of the region where we want to copy */
-                                             int16_t           dst_y,         /* Top left y coordinate of the region where we want to copy */
-                                             uint16_t          width,         /* Width of the region we want to copy */
-                                             uint16_t          height);       /* Height of the region we want to copy */
-
-As you can see, we could copy the whole pixmap, as well as only a given rectangle of the pixmap. This is useful to optimize the drawing speed: we could copy only what we have modified in the pixmap.
-
-One important note should be made: it is possible to create pixmaps with different depths on the same screen. When we perform copy operations (a pixmap onto a window, etc), we should make sure that both source and target have the same depth. If they have a different depth, the operation would fail. The exception to this is if we copy a specific bit plane of the source pixmap using the xcb_copy_plane_t function. In such an event, we can copy a specific plane to the target window (in actuality, setting a specific bit in the color of each pixel copied). This can be used to generate strange graphic effects in a window, but that is beyond the scope of this tutorial.
-
-### 16.4 Freeing a pixmap
-
-Finally, when we are done using a given pixmap, we should free it, in order to free resources of the X server. This is done using this function:
-
-            xcb_void_cookie_t xcb_free_pixmap (xcb_connection_t *c,        /* Pointer to the xcb_connection_t structure */
-                                               xcb_pixmap_t      pixmap);  /* A given pixmap */
-
-Of course, after having freed it, we must not try accessing the pixmap again.
-
-TODO: Give an example, or a link to xpoints.c
-
-# 17. Messing with the mouse cursor
-
-It it possible to modify the shape of the mouse pointer (also called the X pointer) when in certain states, as we otfen see in programs. For example, a busy application would often display the sand clock over its main window, to give the user a visual hint that he should wait. Let's see how we can change the mouse cursor of our windows.
-    
-### 17.1 Creating and destroying a mouse cursor
-
-There are two methods for creating cursors. One of them is by using a set of predefined cursors, that are supplied by the X server, the other is by using a user-supplied bitmap.
-
-In the first method, we use a special font named "cursor", and the function xcb_create_glyph_cursor:
-
-            xcb_void_cookie_t xcb_create_glyph_cursor (xcb_connection_t *c,
-                                                       xcb_cursor_t      cid,
-                                                       xcb_font_t        source_font, /* font for the source glyph */
-                                                       xcb_font_t        mask_font,   /* font for the mask glyph or XCB_NONE */
-                                                       uint16_t          source_char, /* character glyph for the source */
-                                                       uint16_t          mask_char,   /* character glyph for the mask */
-                                                       uint16_t          fore_red,    /* red value for the foreground of the source */
-                                                       uint16_t          fore_green,  /* green value for the foreground of the source */
-                                                       uint16_t          fore_blue,   /* blue value for the foreground of the source */
-                                                       uint16_t          back_red,    /* red value for the background of the source */
-                                                       uint16_t          back_green,  /* green value for the background of the source */
-                                                       uint16_t          back_blue)   /* blue value for the background of the source */
-
-TODO: Describe source_char and mask_char, for example by giving an example on how to get the values. There is a list there: X Font Cursors
-
-So we first open that font (see Loading a Font) and create the new cursor. As for every X ressource, we have to ask for an X id with xcb_generate_id first:
-
-            xcb_font_t           font;
-            xcb_cursor_t         cursor;
-
-            /* The connection is set */
-
-            font = xcb_generate_id (conn);
-            xcb_open_font (conn, font, strlen ("cursor"), "cursor");
-
-            cursor = xcb_generate_id (conn);
-            xcb_create_glyph_cursor (conn, cursor, font, font,
-                                     58, 58 + 1,
-                                     0, 0, 0,
-                                     0, 0, 0);
-
-We have created the cursor "right hand" by specifying 58 to the source_font argument and 58 + 1 to the mask_font.
-
-The cursor is destroyed by using the function
-
-            xcb_void_cookie_t xcb_free_cursor (xcb_connection_t *c,
-                                               xcb_cursor_t      cursor);
-
-In the second method, we create a new cursor by using a pair of pixmaps, with depth of one (that is, two colors pixmaps). One pixmap defines the shape of the cursor, while the other works as a mask, specifying which pixels of the cursor will be actually drawn. The rest of the pixels will be transparent.
-
-TODO: give an example.
-
-### 17.2 Setting a window's mouse cursor
-
-Once the cursor is created, we can modify the cursor of our window by using xcb_change_window_attributes and using the XCB_CWCURSOR attribute:
-
-            uint32_t mask;
-            uint32_t value_list;
-
-            /* The connection and window are set */
-            /* The cursor is already created */
-
-            mask = XCB_CWCURSOR;
-            value_list = cursor;
-            xcb_change_window_attributes (conn, window, mask, &value_list);
-
-Of course, the cursor and the font must be freed.
-
-### 17.3 Complete example
-
-The following example displays a window with a button. When entering the window, the window cursor is changed to an arrow. When clicking once on the button, the cursor is changed to a hand. When clicking again on the button, the cursor window gets back to the arrow. The Esc key exits the application.
-
-            #include <stdlib.h>
-            #include <stdio.h>
-            #include <string.h>
-
-            #include <xcb/xcb.h>
-
-            #define WIDTH 300
-            #define HEIGHT 150
-
-
-
-            static xcb_gc_t gc_font_get (xcb_connection_t *c,
-                                         xcb_screen_t     *screen,
-                                         xcb_window_t      window,
-                                         const char       *font_name);
-
-            static void button_draw (xcb_connection_t *c,
-                                     xcb_screen_t     *screen,
-                                     xcb_window_t      window,
-                                     int16_t           x1,
-                                     int16_t           y1,
-                                     const char       *label);
-
-            static void text_draw (xcb_connection_t *c,
-                                   xcb_screen_t     *screen,
-                                   xcb_window_t      window,
-                                   int16_t           x1,
-                                   int16_t           y1,
-                                   const char       *label);
-
-            static void cursor_set (xcb_connection_t *c,
-                                    xcb_screen_t     *screen,
-                                    xcb_window_t      window,
-                                    int               cursor_id);
-
-
-            static void
-            button_draw (xcb_connection_t *c,
-                         xcb_screen_t     *screen,
-                         xcb_window_t      window,
-                         int16_t           x1,
-                         int16_t           y1,
-                         const char       *label)
-            {
-              xcb_point_t          points[5];
-              xcb_void_cookie_t    cookie_gc;
-              xcb_void_cookie_t    cookie_line;
-              xcb_void_cookie_t    cookie_text;
-              xcb_generic_error_t *error;
-              xcb_gcontext_t       gc;
-              int16_t              width;
-              int16_t              height;
-              uint8_t              length;
-              int16_t              inset;
-
-              length = strlen (label);
-              inset = 2;
-
-              gc = gc_font_get(c, screen, window, "7x13");
-
-              width = 7 * length + 2 * (inset + 1);
-              height = 13 + 2 * (inset + 1);
-              points[0].x = x1;
-              points[0].y = y1;
-              points[1].x = x1 + width;
-              points[1].y = y1;
-              points[2].x = x1 + width;
-              points[2].y = y1 - height;
-              points[3].x = x1;
-              points[3].y = y1 - height;
-              points[4].x = x1;
-              points[4].y = y1;
-              cookie_line = xcb_poly_line_checked (c, XCB_COORD_MODE_ORIGIN,
-                                                   window, gc, 5, points);
-
-              error = xcb_request_check (c, cookie_line);
-              if (error) {
-                fprintf (stderr, "ERROR: can't draw lines : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-
-              cookie_text = xcb_image_text_8_checked (c, length, window, gc,
-                                                      x1 + inset + 1,
-                                                      y1 - inset - 1, label);
-              error = xcb_request_check (c, cookie_text);
-              if (error) {
-                fprintf (stderr, "ERROR: can't paste text : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-
-              cookie_gc = xcb_free_gc (c, gc);
-              error = xcb_request_check (c, cookie_gc);
-              if (error) {
-                fprintf (stderr, "ERROR: can't free gc : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-            }
-
-            static void
-            text_draw (xcb_connection_t *c,
-                       xcb_screen_t     *screen,
-                       xcb_window_t      window,
-                       int16_t           x1,
-                       int16_t           y1,
-                       const char       *label)
-            {
-              xcb_void_cookie_t    cookie_gc;
-              xcb_void_cookie_t    cookie_text;
-              xcb_generic_error_t *error;
-              xcb_gcontext_t       gc;
-              uint8_t              length;
-
-              length = strlen (label);
-
-              gc = gc_font_get(c, screen, window, "7x13");
-
-              cookie_text = xcb_image_text_8_checked (c, length, window, gc,
-                                                      x1,
-                                                      y1, label);
-              error = xcb_request_check (c, cookie_text);
-              if (error) {
-                fprintf (stderr, "ERROR: can't paste text : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-
-              cookie_gc = xcb_free_gc (c, gc);
-              error = xcb_request_check (c, cookie_gc);
-              if (error) {
-                fprintf (stderr, "ERROR: can't free gc : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-            }
-
-            static xcb_gc_t
-            gc_font_get (xcb_connection_t *c,
-                         xcb_screen_t     *screen,
-                         xcb_window_t      window,
-                         const char       *font_name)
-            {
-              uint32_t             value_list[3];
-              xcb_void_cookie_t    cookie_font;
-              xcb_void_cookie_t    cookie_gc;
-              xcb_generic_error_t *error;
-              xcb_font_t           font;
-              xcb_gcontext_t       gc;
-              uint32_t             mask;
-
-              font = xcb_generate_id (c);
-              cookie_font = xcb_open_font_checked (c, font,
-                                                   strlen (font_name),
-                                                   font_name);
-
-              error = xcb_request_check (c, cookie_font);
-              if (error) {
-                fprintf (stderr, "ERROR: can't open font : %d\n", error->error_code);
-                xcb_disconnect (c);
-                return -1;
-              }
-
-              gc = xcb_generate_id (c);
-              mask = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND | XCB_GC_FONT;
-              value_list[0] = screen->black_pixel;
-              value_list[1] = screen->white_pixel;
-              value_list[2] = font;
-              cookie_gc = xcb_create_gc_checked (c, gc, window, mask, value_list);
-              error = xcb_request_check (c, cookie_gc);
-              if (error) {
-                fprintf (stderr, "ERROR: can't create gc : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-
-              cookie_font = xcb_close_font_checked (c, font);
-              error = xcb_request_check (c, cookie_font);
-              if (error) {
-                fprintf (stderr, "ERROR: can't close font : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-
-              return gc;
-            }
-
-            static void
-            cursor_set (xcb_connection_t *c,
-                        xcb_screen_t     *screen,
-                        xcb_window_t      window,
-                        int               cursor_id)
-            {
-              uint32_t             values_list[3];
-              xcb_void_cookie_t    cookie_font;
-              xcb_void_cookie_t    cookie_gc;
-              xcb_generic_error_t *error;
-              xcb_font_t           font;
-              xcb_cursor_t         cursor;
-              xcb_gcontext_t       gc;
-              uint32_t             mask;
-              uint32_t             value_list;
-
-              font = xcb_generate_id (c);
-              cookie_font = xcb_open_font_checked (c, font,
-                                                   strlen ("cursor"),
-                                                   "cursor");
-              error = xcb_request_check (c, cookie_font);
-              if (error) {
-                fprintf (stderr, "ERROR: can't open font : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-
-              cursor = xcb_generate_id (c);
-              xcb_create_glyph_cursor (c, cursor, font, font,
-                                       cursor_id, cursor_id + 1,
-                                       0, 0, 0,
-                                       0, 0, 0);
-
-              gc = xcb_generate_id (c);
-              mask = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND | XCB_GC_FONT;
-              values_list[0] = screen->black_pixel;
-              values_list[1] = screen->white_pixel;
-              values_list[2] = font;
-              cookie_gc = xcb_create_gc_checked (c, gc, window, mask, values_list);
-              error = xcb_request_check (c, cookie_gc);
-              if (error) {
-                fprintf (stderr, "ERROR: can't create gc : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-
-              mask = XCB_CW_CURSOR;
-              value_list = cursor;
-              xcb_change_window_attributes (c, window, mask, &value_list);
-
-              xcb_free_cursor (c, cursor);
-
-              cookie_font = xcb_close_font_checked (c, font);
-              error = xcb_request_check (c, cookie_font);
-              if (error) {
-                fprintf (stderr, "ERROR: can't close font : %d\n", error->error_code);
-                xcb_disconnect (c);
-                exit (-1);
-              }
-            }
-
-            int main ()
-            {
-              xcb_screen_iterator_t screen_iter;
-              xcb_connection_t     *c;
-              const xcb_setup_t    *setup;
-              xcb_screen_t         *screen;
-              xcb_generic_event_t  *e;
-              xcb_generic_error_t  *error;
-              xcb_void_cookie_t     cookie_window;
-              xcb_void_cookie_t     cookie_map;
-              xcb_window_t          window;
-              uint32_t              mask;
-              uint32_t              values[2];
-              int                   screen_number;
-              uint8_t               is_hand = 0;
-
-              /* getting the connection */
-              c = xcb_connect (NULL, &screen_number);
-              if (!c) {
-                fprintf (stderr, "ERROR: can't connect to an X server\n");
-                return -1;
-              }
-
-              /* getting the current screen */
-              setup = xcb_get_setup (c);
-
-              screen = NULL;
-              screen_iter = xcb_setup_roots_iterator (setup);
-              for (; screen_iter.rem != 0; --screen_number, xcb_screen_next (&screen_iter))
-                if (screen_number == 0)
-                  {
-                    screen = screen_iter.data;
-                    break;
-                  }
-              if (!screen) {
-                fprintf (stderr, "ERROR: can't get the current screen\n");
-                xcb_disconnect (c);
-                return -1;
-              }
-
-              /* creating the window */
-              window = xcb_generate_id (c);
-              mask = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
-              values[0] = screen->white_pixel;
-              values[1] =
-                XCB_EVENT_MASK_KEY_RELEASE |
-                XCB_EVENT_MASK_BUTTON_PRESS |
-                XCB_EVENT_MASK_EXPOSURE |
-                XCB_EVENT_MASK_POINTER_MOTION;
-              cookie_window = xcb_create_window_checked (c,
-                                                         screen->root_depth,
-                                                         window, screen->root,
-                                                         20, 200, WIDTH, HEIGHT,
-                                                         0, XCB_WINDOW_CLASS_INPUT_OUTPUT,
-                                                         screen->root_visual,
-                                                         mask, values);
-              cookie_map = xcb_map_window_checked (c, window);
-
-              /* error managing */
-              error = xcb_request_check (c, cookie_window);
-              if (error) {
-                fprintf (stderr, "ERROR: can't create window : %d\n", error->error_code);
-                xcb_disconnect (c);
-                return -1;
-              }
-              error = xcb_request_check (c, cookie_map);
-              if (error) {
-                fprintf (stderr, "ERROR: can't map window : %d\n", error->error_code);
-                xcb_disconnect (c);
-                return -1;
-              }
-
-              cursor_set (c, screen, window, 68);
-
-              xcb_flush(c);
-
-              while (1) {
-                e = xcb_poll_for_event(c);
-                if (e) {
-                  switch (e->response_type & ~0x80) {
-                  case XCB_EXPOSE: {
-                    char *text;
-
-                    text = "click here to change cursor";
-                    button_draw (c, screen, window,
-                                 (WIDTH - 7 * strlen(text)) / 2,
-                                 (HEIGHT - 16) / 2, text);
-
-                    text = "Press ESC key to exit...";
-                    text_draw (c, screen, window, 10, HEIGHT - 10, text);
-                    break;
-                  }
-                  case XCB_BUTTON_PRESS: {
-                    xcb_button_press_event_t *ev;
-                    int                       length;
-
-                    ev = (xcb_button_press_event_t *)e;
-                    length = strlen ("click here to change cursor");
-
-                    if ((ev->event_x >= (WIDTH - 7 * length) / 2) &&
-                        (ev->event_x <= ((WIDTH - 7 * length) / 2 + 7 * length + 6)) &&
-                        (ev->event_y >= (HEIGHT - 16) / 2 - 19) &&
-                        (ev->event_y <= ((HEIGHT - 16) / 2)))
-                      is_hand = 1 - is_hand;
-
-                    is_hand ? cursor_set (c, screen, window, 58) : cursor_set (c, screen, window, 68);
-                  }
-                  case XCB_KEY_RELEASE: {
-                    xcb_key_release_event_t *ev;
-
-                    ev = (xcb_key_release_event_t *)e;
-
-                    switch (ev->detail) {
-                      /* ESC */
-                    case 9:
-                      free (e);
-                      xcb_disconnect (c);
-                      return 0;
-                    }
-                  }
-                  }
-                  free (e);
-                }
-              }
-
-              return 0;
-            }
-
-# 18. Translation of basic Xlib functions and macros
-
-The problem when you want to port an Xlib program to XCB is that you don't know if the Xlib function that you want to "translate" is a X Window one or an Xlib macro. In that section, we describe a way to translate the usual functions or macros that Xlib provides. It's usually just a member of a structure.
-
-### 18.1 Members of the Display structure
-
-In this section, we look at how to translate the macros that return some members of the Display structure. They are obtained by using a function that requires a xcb_connection_t * or a member of the xcb_setup_t structure (via the function xcb_get_setup), or a function that requires that structure.
-
-##### 18.1.1 ConnectionNumber
-
-This number is the file descriptor that connects the client to the server. You just have to use that function:
-
-                  int xcb_get_file_descriptor (xcb_connection_t *c);
-
-##### 18.1.2 DefaultScreen
-
-That number is not stored by XCB. It is returned in the second parameter of the function xcb_connect. Hence, you have to store it yourself if you want to use it. Then, to get the xcb_screen_t structure, you have to iterate on the screens. The equivalent function of the Xlib's ScreenOfDisplay function can be found below. This is also provided in the xcb_aux_t library as xcb_aux_get_screen(). OK, here is the small piece of code to get that number:
-
-                  xcb_connection_t *c;
-                  int               screen_default_nbr;
-
-                  /* you pass the name of the display you want to xcb_connect_t */
-
-                  c = xcb_connect (display_name, &screen_default_nbr);
-
-                  /* screen_default_nbr contains now the number of the default screen */
-
-##### 18.1.3 QLength
-
-Not documented yet.
-
-However, this points out a basic difference in philosophy between Xlib and XCB. Xlib has several functions for filtering and manipulating the incoming and outgoing X message queues. XCB wishes to hide this as much as possible from the user, which allows for more freedom in implementation strategies.
-              
-##### 18.1.4 ScreenCount
-
-You get the count of screens with the functions xcb_get_setup and xcb_setup_roots_iterator (if you need to iterate):
-
-                  xcb_connection_t *c;
-                  int               screen_count;
-
-                  /* you init the connection */
-
-                  screen_count = xcb_setup_roots_iterator (xcb_get_setup (c)).rem;
-
-                  /* screen_count contains now the count of screens */
-
-If you don't want to iterate over the screens, a better way to get that number is to use xcb_setup_roots_length_t:
-
-                  xcb_connection_t *c;
-                  int               screen_count;
-
-                  /* you init the connection */
-
-                  screen_count = xcb_setup_roots_length (xcb_get_setup (c));
-
-                  /* screen_count contains now the count of screens */
-
-##### 18.1.5 ServerVendor
-
-You get the name of the vendor of the server hardware with the functions xcb_get_setup and xcb_setup_vendor. Beware that, unlike Xlib, the string returned by XCB is not necessarily null-terminaled:
-
-                  xcb_connection_t *c;
-                  char             *vendor = NULL;
-                  int               length;
-
-                  /* you init the connection */
-                  length = xcb_setup_vendor_length (xcb_get_setup (c));
-                  vendor = (char *)malloc (length + 1);
-                  if (vendor)
-                    memcpy (vendor, xcb_setup_vendor (xcb_get_setup (c)), length);
-                  vendor[length] = '\0';
-
-                  /* vendor contains now the name of the vendor. Must be freed when not used anymore */
-
-##### 18.1.6 ProtocolVersion
-
-You get the major version of the protocol in the xcb_setup_t structure, with the function xcb_get_setup:
-
-                  xcb_connection_t *c;
-                  uint16_t          protocol_major_version;
-
-                  /* you init the connection */
-
-                  protocol_major_version = xcb_get_setup (c)->protocol_major_version;
-
-                  /* protocol_major_version contains now the major version of the protocol */
-
-##### 18.1.7 ProtocolRevision
-
-You get the minor version of the protocol in the xcb_setup_t structure, with the function xcb_get_setup:
-
-                  xcb_connection_t *c;
-                  uint16_t          protocol_minor_version;
-
-                  /* you init the connection */
-
-                  protocol_minor_version = xcb_get_setup (c)->protocol_minor_version;
-
-                  /* protocol_minor_version contains now the minor version of the protocol */
-
-##### 18.1.8 VendorRelease
-
-You get the number of the release of the server hardware in the xcb_setup_t structure, with the function xcb_get_setup:
-
-                  xcb_connection_t *c;
-                  uint32_t          release_number;
-
-                  /* you init the connection */
-
-                  release_number = xcb_get_setup (c)->release_number;
-
-                  /* release_number contains now the number of the release of the server hardware */
-
-##### 18.1.9. DisplayString
-
-The name of the display is not stored in XCB. You have to store it by yourself.
-           
-#### 18.1.10 BitmapUnit
-
-You get the bitmap scanline unit in the xcb_setup_t structure, with the function xcb_get_setup:
-
-                  xcb_connection_t *c;
-                  uint8_t           bitmap_format_scanline_unit;
-
-                  /* you init the connection */
-
-                  bitmap_format_scanline_unit = xcb_get_setup (c)->bitmap_format_scanline_unit;
-
-                  /* bitmap_format_scanline_unit contains now the bitmap scanline unit */
-
-##### 18.1.11 BitmapBitOrder
-
-You get the bitmap bit order in the xcb_setup_t structure, with the function xcb_get_setup:
-
-                  xcb_connection_t *c;
-                  uint8_t           bitmap_format_bit_order;
-
-                  /* you init the connection */
-
-                  bitmap_format_bit_order = xcb_get_setup (c)->bitmap_format_bit_order;
-
-                  /* bitmap_format_bit_order contains now the bitmap bit order */
-
-##### 18.1.12 BitmapPad
-
-You get the bitmap scanline pad in the xcb_setup_t structure, with the function xcb_get_setup:
-
-                  xcb_connection_t *c;
-                  uint8_t           bitmap_format_scanline_pad;
-
-                  /* you init the connection */
-
-                  bitmap_format_scanline_pad = xcb_get_setup (c)->bitmap_format_scanline_pad;
-
-                  /* bitmap_format_scanline_pad contains now the bitmap scanline pad */
-
-##### 18.1.13 ImageByteOrder
-
-You get the image byte order in the xcb_setup_t structure, with the function xcb_get_setup:
-
-                  xcb_connection_t *c;
-                  uint8_t           image_byte_order;
-
-                  /* you init the connection */
-
-                  image_byte_order = xcb_get_setup (c)->image_byte_order;
-
-                  /* image_byte_order contains now the image byte order */
-
-### 18.2 ScreenOfDisplay related functions
-
-in Xlib, ScreenOfDisplay returns a Screen structure that contains several characteristics of your screen. XCB has a similar structure (xcb_screen_t), but the way to obtain it is a bit different. With Xlib, you just provide the number of the screen and you grab it from an array. With XCB, you iterate over all the screens to obtain the one you want. The complexity of this operation is O(n). So the best is to store this structure if you use it often. See screen_of_display just below.
-
-Xlib provides generally two functions to obtain the characteristics related to the screen. One with the display and the number of the screen, which calls ScreenOfDisplay, and the other that uses the Screen structure. This might be a bit confusing. As mentioned above, with XCB, it is better to store the xcb_screen_t structure. Then, you have to read the members of this structure. That's why the Xlib functions are put by pairs (or more) as, with XCB, you will use the same code.
-
-##### 18.2.1 ScreenOfDisplay
-
-This function returns the Xlib Screen structure. With XCB, you iterate over all the screens and once you get the one you want, you return it:
-
-
-                  xcb_screen_t *screen_of_display (xcb_connection_t *c,
-                                                   int               screen)
-                  {
-                    xcb_screen_iterator_t iter;
-
-                    iter = xcb_setup_roots_iterator (xcb_get_setup (c));
-                    for (; iter.rem; --screen, xcb_screen_next (&iter))
-                      if (screen == 0)
-                        return iter.data;
-
-                    return NULL;
-                  }
-
-As mentioned above, you might want to store the value returned by this function.
-
-All the functions below will use the result of that function, as they just grab a specific member of the xcb_screen_t structure.
-
-##### 18.2.2 DefaultScreenOfDisplay
-
-It is the default screen that you obtain when you connect to the X server. It suffices to call the screen_of_display function above with the connection and the number of the default screen.
-
-                  xcb_connection_t *c;
-                  int               screen_default_nbr;
-                  xcb_screen_t     *default_screen;  /* the returned default screen */
-
-                  /* you pass the name of the display you want to xcb_connect_t */
-
-                  c = xcb_connect (display_name, &screen_default_nbr);
-                  default_screen = screen_of_display (c, screen_default_nbr);
-
-                  /* default_screen contains now the default root window, or a NULL window if no screen is found */
-
-##### 18.2.3 RootWindow / RootWindowOfScreen
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  xcb_window_t      root_window = { 0 };  /* the returned window */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    root_window = screen->root;
-
-                  /* root_window contains now the root window, or a NULL window if no screen is found */
-
-##### 18.2.4 DefaultRootWindow
-
-It is the root window of the default screen. So, you call ScreenOfDisplay with the default screen number and you get the root window as above:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_default_nbr;
-                  xcb_window_t      root_window = { 0 };  /* the returned root window */
-
-                  /* you pass the name of the display you want to xcb_connect_t */
-
-                  c = xcb_connect (display_name, &screen_default_nbr);
-                  screen = screen_of_display (c, screen_default_nbr);
-                  if (screen)
-                    root_window = screen->root;
-
-                  /* root_window contains now the default root window, or a NULL window if no screen is found */
-
-##### 18.2.5 DefaultVisual / DefaultVisualOfScreen
-
-While a Visual is, in Xlib, a structure, in XCB, there are two types: xcb_visualid_t, which is the Id of the visual, and xcb_visualtype_t, which corresponds to the Xlib Visual. To get the Id of the visual of a screen, just get the root_visual member of a xcb_screen_t:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  xcb_visualid_t    root_visual = { 0 };    /* the returned visual Id */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    root_visual = screen->root_visual;
-
-                  /* root_visual contains now the value of the Id of the visual, or a NULL visual if no screen is found */
-
-To get the xcb_visualtype_t structure, it's a bit less easy. You have to get the xcb_screen_t structure that you want, get its root_visual member, then iterate over the xcb_depth_ts and the xcb_visualtype_ts, and compare the xcb_visualid_t of these xcb_visualtype_ts: with root_visual:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  xcb_visualid_t    root_visual = { 0 };
-                  xcb_visualtype_t  *visual_type = NULL;    /* the returned visual type */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen) {
-                    xcb_depth_iterator_t depth_iter;
-
-                    depth_iter = xcb_screen_allowed_depths_iterator (screen);
-                    for (; depth_iter.rem; xcb_depth_next (&depth_iter)) {
-                      xcb_visualtype_iterator_t visual_iter;
-
-                      visual_iter = xcb_depth_visuals_iterator (depth_iter.data);
-                      for (; visual_iter.rem; xcb_visualtype_next (&visual_iter)) {
-                        if (screen->root_visual == visual_iter.data->visual_id) {
-                          visual_type = visual_iter.data;
-                          break;
-                        }
-                      }
-                    }
-                  }
-
-                  /* visual_type contains now the visual structure, or a NULL visual structure if no screen is found */
-
-##### 18.2.6 DefaultGC / DefaultGCOfScreen
-
-This default Graphic Context is just a newly created Graphic Context, associated to the root window of a xcb_screen_t, using the black white pixels of that screen:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  xcb_gcontext_t    gc = { 0 };    /* the returned default graphic context */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen) {
-                    xcb_drawable_t draw;
-                    uint32_t       mask;
-                    uint32_t       values[2];
-
-                    gc = xcb_generate_id (c);
-                    draw = screen->root;
-                    mask = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND;
-                    values[0] = screen->black_pixel;
-                    values[1] = screen->white_pixel;
-                    xcb_create_gc (c, gc, draw, mask, values);
-                  }
-
-                  /* gc contains now the default graphic context */
-
-##### 18.2.7 BlackPixel / BlackPixelOfScreen
-
-It is the Id of the black pixel, which is in the structure of an xcb_screen_t.
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint32_t          black_pixel = 0;    /* the returned black pixel */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    black_pixel = screen->black_pixel;
-
-                  /* black_pixel contains now the value of the black pixel, or 0 if no screen is found */
-
-##### 18.2.8 WhitePixel / WhitePixelOfScreen
-
-It is the Id of the white pixel, which is in the structure of an xcb_screen_t.
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint32_t          white_pixel = 0;    /* the returned white pixel */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    white_pixel = screen->white_pixel;
-
-                  /* white_pixel contains now the value of the white pixel, or 0 if no screen is found */
-
-##### 18.2.9 DisplayWidth / WidthOfScreen
-
-It is the width in pixels of the screen that you want, and which is in the structure of the corresponding xcb_screen_t.
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint32_t          width_in_pixels = 0;    /* the returned width in pixels */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    width_in_pixels = screen->width_in_pixels;
-
-                  /* width_in_pixels contains now the width in pixels, or 0 if no screen is found */
-
-##### 18.2.10 DisplayHeight / HeightOfScreen
-
-It is the height in pixels of the screen that you want, and which is in the structure of the corresponding xcb_screen_t.
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint32_t          height_in_pixels = 0;    /* the returned height in pixels */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    height_in_pixels = screen->height_in_pixels;
-
-                  /* height_in_pixels contains now the height in pixels, or 0 if no screen is found */
-
-##### 18.2.11 DisplayWidthMM / WidthMMOfScreen
-
-It is the width in millimeters of the screen that you want, and which is in the structure of the corresponding xcb_screen_t.
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint32_t          width_in_millimeters = 0;    /* the returned width in millimeters */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    width_in_millimeters = screen->width_in_millimeters;
-
-                  /* width_in_millimeters contains now the width in millimeters, or 0 if no screen is found */
-
-##### 18.2.12 DisplayHeightMM / HeightMMOfScreen
-
-It is the height in millimeters of the screen that you want, and which is in the structure of the corresponding xcb_screen_t.
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint32_t          height_in_millimeters = 0;    /* the returned height in millimeters */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    height_in_millimeters = screen->height_in_millimeters;
-
-                  /* height_in_millimeters contains now the height in millimeters, or 0 if no screen is found */
-
-##### 18.2.13 DisplayPlanes / DefaultDepth / DefaultDepthOfScreen / PlanesOfScreen
-
-It is the depth (in bits) of the root window of the screen. You get it from the xcb_screen_t structure.
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint8_t           root_depth = 0;  /* the returned depth of the root window */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    root_depth = screen->root_depth;
-
-                  /* root_depth contains now the depth of the root window, or 0 if no screen is found */
-
-##### 18.2.14 DefaultColormap / DefaultColormapOfScreen
-
-This is the default colormap of the screen (and not the (default) colormap of the default screen !). As usual, you get it from the xcb_screen_t structure:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  xcb_colormap_t    default_colormap = { 0 };  /* the returned default colormap */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    default_colormap = screen->default_colormap;
-
-                  /* default_colormap contains now the default colormap, or a NULL colormap if no screen is found */
-
-##### 18.2.15 MinCmapsOfScreen
-
-You get the minimum installed colormaps in the xcb_screen_t structure:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint16_t          min_installed_maps = 0;  /* the returned minimum installed colormaps */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    min_installed_maps = screen->min_installed_maps;
-
-                  /* min_installed_maps contains now the minimum installed colormaps, or 0 if no screen is found */
-
-##### 18.2.16 MaxCmapsOfScreen
-
-You get the maximum installed colormaps in the xcb_screen_t structure:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint16_t          max_installed_maps = 0;  /* the returned maximum installed colormaps */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    max_installed_maps = screen->max_installed_maps;
-
-                  /* max_installed_maps contains now the maximum installed colormaps, or 0 if no screen is found */
-
-##### 18.2.17 DoesSaveUnders
-
-You know if save_unders is set, by looking in the xcb_screen_t structure:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint8_t           save_unders = 0;  /* the returned value of save_unders */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    save_unders = screen->save_unders;
-
-                  /* save_unders contains now the value of save_unders, or FALSE if no screen is found */
-
-##### 18.2.18 DoesBackingStore
-
-You know the value of backing_stores, by looking in the xcb_screen_t structure:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint8_t           backing_stores = 0;  /* the returned value of backing_stores */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    backing_stores = screen->backing_stores;
-
-                  /* backing_stores contains now the value of backing_stores, or FALSE if no screen is found */
-
-##### 18.2.19 EventMaskOfScreen
-
-To get the current input masks, you look in the xcb_screen_t structure:
-
-                  xcb_connection_t *c;
-                  xcb_screen_t     *screen;
-                  int               screen_nbr;
-                  uint32_t          current_input_masks = 0;  /* the returned value of current input masks */
-
-                  /* you init the connection and screen_nbr */
-
-                  screen = screen_of_display (c, screen_nbr);
-                  if (screen)
-                    current_input_masks = screen->current_input_masks;
-
-                  /* current_input_masks contains now the value of the current input masks, or FALSE if no screen is found */
-
-### 18.3 Miscellaneous macros
-        
-##### 18.3.1 DisplayOfScreen
-
-in Xlib, the Screen structure stores its associated Display structure. This is not the case in the X Window protocol, hence, it's also not the case in XCB. So you have to store it by yourself.
-            
-##### 18.3.2 DisplayCells / CellsOfScreen
-
-To get the colormap entries, you look in the xcb_visualtype_t structure, that you grab like here:
-
-                  xcb_connection_t *c;
-                  xcb_visualtype_t *visual_type;
-                  uint16_t          colormap_entries = 0;  /* the returned value of the colormap entries */
-
-                  /* you init the connection and visual_type */
-
-                  if (visual_type)
-                    colormap_entries = visual_type->colormap_entries;
-
-                  /* colormap_entries contains now the value of the colormap entries, or FALSE if no screen is found */
-
