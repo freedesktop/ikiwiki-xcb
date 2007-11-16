@@ -34,19 +34,12 @@ An `xcb_extension_t` is an opaque structure used as key for [`xcb_get_extension_
 
 		typedef struct xcb_auth_info_t {
 			int namelen;
-			char *name;
+			char *name;       // string containing the authentication protocol name, such as &quot;MIT-MAGIC-COOKIE-1&quot; or &quot;XDM-AUTHORIZATION-1&quot;.
 			int datalen;
-			char *data;
+			char *data;       // interpreted in a protocol-specific manner
 		} xcb_auth_info_t;
 
 A container for authorization information to be sent to the X server.
-
-<dl>
-  <dt>name</dt>
-  <dd>string containing the authentication protocol name, such as &quot;MIT-MAGIC-COOKIE-1&quot; or &quot;XDM-AUTHORIZATION-1&quot;.</dd>
-  <dt>data</dt>
-  <dd>interpreted in a protocol-specific manner.</dd>
-</dl>
 
 ----
 
@@ -84,23 +77,12 @@ Connects to the X server specified by `display`, using the given authorization i
 (`xcb_conn.c`)
 
 		xcb_connection_t *
-		xcb_connect_to_fd (int fd,
-						   xcb_auth_info_t *auth_info );
+		xcb_connect_to_fd (int fd,                                    // a file descriptor bidirectionally connected to an X server.
+						   xcb_auth_info_t *auth_info );   // authentication data, or 0 if the connection should be unauthenticated. xcb_get_auth_info returns appropriate authentication data
 
 Connects to an X server, given an open socket and a suitable [`xcb_auth_info_t`](#xcb_auth_info_t).
 
-<dl>
-  <dt>fd</dt>
-  <dd>a file descriptor bidirectionally connected to an X server.</dd>
-  <dt>auth_info</dt>
-  <dd>
-    <p>authentication data, or 0 if the connection should be unauthenticated. <a href="#xcb_get_auth_info">xcb_get_auth_info</a> returns appropriate authentication data.</p>
-  </dd>
-  <dt>Returns</dt>
-  <dd>
-    <p>an <a href="#xcb_connection_t">xcb_connection_t</a>.</p>
-  </dd>
-</dl>
+Returns an <a href="#xcb_connection_t">xcb_connection_t</a>.
 
 See also [`xcb_connect`](#xcb_connect).
 
@@ -113,14 +95,7 @@ See also [`xcb_connect`](#xcb_connect).
 		void
 		xcb_disconnect (xcb_connection *c);
 
-Closes the file descriptor and frees all memory associated with the connection.
-
-<dl>
-  <dt>c</dt>
-  <dd>
-    <p>a connection previously returned by <a href="#xcb_connect">xcb_connect</a> and not previously passed to xcb_disconnect.</p>
-  </dd>
-</dl>
+Closes the file descriptor and frees all memory associated with the connection. Only close a connection once.
 
 <a name="xcb_parse_display"></a>
 
@@ -129,27 +104,14 @@ Closes the file descriptor and frees all memory associated with the connection.
 (`xcb_util.c`)
 
 		int
-		xcb_parse_display (const char *name,
-						   char **host,
-						   int *display,
-						   int *screen );
+		xcb_parse_display (const char *name,         // the display name to parse; if null or empty, uses the environment variable DISPLAY.
+						   char **host,     // a non-null pointer to a pointer which will be set to a malloc&#39;d copy of the hostname.
+						   int *display,    // a non-null pointer to an int which will be set to the display number
+						   int *screen );   // a (possibly null) pointer to an int which will be set to the preferred screen number, or set to 0 if the display string does not contain a screen number
 
 Parses a display string `name` in the form documented by X(7x). Has no side effects on failure.
 
-<dl>
-  <dt>name</dt>
-  <dd>the display name to parse; if null or empty, uses the environment variable DISPLAY.</dd>
-  <dt>host</dt>
-  <dd>a non-null pointer to a pointer which will be set to a malloc&#39;d copy of the hostname.</dd>
-  <dt>display</dt>
-  <dd>a non-null pointer to an int which will be set to the display number.</dd>
-  <dt>screen</dt>
-  <dd>a (possibly null) pointer to an int which will be set to the preferred screen number, or set to 0 if the display string does not contain a screen number.</dd>
-  <dt>Returns</dt>
-  <dd>
-    <p>0 on failure (perhaps <tt>name</tt> was null or unparsable, or malloc failed); non-zero on success.</p>
-  </dd>
-</dl>
+Returns 0 on failure (perhaps <tt>name</tt> was null or unparsable, or malloc failed); non-zero on success.
 
 <a name="xcb_get_setup"></a>
 
@@ -171,6 +133,8 @@ This data includes
 - and other assorted information.
 
 See the X protocol specification and `xcb_types.h` for more details.
+
+This routine returns a pointer into the connection data.  It should not be freed, and will become invalid when the connection is freed.
 
 <a name="xcb_get_file_descriptor"></a>
 
