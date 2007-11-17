@@ -44,7 +44,7 @@ Types are declared using the [[STRUCT|XmlXcb#STRUCT]], [[UNION|XmlXcb#UNION]], [
 		         int index;
 		} xcb_name_iterator_t;
 
-An iterator may only be created for types declared using the [[XCBProtocolLanguage#STRUCT|XCBProtocolLanguage]] and [[XCBProtocolLanguage#XIDTYPE|XCBProtocolLanguage]] protocol description macros.
+An iterator may only be created for types declared using the [[STRUCT|XmlXcb#STRUCT]] and [[XIDTYPE|XmlXcb#XIDTYPE]] protocol description macros.
 
 A special iterator type, `xcb_generic_iterator_t`, is declared in xcb.h.
 
@@ -67,32 +67,32 @@ Every [iterator](#xcb_name_iterator_t) has a `xcb_name_end` function.
 		xcb_base_type_iterator_t
 		xcb_type_name_field_iterator (xcb_type_name_t *R);
 
-Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[LISTFIELD|XmlXcb#LISTFIELD]] protocol description macro.
 
 ### `xcb_type_name_field`
 
 		BaseType *
 		xcb_type_name_field (xcb_type_name_t *R);
 
-Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[LISTFIELD|XmlXcb#LISTFIELD]] protocol description macro.
 
 ### `xcb_type_name_field_length`
 
 		int
 		xcb_type_name_field_length (xcb_type_name_t *R);
 
-Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[LISTFIELD|XmlXcb#LISTFIELD]] protocol description macro.
 
 ### `xcb_type_name_field_end`
 
 		xcb_generic_iterator_t
 		xcb_type_name_field_end (xcb_type_name_t *R);
 
-Declared by the [[XCBProtocolLanguage#LISTFIELD|XCBProtocolLanguage]] protocol description macro.
+Declared by the [[LISTFIELD|XmlXcb#LISTFIELD]] protocol description macro.
 
 ## Requests
 
-Every request declared using the [[XCBProtocolLanguage#REQUEST|XCBProtocolLanguage]] or [[XCBProtocolLanguage#VOIDREQUEST|XCBProtocolLanguage]] protocol description macros generates an assortment of types and functions.
+Every request declared using the [[REQUEST|XmlXcb#REQUEST]] or [[VOIDREQUEST|XmlXcb#VOIDREQUEST]] protocol description macros generates an assortment of types and functions.
 
 The base C name for all types and functions related to the X request with name "Name" is `xcb_name`. If the request is from an extension, then "Name" is composed by prefixing the extension name onto the request name.
 
@@ -174,7 +174,7 @@ This form can be used only if the request will cause a reply to be generated. It
 						 xcb_name_cookie_t cookie,
 						 xcb_generic_error_t **e );
 
-The `xcb_generic_error_t **e` supplied to this function must be 0 unless the corresponding request function committed to storing an error here. See [`xcb_name()`](#xcb_name), [`xcb_name_checked()`](#xcb_name_checked), and [`xcb_name_unchecked()`](#xcb_name_unchecked).
+The `xcb_generic_error_t **e` supplied to this function must be zero if the cookie was produced using the unchecked version of the request function; otherwise, if an error occurs and the pointer is nonzero the error will be stored into it. See [`xcb_name()`](#xcb_name) and [`xcb_name_unchecked()`](#xcb_name_unchecked).  This function returns a pointer to freshly-malloced storage that may be freed when it is no longer needed.
 
 <a name="xcb_request_check"></a>
 
