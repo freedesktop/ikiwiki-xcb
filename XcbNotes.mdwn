@@ -24,11 +24,19 @@ Double buffering on X is kind of a mess. Here's documentation on the [Multi-Buff
 
 A conversation with keithp indicates that his current thinking is that the right way to do double buffering is via an explicit copy from a separate pixmap. This is portable to absolutely everywhere, and requires no magic. Probably there will soon be a convention for the compositing manager to handle the double buffering on systems where one is running, since it needs to buffer anyhow. But this would be in the future.
 
-### checked vs. unchecked
+### Checked vs. Unchecked
 
 The plan 7 error handling follows the these rules.
 
 1. If a request has no reply (xcb\_void\_cookie\_t) the default is to call unchecked. To check the result use xxx\_checked.
 2. If a request has a reply cookie, the default is to call checked. If you are not interested in checking, use xxx\_unchecked.
 
-[(see this mail)](http://lists.freedesktop.org/archives/xcb/2007-April/002760.html)
+There are some details in the API stub document, but hopefully this clarifies the intent.
+
+# About XCB Names
+
+The guiding principle of XCB naming is that one should be able to *infer* the name of the routine they want to call without reference to any documentation other than the protocol spec.  This occasionally generates some long and awful-looking names, but we've found that it also helps us to read and write code without so much reference to magic documentation, and with a clear understanding of what's going on "under the hood".  This is also why we choose to use the <stdint.h> typenames for integral types; we want the correspondence between C values and protocol values to be clear.
+
+The basic C naming conventions are that macros are in all caps, other names are in all lower case, and underbar is used as a word separator.  All publicly-visible symbols are prefixed with "xcb"; extension symbols are then prefixed with the extension prefix (usually its name).  Following this prefix is the name of the symbol as given in the relevant protocol document, transliterated as exactly as possible.  Operations on a given protocol request, such as reply retrieval or iterator construction, are given by standard suffixes.  Typenames end with a suffix t.
+
+I think looking through a few header files should clarify this, and working through a few examples should explain why we like it.  (It also makes it easy for us to generate the C from the XML protocol description, but that's just an added bonus, not the primary motivation.)
