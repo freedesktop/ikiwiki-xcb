@@ -12,7 +12,7 @@
 
 5\. Commit changed README, NEWS, and configure.ac ("Release &lt;name&gt; &lt;version&gt;")
 
-6\. autoreconf -vi &amp;&amp; ./configure &amp;&amp; make distcheck
+6\. autoreconf -vfi &amp;&amp; ./configure &amp;&amp; make distcheck
 
 7\. Tag the repository (git-tag -s -m "Release &lt;name&gt; &lt;version&gt;" &lt;version&gt;)
 
