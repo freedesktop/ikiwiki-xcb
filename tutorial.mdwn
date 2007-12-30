@@ -64,11 +64,11 @@ XCB has been created to eliminate the need for programs to actually implement th
 
 ### 1. The X Connection
 
-The major notion of using XCB is the X Connection. This is a structure representing the connection we have open with a given X server. It hides a queue of messages coming from the server, and a queue of pending requests that our client intends to send to the server. In XCB, this structure is named 'xcb_connection_t'. It is analogous to the Xlib Display. When we open a connection to an X server, the library returns a pointer to such a structure. Later, we supply this pointer to any XCB function that should send messages to the X server or receive messages from this server.
+The major notion of using XCB is the X Connection. This is a structure representing the connection we have open with a given X server. It hides a queue of messages coming from the server, and a queue of pending requests that our client intends to send to the server. In XCB, this structure is named '`xcb_connection_t`'. It is analogous to the Xlib Display. When we open a connection to an X server, the library returns a pointer to such a structure. Later, we supply this pointer to any XCB function that should send messages to the X server or receive messages from this server.
 
 ### 2. Requests and replies: the Xlib killers
 
-To ask for information from the X server, we have to make a request and ask for a reply. With Xlib, these two tasks are automatically done: Xlib locks the system, sends a request, waits for a reply from the X server and unlocks. This is annoying, especially if one makes a lot of requests to the X server. Indeed, Xlib has to wait for the end of a reply before asking for the next request (because of the locks that Xlib sends). For example, here is a time-line of N=4 requests/replies with Xlib, with a round-trip latency T_round_trip that is 5 times long as the time required to write or read a request/reply (T_write/T_read):
+To ask for information from the X server, we have to make a request and ask for a reply. With Xlib, these two tasks are automatically done: Xlib locks the system, sends a request, waits for a reply from the X server and unlocks. This is annoying, especially if one makes a lot of requests to the X server. Indeed, Xlib has to wait for the end of a reply before asking for the next request (because of the locks that Xlib sends). For example, here is a time-line of N=4 requests/replies with Xlib, with a round-trip latency `T_round_trip` that is 5 times long as the time required to write or read a request/reply (`T_write`/`T_read`):
 
               W-----RW-----RW-----RW-----R
 
@@ -82,7 +82,7 @@ With XCB, we can suppress most of the round-trips as the requests and the replie
 
               WWWW--RRRR
 
-The total time is N * T_write + max (0, T_round_trip - (N-1) * T_write) + N * T_read. Which can be considerably faster than all those Xlib round-trips.
+The total time is `N * T_write + max (0, T_round_trip - (N-1) * T_write) + N * T_read`. Which can be considerably faster than all those Xlib round-trips.
 
 Here is a program that computes the time to create 500 atoms with Xlib and XCB. It shows the Xlib way, the bad XCB way (which is similar to Xlib) and the good XCB way. On my computer, XCB is 25 times faster than Xlib.
 
@@ -138,7 +138,6 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 		useXCBPoorly (char **names,
 					  xcb_connection_t *connection )
 		{
-			xcb_connection_t          *connection = xcb_connect (NULL, NULL);
 			xcb_atom_t                atoms[NUM_NAMES];
 	
 			// in this bad use of xcb, we use the cookie immediately after posting the request with xcb_intern_atom 
@@ -308,7 +307,7 @@ Compiling XCB-based programs requires linking them with the XCB library. This is
 
 # Opening and closing the connection to an X server
 
-An X program first needs to open the connection to the X server, using xcb_connect():
+An X program first needs to open the connection to the X server, using `xcb_connect()`:
 
 		xcb_connection_t *xcb_connect (const char *displayname,  // if NULL, uses the DISPLAY environment variable
 									   int        *screenp );    // returns the screen number of the connection; can provide NULL if you don't care
@@ -328,8 +327,8 @@ So for example:
 
 Comparison Xlib/XCB:
 
-* XOpenDisplay ()   =>   xcb_connect () 
-* XCloseDisplay ()  =>   xcb_disconnect () 
+* `XOpenDisplay ()`   =>   `xcb_connect ()` 
+* `XCloseDisplay ()`  =>   `xcb_disconnect ()` 
 
 # Checking basic information about a connection
 
