@@ -1,1 +1,8 @@
-TODO
+Several projects have started using XCB.
+
+* Xlib itself has replaced Xtrans with XCB for the low-level transport layer (see [[XlibXcb]]).
+* The <http://cairographics.org/> library has an experimental XCB backend.
+* Vincent Torri has worked to port **evas** canvas component of <http://www.enlightenment.org/> from Xlib to XCB.
+* Work is ongoing to port selected default X apps from Xlib and Xt to XCB.
+
+In addition, there are a number of [demos](http://gitweb.freedesktop.org/?p=xcb/demo.git) available from the XCB repository.
