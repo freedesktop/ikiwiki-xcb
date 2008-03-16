@@ -217,7 +217,7 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 
 			/* do tests */
 	
-			double start, XlibTime, XCBBadTime, XCBGootTime;
+			double start, XlibTime, XCBBadTime, XCBGoodTime;
 
 
 			/* test Xlib */
