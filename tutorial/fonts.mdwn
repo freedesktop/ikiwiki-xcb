@@ -270,9 +270,7 @@ This example draw a text at 10 pixels (for the base line) of the bottom of a win
 							break;
 						}
 						case XCB_KEY_RELEASE: {
-							xcb_key_release_event_t *kr;
-
-							kr = (xcb_key_release_event_t *)event;
+							xcb_key_release_event_t *kr = (xcb_key_release_event_t *)event;
 
 							switch (kr->detail) {
 								/* ESC */
@@ -280,13 +278,12 @@ This example draw a text at 10 pixels (for the base line) of the bottom of a win
 									free (event);
 									xcb_disconnect (connection);
 									return 0;
-								{
+								}
 							}
+							free (event);
 						}
 					}
-					free (event);
 				}
 			}
-
 			return 0;
 		}
