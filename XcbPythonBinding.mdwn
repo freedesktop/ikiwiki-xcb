@@ -16,7 +16,7 @@ In addition to the prereqs for libxcb, described at the link above, you need Pyt
 
 The X Python binding can be obtained from `git://git.freedesktop.org/git/xcb/xpyb`.  After cloning the repo, the standard `./autogen.sh; make; make install` should suffice to build and install it.
 
-Note that the Python has a path that it uses when searching for modules to import.  This path must include the place where you install the software.  For example if you install with a prefix of `/usr/local` then your Python path must include `/usr/local/lib/python2.5/site-packages`.  There are at least three ways to accomplish this:
+Note that Python has a path that it uses when searching for modules to import.  This path must include the place where you install the software.  For example if you install with a prefix of `/usr/local` then your Python path must include `/usr/local/lib/python2.5/site-packages`.  There are at least three ways to accomplish this:
 
 1. Set a `PYTHONPATH` environment variable containing the path.
 2. Create a file with a `.pth` extension, containing the path, in a place that is on the existing path, such as `/usr/lib/python2.5/site-packages`.
