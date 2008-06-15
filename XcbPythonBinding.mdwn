@@ -180,17 +180,13 @@ The above example doesn't include XAuthority file parsing. To parse that file, y
     
     xauth={}
     for xline in xauthdata:
-        # byteswap to network order
+        # byteswap to network order and lose the \0-terminator
         xline[3] = struct.pack("!%ds" % len(xline[3]), xline[3])[:-1]
         xauth[":".join(xline[:2])] = ":".join(xline[2:])
         
         # No host means localhost, add these entries
         if xline[0] == "localhost":
-            # byteswap to network order
-            xline[3] = struct.pack("!%ds" % len(xline[3]), xline[3])[:-1]
-            xauth[":".join(xline[:2])] = ":".join(xline[2:])
-            if xline[0] == "localhost":
-                xauth[":%s" % xline[1]] = ":".join(xline[2:])
+            xauth[":%s" % xline[1]] = ":".join(xline[2:])
 
 Then to connect you can use the mapping xauth like this:
 
