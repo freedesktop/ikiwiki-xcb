@@ -165,3 +165,30 @@ The following complete program creates a window, sets a property, and does some 
     pid = conn.generate_id()
     
     run()
+
+# XAuth example
+
+The above example doesn't include XAuthority file parsing. To parse that file, you can use code similar to:
+    import os
+    import struct
+    
+    xauthdata = open(os.environ["XAUTHORITY"]).read()
+    # It's Python, not C, so split the two-level \0-terminated array with lengths stored as first byte
+    # and the index of the last item in the array is stored too as the first item
+    xauthdata = [[y[1:] for y in x.split("\0")] for x in xauthdata.split("\0\0")][1:]
+    
+    xauth={}
+    for xline in xauthdata:
+        # byteswap to network order
+        xline[3] = struct.pack("!%ds" % len(xline[3]), xline[3])[:-1]
+        xauth[":".join(xline[:2])] = ":".join(xline[2:])
+        # No host means localhost, add these entries
+        if xline[0] == "localhost":
+
+
+
+            xauth[":%s" % xline[1]] = ":".join(xline[2:])
+
+Then to connect you can use the mapping xauth like this:
+
+    conn = xcb.connect(display=os.environ["DISPLAY"], auth=xauth[os.environ["DISPLAY"]])
