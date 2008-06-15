@@ -169,6 +169,7 @@ The following complete program creates a window, sets a property, and does some 
 # XAuth example
 
 The above example doesn't include XAuthority file parsing. To parse that file, you can use code similar to:
+
     import os
     import struct
     
