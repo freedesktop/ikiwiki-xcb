@@ -37,6 +37,6 @@ Follow the function's link to see its prototype and an example of how to use it.
     <p>[[XcbPortingCreateCursor]] Creating a cursor from a standard font.</p>
   </dd>
   <dd>
-    <p><a href="http://cvs.freedesktop.org/*checkout*/xcb/xcb/doc/tutorial/index.html#xevents">Setting up the Event Loop</a> This section of the tutorial explains how to set up the event loop in XCB and compares the process with Xlib&#39;s <tt>XNextEvent</tt> and <tt>XPending</tt>.</p>
+    <p>[[tutorial/events]] explains how to set up the event loop in XCB and compares the process with Xlib&#39;s <tt>XNextEvent</tt> and <tt>XPending</tt>.</p>
   </dd>
 </dl>
