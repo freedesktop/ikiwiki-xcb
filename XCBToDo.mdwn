@@ -62,7 +62,7 @@ This list might be roughly in order of importance.
 - {2} Implement an XML metalanguage mechanism for requests and replies to declare enumerated and bitfield types, with hidden naming convention. X.h should be refactored into xcb.m4 using this mechanism. Existing XCBENUMs probably need to be refactored with it too.
 - {2} Figure out and implement a protocol versioning scheme.
 - {3} [Port libGL to XCB](http://lists.freedesktop.org/archives/xcb/2005-February/000351.html). (Jeremy Kolb)
-- {3} Some existing toolkit should be ported to XCB. [Qt](http://www.trolltech.com/products/qt/) and [Gtk+](http://www.gtk.org/) are the obvious targets.
+- {3} Some existing toolkit should be ported to XCB. [Qt](http://www.trolltech.com/products/qt/) and [Gtk+](http://www.gtk.org/) are the obvious targets.  The [FLTK](http://www.fltk.org/) people might be more receptive, though, given their concentration on lightweight performance. 
 - {3} More cases where padding can be automatically generated should be identified and implemented.
 
 ## Xlib on XCB
