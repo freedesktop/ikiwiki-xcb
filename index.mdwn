@@ -7,21 +7,21 @@ The X protocol C-language Binding (XCB) is a replacement for Xlib [[featuring|Fe
 # Download
 
 - You can obtain released versions of XCB from <http://xcb.freedesktop.org/dist>.
-- Follow the instructions from the [[DevelopersGuide]] to build, except that you can use released versions of the dependencies, and you don't need git, automake, autoconf, or libtool.
+- Follow the instructions from the [developer's guide](DevelopersGuide) to build, except that you can use released versions of the dependencies, and you don't need git, automake, autoconf, or libtool.
 
 # Development
 
 - If you wish to work on XCB, please read the [developer's guide](DevelopersGuide).
 - **Mailing list**: Discussion of XCB and Xlib/XCB is through the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
-- **IRC**: XCB developers also hang out on [[IRC]], and have occasional [[meetings]].
-- Of course, there's still a lot [[to_do|TODO]] .
+- **IRC**: XCB developers also hang out on [IRC](IRC), and have occasional [meetings](meetings).
+- Of course, there's still a lot [to do](TODO) .
 
 # Documentation
 
-- The [[XcbApi]] is documented. There is also a [[tutorial]] and some random [[notes|XcbNotes]].
-- XCB is built atop an XML description of the X core protocol and common extension protocols called [[XML/XCB|XmlXcb]]. This protocol can be used in other interesting ways.
-- To aid in porting applications, you can configure Xlib to use XCB for the transport layer. We call this [[Xlib/XCB|XlibXcb]].
+- The [XCB API](XcbApi) is documented. There is also a [tutorial](tutorial) and some random [notes](XcbNotes).
+- XCB is built atop an XML description of the X core protocol and common extension protocols called [XML/XCB](XmlXcb). This protocol can be used in other interesting ways.
+- To aid in porting applications, you can configure Xlib to use XCB for the transport layer. We call this [Xlib/XCB](XlibXcb).
 
 # Miscellaneous
 
-The XCB project has a long [[history]], during which it has produced many academic [[publications]]. XCB has, of yet, seen limited [[adoption]].
+The XCB project has a long [history](history), during which it has produced many academic [publications](publications). XCB has, of yet, seen limited [adoption](adoption).
