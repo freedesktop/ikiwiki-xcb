@@ -3,7 +3,7 @@
 After reading this page, read these pages (in this order):
 
 * [Basic Windows And Drawing](basicwindowsanddrawing)
-* [[Events]]
+* [Events](events)
 * [[TextAndFonts|Fonts]]
 * [[WindowContextAndManipulation]]
 * [[ColorsAndPixMaps]]
