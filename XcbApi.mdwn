@@ -4,7 +4,7 @@ _Refactoring this page...please be patient..._
 
 This is the API for [XCB](/). Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
 
-See also [[UsingXcb]] for tips and tricks on how to properly use the API.
+See also [Using XCB](../usingxcb) for tips and tricks on how to properly use the API.
 
 1. [Public API](../PublicApi)
 2. [Protocol Stub API](../ProtocolStubApi)
