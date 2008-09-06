@@ -6,7 +6,7 @@ After we got some basic information about our screen, we can create our first wi
 
 We first ask for a new Id for our window, with this function:
 
-		xcb_window_t xcb_generate_id (xcb_connection_t *c);
+		xcb_window_t xcb_generate_id (xcb_connection_t *connection);
 
 Then, XCB supplies the following function to create new windows:
 
@@ -26,7 +26,7 @@ Then, XCB supplies the following function to create new windows:
 
 The fact that we created the window does not mean that it will be drawn on screen. By default, newly created windows are not mapped on the screen (they are invisible). In order to make our window visible, we use the function xcbmapwindow(), whose prototype is
 
-		xcb_void_cookie_t xcb_map_window (xcb_connection_t  *c,
+		xcb_void_cookie_t xcb_map_window (xcb_connection_t  *connection,
 										  xcb_window_t       window );
 
 Finally, here is a small program to create a window of size 150x150 pixels, positioned at the top-left corner of the screen:
@@ -50,7 +50,7 @@ Finally, here is a small program to create a window of size 150x150 pixels, posi
 
 			/* Create the window */
 			xcb_window_t window = xcb_generate_id (connection);
-			xcb_create_window (c,                             /* Connection          */
+			xcb_create_window (connection,                    /* Connection          */
 							   XCB_COPY_FROM_PARENT,          /* depth (same as root)*/
 							   window,                        /* window Id           */
 							   screen->root,                  /* parent window       */
