@@ -2,9 +2,9 @@
 
 After reading this page, read these pages (in this order):
 
-* [Basic Windows And Drawing](basicwindowsanddrawing)
+* [Basic Windows and Drawing](basicwindowsanddrawing)
 * [Events](events)
-* [[TextAndFonts|Fonts]]
+* [Text and Fonts](fonts)
 * [[WindowContextAndManipulation]]
 * [[ColorsAndPixMaps]]
 * [[MouseCursors]]
