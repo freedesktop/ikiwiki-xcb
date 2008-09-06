@@ -362,7 +362,8 @@ Here is a small program that shows how to use this function:
 		#include <stdio.h>
 		#include <xcb/xcb.h>
 
-		int main ()
+		int 
+		main ()
 		{
 			/* Open the connection to the X server. Use the DISPLAY environment variable */
 			
