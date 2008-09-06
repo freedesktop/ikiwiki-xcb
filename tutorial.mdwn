@@ -362,12 +362,11 @@ Here is a small program that shows how to use this function:
 		#include <stdio.h>
 		#include <xcb/xcb.h>
 
-		int
-		main ()
+		int main ()
 		{
 			/* Open the connection to the X server. Use the DISPLAY environment variable */
 			
-			int screenNum;
+			int i, screenNum;
 			xcb_connection_t *connection = xcb_connect (NULL, &screenNum);
 
 			
@@ -377,7 +376,7 @@ Here is a small program that shows how to use this function:
 			xcb_screen_iterator_t iter = xcb_setup_roots_iterator (setup);  
 			
 			// we want the screen at index screenNum of the iterator
-			for (int i = 0; i < screenNum; ++i) {
+			for (i = 0; i < screenNum; ++i) {
 				xcb_screen_next (&iter);
 			}
 			
