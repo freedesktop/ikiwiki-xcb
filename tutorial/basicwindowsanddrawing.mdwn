@@ -10,7 +10,7 @@ We first ask for a new Id for our window, with this function:
 
 Then, XCB supplies the following function to create new windows:
 
-		xcb_void_cookie_t xcb_create_window (xcb_connection_t *c,             /* Pointer to the xcb_connection_t structure */
+		xcb_void_cookie_t xcb_create_window (xcb_connection_t *connection,    /* Pointer to the xcb_connection_t structure */
 											 uint8_t           depth,         /* Depth of the screen */
 											 xcb_window_t      wid,           /* Id of the window */
 											 xcb_window_t      parent,        /* Id of an existing window that should be the parent of the new window */
