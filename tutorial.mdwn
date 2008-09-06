@@ -2,7 +2,7 @@
 
 After reading this page, read these pages (in this order):
 
-* [[BasicWindowsAndDrawing]]
+* [Basic Windows And Drawing](tutorial/basicwindowsanddrawing)
 * [[Events]]
 * [[TextAndFonts|Fonts]]
 * [[WindowContextAndManipulation]]
