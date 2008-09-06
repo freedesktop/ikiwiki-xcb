@@ -2,11 +2,11 @@ _Refactoring this page...please be patient..._
 
 [[toc levels="6"]]
 
-This is the API for [[XCB|index]]. Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
+This is the API for [XCB](/). Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
 
 See also [[UsingXcb]] for tips and tricks on how to properly use the API.
 
-1. [[PublicApi]]
-2. [[ProtocolStubApi]]
-3. [[ProtocolExtensionApi]]
-4. [[XlibXcbApi]]
+1. [Public API](../PublicApi)
+2. [Protocol Stub API](../ProtocolStubApi)
+3. [Protocol Extension API](../ProtocolExtensionApi)
+4. [Xlib XCB API](../XlibXcbApi)
