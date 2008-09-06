@@ -72,7 +72,7 @@ Finally, here is a small program to create a window of size 150x150 pixels, posi
 
 			pause ();    /* hold client until Ctrl-C */
 
-			xcb_disconnection (connection);
+			xcb_disconnect (connection);
 			
 			return 0;
 		}
