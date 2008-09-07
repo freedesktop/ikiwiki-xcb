@@ -5,5 +5,6 @@ Several projects have started using XCB.
 * Vincent Torri has worked to port **evas** canvas component of <http://www.enlightenment.org/> from Xlib to XCB.
 * The recent MPX (multi-pointer) extension was prototyped using XCB.
 * Work is ongoing to port selected default X apps from Xlib and Xt to XCB.
+* [awesome](http://awesome.naquadah.org), a window manager, uses XCB instead of Xlib.
 
 In addition, there are a number of [demos](http://gitweb.freedesktop.org/?p=xcb/demo.git) available from the XCB repository.
