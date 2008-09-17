@@ -19,7 +19,7 @@ The X protocol C-language Binding (XCB) is a replacement for Xlib [featuring](Fe
 # Documentation
 
 - The [XCB API](XcbApi) is documented. There is also a [tutorial](tutorial) and some random [notes](XcbNotes).
-- People wanting to implement higher level applications can use [xcb-util](xcb-util).
+- People wanting to implement higher level applications can use [xcb-util](XcbUtil).
 - XCB is built atop an XML description of the X core protocol and common extension protocols called [XML/XCB](XmlXcb). This protocol can be used in other interesting ways.
 - To aid in porting applications, you can configure Xlib to use XCB for the transport layer. We call this [Xlib/XCB](XlibXcb).
 
