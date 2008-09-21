@@ -156,8 +156,8 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 		
 				if (reply) {
 					atoms[i] = reply->atom;
+					free (reply);
 				}
-				free(reply);
 			}
 			
 			// now we have our atoms (replies), but this is just a demo, so we do nothing with them
@@ -192,8 +192,8 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 		
 				if (reply) {
 					atoms[i] = reply->atom;
+					free (reply);
 				}
-				free (reply);
 			}
 			
 			// now we have our atoms (replies), but this is just a demo, so we do nothing with them
@@ -229,6 +229,8 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 			XlibTime = get_time () - start;
 	
 			XCloseDisplay (display);
+
+
 
 
 			/* test XCB */
