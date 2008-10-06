@@ -1,6 +1,6 @@
 Described here are some of the decisions in XCB of historical interest.
 
-You can view [[completed tasks|XCBCompletedTasks]].
+You can view [completed tasks](XCBCompletedTasks).
 
 ### Life before git
 
