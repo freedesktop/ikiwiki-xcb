@@ -84,7 +84,7 @@ With XCB, we can suppress most of the round-trips as the requests and the replie
 
 The total time is `N * T_write + max (0, T_round_trip - (N-1) * T_write) + N * T_read`. Which can be considerably faster than all those Xlib round-trips.
 
-Here is a program that computes the time to create 500 atoms with Xlib and XCB. It shows the Xlib way, the bad XCB way (which is similar to Xlib) and the good XCB way. On my computer, XCB is 25 times faster than Xlib.
+Here is a program that computes the time to create 500 atoms with Xlib and XCB. It shows the Xlib way, the bad XCB way (which is similar to Xlib) and the good XCB way. On my computer, XCB is 25 times faster than Xlib. On another random machine XCB has been observed to be up to 117 times faster than Xlib, on rare occasions.
 
             /* It's a good idea to paste this and other long code examples 
                into a text editor for easier reading */
