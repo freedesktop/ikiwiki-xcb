@@ -12,7 +12,9 @@
 
 1. Bump the package version in the top-level configure.ac
 
-1. Commit changed README, NEWS, and configure.ac ("Release <name> <version>")
+1. Commit changed README, NEWS, and configure.ac
+
+  - `git commit -m "Release <name> <version>"`
 
 1. check that **all** your changes are committed.
 
