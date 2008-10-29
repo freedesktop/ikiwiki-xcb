@@ -33,7 +33,7 @@ The plan 7 error handling follows the these rules.
 
 There are some details in the API stub document, but hopefully this clarifies the intent.
 
-# About XCB Names
+### About XCB Names
 
 The guiding principle of XCB naming is that one should be able to *infer* the name of the routine they want to call without reference to any documentation other than the protocol spec.  This occasionally generates some long and awful-looking names, but we've found that it also helps us to read and write code without so much reference to magic documentation, and with a clear understanding of what's going on "under the hood".  This is also why we choose to use the <stdint.h> typenames for integral types; we want the correspondence between C values and protocol values to be clear.
 

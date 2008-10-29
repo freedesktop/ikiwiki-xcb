@@ -4,76 +4,61 @@ Care is required when calling these functions, as they generally do not have the
 
 [[!toc levels="6"]]
 
-## struct xcb\_extension\_t
+## `struct xcb_extension_t`
 
-    struct xcb_extension_t {
-             const char *name;
-             int global_id;
-    };
-<dl>
-  <dt>name</dt>
-  <dd>the X name of this extension, stored as a null-terminated string.</dd>
-  <dt>global_id</dt>
-  <dd>a small integer unique across all extensions in the current process.</dd>
-</dl>
+		struct xcb_extension_t {
+			const char *name;         // the X name of this extension, stored as a null-terminated string
+			int global_id;            // a small integer unique across all extensions in the current process
+		};
 
-## xcb\_protocol\_request\_t
+## `xcb_protocol_request_t`
 
-    typedef struct {
-             size_t count;
-             xcb_extension_t *ext;
-             uint8_t opcode;
-             uint8_t isvoid;
-    } xcb_protocol_request_t;
+		typedef struct {
+			size_t count;            // number of elements in the iovec array
+			xcb_extension_t *ext;    // extension identifier, or null for the core protocol
+			uint8_t opcode;          // major opcode of the request for the core protocol, or minor opcode for an extension
+			uint8_t isvoid;          // zero if this request will return a reply; non-zero otherwise
+		} xcb_protocol_request_t;
 
 Values for a particular request that are always constant.
 
-<dl>
-  <dt>count</dt>
-  <dd>number of elements in the iovec array.</dd>
-  <dt>ext</dt>
-  <dd>extension identifier, or null for the core protocol.</dd>
-  <dt>opcode</dt>
-  <dd>major opcode of the request for the core protocol, or minor opcode for an extension.</dd>
-  <dt>isvoid</dt>
-  <dd>zero if this request will return a reply; non-zero otherwise.</dd>
-</dl>
+## `xcb_send_request`
 
-## xcb\_send\_request
+(`xcb_out.c`)
 
-(xcb\_out.c)
+		int
+		xcb_send_request (xcb_connection *c,
+						  int flags,                                // a combination of the flags `XCB_REQUEST_CHECKED`, `XCB_REQUEST_RAW`, and `XCB_REQUEST_DISCARD_REPLY`
+						  unsigned int *sequence,
+						  struct iovec *vector,
+						  const xcb_protocol_request_t *request );
 
-`int xcb_send_request(xcb_connection *c, int flags, unsigned int *sequence, struct iovec *vector, const xcb_protocol_request_t *request)`
+## `xcb_wait_for_reply`
 
-<dl>
-  <dt>flags</dt>
-  <dd>a combination of the following flags</dd>
-</dl>
+(`xcb_in.c`)
 
-`XCB_REQUEST_CHECKED`
+		void *
+		xcb_wait_for_reply (xcb_connection *c,
+							unsigned int request,
+							xcb_generic_error_t **e );
 
-`XCB_REQUEST_RAW`
+## `xcb_poll_for_reply`
 
-`XCB_REQUEST_DISCARD_REPLY`
+(`xcb_in.c`)
 
-## xcb\_wait\_for\_reply
-
-(xcb\_in.c)
-
-`void * xcb_wait_for_reply(xcb_connection *c, unsigned int request, xcb_generic_error_t **e)`
-
-## xcb\_poll\_for\_reply
-
-(xcb\_in.c)
-
-`int xcb_poll_for_reply(xcb_connection *c, unsigned int request, void **reply, xcb_generic_error_t **e)`
+		int
+		xcb_poll_for_reply (xcb_connection *c,
+							unsigned int request,
+							void **reply,
+							xcb_generic_error_t **e );
 
 Returns: 1 if the reply was recieved (reply or error is filled in), 0 if the reply has not yet arrived.
 
-## xcb\_popcount
+## `xcb_popcount`
 
-(xcb\_util.c)
+(`xcb_util.c`)
 
-`int xcb_popcount(uint32_t mask)`
+		int
+		xcb_popcount (uint32_t mask);
 
 Returns the number of bits in the binary representation of `mask` that are equal to 1. This is also called a "population count".
