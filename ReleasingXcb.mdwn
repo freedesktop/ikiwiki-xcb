@@ -36,7 +36,6 @@
       - git tag and keysign
       - MD5 and SHA1 checksums + URL's of tarballs (md5sum, sha1sum)
       - note names of releasers
-  - don't forget to sign the email
 
 1. Push the master branch and the tag with `git push origin master <version>`
 
@@ -49,6 +48,7 @@
   - Subject: [ANNOUNCE] <name> <version>
   - To: <xcb@lists.freedesktop.org>, <xorg-announce@lists.freedesktop.org>,
     <xorg@lists.freedesktop.org>
+  - don't forget to GPG-sign the email
 
 1. Update the xcb wiki (main page, if necessary)
 
