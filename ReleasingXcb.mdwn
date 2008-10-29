@@ -4,9 +4,13 @@
 
 1. git-pull, no local changes (git diff HEAD is empty), master branch
 
-2. README (if not already present)
+2. Update README
 
-3. NEWS (hint: use git-log --pretty=short &lt;last version&gt;.. | git-shortlog)
+3. Update NEWS
+
+  - git-log --pretty=short &lt;last version&gt;.. | git-shortlog
+  - Skip any fixes to bugs that didn't exist in the last release
+  - Skip any typos or similar cosmetic changes
 
 4. Bump the package version in the top-level configure.ac
 
