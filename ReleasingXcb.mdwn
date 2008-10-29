@@ -45,7 +45,7 @@
 
 1. Send the release mail to xorg and xcb lists
 
-  - Subject: [ANNOUNCE] <name> <version>
+  - Subject: `[ANNOUNCE] <name> <version>`
   - To: <xcb@lists.freedesktop.org>, <xorg-announce@lists.freedesktop.org>,
     <xorg@lists.freedesktop.org>
   - don't forget to GPG-sign the email
