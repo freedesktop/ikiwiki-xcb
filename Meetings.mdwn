@@ -2,4 +2,4 @@ We occasionally meet on [[IRC]].
 
 To add a new meeting, please use the date of the meeting (YYYY-MM-DD).
 
-[[inline rootpage="Meetings" pages="Meetings/* and !Meetings/*/*" archive="yes" sort="title" reverse="yes" template="titlepage"]]
+[[!inline rootpage="Meetings" pages="Meetings/* and !Meetings/*/*" archive="yes" sort="title" reverse="yes" template="titlepage"]]

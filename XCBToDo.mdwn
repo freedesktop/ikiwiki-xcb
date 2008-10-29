@@ -1,4 +1,4 @@
-[[toc levels="6"]]
+[[!toc levels="6"]]
 
 Tasks requiring documentation as a product should have that documentation placed in the wiki so that other contributors can learn from it.
 

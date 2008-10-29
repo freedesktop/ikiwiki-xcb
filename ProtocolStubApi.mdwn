@@ -6,7 +6,7 @@ Most of the X Window Protocol documentation lives in <http://webcvs.freedesktop.
 
 [!] _**TODO:** link to online descriptions of the core X protocol as well as de-facto standard extension protocols._
 
-[[toc levels="6"]]
+[[!toc levels="6"]]
 
 ## Extensions
 

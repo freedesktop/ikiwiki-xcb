@@ -1,6 +1,6 @@
 _Refactoring this page...please be patient..._
 
-[[toc levels="6"]]
+[[!toc levels="6"]]
 
 This is the API for [XCB](/). Each function and data structure documents the source file containing its declaration, in addition to the usual sorts of documentation.
 

@@ -2,7 +2,7 @@ These functions are expected to be useful only to X protocol extension implement
 
 Care is required when calling these functions, as they generally do not have the type-safety properties of the public API functions.
 
-[[toc levels="6"]]
+[[!toc levels="6"]]
 
 ## struct xcb\_extension\_t
 

@@ -1,6 +1,6 @@
 A "semi-private" API exists for applications that want to avoid the XCB top-half and work directly with the bottom half. The file "xcbxlib.h" contains the interface specification. It is an extremely small interface.
 
-[[toc levels="6"]]
+[[!toc levels="6"]]
 
 <a name="xcb_get_request_sent"></a>
 
