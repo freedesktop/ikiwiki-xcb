@@ -16,7 +16,7 @@
 
   - `git commit -m "Release <name> <version>"`
 
-1. check that **all** your changes are committed.
+1. check that **all** your changes are committed
 
   - `git status` must not show any uncommitted files and you must be on the
     `master` branch
@@ -42,7 +42,7 @@
 
 1. Copy the .gz and .bz2 tarballs to
    xcb.freedesktop.org:/srv/xcb.freedesktop.org/www/dist/ so they show up at
-   <http://xcb.freedesktop.org/dist/>.
+   <http://xcb.freedesktop.org/dist/>
 
 1. Send the release mail to xorg and xcb lists
 
