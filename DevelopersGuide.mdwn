@@ -86,20 +86,5 @@ The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, X
 
 
 ### Making a release
-If you make a release of any component of xcb, the following steps are required.
 
-* bump the version number in configure.ac and commit the change.
-* check that **all** your changes are committed. *git-diff HEAD* must not show anything, *git status* must not show any uncommitted files.
-* *make distcheck* must succeed.
-* check that all your changes are pushed. *git log origin..* should not show anything
-* tag the release using *git tag -s -m "&lt;msg&gt;" &lt;tag&gt;*. Use *git-tag* to obtain the list of previous tags, and *git show &lt;tag&gt;* to see the full information about the tag.
-* copy the tarballs into the release directory (username@annarchy.freedesktop.org:/srv/xcb.freedesktop.org/www/dist)
-* push the tags using *git push --tags origin*
-* write the announce email
-   * must include links to the new tarballs (e.g. http://xcb.freedesktop.org/dist/xcb-proto-1.0.0.tar.gz)
-   * must include md5sum and a sha1sum of both tarballs
-   * must include a git shortlog obtained by *git log &lt;last tag&gt;..&lt;current tag&gt; | git shortlog*
-   * don't forget to sign the email.
-* send the announce email to xcb@lists.freedesktop.org,  xorg-announce@lists.freedesktop.org, and xorg@lists.freedesktop.org
- 
-
+See [[ReleasingXcb]].

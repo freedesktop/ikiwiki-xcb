@@ -2,43 +2,52 @@
 
 (based on cairo's release process) (requires the maintainer to have a gpg key to sign the tag)
 
-1. git-pull, no local changes (git diff HEAD is empty), master branch
-
 1. Update README
 
 1. Update NEWS
 
-  - git-log --pretty=short &lt;last version&gt;.. | git-shortlog
+  - `git shortlog <last version>..`
   - Skip any fixes to bugs that didn't exist in the last release
   - Skip any typos or similar cosmetic changes
 
 1. Bump the package version in the top-level configure.ac
 
-1. Commit changed README, NEWS, and configure.ac ("Release &lt;name&gt; &lt;version&gt;")
+1. Commit changed README, NEWS, and configure.ac ("Release <name> <version>")
 
-1. autoreconf -vfi &amp;&amp; ./configure &amp;&amp; make distcheck
+1. check that **all** your changes are committed.
 
-1. Tag the repository (git-tag -s -m "Release &lt;name&gt; &lt;version&gt;" &lt;version&gt;)
+  - `git status` must not show any uncommitted files and you must be on the
+    `master` branch
+  - `git diff HEAD` must not show anything
 
-  - verify with git-verify-tag &lt;version&gt;
+1. `autoreconf -vfi && ./configure && make distcheck`
+
+1. Tag the repository
+
+  - `git tag -s -m "Release <name> <version>" <version>`
+  - verify with `git verify-tag <version>`
 
 1. Compose the release mail (but don't send yet!)
 
   - template off of last release mail
       - replace version, README, NEWS
       - git tag and keysign
-      - MD5 &amp; SHA1 checksums + URL's of tarballs (md5sum, sha1sum)
+      - MD5 and SHA1 checksums + URL's of tarballs (md5sum, sha1sum)
       - note names of releasers
+  - don't forget to sign the email
 
-1. Push the tag and copy the .gz and .bz2 tarballs to xcb.freedesktop.org/dist
+1. Push the master branch and the tag with `git push origin master <version>`
 
-  - git-push origin &lt;version&gt; &amp;&amp; git-push origin
-  - xcb.freedesktop.org:/srv/xcb.freedesktop.org/www/dist/
+1. Copy the .gz and .bz2 tarballs to
+   xcb.freedesktop.org:/srv/xcb.freedesktop.org/www/dist/ so they show up at
+   <http://xcb.freedesktop.org/dist/>.
 
 1. Send the release mail to xorg and xcb lists
 
-  - Subject: [ANNOUNCE] &lt;name&gt; &lt;version&gt;
+  - Subject: [ANNOUNCE] <name> <version>
+  - To: <xcb@lists.freedesktop.org>, <xorg-announce@lists.freedesktop.org>,
+    <xorg@lists.freedesktop.org>
 
 1. Update the xcb wiki (main page, if necessary)
 
-1. Bug Jamey to release a Debian package
+1. Bug Jamey Sharp and/or Julien Danjou to release a Debian package
