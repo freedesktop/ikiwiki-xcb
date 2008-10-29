@@ -2,39 +2,39 @@
 
 (based on cairo's release process) (requires the maintainer to have a gpg key to sign the tag)
 
-1\. git-pull, no local changes (git diff HEAD is empty), master branch
+1. git-pull, no local changes (git diff HEAD is empty), master branch
 
-2\. README (if not already present)
+2. README (if not already present)
 
-3\. NEWS (hint: use git-log --pretty=short &lt;last version&gt;.. | git-shortlog)
+3. NEWS (hint: use git-log --pretty=short &lt;last version&gt;.. | git-shortlog)
 
-4\. Bump the package version in the top-level configure.ac
+4. Bump the package version in the top-level configure.ac
 
-5\. Commit changed README, NEWS, and configure.ac ("Release &lt;name&gt; &lt;version&gt;")
+5. Commit changed README, NEWS, and configure.ac ("Release &lt;name&gt; &lt;version&gt;")
 
-6\. autoreconf -vfi &amp;&amp; ./configure &amp;&amp; make distcheck
+6. autoreconf -vfi &amp;&amp; ./configure &amp;&amp; make distcheck
 
-7\. Tag the repository (git-tag -s -m "Release &lt;name&gt; &lt;version&gt;" &lt;version&gt;)
+7. Tag the repository (git-tag -s -m "Release &lt;name&gt; &lt;version&gt;" &lt;version&gt;)
 
-- verify with git-verify-tag &lt;version&gt;
+  - verify with git-verify-tag &lt;version&gt;
 
-8\. Compose the release mail (but don't send yet!)
+8. Compose the release mail (but don't send yet!)
 
-- template off of last release mail
-  - replace version, README, NEWS
-  - git tag and keysign
-  - MD5 &amp; SHA1 checksums + URL's of tarballs (md5sum, sha1sum)
-  - note names of releasers
+  - template off of last release mail
+      - replace version, README, NEWS
+      - git tag and keysign
+      - MD5 &amp; SHA1 checksums + URL's of tarballs (md5sum, sha1sum)
+      - note names of releasers
 
-9\. Push the tag and copy the .gz and .bz2 tarballs to xcb.freedesktop.org/dist
+9. Push the tag and copy the .gz and .bz2 tarballs to xcb.freedesktop.org/dist
 
-- git-push origin &lt;version&gt; &amp;&amp; git-push origin
-- xcb.freedesktop.org:/srv/xcb.freedesktop.org/www/dist/
+  - git-push origin &lt;version&gt; &amp;&amp; git-push origin
+  - xcb.freedesktop.org:/srv/xcb.freedesktop.org/www/dist/
 
-10\. Send the release mail to xorg and xcb lists
+10. Send the release mail to xorg and xcb lists
 
-- Subject: [ANNOUNCE] &lt;name&gt; &lt;version&gt;
+  - Subject: [ANNOUNCE] &lt;name&gt; &lt;version&gt;
 
-11\. Update the xcb wiki (main page, if necessary)
+11. Update the xcb wiki (main page, if necessary)
 
-12\. Bug Jamey to release a Debian package
+12. Bug Jamey to release a Debian package
