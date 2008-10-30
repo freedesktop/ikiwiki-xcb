@@ -7,5 +7,6 @@ Several projects have started using XCB.
 * Work is ongoing to port selected default X apps from Xlib and Xt to XCB.
 * [awesome](http://awesome.naquadah.org), a window manager, uses XCB instead of Xlib.
 * [Compiz](http://compiz.org) requires XCB.
+* [Xine](http://xinehq.de/) and the [Kaffeine KDE frontend for Xine](http://kaffeine.kde.org/) use XCB, and XCB fixed some previously unfixable threading problems.
 
 In addition, there are a number of [demos](http://gitweb.freedesktop.org/?p=xcb/demo.git) available from the XCB repository.
