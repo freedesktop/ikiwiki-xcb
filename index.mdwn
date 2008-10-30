@@ -25,4 +25,4 @@ The X protocol C-language Binding (XCB) is a replacement for Xlib [[featuring|Fe
 
 # Miscellaneous
 
-The XCB project has a long [[history]], during which it has produced many academic [[publications]]. XCB has, of yet, seen limited [[adoption]].
+The XCB project has a long [[history]], during which it has produced many academic [[publications]]. Various projects have [[adopted|adoption]] XCB.
