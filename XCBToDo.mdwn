@@ -75,7 +75,7 @@ This list might be roughly in order of importance.
 
 Encapsulate ICCCM, window reparenting and event capture, and anything else that seems appropriate, in one or more libraries. It should be able to cooperate with other libraries; Cairo comes to mind. Perhaps COMPOSITE extension helpers would be useful too, so it can support compositing managers as well.
 
-A prototype implementation is available in the xcb-util module; more discussion is on the [Using XCB](../usingxcb) page.
+A prototype implementation is available in the xcb-util module; more discussion is on the [[Using XCB|usingxcb]] page.
 
 ## Alternate targets
 

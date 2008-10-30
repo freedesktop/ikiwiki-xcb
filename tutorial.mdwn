@@ -2,13 +2,13 @@
 
 After reading this page, read these pages (in this order):
 
-* [Basic Windows and Drawing](basicwindowsanddrawing)
-* [Events](events)
-* [Text and Fonts](fonts)
-* [Window Context and Manipulation](../windowcontextandmanipulation)
-* [Colors and PixMaps](../colorsandpixmaps)
-* [Mouse Cursors](mousecursors)
-* [Xlib to XCB Translation Guide](../xlibtoxcbtranslationguide)
+* [[Basic Windows and Drawing|basicwindowsanddrawing]]
+* [[Events|events]]
+* [[Text and Fonts|fonts]]
+* [[Window Context and Manipulation|windowcontextandmanipulation]]
+* [[Colors and PixMaps|colorsandpixmaps]]
+* [[Mouse Cursors|mousecursors]]
+* [[Xlib to XCB Translation Guide|xlibtoxcbtranslationguide]]
 
 # Introduction
 
