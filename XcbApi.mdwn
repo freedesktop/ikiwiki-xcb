@@ -9,4 +9,3 @@ See also [[Using XCB|usingxcb]] for tips and tricks on how to properly use the A
 1. [[Public API|PublicApi]]
 2. [[Protocol Stub API|ProtocolStubApi]]
 3. [[Protocol Extension API|ProtocolExtensionApi]]
-4. [[Xlib XCB API|XlibXcbApi]]
