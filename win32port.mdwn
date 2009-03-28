@@ -55,11 +55,11 @@ Our code has been changed to skip inclusion of these header files when compiled 
 
 -- Windefs.h
 
-windefs.h defines all headers and other structures,datatypes,etc required for win32. A key point to note within this header file is the following:
+windefs.h defines all headers and other structures,datatypes,etc required for win32. A key point to note within this header file is the following define:
 
-    #define WINVER 0x0501 since getaddrinfo/freeaddrinfo are defined only for WinXP and above. Without this linker complains of undefined references.
+    #define WINVER 0x0501 required since getaddrinfo and freeaddrinfo are defined only for WinXP and above. Without this the linker complains of undefined references.
 
-Currently, therefore, the code may not compile (untested) on versions prior to XP.
+Therefore, currently the code may not compile on versions prior to XP (untested)
 
 
 
