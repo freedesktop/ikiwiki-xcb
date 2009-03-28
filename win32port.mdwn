@@ -31,25 +31,25 @@ Our code has been changed to skip inclusion of these header files when compiled 
 
 -- Source code files effected:
 
-* xcb_auth.c
+* xcb\_auth.c
 
-* xcb_conn.c
-	-- set_fd_flags() : Win32 doesn't have file descriptors and the fcntl function. Made changes that set the socket in non-blocking mode.
-	-- write_vec() : Win32 version using the send() function instead of writev.
-	-- xcb_disconnect() : Calls WSACleanup for Win32 build.
+* xcb\_conn.c
+    * set\_fd\_flags() : Win32 doesn't have file descriptors and the fcntl function. Made changes that set the socket in non-blocking mode.
+    * write\_vec() : Win32 version using the send() function instead of writev.
+    * xcb\_disconnect() : Calls WSACleanup for Win32 build.
 
-* xcb_in.c
-	-- read_block() : Win32 version using the recv() function instead of read.
-	-- _xcb_in_read() : Win32 version using the recv() function instead of read.
+* xcb\_in.c
+    * read\_block() : Win32 version using the recv() function instead of read.
+    * _xcb\_in\_read() : Win32 version using the recv() function instead of read.
 	
-* xcb_util.c
-	-- _xcb_open_unix() : Preprocessor directives prevent this from being compiled while building for Win32.
-	-- _xcb_open() : Does not call _xcb_open_unix for Win32 build.
-	-- _xcb_open_tcp() : Calls initWSA to initialize the Windows Socket Architecture. 
-	-- initWSA() : New function added to initialize the Win32 Sockets layer.
+* xcb\_util.c
+    * \_xcb\_open\_unix() : Preprocessor directives prevent this from being compiled while building for Win32.
+    * \_xcb\_open() : Does not call _xcb_open_unix for Win32 build.
+    * \_xcb\_open\_tcp() : Calls initWSA to initialize the Windows Socket Architecture. 
+    * initWSA() : New function added to initialize the Win32 Sockets layer.
 
 * xcb.h
-	-- Declaration for the initWSA function added.
+    * Declaration for the initWSA function added.
 
 * windefs.h (new header created specifically for the Win32 port)
 
@@ -204,6 +204,7 @@ The following is a test code from the XCB tutorial. Copy all of the XCB headers 
         xcb_void_cookie_t gcCookie = xcb_free_gc (connection, gc);
         testCookie (gcCookie, connection, "can't free gc");
     }
+
 
 
     static void
@@ -428,6 +429,7 @@ The following is a test code from the XCB tutorial. Copy all of the XCB headers 
                         else {
                             setCursor (connection, screen, window, 68);
                         }
+
                     }
                     case XCB_KEY_RELEASE: {
 
