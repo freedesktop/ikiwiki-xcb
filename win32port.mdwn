@@ -113,7 +113,7 @@ The simplest way to use the DLL under MinGW is to include it during compiling yo
 ## X Servers
 ***
 
-For testing purposes I have used the following X Servers within Windows. My source code has been connecting locally to these X Servers. I have also connected remotely to my X.org server on Linux. 
+I have tested the port using the following X Servers within Windows. My source code has been connecting locally to these X Servers. I have also connected remotely to my X.org server on Linux. 
 
 * XMing <http://www.straightrunning.com/XmingNotes>
 * WinAxe <http://www.labf.com/winaxe/index.html>
@@ -428,6 +428,7 @@ The following is a test code from the XCB tutorial. Copy all of the XCB headers 
                         }
                         else {
                             setCursor (connection, screen, window, 68);
+
                         }
 
                     }
