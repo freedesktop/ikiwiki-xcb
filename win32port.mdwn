@@ -85,11 +85,11 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
 -- Made the following changes (thanks Vincent) - 
 
-1. in configure.ac, before AC_PROG_LIBTOOL, add AC_LIBTOOL_WIN32_DLL
+1. in configure.ac, before AC _ PROG _ LIBTOOL add AC _ LIBTOOL _ WIN32 _ DLL
 
 2. add, in src/Makefile.am, the value -no-undefined to *_LDFLAGS:
 
-   libxcb_la_LDFLAGS = -no-undefined -version-info 1:0:0
+    libxcb _ la _ LDFLAGS = -no-undefined -version-info 1:0:0
 
 -- set the environment variable LIBS to include the ws2_32 and pthreadGC2 library - export LIBS = -lws2_32 -lpthreadGC2
 
