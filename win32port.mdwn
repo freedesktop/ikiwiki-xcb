@@ -91,7 +91,7 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
     libxcb _ la _ LDFLAGS = -no-undefined -version-info 1:0:0
 
--- set the environment variable LIBS to include the ws2_32 and pthreadGC2 library - export LIBS = -lws2_32 -lpthreadGC2
+-- set the environment variable LIBS to include the ws2 _ 32 and pthreadGC2 library - export LIBS = -lws2 _ 32 -lpthreadGC2
 
 -- Configured and built using - 
 ./autogen.sh --host=i586-mingw32msvc
