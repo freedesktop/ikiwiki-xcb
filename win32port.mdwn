@@ -4,7 +4,7 @@
 
 
 
-XCB has now been ported to the Win32 platform. This mess shall soon be unleashed on the world so here is the headsup on it :)
+XCB has now been ported to the Windows (32 bit) platform. This mess shall soon be unleashed on the world so here is the headsup on it :)
 
 ## Background
 ***
