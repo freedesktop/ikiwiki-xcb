@@ -75,7 +75,7 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 * make
 * make install
 
--- Compiled and installed the pthread-win32 library (http://sourceware.org/pthreads-win32/)
+-- Compiled and installed the pthread-win32 library <http://sourceware.org/pthreads-win32/>
 
     make CC=i586-mingw32msvc-gcc \
          RC=i586-mingw32msvc-windres \
