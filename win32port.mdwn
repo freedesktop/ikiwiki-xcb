@@ -75,7 +75,7 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 * make
 * make install
 
--- Compiled and installed the pthread-win32 library <http://sourceware.org/pthreads-win32/>
+-- Compiled and installed the pthread-win32 library (<http://sourceware.org/pthreads-win32/>)
 
     make CC=i586-mingw32msvc-gcc \
          RC=i586-mingw32msvc-windres \
@@ -115,8 +115,8 @@ The simplest way to use the DLL under MinGW is to include it during compiling yo
 
 I have tested the port using the following X Servers within Windows. My source code has been connecting locally to these X Servers. I have also connected remotely to my X.org server on Linux. 
 
-* XMing <http://www.straightrunning.com/XmingNotes>
-* WinAxe <http://www.labf.com/winaxe/index.html>
+* XMing (<http://www.straightrunning.com/XmingNotes>)
+* WinAxe (<http://www.labf.com/winaxe/index.html>)
 
 ## Test Code
 ***
