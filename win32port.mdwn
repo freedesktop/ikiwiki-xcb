@@ -99,6 +99,15 @@ make
 
 If all goes well the DLL is created within the src/.libs directory.
 
+## Where can I get this from now?
+***
+
+Until this port is merged into the main tree, I have set up a git branch of XCB with changes to support a Win32 build. Get it using :
+
+     git clone git://github.com/topcat/xcb-win32.git
+
+...and stand far far far away :) 
+
 ## Using XCB within Windows
 ***
 
