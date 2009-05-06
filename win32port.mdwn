@@ -3,7 +3,6 @@
 
 
 
-
 XCB has now been ported to the Windows (32 bit) platform. This mess shall soon be unleashed on the world so here is the headsup on it :)
 
 ## Background
@@ -100,6 +99,7 @@ make
 If all goes well the DLL is created within the src/.libs directory.
 
 ## Where can I get this from now?
+
 ***
 
 Until this port is merged into the main tree, I have set up a git branch of XCB with changes to support a Win32 build. Get it using :
@@ -107,6 +107,8 @@ Until this port is merged into the main tree, I have set up a git branch of XCB 
      git clone git://github.com/topcat/xcb-win32.git
 
 ...and stand far far far away :) 
+
+This is based on the devel tree as on 6 May 2009.
 
 ## Using XCB within Windows
 ***
@@ -430,6 +432,7 @@ The following is a test code from the XCB tutorial. Copy all of the XCB headers 
                                 (press->event_y >= (HEIGHT - 16) / 2 - 19) &&
                                 (press->event_y <= ((HEIGHT - 16) / 2))) {
                             isHand = 1 - isHand;
+
                         }
 
                         if (isHand) {
