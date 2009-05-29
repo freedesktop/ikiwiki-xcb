@@ -11,6 +11,5 @@ These libraries are currently included, roughly ordered by maturity:
 - keysyms: Standard X key constants and conversion to/from keycodes. 
 - event: Callback X event handling. 
 - image: Port of Xlib's XImage and XShmImage functions. 
-- Framework for window manager implementation. 
 
 The online API documentation can be found [here](/XcbUtil/api/), and can be built using doxygen.
