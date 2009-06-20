@@ -44,7 +44,7 @@ Our code has been changed to skip inclusion of these header files when compiled 
 * xcb\_util.c
     * \_xcb\_open\_unix() : Preprocessor directives prevent this from being compiled while building for Win32.
     * \_xcb\_open() : Does not call _xcb_open_unix for Win32 build.
-    * \_xcb\_open\_tcp() : Calls initWSA to initialize the Windows Socket Architecture. 
+    * \_xcb\_open\_tcp()
 
 * xcb.h
 
