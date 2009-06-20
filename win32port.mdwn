@@ -347,7 +347,7 @@ The following is a test code from the XCB tutorial. Copy all of the XCB headers 
         if(rc != 0)
           {
           fprintf(stderr,"Unable to load Winsock: %d\n",rc);
-          return 1;
+          return -1;
           }
         
         xcb_connection_t *connection = xcb_connect ("127.0.0.1:0.0", &screenNum);
