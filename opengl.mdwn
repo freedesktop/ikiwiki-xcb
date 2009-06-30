@@ -1,0 +1,31 @@
+# The big picture: OpenGL, Xlib and GLX
+
+A typical X Windowing System application is built using Xlib to communicate with the X server. Xlib has been the standard programming interface to the X Windowing System for decades. An OpenGL application on X Windows must use GLX, a standardized API, to set up a rendering context. The GLX API is closely coupled with Xlib.
+
+In a typical desktop Linux or Unix set up, the OpenGL implementation library is provided by the graphics adapter drivers. The OpenGL library also provides the GLX API implementation. The GLX system has two roles, it communicates with the X server and initializes client-side and hardware state. The GLX client-server communication takes place using a standardized GLX wire protocol, which is an extension to the X network protocol. The GLX library abstracts all client-side and hardware initialization and the internals of the process are hidden in the OpenGL implementation library. The GLX functions may also communicate with the X server using proprietary X network protocol extensions.
+
+The GLX API is specified in terms of Xlib, the glX functions use Xlib Displays, Windows, Visuals, etc. The GLX implementations are also built using Xlib.
+
+# XCB and XCB-GLX
+
+XCB is a low level programming interface library to the X Windowing system. It consists of C language bindings to X network protocol requests and responses. The bindings are automatically generated from an XML-based description of the underlying network protocol. XCB-GLX is the C binding to the GLX wire protocol and it too is generated from XML descriptions transcribed from the GLX wire protocol specifications.
+
+XCB-GLX only communicates with the X server, it does not perform any hardware initialization or touch the OpenGL client-side state. Because of this XCB-GLX cannot be used as a replacement for the GLX API. To use OpenGL in the X Windowing system, one must use the GLX API, and the GLX API is closely coupled with Xlib. As a result, an OpenGL application on the X Windows must use Xlib and thus can’t be done using only XCB.
+
+Although the XCB-GLX API has little value to end-user XCB application developers, it may be used in the development of new XCB-based OpenGL and GLX implementations. XCB could potentially improve the speed and quality of the OpenGL libraries.
+
+# Using OpenGL in XCB applications (w/ Xlib)
+
+Although writing a OpenGL application on X Windows using pure XCB is not possible, it is possible to use a XCB-based Xlib implementation to configure a rendering context in a hybrid XCB/Xlib application. Xlib is used with the GLX functions while XCB can be used for everything else. You do get all the advantages of using XCB, but you can’t get entirely rid of Xlib.
+
+The process of setting up a hybrid XCB/Xlib application with OpenGL is rather simple. XOpenDisplay is used to set up a Xlib Display, and XGetXCBConnection and XSetEventQueueOwner (from X11/Xlib-xcb.h) is used to get the XCB connection and configure XCB to handle the event queue instead of Xlib. The Xlib Display can then be used for the GLX context setup while the XCB connection can be used for everything else. Communication between XCB and GLX is done using integer-based identifiers (XID’s), which are safe to pass around between XCB and Xlib/GLX.
+
+# Future work
+
+For a sustainable XCB-based OpenGL solution, a new replacement API for GLX would have to be designed and implemented. The GLX API could, in theory, be redesigned on top of XCB, using the XCB connection and the XCB-GLX for the X server communication internally. The new XCB’ified GLX API could be used to write OpenGL application with pure XCB without the dependancy to Xlib.
+
+The obvious problem is that the GLX is a standardized API and has dozens of different implementations. The GLX standard is governed by the Khronos group and they are the ones to make the initiative for a new API standard. Implementing the new API would be up to the graphics driver vendors.
+
+A proof-of-concept design and implementation could be done using MESA, an open source OpenGL implementation.
+To maintain backward compatibility and providing an incremental porting path, the current GLX API could be implemented using the XCB’ified API underneath like the XCB-based Xlib implementation does.
+
