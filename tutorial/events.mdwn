@@ -61,7 +61,7 @@ If the window has already been created, we can use the xcb\_configure\_window() 
 
         xcb_configure_window (connection, window, XCB_CW_EVENT_MASK, values);
 
-Note: A common programmer oversight is adding code to handle new event types while forgetting to add the masks for these events in the creation of the window. This leads to programmers debugging for hours, wondering "Why doesn't my program notice that I released the button?", only to find that they reigstered button press events but not button release events.
+Note: A common programmer oversight is adding code to handle new event types while forgetting to add the masks for these events in the creation of the window. This leads to programmers debugging for hours, wondering "Why doesn't my program notice that I released the button?", only to find that they registered button press events but not button release events.
    
 ### 2. Receiving events: writing the events loop
 
@@ -79,7 +79,7 @@ The non-blocking way:
 		
 ...immediately dequeus and returns an event, but returns NULL if no event is available at the time of the call. If an error occurs, the parameter error will be filled with the error status.
 
-Here's how you might use xcb_wait_for_event:
+Here's how you might use xcb\_wait\_for\_event:
 
 		xcb_generic_event_t *event;
 
