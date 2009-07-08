@@ -82,7 +82,7 @@ Connects to the X server specified by `display`, using the given authorization i
 
 Connects to an X server, given an open socket and a suitable [`xcb_auth_info_t`](#xcb_auth_info_t).
 
-Returns an <a href="#xcb_connection_t">xcb_connection_t</a>.
+Returns an <a href="#xcb_connection_t">xcb\_connection\_t</a>.
 
 See also [`xcb_connect`](#xcb_connect).
 
