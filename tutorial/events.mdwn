@@ -71,13 +71,13 @@ The blocking way:
 
 		xcb_generic_event_t *xcb_wait_for_event (xcb_connection_t *c);
 
-...blocks until an event is queued in the X server, then deques it from the queue, then returns it as a newly allocated structure (which is your responsibility to free). May return NULL in event of an error.
+...blocks until an event is queued in the X server, then dequeues it from the queue, then returns it as a newly allocated structure (which is your responsibility to free). May return NULL in event of an error.
 
 The non-blocking way:
 
 		xcb_generic_event_t *xcb_poll_for_event (xcb_connection_t *c, int *error);
 		
-...immediately dequeus and returns an event, but returns NULL if no event is available at the time of the call. If an error occurs, the parameter error will be filled with the error status.
+...immediately dequeues and returns an event, but returns NULL if no event is available at the time of the call. If an error occurs, the parameter error will be filled with the error status.
 
 Here's how you might use xcb\_wait\_for\_event:
 
