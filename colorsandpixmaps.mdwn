@@ -14,7 +14,7 @@ On today's more modern screens where one runs an X server with support for 16 mi
 
 ### 2. Allocating and freeing Color Maps
 
-When you draw using XCB, you can choose to use the standard color map of the screen your window is displayed on, or you can allocate a new color map and apply it to a window. In the latter case, each time the mouse moves onto your window, the screen color map will be replaced by your window's color map, and you'll see all the other windows on screen change their colors into something quite bizzare. In fact, this is the effect you get with X applications that use the "-install" command line option.
+When you draw using XCB, you can choose to use the standard color map of the screen your window is displayed on, or you can allocate a new color map and apply it to a window. In the latter case, each time the mouse moves onto your window, the screen color map will be replaced by your window's color map, and you'll see all the other windows on screen change their colors into something quite bizarre. In fact, this is the effect you get with X applications that use the "-install" command line option.
 
 In XCB, a color map is (as often in X) an Id:
 
@@ -112,7 +112,7 @@ XCB supplies these two functions to fill it:
 							   xcb_alloc_color_cookie_t   cookie,
 							   xcb_generic_error_t      **e );
 
-The fuction xcb_alloc_color() takes the 3 RGB components as parameters (red, green and blue). Here is an example of using these functions:
+The function `xcb_alloc_color()` takes the 3 RGB components as parameters (red, green and blue). Here is an example of using these functions:
 
 		#include <malloc.h>
 
