@@ -8,19 +8,20 @@ The Python binding for XCB allows the X protocol to be accessed directly from Py
 The Python binding requires libxcb.so to work.  The additional extension libraries are not required.
 
 
-# Installation
+# Installation from Source
 
-You need a recent version of xcb/proto that includes the Python generator libraries (xcbgen).  As of this writing, no official release has been made incorporating this change.  Refer to [[DevelopersGuide]] for information on building XCB from source.
+You need a version of xcb/proto that includes the Python generator libraries (xcbgen).  Version 1.6 or up is recommended.  libxcb.so must be present as wel.
 
-In addition to the prereqs for libxcb, described at the link above, you need Python 2.5 installed on the system.  Lower versions may work, but have not been tested.
+Python 2.5 or 2.6 must be installed on the system.  Lower versions may work, but have not been tested.  Python 3 has not been tested.
 
 The X Python binding can be obtained from `git://git.freedesktop.org/git/xcb/xpyb`.  After cloning the repo, the standard `./autogen.sh; make; make install` should suffice to build and install it.
 
-Note that Python has a path that it uses when searching for modules to import.  This path must include the place where you install the software.  For example if you install with a prefix of `/usr/local` then your Python path must include `/usr/local/lib/python2.5/site-packages`.  There are at least three ways to accomplish this:
+Note that Python has a path that it uses when searching for modules to import.  This path must include the place where you install the software.  For example if you install with a prefix of `/usr/local` then your Python path must include `/usr/local/lib/python2.5/site-packages`.  There are at least four ways to accomplish this:
 
-1. Set a `PYTHONPATH` environment variable containing the path.
-2. Create a file with a `.pth` extension, containing the path, in a place that is on the existing path, such as `/usr/lib/python2.5/site-packages`.
-3. In your Python code, do a `sys.path.append(foo)` before you import the XCB modules.
+1. Install to /usr/lib which is already in the Python path.
+2. Set a `PYTHONPATH` environment variable containing the path.
+3. Create a file with a `.pth` extension, containing the path, in a place that is on the existing path, such as `/usr/lib/python2.5/site-packages`.
+4. In your Python code, do a `sys.path.append(foo)` before you import the XCB modules.
 
 # Usage
 
@@ -73,6 +74,33 @@ When making a request, any lists or internal sub-structures must be passed as se
 Note that the `rects_len` parameter in this case should always be 3, even if the rectangle list is flattened.  The length parameter refers to the number of logical elements.
 
 Reply, event, and error objects have attributes corresponding to each structure field.  These objects also implement the buffer interface, allowing them to be addressed as raw binary or written to a file as they appear on the wire.
+
+Reply fields that are themselves lists can accessed using the usual array notation, and can be turned into a buffer object using the .buf() method.  The following example shows how to turn a reply array of bytes into a Python string.
+
+    # get string "BITMAP"
+    atom = 5
+    cookie = conn.core.GetAtomName(5)
+    reply = cookie.reply()
+    print str(reply.name.buf())
+
+Reply arrays of bytes also may need to be unpacked or processed.  For example, the GetProperty reply needs to be unpacked if the property consists of packed integers or cardinals:
+
+    import struct
+
+    conn = xcb.connect()
+    setup = conn.get_setup()
+    root = setup.roots[0].root
+
+    cookie1 = conn.core.InternAtom(True, 17, "_NET_WM_USER_TIME");
+    cookie2 = conn.core.InternAtom(True, 8, "CARDINAL");
+    name = cookie1.reply().atom
+    type = cookie2.reply().atom
+
+    cookie = conn.core.GetProperty(False, root, name, type, 0, 1)
+    reply = cookie.reply()
+
+    print len(reply.value)
+    print struct.unpack_from('I', reply.value.buf())[0]
 
 # Full Example
 
@@ -168,5 +196,4 @@ The following complete program creates a window, sets a property, and does some 
 
 # Display Authentication
 
-Early versions of xpyb had a bug that prevented the XAUTHORITY variable from being used.  This has been fixed, so the below code is only for reference.  Calling xcb.connect() without arguments will automatically use the DISPLAY and XAUTHORITY variables as appropriate.
-
+Early versions of xpyb had a bug that prevented the XAUTHORITY variable from being used.  This has been fixed.  Calling xcb.connect() without arguments will automatically use the DISPLAY and XAUTHORITY variables as appropriate.  The optional 
