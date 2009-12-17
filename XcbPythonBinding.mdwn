@@ -10,7 +10,7 @@ The Python binding requires libxcb.so to work.  The additional extension librari
 
 # Installation from Source
 
-You need a version of xcb/proto that includes the Python generator libraries (xcbgen).  Version 1.6 or up is recommended.  libxcb.so must be present as wel.
+You need a version of xcb/proto that includes the Python generator libraries (xcbgen).  Version 1.6 or up is recommended.  libxcb.so must be present as well.
 
 Python 2.5 or 2.6 must be installed on the system.  Lower versions may work, but have not been tested.  Python 3 has not been tested.
 
@@ -196,4 +196,18 @@ The following complete program creates a window, sets a property, and does some 
 
 # Display Authentication
 
-Early versions of xpyb had a bug that prevented the XAUTHORITY variable from being used.  This has been fixed.  Calling xcb.connect() without arguments will automatically use the DISPLAY and XAUTHORITY variables as appropriate.  The optional 
+Early versions of xpyb had a bug that prevented the XAUTHORITY variable from being used.  This has been fixed.  Calling xcb.connect() without arguments will automatically use the DISPLAY and XAUTHORITY variables as appropriate.
+
+The example below shows how to manually specify a standard authentication cookie using the optional auth= parameter to xcb.connect().
+
+    import xcb
+    import xcb.xproto
+
+    authname = "MIT-MAGIC-COOKIE-1"
+    authdata = "\xa5\xcf\x95\xfa\x19\x49\x03\x60\xaf\xe4\x1e\xcd\xa3\xe2\xad\x47"
+
+    authstr = authname + ':' + authdata
+
+    conn = xcb.connect(display=":0",auth=authstr)
+
+    print conn.get_setup().roots[0].root
