@@ -166,50 +166,7 @@ The following complete program creates a window, sets a property, and does some 
     
     run()
 
-# Example with autorization
+# Display Authentication
 
-The above example doesn't include XAuthority file parsing. To parse that file and connect to the X server,
-you can use code like this:
+Early versions of xpyb had a bug that prevented the XAUTHORITY variable from being used.  This has been fixed, so the below code is only for reference.  Calling xcb.connect() without arguments will automatically use the DISPLAY and XAUTHORITY variables as appropriate.
 
-    import struct
-    import os
-
-    # Some libXau constants
-    FamilyWild = 0
-    FamilyLocal = 256
-    # Some hacked libXau constants
-    FamilyIPv6 = 6
-    # FamilyWildIPv6 = ?
-
-
-    def read_counted_string(f):
-        slen = struct.unpack("!H", f.read(2))[0]
-        return f.read(slen)
-
-    # Grab XAuth data
-    xauth={}
-    xauthfile = open(os.environ["XAUTHORITY"])
-    try:
-        while 1:
-            family = struct.unpack("!H", xauthfile.read(2))[0]
-            addr = read_counted_string(xauthfile)
-            if family != FamilyWild:
-                if family == FamilyLocal or family == FamilyIPv6:
-                    addr = ""
-                else:
-                    raise Exception("Unknown address family, fix me quickly")
-            number = read_counted_string(xauthfile)
-            name = read_counted_string(xauthfile)
-            data = read_counted_string(xauthfile)
-            xauth[addr + ":" + number] = name + ":" + data
-    except IOError:
-        pass
-    except struct.error:
-        pass
-    finally:
-        xauthfile.close()
-
-    try:
-        conn = xcb.connect(display=os.environ["DISPLAY"], auth=xauth[os.environ["DISPLAY"]])
-    except KeyError:
-        conn = xcb.connect(display=os.environ["DISPLAY"])
