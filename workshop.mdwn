@@ -1,0 +1,33 @@
+We're planning a four-day XCB Workshop, for anyone interested in XCB's
+development, with travel sponsorship available from the X.org
+Foundation.
+
+# Date
+
+The date is not yet decided.
+[Cast your vote!](http://doodle.com/fhv5pfn3t64u7ag8)
+
+The poll lists the first day and you should check whether the following
+three days are available for you as well. That is, the choices are:
+
+- March 20-23
+- June 12-15
+- June 16-19
+- September 4-7
+
+# Location
+
+The workshop will be held in Portland, Oregon, USA. The precise location
+is not yet decided, but will probably be at the [Portland State
+University](http://pdx.edu/) campus.
+
+# Agenda
+
+Two parts have been proposed: technical work and a documentation sprint.
+The technical work could cover new design and implementation, and would
+definitely include some bug triage and fixing sessions.
+
+Please add your ideas for issues we should address in the workshop here:
+
+- keyboard support
+- first-class request queue API
