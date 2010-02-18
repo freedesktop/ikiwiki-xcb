@@ -29,5 +29,38 @@ definitely include some bug triage and fixing sessions.
 
 Please add your ideas for issues we should address in the workshop here:
 
+- [Book sprint!](http://en.flossmanuals.net/BookSprints/)
 - keyboard support
 - first-class request queue API
+
+# Who should attend?
+
+Responding to the misconception that this workshop is only for "core
+developers", Peter Harris explained:
+
+> I think it would make perfect sense for you to ask for a sponsorship.
+> 
+> I can't speak for my employer, but perhaps I can give you a bit of
+> perspective from inside one of the companies that has contributed to the
+> X Consortium in the past.
+> 
+> In general: The money was contributed to X.org for the purpose of
+> fostering a standardized and strong X11 ecosystem. Without any apps
+> participating in that ecosystem, the standard is worthless.
+> 
+> As applied to XCB: Our products are most often used in a remote,
+> over-the-network environment. XCB's ability to hide latency is very
+> important to a good user experience in this environment. So the more app
+> developers we can convince to embrace XCB, the better it is for us and
+> our customers.
+> 
+> As it pertains to you: Without XCB API users present at the workshop, we
+> run the risk of developing "ivory tower" solutions that don't help you
+> at all. We don't want to do that. We want to make XCB compelling for
+> you, and others like you.
+> 
+> In short, XCB API users have an important perspective on XCB that I
+> (personally) do not have. Your insight would be greatly appreciated.
+> 
+> If you wish to attend, please do not feel shy about asking for support.
+> That's the whole reason the money is there.
