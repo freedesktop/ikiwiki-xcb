@@ -1,5 +1,5 @@
 We're planning a four-day XCB Workshop, for anyone interested in XCB's
-development, with travel sponsorship available from the X.org
+development, with travel assistance available from the X.org
 Foundation.
 
 # Date
@@ -20,6 +20,11 @@ three days are available for you as well. That is, the choices are:
 The workshop will be held in Portland, Oregon, USA. The precise location
 is not yet decided, but will probably be at the [Portland State
 University](http://pdx.edu/) campus.
+
+If you can't get to Portland on your own, please contact the workshop's
+organizer, [Jamey Sharp](mailto:jamey@minilop.net), and provide your
+best estimate of your travel costs, in US dollars. We'll be gathering
+the requests for approval by the X.org board.
 
 # Agenda
 
