@@ -9,5 +9,6 @@ Several projects have started using XCB.
 * [Compiz](http://compiz.org) requires XCB.
 * [Xine](http://xinehq.de/) and the [Kaffeine KDE frontend for Xine](http://kaffeine.kde.org/) use XCB, and XCB fixed some previously unfixable threading problems.
 * [samurai-x](http://samurai-x.org), a window manager written in python. samurai-x2 uses xcb instead of Xlib.
+* [Unagi](http://projects.mini-dweeb.org/projects/unagi/), a composite manager using XCB.
 
 In addition, there are a number of [demos](http://gitweb.freedesktop.org/?p=xcb/demo.git) available from the XCB repository.
