@@ -10,6 +10,10 @@
 
 [[JameySharp]].<br /> XCB and Xlib.<br /> Presented at [Desktop Developer's Conference 2005](http://desktopcon.org/2005/).<br /> Slides: [PDF](http://xcb.freedesktop.org/pubs/ddc2005.pdf) [SXI](http://xcb.freedesktop.org/pubs/ddc2005.sxi).
 
+[[ArnaudFontaine]].<br /> Porting a window manager from Xlib to XCB.<br /> URL <http://projects.mini-dweeb.org/documents/2>.<br /> BSc thesis
+
+[[ArnaudFontaine]].<br /> Writing an X compositing manager (with XCB).<br /> URL <http://projects.mini-dweeb.org/documents/1>.<br /> MSc thesis
+
 ## Acknowledgements
 
 The authors are grateful to [[KeithPackard]] for his advice and assistance with X and XCB issues both philosophical and technical, and to Xlib author [[JimGettys]] for his advice and support. We are also grateful to [[AndyHowe]] for his efforts in testing XCB and finding ways to improve its implementation and documentation, and in implementing a significant portion of XCL.
