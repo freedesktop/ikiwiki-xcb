@@ -75,7 +75,7 @@ The blocking way:
 
 The non-blocking way:
 
-		xcb_generic_event_t *xcb_poll_for_event (xcb_connection_t *c, int *error);
+		xcb_generic_event_t *xcb_poll_for_event (xcb_connection_t *c);
 		
 ...immediately dequeues and returns an event, but returns NULL if no event is available at the time of the call. If an error occurs, the parameter error will be filled with the error status.
 
