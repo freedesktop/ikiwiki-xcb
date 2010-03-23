@@ -1,3 +1,5 @@
+[[!toc levels="6"]]
+
 # XCB Keyboard support
 
 This page is about porting Xlib keyboard functions to XCB and also
