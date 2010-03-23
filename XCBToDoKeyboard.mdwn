@@ -1,0 +1,197 @@
+# XCB Keyboard support
+
+This page is about porting Xlib keyboard functions to XCB and also
+contains general information I use as a reminder. It is a work in
+progress so it is fairly incomplete and might contain mistakes as this
+is only what I have understood so far...
+
+## X Window System Core Protocol
+
+The X Window System Protocol describes the requests and events
+associated with the keyboard. Besides of these requests and events, it
+also describes how a KeyCode should be converted to a KeySym.
+
+### Requests and events
+
+* Requests to specify the key used as modifiers (SetModifierMapping
+  and GetModifierMapping)
+
+* Requests to manipulate the keyboard mapping (GetKeyboardMapping and
+  ChangeKeyboardMapping)
+
+* Requests to grab a specific key (GrabKey and UngrabKey)
+
+* Requests to grab the whole keyboard (GrabKeyboard and
+  UngrabKeyboard)
+
+* Events sent when a key is pressed (KeyPress) and released
+  (KeyRelease)
+
+* Requests to change various aspects of the keyboard
+  (ChangeKeyboardControl and GetKeyboardControl)
+
+### Overview
+
+According to the X Window System protocol, the KeyPress and KeyRelease
+events contains the following fields (`detail' contains the keycode
+and `state' the modifiers state):
+
+    root, event: WINDOW
+    child: WINDOW or None
+    same-screen: BOOL
+    root-x, root-y, event-x, event-y: INT16
+    detail: KEYCODE
+    state: SETofKEYBUTMASK
+    time: TIMESTAMP
+
+The section 5 of `X Window System Protocol' describes how a KeyCode is
+converted to a KeySym according to the modifiers state. Only at most
+two KeySym groups (which can be switched using the group modifier) can
+be associated to a KeyCode and each group can have two KeySyms.
+
+Unlike `shift', `lock' and `control' modifiers, `Mode_Switch' and
+`Num_Lock' KeySyms do not have a dedicated modifier and are just bound
+to any of the modifiers `Mod1' through `Mod5'.
+
+This is the client library responsibility to convert a KeySym to a
+character in the proper encoding.  The appendix A describes the KeySym
+encoding.  All Unicode characters listed refers to "ISO 10646 /
+Unicode".
+
+TODO: XIM?
+
+### Extensions
+
+TODO: XKB/XI?
+
+## Xlib
+
+In this section we will only talk about the core protocol functions,
+not XKB (set XKB_DISABLE variable environment to 1 in order to only
+use the formers). Besides of the X Window System protocol requests and
+events given above, Xlib defines the following functions:
+
+* XDisplayKeycodes
+
+  Return min-keycode and max-keycode as returned on successful
+  connection initialization.
+
+* XNewModifiermap, XInsertModifiermapEntry, XDeleteModifiermapEntry,
+  XFreeModifiermap
+
+  Only useful for Xlib where XSetModifierMapping and
+  XGetModifierMapping use ModifierMap type as parameters.
+
+* XConvertCase
+
+  Convert a KeySym to lowercase and uppercase forms.
+
+* XKeycodeToKeysym
+
+  Returns the KeySym from a KeyCode and index within the KeySyms list.
+
+* XLookupKeysym
+
+  Return the KeySym from a KeyPress or KeyRelease event, and the index
+  within the KeySyms list. Actually call the same function as the one
+  called in XKeycodeToKeyym().
+
+* XRefreshKeyboardMapping
+
+  Refresh the client-side stored modifier and keymap information.
+
+* XLookupString
+
+  Translate a KeyCode to a KeySym and a String. It firstly calls
+  _XTranslateKey which converts the KeyCode and the set modifiers to a
+  KeySym. Then, it calls _XTranslateKeySym to convert the KeySym to a
+  string, by looking at rebound KeySym (XRebindKey) then Latin 1 and
+  ASCII. `USE_OWN_COMPOSE' seem to never be set by default?
+
+* XKeysymToKeycode
+
+  For each couple (i, j) where 0 <= i <= keysyms_per_keycode and
+  min_keycode <= j <= max_keycode, check whether KeyCodetoKeySym(i, j)
+  (as called by XLookupKeysym) returns the same KeySym as the one
+  given as a parameter.
+
+* XStringToKeysym
+
+  TODO  
+
+* XKeysymToString
+
+  TODO
+
+#### Character encoding  
+
+As stated above, the "Unicode" KeySyms given in Appendix A of the X
+Window System Core protocol represent [ISO 10646 /
+Unicode](http://en.wikipedia.org/wiki/Universal_Character_Set)
+characters which have to be translated to the proper character
+encoding (UTF-8 ([http://www.cl.cam.ac.uk/~mgk25/unicode.html]),
+UTF-16 or UTF-32).
+
+This is implemented in `src/xlibi18n' as `Xutf8LookupString()' (UTF-8
+strings), `XwcLookupString' and `XmbLookupString'.
+
+## XCB
+
+### Current problems
+
+At the moment, XCB implements only a basic and incomplete sets of
+keyboard functions.  Therefore, it greatly restricts the usages of XCB
+in "real-world" applications and duplicate the efforts as most
+applications ported to XCB so far (such as Awesome Window Manager, VLC
+and others) have to write their own implementation, which is often
+incomplete and buggy as it's rather tricky to implement properly and
+entirely.
+
+### Current status
+
+Currently, XCB only implements the bits given in the X Window System
+Protocol, and even this support is not complete compared to Xlib
+(character encoding, no `XLookupString()'...). All the X Window System
+Protocol requests have been implemented so far, but most applications
+rely extensively on Xlib helpers which provides
+
+However, there is an ongoing effort to bring XKB extension to XCB
+which began as a Google Summer of Code project in 2009. Only the XML
+protocol description has been pushed so far but the parsing bit is
+still missing.
+
+Here is a list of files and/or functions:
+
+* `keysymdef.h'
+
+  Perhaps, it should be defined in an XML file, rather than a plain
+  header (useful to bindings for another programming languages?).
+
+* `XConvertCase()': `xcb_convert_case()'
+
+  Compare to Xlib implementation, XCB misses "Latin 1", "Unicode" and
+  "Latin 9" KeySyms. The first and second ones are implemented in
+  `UCSConvertCase()' Xlib function.
+
+  Moreover, Besides of that, the X Window System Protocol also defines
+  more sets, namely "Kana", "Arabic", "Technical", "Special",
+  "Publish", "APL", "Hebrew", "Thai", "Korean" and "Currency"?
+
+* `XKeycodeToKeysym()': `xcb_key_symbols_get_keysym()'
+
+  OK.
+
+* `XLookupKeysym()': `xcb_key_press_lookup_keysym()' and
+  `xcb_key_release_lookup_keysym()'
+
+  OK.
+
+* `XRefreshKeyboardMapping()': `xcb_refresh_keyboard_mapping()'
+
+  OK.
+
+### Roadmap
+
+1. Port core keyboard functions (in progress)
+2. Port code related to character encoding
+3. XKB
