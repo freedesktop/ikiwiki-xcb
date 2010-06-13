@@ -212,7 +212,7 @@ To further compare Xlib to XCB, there's a XInternAtoms routine.  It's the Xlib m
     int
     main () {
     	/* setup names for tests */
-    	char (**names) = malloc(NUM_NAMES);
+    	char (**names) = malloc(NUM_NAMES*sizeof(*names));
     	// init names to "NAME0", "NAME1", "NAME2" ... and so on
     	for (int i = 0; i < NUM_NAMES; ++i) {
     		char buf[100];
