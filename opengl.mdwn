@@ -191,7 +191,7 @@ To maintain backward compatibility and providing an incremental porting path, th
 			int retval = main_loop(display, connection, window, drawable);
 
 			/* Cleanup */
-			glXDestroyWindow(display, window);
+			glXDestroyWindow(display, glxwindow);
 	
 			xcb_destroy_window(connection, window);
 	
