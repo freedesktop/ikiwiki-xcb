@@ -55,7 +55,7 @@ Note: we must be careful when setting the values of the valwin parameter, as the
 		valwin[1] = XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_BUTTON_PRESS;  /* for XCB_CW_EVENT_MASK, whose value (2048)     */
 																			/* is greater than the one of XCB_CW_BACK_PIXMAP */
 
-If the window has already been created, we can use the xcb\_configure\_window() function to set the events that the window will receive. The subsection Configuring a window shows its prototype. As an example, here is a piece of code that configures the window to receive the Expose and ButtonPress events:
+If the window has already been created, we can use the xcb\_change\_window\_attributes() function to set the events that the window will receive. The subsection Configuring a window shows its prototype. As an example, here is a piece of code that configures the window to receive the Expose and ButtonPress events:
 
         const static uint32_t values[] = { XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_BUTTON_PRESS };
 
