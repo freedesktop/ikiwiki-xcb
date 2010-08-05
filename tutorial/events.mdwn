@@ -59,7 +59,7 @@ If the window has already been created, we can use the xcb\_change\_window\_attr
 
         const static uint32_t values[] = { XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_BUTTON_PRESS };
 
-        xcb_configure_window (connection, window, XCB_CW_EVENT_MASK, values);
+        xcb_change_window_attributes (connection, window, XCB_CW_EVENT_MASK, values);
 
 Note: A common programmer oversight is adding code to handle new event types while forgetting to add the masks for these events in the creation of the window. This leads to programmers debugging for hours, wondering "Why doesn't my program notice that I released the button?", only to find that they registered button press events but not button release events.
    
