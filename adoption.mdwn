@@ -8,6 +8,7 @@ Several projects have started using XCB.
 * [awesome](http://awesome.naquadah.org), a window manager, uses XCB instead of Xlib.
 * [Compiz](http://compiz.org) requires XCB.
 * [Xine](http://xinehq.de/) and the [Kaffeine KDE frontend for Xine](http://kaffeine.kde.org/) use XCB, and XCB fixed some previously unfixable threading problems.
+* [VLC media player](http://www.videolan.org/vlc) uses XCB
 * [samurai-x](http://samurai-x.org), a window manager written in python. samurai-x2 uses xcb instead of Xlib.
 * [Unagi](http://projects.mini-dweeb.org/projects/unagi/), a composite manager using XCB.
 
