@@ -106,7 +106,7 @@ Until this port is merged into the main tree, I have set up a git branch of XCB 
 
 ...and stand far far far away :) 
 
-This is based on the devel tree as on 6 May 2009.
+This has been updated last in April 2010.
 
 ## Using XCB within Windows
 ***
