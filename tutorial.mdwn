@@ -12,7 +12,7 @@ After reading this page, read these pages (in this order):
 
 # Introduction
 
-This tutorial is intended for people who want to program with the XCB library. Keep in mind that XCB, like the Xlib library, isn't what most programmers wanting to write X applications are looking for. Rather, most application developers will want to use a much higher-level GUI toolkit, like Motif, LessTiff, GTK, QT, EWL, or ETK or perhaps use the higher-level drawing library Cairo. However, the basics of XCB are not all that complicated, and knowing about the layers those other libraries are built on top of is not a bad idea.
+This tutorial is intended for people who want to program with the XCB library. Keep in mind that XCB, like the Xlib library, isn't what most programmers wanting to write X applications are looking for. Rather, most application developers will want to use a much higher-level GUI toolkit, like Motif, LessTiff, GTK, Qt, EWL, or ETK or perhaps use the higher-level drawing library Cairo. However, the basics of XCB are not all that complicated, and knowing about the layers those other libraries are built on top of is not a bad idea.
 
 After reading this tutorial, one should be able to write very simple graphical programs but not write programs with decent user interfaces (at least easily). For real applications, the previously mentioned libraries are much more appropriate.
 
