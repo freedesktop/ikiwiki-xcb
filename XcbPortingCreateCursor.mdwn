@@ -1,59 +1,58 @@
 This example creates a new `Display` and `Window` using the common Xlib functions `XOpenDisplay` and `XCreateSimpleWindow`. It then calls a helper function `attach_cursor` that uses both XCB and Xlib facilities to set the cursor of the provided `Window` to whatever shape the client provides (in this case a question mark with an arrow as defined by `XC_question_arrow`).
 
-    #include <X11/xcl.h>
+    #include <X11/Xlib-xcb.h>
     #include <X11/cursorfont.h>
-
+    #include <unistd.h>
+    
     void attach_cursor(Display *dpy, Window w, int shape)
     {
         static const int fgred = 0, fggreen = 0, fgblue = 0,
             bgred = 0xFFFF, bggreen = 0xFFFF, bgblue = 0xFFFF;
-
-        XCBConnection *c = XCBConnectionOfDisplay(dpy);
-        XCBCURSOR cursor = XCBCURSORNew(c);
-        XCBWINDOW window = XCLWINDOW(w);
-        XCBFONT font = XCBFONTNew(c),
+    
+        xcb_connection_t *c = XGetXCBConnection(dpy);
+        xcb_cursor_t cursor = xcb_generate_id(c);
+        xcb_window_t window = (xcb_window_t) w;
+        xcb_font_t font = xcb_generate_id(c),
                *mask_font = &font; /* An alias to clarify what is being passed
                                       to XCBCreateGlyphCursor. */
-
-        XCBOpenFont(c, font, sizeof("cursor"), "cursor");
-        XCBCreateGlyphCursor(c, cursor, font, *mask_font, shape, shape + 1,
+    
+        xcb_open_font(c, font, sizeof("cursor"), "cursor");
+        xcb_create_glyph_cursor (c, cursor, font, *mask_font, shape, shape + 1,
                              fgred, fggreen, fgblue, bgred, bggreen, bgblue);
-        XDefineCursor(dpy, window.xid, cursor.xid);
-        XCBFreeCursor(c, cursor);
-        XCBCloseFont(c, font);
+        XDefineCursor(dpy, window, cursor);
+        xcb_free_cursor(c, cursor);
+        xcb_close_font(c, font);
     }
-
+    
     int main(void)
     {
         static const int DEPTH = 0, X = 0, Y = 0, BORDER_WIDTH = 1;
         static const size_t WIDTH = 150, HEIGHT = 150;
-
+    
         Display *dpy;
         int screen_num;
         unsigned int bordercolor, bgcolor;
         Window window;
-
+    
         dpy = XOpenDisplay(NULL);
         screen_num = DefaultScreen(dpy);
         bordercolor = BlackPixel(dpy, screen_num);
         bgcolor = WhitePixel(dpy, screen_num);
         window = XCreateSimpleWindow(dpy, RootWindow(dpy, screen_num), X, Y, WIDTH,
                                      HEIGHT, BORDER_WIDTH, bordercolor, bgcolor);
-
+    
         attach_cursor(dpy, window, XC_question_arrow);
         XMapWindow(dpy, window);
         XSync(dpy, 0);
-
-        while (1)
-            ; /* Hit C-c to break out of this loop. */
-
+    
+        pause(); /* Hit C-c to break out of this loop. */
+    
         return 0;
     }
-
+    
 Suppose that the `attach_cursor` function was to be ported entirely to use XCB's functionality. How could the pointer's cursor be set to the specified symbol without using `XDefineCursor`?
 
 # See Also
 
 - [[XcbPorting]]
-- [[XCLWINDOW]]
-- [[XCBConnectionOfDisplay]]
+- [[MixingCalls]]

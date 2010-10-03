@@ -1,9 +1,83 @@
-### Xlib/XCB: Mixing Xlib and XCB Calls
+## Xlib/XCB: Mixing Xlib and XCB Calls
 
-One of the nice features of Xlib/XCB is that it supports a gradual transition from Xlib to XCB, by permitting mixing Xlib and XCB calls in programs. Of course, you need to be running a new enough version of Xlib to get Xlib/XCB, and not have turned the XCB support off.
+One of the nice features of Xlib/XCB is that it supports a gradual transition from Xlib to XCB, by permitting mixing Xlib and XCB calls in programs. Of course, you need to be running a new enough version of Xlib to get Xlib/XCB, and not have turned the XCB support off.   This API is available in libX11 1.2.0 and later, and guaranteed to be present in libX11 1.4.0 and later.   (It was possible to disable at build time in libX11 1.2.x and 1.3.x.)
 
 To mix calls, you'll need both an XCB connection and Xlib display. Get this by using XOpenDisplay() to get an Xlib Display, then calling XGetXCBConnection() (from "Xlib-xcb.h") on the Xlib Display to get an XCBConnection.
 
 You can now mix calls to XCB and Xlib. The datatypes of the two systems are somewhat interoperable; for example, you can use an Xlib Window anywhere an xcb\_window\_t is required. In general, XID types like Window (X.h:typedef XID) are synonymous with their XCB equivalents.
 
 Only one of Xlib and XCB can manage the event queue. By default, Xlib does. To change this, call XSetEventQueueOwner() (from "Xlib-xcb.h") before making other calls.
+
+## Example
+
+    #include <X11/Xlib-xcb.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <unistd.h>
+    
+    int main()
+    {
+        Display *dpy = XOpenDisplay(NULL);
+        xcb_connection_t *c;
+        const xcb_setup_t *setup;
+        xcb_screen_t *screen;
+        xcb_window_t window;
+    
+        const int depth = 0, x = 0, y = 0, width = 150, height = 150,
+                  border_width = 1;
+    
+        if (! dpy)
+        {
+            fprintf(stderr, "Could not open display.\n");
+            exit(EXIT_FAILURE);
+        }
+    
+        /* Now that we have an open Display object, cast it to an
+         * XCBConnection object so it can be used with native XCB
+         * functions.
+         */
+        c = XGetXCBConnection(dpy);
+    
+        if (! c)
+        {
+            fprintf(stderr, "Could not cast the Display object to an "
+                            "XCBConnection object.\n");
+            exit(EXIT_FAILURE);
+        }
+    
+        /* Do something meaningful, fun, and interesting with the new
+         * XCBConnection object.
+         */
+        setup  = xcb_get_setup (c);
+        screen = (xcb_setup_roots_iterator (setup)).data;
+        window = xcb_generate_id (c);
+    
+        xcb_create_window (c, depth, window, screen->root, x, y, width, height,
+                           border_width, InputOutput, screen->root_visual, 0, NULL);
+        xcb_map_window (c, window);
+        xcb_flush (c);
+    
+        pause();
+    
+        return EXIT_SUCCESS;
+    }
+
+Some salient points in this example include the following:
+
+- The only header that is included is `Xlib-xcb.h`.  Neither of the headers `Xlib.h` nor `xcb.h` are included, yet Xlib and XCB functions are used. This is because `Xlib-xcb.h` includes `xcb.h` and `Xlib.h`.
+- The standard Xlib function `XOpenDisplay` is used to create a Display object.
+- The `Display` object is cast to an `xcb_connection_t` object using `XGetXCBConnection`.
+- After the cast, the connection is passed to various other XCB functions.
+
+Though this example is contrived, `XGetXCBConnection` is an essential part of the porting process. For example, say you have some function that takes a `Display` object. You can leave the prototype unchanged, in the body of the function cast it to an `xcb_connection_t`, and port only that function. The rest of the code can remain unchanged. In this way, the process of converting the application to use XCB is staggered as necessary, time, knowledge, and knowledge permit.
+
+## Casting the Other Way
+
+How do you get a `Display` object given an `xcb_connection_t` object? You can't. So, if you find yourself needing to cast an `xcb_connection_t` to a `Display`, stop, rethink, and find another way to structure your code to work without the cast.
+
+## See Also
+
+- [[XcbPorting]]
+- [[XcbApi]]
+- [Mailing list posts](http://www.google.com/search?q=site%3Alists.freedesktop.org+XGetXCBConnection) related to XGetXCBConnection.
+

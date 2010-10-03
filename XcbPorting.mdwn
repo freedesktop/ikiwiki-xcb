@@ -1,42 +1,25 @@
-This page provides information and resources about porting applications from Xlib to XCB. It discusses the Xlib Compatibility Layer, provides various examples, conglomerates past mailing list posts related to poring, and hopefully will become an important reference for developers who wish to utilize the power and simplicity of XCB by reprogramming their applications to it.
+This page provides information and resources about porting applications from Xlib to XCB. It discusses the Xlib compatibility layer, provides various examples, conglomerates past mailing list posts related to poring, and hopefully will become an important reference for developers who wish to utilize the power and simplicity of XCB by reprogramming their applications to it.
 
 # The Big Picture
 
-The recommended way to port an application from Xlib to XCB is to begin by converting the internal interfaces and structures from Xlib types to XCB. For libraries, a two step strategy is recommended. First, begin by porting the public interfaces to use XCB types. Then, provide a thin wrapper library that provides the old interface, so legacy applications can use the newly ported library without any alterations. To help with this process, a small abstraction layer called the XCL is available.
+The recommended way to port an application from Xlib to XCB is to begin by converting the internal interfaces and structures from Xlib types to XCB. For libraries, a two step strategy is recommended. First, begin by porting the public interfaces to use XCB types. Then, provide a thin wrapper library that provides the old interface, so legacy applications can use the newly ported library without any alterations.
 
-# The XCL
+# Xlib compatibility
 
-As mentioned [[elsewhere|XlibXcb]], the Xlib Compatibility Layer or XCL for short emulates Xlib but is built on XCB. This allows current applications built with Xlib to begin leveraging XCB's capabilities slowly over time; the entire program doesn't have to be ported immediately. Rather, it can continue to use various Xlib functions, data types, etc. while also using XCB's facilities, structures, and other resources simultaneously.
+As mentioned [[elsewhere|XlibXcb]], the Xlib compatibility layer is found in versions of Xlib built with support for XCB. This allows current applications built with Xlib to begin leveraging XCB's capabilities slowly over time; the entire program doesn't have to be ported immediately. Rather, it can continue to use various Xlib functions, data types, etc. while also using XCB's facilities, structures, and other resources simultaneously.
 
-Before beginning to use the XCL, it is highly recommended that you read [[JameySharp]] and [[BartMassey]]'s paper _[XCL: An Xlib Compatibility Layer for XCB](http://www.usenix.org/events/usenix02/tech/freenix/sharp.html)_. (There are also other formats and sources where this document can be found; see the [[Publications]] page.)
+This replaced the previous XCL library, which is described in the [[History]] section.
 
-## Using the XCL
-
-To begin using the XCL just include the header file `xcl.h` rather than `Xlib.h`. After doing so, you will be able to a large majority of Xlib functions and types; XCB's functions, macros, data types, etc; and some convenient macros for converting Xlib types to XCB types.
-
-### Functions and Macros Available in xcl.h
-
-The following functions provided by `xcl.h` can be used to cast from Xlib types to XCB types:
-
-[[XCBConnectionOfDisplay]], [[XCLATOM]], [[XCLBUTTON]], [[XCLCOLORMAP]], [[XCLCURSOR]], [[XCLDRAWABLE]], [[XCLFONT]], [[XCLFONTABLE]], [[XCLGCONTEXT]], [[XCLKEYCODE]], [[XCLKEYSYM]], [[XCLPIXMAP]], [[XCLTIMESTAMP]], [[XCLVISUALID]], [[XCLWINDOW]], [[XSetEventQueueOwner]]
-
-Follow the function's link to see its prototype and an example of how to use it.
+Once you use the Xlib functions to open a Display, you can then obtain a
+matching `xcb_connection_t` and begin [[mixing calls|MixingCalls]] using
+whichever API is most convenient.
 
 # Past Posts
 
-<dl>
-  <dd>
-    <p><a href="http://lists.freedesktop.org/pipermail/xcb/2005-June/000825.html">XNextEvent</a> How to write the usual Xlib non-blocking event loop in XCB.</p>
-  </dd>
-</dl>
+- [XNextEvent: How to write the usual Xlib non-blocking event loop in XCB](http://lists.freedesktop.org/pipermail/xcb/2005-June/000825.html).
 
 # Examples
 
-<dl>
-  <dd>
-    <p>[[XcbPortingCreateCursor]] Creating a cursor from a standard font.</p>
-  </dd>
-  <dd>
-    <p><a href="http://xcb.freedesktop.org/tutorial/events/">The Events section of the XCB Tutorial</a> explains how to set up the event loop in XCB and compares the process with Xlib&#39;s <tt>XNextEvent</tt> and <tt>XPending</tt>.</p>
-  </dd>
-</dl>
+- [[MixingCalls]] Using Xlib and xcb calls in the same program.
+- [[XcbPortingCreateCursor]] Creating a cursor from a standard font.
+- [[The Events section of the XCB Tutorial|tutorial/events]] explains how to set up the event loop in XCB and compares the process with Xlib&#39;s <tt>XNextEvent</tt> and <tt>XPending</tt>.
