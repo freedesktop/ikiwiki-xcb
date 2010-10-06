@@ -29,6 +29,6 @@ _To Do_ list:
 - Someone: Unit testing XCB
 - Someone: server-side XCB
 - Someone: finish xhsb
-- Someone: design and implement an X-independent library for pixel format conversion
+- Someone: design and implement an X-independent library for pixel format conversion. see : [babl](http://www.gegl.org/babl/) LGPL3, so we can't ship it, but we can link to it
 - Someone: implement some of the most ugly functions of glx (in util ?)
 - Vincent: wants review/help with the XCB tutorial. We should get it into the wiki.
