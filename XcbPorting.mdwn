@@ -1,4 +1,4 @@
-This page provides information and resources about porting applications from Xlib to XCB. It discusses the Xlib compatibility layer, provides various examples, conglomerates past mailing list posts related to poring, and hopefully will become an important reference for developers who wish to utilize the power and simplicity of XCB by reprogramming their applications to it.
+This page provides information and resources about porting applications from Xlib to XCB. It discusses the Xlib compatibility layer, provides various examples, conglomerates past mailing list posts related to porting, and hopefully will become an important reference for developers who wish to utilize the power and simplicity of XCB by reprogramming their applications to it.
 
 # The Big Picture
 
