@@ -24,7 +24,7 @@ We're planning an XCB [[Workshop]] for anyone interested in XCB's development, w
 
 - The [[XCB API|XcbApi]] is documented. There is also a [[tutorial]] and some random [[notes|XcbNotes]].
 - People wanting to implement higher level applications can use [[xcb-util|XcbUtil]].
-- XCB is built atop an XML description of the X core protocol and common extension protocols called [[XML/XCB|XmlXcb]]. This protocol can be used in other interesting ways.
+- XCB is built atop an XML description of the X core protocol and common extension protocols called [[XML/XCB|XmlXcb]]. This protocol can be used in other interesting ways. Documentation of the X Window System protocol is also available at [X.org's website](ftp://ftp.x.org/pub/X11R7.0/doc/PDF/proto.pdf), and can be used as a substitute for XCB documentation as XCB functions largely reflect the protocol.
 - To aid in porting applications, you can configure Xlib to use XCB for the transport layer. We call this [[Xlib/XCB|XlibXcb]].
 - There is automatically-generated [documentation for the XCB protocol bindings](http://xcb.freedesktop.org/manual/).
 - The Windows (32 bit) port of XCB will be merged into the main code base soon. You can read more on that [[here|Win32Port]].
