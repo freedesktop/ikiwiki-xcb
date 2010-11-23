@@ -100,10 +100,12 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
 * export LIBS="-L/path/to/pthreads-w32-libs -lws2\_32 -lpthreadGC2"
 
--- configure and build (you'll need package xcb-proto installed):
+-- configure (you'll need package xcb-proto installed):
 
 * ./autogen.sh --host=i586-mingw32msvc
 
+-- build (you'll need package python-xcbgen installed):
+ 
 * make
 
 If all goes well the DLL is created within the src/.libs directory.
