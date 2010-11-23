@@ -66,7 +66,7 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
 -- compiled and installed x11proto under standard linux ./autogen && make && make install....then copied the headers from /usr/local/include/X11 to /use/i586-mingw32msvc/include physically.
 
--- Compiled the DLL version of libXau: 
+-- Compile the DLL version of libXau (you'll need libtool installed): 
 
 * ./autogen.sh --host=i586-mingw32msvc
 
