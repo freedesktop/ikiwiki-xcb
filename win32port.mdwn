@@ -72,7 +72,7 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
 * make
 
-* make install
+* sudo make install
 
 -- Compiled and installed the pthread-win32 library (<http://sourceware.org/pthreads-win32/>)
 
