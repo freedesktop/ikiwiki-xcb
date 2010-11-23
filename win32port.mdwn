@@ -134,7 +134,7 @@ Apart from the XCB DLL (e.g. libxcb-1.dll) you will also need the DLL for libXau
 
 The simplest way to use the DLL under MinGW is to include it during compiling your code. For e.g. :
 
-     i586-mingw32msvc-gcc xcbclient.c libxcb-1.dll -o xcbclient.exe
+     i586-mingw32msvc-gcc xcbclient.c libxcb-1.dll -o xcbclient.exe -lws2_32
 
 NOTE: Initialization ( using WSAStarup() ) and Cleanup ( WSACleanup() ) of the Windows Socket Library needs to be performed by the calling application prior to using this library.
 
