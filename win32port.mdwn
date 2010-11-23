@@ -96,9 +96,11 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
     libxcb\_la\_LDFLAGS = -no-undefined -version-info 1:0:0
 
--- set the environment variable LIBS to include the ws2\_32 and pthreadGC2 library 
+-- set the environment variable LIBS to include the ws2\_32 and pthreadGC2 library and the CFLAGS to point to appropriate headers:
 
-* export LIBS="-L/path/to/pthreads-w32-libs -lws2\_32 -lpthreadGC2"
+* export LIBS="-L/full/path/to/pthreads-w32-libs -lws2\_32 -lpthreadGC2"
+
+* export CFLAGS="-I/full/install/path/pthreads-w32-include-files"
 
 -- configure (you'll need package xcb-proto installed):
 
