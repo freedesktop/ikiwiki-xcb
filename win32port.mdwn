@@ -76,7 +76,7 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
 -- Compiled and installed the pthread-win32 library (<http://sourceware.org/pthreads-win32/>)
 
-    make CC=i586-mingw32msvc-gcc \
+* make CC=i586-mingw32msvc-gcc \
          RC=i586-mingw32msvc-windres \
          RANLIB=i586-mingw32msvc-ranlib \
          DLLTOOL=i586-mingw32msvc-dlltool \
@@ -84,17 +84,23 @@ The following lists the process I used to compile XCB under MinGW on my Debian s
 
 -- Made the following changes (thanks Vincent) - 
 
-1. in configure.ac, before AC\_PROG\_LIBTOOL add AC\_LIBTOOL\_WIN32\_DLL
+* in configure.ac, before AC\_PROG\_LIBTOOL add:
+ 
+   AC\_LIBTOOL\_WIN32\_DLL
 
-2. add, in src/Makefile.am, the value -no-undefined to *_LDFLAGS:
+*  add, in src/Makefile.am, the value -no-undefined to *_LDFLAGS:
 
     libxcb\_la\_LDFLAGS = -no-undefined -version-info 1:0:0
 
--- set the environment variable LIBS to include the ws2\_32 and pthreadGC2 library - export LIBS = -lws2\_32 -lpthreadGC2
+-- set the environment variable LIBS to include the ws2\_32 and pthreadGC2 library 
 
--- Configured and built using - 
-./autogen.sh --host=i586-mingw32msvc
-make
+* export LIBS = -lws2\_32 -lpthreadGC2
+
+-- configure and build:
+
+* ./autogen.sh --host=i586-mingw32msvc
+
+* make
 
 If all goes well the DLL is created within the src/.libs directory.
 
