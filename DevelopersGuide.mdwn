@@ -82,7 +82,7 @@ The structure of XCB is designed to be as simple as possible while making common
 
 The X core requests have been implemented in XCB, as well as the BIG-REQUESTS, XC-Misc, SHAPE, SHM, DPMS, Render, Randr, GLX, [XFIXES](http://www.freedesktop.org/Software/FixesExt), [Composite](http://www.freedesktop.org/Software/CompositeExt), [DAMAGE](http://www.freedesktop.org/Software/XDamage) and [XEvIE](http://www.freedesktop.org/Software/XEvIE) extensions. A multithreaded demonstration program uses XCB for animated graphics in multiple windows. Other demos for Render, event monitoring, access to connection setup data, and DPMS also exist.
 
-[[BartMassey]] has done some [[work|Publications]] on establishing correctness properties of the core data dispatch mechanism of XCB using a model of XCB written in the [Z](http://www.afm.sbu.ac.uk/z/) formal specification notation. This is good, since the mechanism is complex, and the previous version was known to have defects.
+[[BartMassey]] has done some [[work|Publications]] on establishing correctness properties of the core data dispatch mechanism of XCB using a model of XCB written in the [Z](http://en.wikipedia.org/wiki/Z_notation) formal specification notation. This is good, since the mechanism is complex, and the previous version was known to have defects.
 
 
 ### Making a release
