@@ -156,7 +156,7 @@ The following is a test code from the XCB tutorial. Copy all of the XCB headers 
     #include <stdio.h>
     #include <string.h>
 
-    #include "xcb.h"
+    #include "xcb/xcb.h"
 
     #define WIDTH 300
     #define HEIGHT 150
