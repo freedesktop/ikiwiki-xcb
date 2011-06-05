@@ -6,7 +6,7 @@ The X protocol C-language Binding (XCB) is a replacement for Xlib [[featuring|Fe
 
 # News
 
-We're planning an XCB [[Workshop]] for anyone interested in XCB's development, with [travel](http://stridecoupons.webs.com) sponsorship available from the X.org Foundation. Help us pick a date and agenda!
+We're planning an XCB [[Workshop]] for anyone interested in XCB's development, with travel sponsorship available from the X.org Foundation. Help us pick a date and agenda!
 
 # Download
 
