@@ -24,7 +24,7 @@ Then, XCB supplies the following function to create new windows:
 											 uint32_t          value_mask,
 											 const uint32_t   *value_list );
 
-The fact that we created the window does not mean that it will be drawn on screen. By default, newly created windows are not mapped on the screen (they are invisible). In order to make our window visible, we use the function xcbmapwindow(), whose prototype is
+The fact that we created the window does not mean that it will be drawn on screen. By default, newly created windows are not mapped on the screen (they are invisible). In order to make our window visible, we use the function xcb\_map\_window(), whose prototype is
 
 		xcb_void_cookie_t xcb_map_window (xcb_connection_t  *connection,
 										  xcb_window_t       window );
@@ -77,17 +77,17 @@ Finally, here is a small program to create a window of size 150x150 pixels, posi
 			return 0;
 		}
 
-In this code, you see one more function - xcbflush(), not explained yet. It is used to flush all the pending requests. More precisely, there are 2 functions that do such things. The first one is xcbflush():
+In this code, you see one more function - xcb\_flush(), not explained yet. It is used to flush all the pending requests. More precisely, there are 2 functions that do such things. The first one is xcb\_flush():
 
 		int xcb_flush (xcb_connection_t *c);
 
-This function flushes all pending requests to the X server (much like the fflush() function is used to flush standard output). The second function is xcbauxsync():
+This function flushes all pending requests to the X server (much like the fflush() function is used to flush standard output). The second function is xcb\_aux\_sync():
 
 		int xcb_aux_sync (xcb_connection_t *c);
 
 This functions also flushes all pending requests to the X server, and then waits until the X server finishing processing these requests. In a normal program, this will not be necessary (we'll see why when we get to write a normal X program), but for now, we put it there.
 
-The window that is created by the above code has a non defined background. This one can be set to a specific color, thanks to the two last parameters of xcbcreatewindow(), which are not described yet. See the subsections Configuring a window or Registering for event types using event masks for examples on how to use these parameters. In addition, as no events are handled, you have to make a Ctrl-C to interrupt the program.
+The window that is created by the above code has a non defined background. This one can be set to a specific color, thanks to the two last parameters of xcb\_create\_window(), which are not described yet. See the subsections Configuring a window or Registering for event types using event masks for examples on how to use these parameters. In addition, as no events are handled, you have to make a Ctrl-C to interrupt the program.
 
 TODO: one should tell what these functions return and about the generic error
 
@@ -142,7 +142,7 @@ We give now an example on how to allocate a graphic context that specifies that 
 			return 0;
 		}
 
-Note should be taken regarding the role of "valuemask" and "valuelist" in the prototype of xcbcreategc(). Since a graphic context has many attributes, and since we often just want to define a few of them, we need to be able to tell the xcbcreategc() which attributes we want to set. This is what the "valuemask" parameter is for. We then use the "valuelist" parameter to specify actual values for the attribute we defined in "valuemask". Thus, for each constant used in "valuelist", we will use the matching constant in "value_mask". In this case, we define a graphic context with one attribute: when drawing (a point, a line, etc), the foreground color will be black. The rest of the attributes of this graphic context will be set to their default values.
+Note should be taken regarding the role of "valuemask" and "valuelist" in the prototype of xcb\_create\_gc(). Since a graphic context has many attributes, and since we often just want to define a few of them, we need to be able to tell the xcb\_create\_gc() which attributes we want to set. This is what the "valuemask" parameter is for. We then use the "valuelist" parameter to specify actual values for the attribute we defined in "valuemask". Thus, for each constant used in "valuelist", we will use the matching constant in "value_mask". In this case, we define a graphic context with one attribute: when drawing (a point, a line, etc), the foreground color will be black. The rest of the attributes of this graphic context will be set to their default values.
 
 See the next Subsection for more details.
 
@@ -162,7 +162,7 @@ Once we have allocated a Graphic Context, we may need to change its attributes (
 										 uint32_t          value_mask,   /* Components of the Graphic Context that have to be set */
 										 const uint32_t   *value_list ); /* Value as specified by value_mask */
 
-The valuemask parameter could take any combination of these masks from the xcbgc_t enumeration:
+The valuemask parameter could take any combination of these masks from the xcb_gc_t enumeration:
 
 		XCB_GC_FUNCTION
 		XCB_GC_PLANE_MASK
@@ -436,6 +436,4 @@ TODO: Use screen->root_depth for depth parameter.
 
 			return 0;
 		}
-
-
 
