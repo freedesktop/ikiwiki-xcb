@@ -1,4 +1,4 @@
-We're planning a four-day XCB Workshop, for anyone interested in XCB's
+We're planning a four-day XCB Workshop in 2010, for anyone interested in XCB's
 development, with travel assistance available from the X.org
 Foundation.
 
