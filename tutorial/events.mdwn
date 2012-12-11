@@ -161,7 +161,7 @@ Expose event definition:
 
 User input traditionally comes from two sources: the mouse and the keyboard. Various event types exist to notify us of user input (a key being presses on the keyboard, a key being released on the keyboard, the mouse moving over our window, the mouse entering (or leaving) our window, and so on.
 
-##### 4.1 Mouse button press and release events
+### 4.1 Mouse button press and release events
 
 The first event type we will deal with is a mouse button-press (or button-release) event in our window. In order to register to such an event type, we should add one (or more) of the following masks when we create our window:
 
@@ -210,7 +210,7 @@ Their names are self explanatory, where the first 5 refer to the mouse buttons t
 
 TODO: Problem: it seems that the state does not change when clicking with various buttons.
 
-##### 4.2. Mouse movement events
+### 4.2. Mouse movement events
 
 Similar to mouse button press and release events, we also can be notified of various mouse movement events. These can be split into two families. One is of mouse pointer movement while no buttons are pressed, and the second is a mouse pointer motion while one (or more) of the buttons are pressed (this is sometimes called "a mouse drag operation", or just "dragging"). The following event masks may be added during the creation of our window to register for these events:
 
@@ -240,7 +240,7 @@ These all generate events of this type:
 			uint8_t         same_screen;
 		} xcb_motion_notify_event_t;
 
-##### 4.3. Mouse pointer enter and leave events
+### 4.3. Mouse pointer enter and leave events
 
 Another type of event that applications might be interested in, is a mouse pointer entering a window the program controls, or leaving such a window. Some programs use these events to show the user that the application is now in focus. In order to register for such an event type, we should add one (or more) of the following masks when we create our window:
 
@@ -268,11 +268,11 @@ The structure to be checked for in our events loop is the same for these two eve
 
                   typedef xcb_enter_notify_event_t xcb_leave_notify_event_t;
 
-##### 4.4. The keyboard focus
+### 4.4. The keyboard focus
 
 There may be many windows on a screen, but only a single keyboard attached to them. How does the X server then know which window should be sent a given keyboard input ? This is done using the keyboard focus. Only a single window on the screen may have the keyboard focus at a given time. There is a XCB function that allows a program to set the keyboard focus to a given window. The user can usually set the keyboard focus using the window manager (often by clicking on the title bar of the desired window). Once our window has the keyboard focus, every key press or key release will cause an event to be sent to our program (if it regsitered for these event types...).
 
-##### 4.5. Keyboard press and release events
+### 4.5. Keyboard press and release events
 
 If a window controlled by our program currently holds the keyboard focus, it can receive key press and key release events. So, we should add one (or more) of the following masks when we create our window:
 
