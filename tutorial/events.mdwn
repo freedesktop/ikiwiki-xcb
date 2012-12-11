@@ -244,8 +244,8 @@ These all generate events of this type:
 
 Another type of event that applications might be interested in, is a mouse pointer entering a window the program controls, or leaving such a window. Some programs use these events to show the user that the application is now in focus. In order to register for such an event type, we should add one (or more) of the following masks when we create our window:
 
-* xcb_event_enter_window_t: notify us when the mouse pointer enters any of our controlled windows.
-* xcb_event_leave_window_t: notify us when the mouse pointer leaves any of our controlled windows. 
+    XCB_EVENT_MASK_ENTER_WINDOW     // notify us when the mouse pointer enters any of our controlled windows.
+    XCB_EVENT_MASK_LEAVE_WINDOW     // notify us when the mouse pointer leaves any of our controlled windows. 
 
 The structure to be checked for in our events loop is the same for these two events, and is the following:
 
