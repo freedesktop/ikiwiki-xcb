@@ -29,7 +29,7 @@ The mode parameter coud be one of the following values (defined in enumeration x
 
 ### 2. Setting the window name and icon name
 
-The first thing we want to do would be to set the name for our window. This is done using the xcb_change_property() function. This name may be used by the window manager as the title of the window (in the title bar), in a task list, etc. The property atom to use to set the name of a window is WM_NAME (and WM_ICON_NAME for the iconified window) and its type is STRING. Here is an example of utilization:
+The first thing we want to do would be to set the name for our window. This is done using the xcb_change_property() function. This name may be used by the window manager as the title of the window (in the title bar), in a task list, etc. The property atom to use to set the name of a window is XCB_ATOM_WM_NAME (and XCB_ATOM_WM_ICON_NAME for the iconified window) and its type is XCB_ATOM_STRING. Here is an example of utilization:
 
 		#include <string.h>
 
@@ -68,8 +68,8 @@ The first thing we want to do would be to set the name for our window. This is d
 			xcb_change_property (connection,
 								 XCB_PROP_MODE_REPLACE,
 								 window,
-								 WM_NAME,
-								 STRING,
+								 XCB_ATOM_WM_NAME,
+								 XCB_ATOM_STRING,
 								 8,
 								 strlen (title),
 								 title );
@@ -81,8 +81,8 @@ The first thing we want to do would be to set the name for our window. This is d
 			xcb_change_property (connection,
 								 XCB_PROP_MODE_REPLACE,
 								 windows,
-								 WM_ICON_NAME,
-								 STRING,
+								 XCB_ATOM_WM_ICON_NAME,
+								 XCB_ATOM_STRING,
 								 8,
 								 strlen(iconTitle),
 								 iconTitle);
@@ -166,7 +166,7 @@ Yet another operation we can do is to change the size of a window. This is done 
 
 		const static uint32_t values[] = { 200, 300 };
 
-		/* Resize the window to width = 10 and height = 20 */
+		/* Resize the window to width = 200 and height = 300 */
 		xcb_configure_window (connection, window, XCB_CONFIG_WINDOW_WIDTH | XCB_CONFIG_WINDOW_HEIGHT, values);
 
 We can also combine the move and resize operations using one single call to xcb_configure_window_t:
@@ -174,7 +174,7 @@ We can also combine the move and resize operations using one single call to xcb_
 		const static uint32_t values[] = { 10, 20, 200, 300 };
 
 		/* Move the window to coordinates x = 10 and y = 20 */
-		/* and resize the window to width = 10 and height = 20 */
+		/* and resize the window to width = 200 and height = 300 */
 		xcb_configure_window (connection, window, XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y | XCB_CONFIG_WINDOW_WIDTH | XCB_CONFIG_WINDOW_HEIGHT, values);
 
 ### 5. Changing windows stacking order: raise and lower
