@@ -40,8 +40,10 @@
 1. Push the master branch and the tag with `git push origin master <version>`
 
 1. Copy the .gz and .bz2 tarballs to
-   xcb.freedesktop.org:/srv/xcb.freedesktop.org/www/dist/ so they show up at
+   xcb.freedesktop.org:/srv/xcb.freedesktop.org/dist/ so they show up at
    <http://xcb.freedesktop.org/dist/>
+
+1. For libxcb, upload the doxygen generated docs from your build to xcb.freedesktop.org:/srv/xcb.freedesktop.org/manual so they show up at <http://xcb.freedesktop.org/manual/>
 
 1. Send the release mail to xorg and xcb lists
 
