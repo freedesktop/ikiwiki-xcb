@@ -2,6 +2,8 @@
 
 (based on cairo's release process) (requires the maintainer to have a gpg key to sign the tag)
 
+<i>Note that many of these steps can be automated by the [[X.Org `release.sh` script|http://www.x.org/wiki/Development/Documentation/ReleaseHOWTO/]] now.</i>
+
 1. Update README
 
 1. Update NEWS
@@ -34,16 +36,16 @@
   - template off of last release mail
       - replace version, README, NEWS
       - git tag and keysign
-      - MD5 and SHA1 checksums + URL's of tarballs (md5sum, sha1sum)
+      - MD5, SHA1, and SHA256 checksums + URL's of tarballs (`md5sum`, `sha1sum`, `sha256sum`)
       - note names of releasers
 
 1. Push the master branch and the tag with `git push origin master <version>`
 
 1. Copy the .gz and .bz2 tarballs to
-   xcb.freedesktop.org:/srv/xcb.freedesktop.org/dist/ so they show up at
+   `xcb.freedesktop.org:/srv/xcb.freedesktop.org/dist/` so they show up at
    <http://xcb.freedesktop.org/dist/>
 
-1. For libxcb, upload the doxygen generated docs from your build to xcb.freedesktop.org:/srv/xcb.freedesktop.org/manual so they show up at <http://xcb.freedesktop.org/manual/>
+1. For libxcb, upload the doxygen generated docs from your build to `xcb.freedesktop.org:/srv/xcb.freedesktop.org/manual` so they show up at <http://xcb.freedesktop.org/manual/>
 
 1. Send the release mail to xorg and xcb lists
 
