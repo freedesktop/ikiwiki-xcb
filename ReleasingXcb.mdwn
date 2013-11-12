@@ -57,3 +57,7 @@
 1. Update the xcb wiki (main page, if necessary)
 
 1. Bug Jamey Sharp and/or Julien Danjou to release a Debian package
+
+1. If necesssary, ask a bugzilla admin (alanc, keithp, or one of the
+freedesktop sitewranglers) to add the new version numbers to the XCB product
+in [[bugzilla|https://bugs.freedesktop.org/]].
