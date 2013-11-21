@@ -142,7 +142,7 @@ We give now an example on how to allocate a graphic context that specifies that 
 			return 0;
 		}
 
-Note should be taken regarding the role of "valuemask" and "valuelist" in the prototype of xcb\_create\_gc(). Since a graphic context has many attributes, and since we often just want to define a few of them, we need to be able to tell the xcb\_create\_gc() which attributes we want to set. This is what the "valuemask" parameter is for. We then use the "valuelist" parameter to specify actual values for the attribute we defined in "valuemask". Thus, for each constant used in "valuelist", we will use the matching constant in "value_mask". In this case, we define a graphic context with one attribute: when drawing (a point, a line, etc), the foreground color will be black. The rest of the attributes of this graphic context will be set to their default values.
+Note should be taken regarding the role of "valuemask" and "valuelist" in the prototype of xcb\_create\_gc(). Since a graphic context has many attributes, and since we often just want to define a few of them, we need to be able to tell the xcb\_create\_gc() which attributes we want to set. This is what the "valuemask" parameter is for. We then use the "valuelist" parameter to specify actual values for the attribute we defined in "valuemask". Thus, for each constant used in "valuelist", we will use the matching constant in "value\_mask". In this case, we define a graphic context with one attribute: when drawing (a point, a line, etc), the foreground color will be black. The rest of the attributes of this graphic context will be set to their default values.
 
 See the next Subsection for more details.
 
@@ -162,7 +162,7 @@ Once we have allocated a Graphic Context, we may need to change its attributes (
 										 uint32_t          value_mask,   /* Components of the Graphic Context that have to be set */
 										 const uint32_t   *value_list ); /* Value as specified by value_mask */
 
-The valuemask parameter could take any combination of these masks from the xcb_gc_t enumeration:
+The valuemask parameter could take any combination of these masks from the xcb\_gc\_t enumeration:
 
 		XCB_GC_FUNCTION
 		XCB_GC_PLANE_MASK
@@ -207,7 +207,7 @@ To draw a point, or several points, we use:
 										  uint32_t           points_len,      /* The number of points */
 										  const xcb_point_t *points );         /* An array of points */
 
-The coordinate_mode parameter specifies the coordinate mode. Available values are:
+The coordinate\_mode parameter specifies the coordinate mode. Available values are:
 
 		XCB_COORD_MODE_ORIGIN
 		XCB_COORD_MODE_PREVIOUS
@@ -325,7 +325,7 @@ To fill one or several arcs, we use:
 
 To illustrate these functions, here is an example that draws four points, a polygonal line, two segments, two rectangles and two arcs. Remark that we use events for the first time, as an introduction to the next section.
 
-TODO: Use screen->root_depth for depth parameter.
+TODO: Use screen-> root\_depth for depth parameter.
 
 		#include <stdlib.h>
 		#include <stdio.h>
@@ -377,7 +377,6 @@ TODO: Use screen->root_depth for depth parameter.
 
 
 			/* Create a window */
-
 			window = xcb_generate_id (connection);
 
 			mask = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
@@ -402,9 +401,8 @@ TODO: Use screen->root_depth for depth parameter.
 			
 			
 			/* draw primitives */
-
 			xcb_generic_event_t *event;
-			while (event = xcb_wait_for_event (connection)) {
+			while ((event = xcb_wait_for_event (connection))) {
 				switch (event->response_type & ~0x80) {
 				case XCB_EXPOSE:
 					/* We draw the points */

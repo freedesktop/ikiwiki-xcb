@@ -88,13 +88,9 @@ Here is a program that computes the time to create 500 atoms with Xlib and XCB. 
 
 To further compare Xlib to XCB, there's a XInternAtoms routine.  It's the Xlib method to request all the atoms in an array at one time to help hide the latency.  Mostly the good Xlib time takes twice the time as the good XCB time.  It also highlights the complexity of using XCB, 3 simple statements for Xlib vs 9 statements including two loops for XCB.  If this simple test was expanded beyond requesting Atoms, XCB would allow submitting all the various requests at one time, Xlib wouldn't.
 
-            /* It's a good idea to paste this and other long code examples 
-               into a text editor for easier reading */
+    /* It's a good idea to paste this and other long code examples
+       into a text editor for easier reading */
 
-/*
-    	It's a good idea to paste this and other long code examples into a text 
-    	editor for easier reading */
-     
     #include <stdlib.h>
     #include <stdio.h>
     #include <string.h>
@@ -315,8 +311,8 @@ So for example:
 
 		...
 
-		xcb_connection_t *c = xcb_connect (NULL, NULL);
-		xcb_disconnect (c);
+		xcb_connection_t *connection = xcb_connect (NULL, NULL);
+		xcb_disconnect (connection);
 
 Comparison Xlib/XCB:
 

@@ -22,7 +22,7 @@ In the first method, we use a special font named "cursor", and the function xcb\
 								 uint16_t          back_green,  /* green value for the background of the source */
 								 uint16_t          back_blue ); /* blue value for the background of the source */
 
-TODO: Describe source_char and mask_char, for example by giving an example on how to get the values. There is a list there: X Font Cursors
+TODO: Describe source\_char and mask\_char, for example by giving an example on how to get the values. There is a list there: X Font Cursors
 
 So we first open that font (see Loading a Font) and create the new cursor. As for every X ressource, we have to ask for an X id with xcb\_generate\_id first:
 
@@ -31,12 +31,12 @@ So we first open that font (see Loading a Font) and create the new cursor. As fo
 
 		cursor = xcb_generate_id (connection);
 		xcb_create_glyph_cursor (connection,
-								 cursor,     /* cursor id  */
+								 cursor,            /* cursor id  */
 								 source_font,       /* source glyph font */
-								 mask_font,       /* mask glyph font */
-								 58,         /* source character glyph */
-								 58 + 1,     /* mask character glyph */
-								 0, 0, 0, 0, 0, 0);  /* r b g r b g */
+								 mask_font,         /* mask glyph font */
+								 58,                /* source character glyph */
+								 58 + 1,            /* mask character glyph */
+								 0, 0, 0, 0, 0, 0); /* r b g r b g */
 
 We have created the cursor "right hand" by specifying 58 to the `source_font` argument and 58 + 1 to the `mask_font`.
 
@@ -52,7 +52,7 @@ TODO: give an example.
 
 ### 2. Setting a window's mouse cursor
 
-Once the cursor is created, we can modify the cursor of our window by using xcb\_change\_window_attributes and using the XCB\_CW\_CURSOR attribute:
+Once the cursor is created, we can modify the cursor of our window by using xcb\_change\_window\_attributes and using the XCB\_CW\_CURSOR attribute:
 
             /* ...assume cursor created here... */
 
@@ -124,7 +124,7 @@ The following example displays a window with a button. When entering the window,
 		    points[4].x = x1; 
 		    points[4].y = y1; 
 
-		    xcb_gcontext_t gc = getFontGC (connection, screen, window, "7x13");
+		    xcb_gcontext_t gc = getFontGC (connection, screen, window, "fixed");
 		    xcb_void_cookie_t lineCookie = xcb_poly_line_checked (connection,
 		                                                          XCB_COORD_MODE_ORIGIN,
 		                                                          window,
@@ -157,7 +157,7 @@ The following example displays a window with a button. When entering the window,
 		          const char       *label )
 		{
 
-		    xcb_gcontext_t gc = getFontGC (connection, screen, window, "7x13");
+		    xcb_gcontext_t gc = getFontGC (connection, screen, window, "fixed");
 		    xcb_void_cookie_t textCookie = xcb_image_text_8_checked (connection,
 		                                                             strlen (label),
 		                                                             window,
