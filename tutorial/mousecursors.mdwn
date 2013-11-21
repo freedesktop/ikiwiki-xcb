@@ -69,6 +69,7 @@ The following example displays a window with a button. When entering the window,
 		#include <stdlib.h>
 		#include <stdio.h>
 		#include <string.h>
+		#include <inttypes.h>
 
 		#include <xcb/xcb.h>
 
@@ -90,7 +91,7 @@ The following example displays a window with a button. When entering the window,
 		{   
 		    xcb_generic_error_t *error = xcb_request_check (connection, cookie);
 		    if (error) {
-		        fprintf (stderr, "ERROR: %s : %d\n", errMessage , error->error_code);
+		        fprintf (stderr, "ERROR: %s : %"PRIu8"\n", errMessage , error->error_code);
 		        xcb_disconnect (connection);
 		        exit (-1);
 		    }   

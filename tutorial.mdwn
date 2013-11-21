@@ -354,6 +354,7 @@ Here is a small program that shows how to use this function:
 
 		#include <stdio.h>
 		#include <xcb/xcb.h>
+		#include <inttypes.h>
 
 		int 
 		main ()
@@ -380,11 +381,11 @@ Here is a small program that shows how to use this function:
 			/* report */
 
 			printf ("\n");
-			printf ("Informations of screen %ld:\n", screen->root);
-			printf ("  width.........: %d\n", screen->width_in_pixels);
-			printf ("  height........: %d\n", screen->height_in_pixels);
-			printf ("  white pixel...: %ld\n", screen->white_pixel);
-			printf ("  black pixel...: %ld\n", screen->black_pixel);
+			printf ("Informations of screen %"PRIu32":\n", screen->root);
+			printf ("  width.........: %"PRIu16"\n", screen->width_in_pixels);
+			printf ("  height........: %"PRIu16"\n", screen->height_in_pixels);
+			printf ("  white pixel...: %"PRIu32"\n", screen->white_pixel);
+			printf ("  black pixel...: %"PRIu32"\n", screen->black_pixel);
 			printf ("\n");
 
 			return 0;
