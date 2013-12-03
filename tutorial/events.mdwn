@@ -272,7 +272,7 @@ The structure to be checked for in our events loop is the same for these two eve
 
 ### 4.4. The keyboard focus
 
-There may be many windows on a screen, but only a single keyboard attached to them. How does the X server then know which window should be sent a given keyboard input ? This is done using the keyboard focus. Only a single window on the screen may have the keyboard focus at a given time. There is a XCB function that allows a program to set the keyboard focus to a given window. The user can usually set the keyboard focus using the window manager (often by clicking on the title bar of the desired window). Once our window has the keyboard focus, every key press or key release will cause an event to be sent to our program (if it regsitered for these event types...).
+There may be many windows on a screen, but only a single keyboard attached to them. How does the X server then know which window should be sent a given keyboard input ? This is done using the keyboard focus. Only a single window on the screen may have the keyboard focus at a given time. There is a XCB function that allows a program to set the keyboard focus to a given window. The user can usually set the keyboard focus using the window manager (often by clicking on the title bar of the desired window). Once our window has the keyboard focus, every key press or key release will cause an event to be sent to our program (if it registered for these event types...).
 
 ### 4.5. Keyboard press and release events
 

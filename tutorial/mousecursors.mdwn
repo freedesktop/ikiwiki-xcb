@@ -1,6 +1,6 @@
 # Messing with the mouse cursor
 
-It it possible to modify the shape of the mouse pointer (also called the X pointer) when in certain states, as we often see in programs. For example, a busy application would often display the sand clock over its main window, to give the user a visual hint that he should wait. Let's see how we can change the mouse cursor of our windows.
+It it possible to modify the shape of the mouse pointer (also called the X pointer) when in certain states, as we often see in programs. For example, a busy application would often display the sand clock over its main window, to give the user a visual hint that they should wait. Let's see how we can change the mouse cursor of our windows.
     
 ### 1. Creating and destroying a mouse cursor
 
@@ -24,7 +24,7 @@ In the first method, we use a special font named "cursor", and the function xcb\
 
 TODO: Describe source\_char and mask\_char, for example by giving an example on how to get the values. There is a list there: X Font Cursors
 
-So we first open that font (see Loading a Font) and create the new cursor. As for every X ressource, we have to ask for an X id with xcb\_generate\_id first:
+So we first open that font (see Loading a Font) and create the new cursor. As for every X resource, we have to ask for an X id with xcb\_generate\_id first:
 
 		xcb_font_t font = xcb_generate_id (connection);
 		xcb_open_font (connection, font, strlen ("cursor"), "cursor");

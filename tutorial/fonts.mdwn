@@ -26,7 +26,7 @@ The fid parameter is the font Id defined by xcb\_generate\_id() (see above). The
 
 ### 3. Assigning a Font to a Graphic Context
 
-Once a font is opened, you have to create a Graphic Context that will contain the informations about the color of the foreground and the background used when you draw a text in a Drawable. Here is an exemple of a Graphic Context that will allow us to draw an opened font with a black foreground and a white background:
+Once a font is opened, you have to create a Graphic Context that will contain the information about the color of the foreground and the background used when you draw a text in a Drawable. Here is an example of a Graphic Context that will allow us to draw an opened font with a black foreground and a white background:
 
               /*
                * c is the connection
