@@ -47,6 +47,8 @@
 
 1. For libxcb, upload the doxygen generated docs from your build to `xcb.freedesktop.org:/srv/xcb.freedesktop.org/manual` so they show up at <http://xcb.freedesktop.org/manual/>
 
+  - `make && rsync -ar --progress --delete doc/manual/ xcb.freedesktop.org:/srv/xcb.freedesktop.org/manual`
+
 1. Send the release mail to xorg and xcb lists
 
   - Subject: `[ANNOUNCE] <name> <version>`
@@ -54,9 +56,7 @@
     <xorg@lists.freedesktop.org>
   - don't forget to GPG-sign the email
 
-1. Update the xcb wiki (main page, if necessary)
-
-1. Bug Jamey Sharp and/or Julien Danjou to release a Debian package
+1. Update the xcb wiki (news section on the main page, if necessary)
 
 1. If necesssary, ask a bugzilla admin (alanc, keithp, or one of the
 freedesktop sitewranglers) to add the new version numbers to the XCB product
