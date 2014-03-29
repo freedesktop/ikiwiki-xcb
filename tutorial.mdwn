@@ -1,4 +1,4 @@
-**Tutorial based off original [here](http://gitweb.freedesktop.org/?p=xcb/libxcb.git;a=blob_plain;f=doc/tutorial/index.html), which in turn was based off an Xlib tutorial by Guy Keren.**
+**Tutorial based off original [here](http://cgit.freedesktop.org/xcb/libxcb/plain/doc/tutorial/index.html), which in turn was based off an Xlib tutorial by Guy Keren.**
 
 After reading this page, read these pages (in this order):
 
