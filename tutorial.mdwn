@@ -55,8 +55,8 @@ So the way a GUI program looks is something like that:
   1. Receive the next event from the X server.
   2. Handle the event, possibly sending various drawing requests to the X server.
   3. If the event was a quit message, exit the loop. 
-  5. Close down the connection to the X server.
-  6. Perform cleanup operations. 
+5. Close down the connection to the X server.
+6. Perform cleanup operations. 
 
 # Basic XCB notions
 
