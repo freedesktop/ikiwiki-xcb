@@ -1,6 +1,6 @@
 # XML-XCB
 
-[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
+[[JoshTriplett]] has documented the [XML-XCB protocol description format](http://cgit.freedesktop.org/xcb/proto/plain/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
 ## Description
 
@@ -16,8 +16,8 @@ This new approach has several advantages:
 
 XML-XCB consists of the following components:
 
-- An [XML Schema](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=history;hb=HEAD;f=src/xcb.xsd), defining an XML data format for X protocol descriptions.
-- [X protocol descriptions for the core X protocol and all extensions](http://gitweb.freedesktop.org/?p=xcb/proto.git;a=tree;hb=HEAD;f=src), written in the format defined by the XML schema.
+- An [XML Schema](http://cgit.freedesktop.org/xcb/proto/plain/src/xcb.xsd), defining an XML data format for X protocol descriptions.
+- [X protocol descriptions for the core X protocol and all extensions](http://cgit.freedesktop.org/xcb/proto/tree/src), written in the format defined by the XML schema.
 - An XSL Transform (XSLT) to generate C bindings to the X protocol from the XML descriptions. These bindings are implemented on top of the existing XCB transport layer.
 
 ## Plan
