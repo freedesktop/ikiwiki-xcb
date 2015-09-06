@@ -4,6 +4,8 @@ The X protocol C-language Binding (XCB) is a replacement for Xlib [[featuring|Fe
 
 # News
 
+September 2015: [libxcb 1.11.1](http://lists.x.org/archives/xorg-announce/2015-September/002633.html) was released. This fixes some thread-related issues and adds 64-bit versions of some APIs.
+
 August 2014: [xcb-proto 1.11](http://lists.x.org/archives/xorg-announce/2014-August/002468.html) and [libxcb 1.11](http://lists.x.org/archives/xorg-announce/2014-August/002469.html) were released. This is again mostly a bug-fix release.
 
 December 2013: [xcb-proto 1.10](http://lists.x.org/archives/xorg-announce/2013-December/002382.html) and [libxcb 1.10](http://lists.x.org/archives/xorg-announce/2013-December/002383.html) were released, this time mainly fixing some API and ABI issues introduced with libxcb 1.9.2. See the linked announcements for more details.
