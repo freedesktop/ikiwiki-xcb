@@ -25,7 +25,7 @@ October 2012: New releases of the XCB packages have been published, including au
 # Development
 
 - If you wish to work on XCB, please read the [[developer's guide|DevelopersGuide]].
-- **Mailing list**: Discussion of XCB and Xlib/XCB is through the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
+- **Mailing list**: Discussion of XCB and Xlib/XCB is through the [XCB mailing list](http://lists.freedesktop.org/mailman/listinfo/xcb).
 - **IRC**: XCB developers also hang out on [[IRC]], and have occasional [[meetings]].
 - Of course, there's still a lot [[to do|TODO]] .
 
