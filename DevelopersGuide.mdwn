@@ -1,15 +1,16 @@
-XCB and Xlib/XCB development efforts are coordinated using [git](http://git.or.cz), [bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
+XCB and Xlib/XCB development efforts are coordinated using [git](http://git-scm.com/), [Bugzilla](https://bugs.freedesktop.org/), this Wiki, and the [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb).
 
-[libX11](http://cgit.freedesktop.org/xorg/lib/libX11/) and XCB repositories now use [git](http://git.or.cz/) for source control management (SCM). The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for using freedesktop.org repositories](http://www.freedesktop.org/wiki/GettingInvolved).
+[libX11](http://cgit.freedesktop.org/xorg/lib/libX11/) and XCB repositories use [git](http://git-scm.com/) for source control management (SCM). The git repository was created to integrate the XCB work in the X11 library and at the same time do real testing of alternatives to CVS. See the [instructions for using freedesktop.org repositories](http://www.freedesktop.org/wiki/GettingInvolved).
 
 To build XCB from source, you need to have installed at least:
 
-- [git](http://git-scm.com/) 1.2
-- [pkgconfig](http://pkgconfig.freedesktop.org) 0.15.0
-- automake 1.7
-- autoconf 2.50
-- libtool 1.5.6
-- python 2.x (not python 3)
+- [git](http://git-scm.com/)
+- [pkgconfig](http://pkgconfig.freedesktop.org) or [pkgconf](http://pkgconf.org/)
+- automake
+- autoconf 2.62 (for xcb/util-cursor), 2.60 (for libxcb), or 2.59c (for other xcb/util libraries)
+- libtool 2.2
+- Python 2.x, or Python 3 as of XCB 1.9.1
+- xorg-macros 1.18
 - [gperf](http://www.gnu.org/software/gperf/) 3.0.1 (for some of the xcb/util libraries)
 
 (Trivial patches to support earlier versions, or a note that earlier versions "just work", would be welcome.)
@@ -64,9 +65,9 @@ We have documented our procedure for [[ReleasingXcb]].
 
 The [XCB mailing list](http://www.freedesktop.org/mailman/listinfo/xcb) is hosted by freedesktop.org.
 
-Jeremy has set up a new [xcb-commit](http://www.freedesktop.org/mailman/listinfo/xcb-commit) mailing list to notify users of cvs commits. We also have a [CIA project page](http://cia.navi.cx/stats/project/xcb) where people can find RSS feeds of xcb commits ( [!] currently not tracking git commits).
+Jeremy has set up an [xcb-commit](http://www.freedesktop.org/mailman/listinfo/xcb-commit) mailing list to notify users of Git commits.
 
-Freedesktop's [bugzilla](https://bugs.freedesktop.org/buglist.cgi?bug_status=__open__&product=XCB) is used to report bugs, suggest enhancements, and submit patches. Use the build product **XCB**.
+Freedesktop's [Bugzilla](https://bugs.freedesktop.org/buglist.cgi?bug_status=__open__&product=XCB) is used to report bugs, suggest enhancements, and submit patches. Use the build product **XCB**.
 
 There is also an #xcb IRC channel on freenode.net.
 
@@ -74,7 +75,7 @@ There is also an #xcb IRC channel on freenode.net.
 
 Both XCB and our [[XlibXcb]] efforts are works in progress; [[XCBToDo]] describes current work needed and in progress. Also available: [[XcbRationale]] and [[XcbApi]] documentation.
 
-The protocol layer of XCB is implemented as a set of [XML](http://www.w3.org/XML) protocol descriptions, along with a python-based C binding generator. The remainder of XCB consists of C code.
+The protocol layer of XCB is implemented as a set of [XML](http://www.w3.org/XML) protocol descriptions, along with a Python-based C binding generator. The remainder of XCB consists of C code.
 
 [[JoshTriplett]] has documented the XML/XCB [protocol description format](http://cgit.freedesktop.org/xcb/proto/tree/doc/xml-xcb.txt); this documentation is included in the xcb-proto package.
 
