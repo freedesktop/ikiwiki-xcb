@@ -12,4 +12,4 @@ These libraries are currently included, roughly ordered by maturity:
 - event: Callback X event handling. 
 - image: Port of Xlib's XImage and XShmImage functions. 
 
-The online API documentation can be found [here](/XcbUtil/api/), and can be built using doxygen.
+The online API documentation can be found [here](/XcbApi/), and can be built using doxygen.
