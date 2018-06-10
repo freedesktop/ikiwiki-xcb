@@ -51,6 +51,28 @@ To maintain backward compatibility and providing an incremental porting path, th
 		#include <GL/glx.h>
 		#include <GL/gl.h>
 
+		/*
+			Attribs filter the list of FBConfigs returned by glXChooseFBConfig().
+			Visual attribs further described in glXGetFBConfigAttrib(3)
+		*/
+		static int visual_attribs[] =
+		{
+			GLX_X_RENDERABLE, True,
+			GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT,
+			GLX_RENDER_TYPE, GLX_RGBA_BIT,
+			GLX_X_VISUAL_TYPE, GLX_TRUE_COLOR,
+			GLX_RED_SIZE, 8,
+			GLX_GREEN_SIZE, 8,
+			GLX_BLUE_SIZE, 8,
+			GLX_ALPHA_SIZE, 8,
+			GLX_DEPTH_SIZE, 24,
+			GLX_STENCIL_SIZE, 8,
+			GLX_DOUBLEBUFFER, True,
+			//GLX_SAMPLE_BUFFERS  , 1,
+			//GLX_SAMPLES	      , 4,
+			None
+		};
+
 		void draw()
 		{
 			glClearColor(0.2, 0.4, 0.9, 1.0);
@@ -95,15 +117,17 @@ To maintain backward compatibility and providing an incremental porting path, th
 		{
 			int visualID = 0;
 
-			/* Query framebuffer configurations */
+			/* Query framebuffer configurations that match visual_attribs */
 			GLXFBConfig *fb_configs = 0;
 			int num_fb_configs = 0;
-			fb_configs = glXGetFBConfigs(display, default_screen, &num_fb_configs);
+			fb_configs = glXChooseFBConfig(display, default_screen, visual_attribs, &num_fb_configs);
 			if(!fb_configs || num_fb_configs == 0)
 			{
 				fprintf(stderr, "glXGetFBConfigs failed\n");
 				return -1;
 			}
+
+			printf("Found %d matching FB configs", num_fb_configs);
 	
 			/* Select first framebuffer config and query visualID */
 			GLXFBConfig fb_config = fb_configs[0];
